@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>01 — A mudança de unidade de trabalho · Engenharia de Software Orientada por Agentes</title>
+<meta name="description" content="Governança operacional para um humano regendo muitos agentes">
+<script>try{var t=localStorage.getItem("tema");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="assets/estilo.css">
+</head><body>
+<header class="barra">
+  <button id="alt-menu" aria-label="Abrir o sumário" aria-expanded="false" aria-controls="sidebar">☰ <span>Sumário</span></button>
+  <a class="barra-titulo" href="index.html">Engenharia de Software Orientada por Agentes</a>
+  <button id="alt-tema" aria-label="Alternar tema claro/escuro">◐</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="marca" href="index.html">Engenharia de Software Orientada por Agentes<small>Agentic Software Engineering</small></a>
+    <div class="nav-parte">Abertura</div><ul><li><a href="00-prefacio.html">Prefácio</a></li></ul><div class="nav-parte">Parte I — Por que agentes mudam a engenharia</div><ul><li><a class="ativo" aria-current="page" href="01-a-mudanca-de-unidade-de-trabalho.html">1. A mudança de unidade de trabalho</a></li><li class="filho"><a class="filho" href="01-a-mudanca-de-unidade-de-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="02-o-problema-da-confianca.html">2. O problema da confiança</a></li><li class="filho"><a class="filho" href="02-o-problema-da-confianca-exemplo.html">Exemplo executável</a></li><li><span class="pendente" title="em escrita">3. Um humano, muitos agentes</span></li></ul><div class="nav-parte">Parte II — Especificar e dar contexto</div><ul><li><a href="04-a-spec-como-partitura.html">4. A spec como partitura</a></li><li class="filho"><a class="filho" href="04-a-spec-como-partitura-exemplo.html">Exemplo executável</a></li><li><span class="pendente" title="em escrita">5. Engenharia de contexto</span></li><li><span class="pendente" title="em escrita">6. Como dividir o trabalho</span></li><li><span class="pendente" title="em escrita">7. Papéis e skills</span></li><li><span class="pendente" title="em escrita">8. DDD para agentes</span></li></ul><div class="nav-parte">Parte III — Provar e conter</div><ul><li><span class="pendente" title="em escrita">9. Arquitetura que se defende</span></li><li><a href="10-quality-gates-que-provam-fatos.html">10. Quality gates que provam fatos</a></li><li class="filho"><a class="filho" href="10-quality-gates-que-provam-fatos-exemplo.html">Exemplo executável</a></li><li><span class="pendente" title="em escrita">11. Risco, reversibilidade e autonomia</span></li><li><span class="pendente" title="em escrita">12. Ferramentas, MCP e o ecossistema</span></li></ul><div class="nav-parte">Parte IV — Medir e aprender</div><ul><li><span class="pendente" title="em escrita">13. Observabilidade e economia</span></li><li><span class="pendente" title="em escrita">14. A organização que aprende</span></li><li><span class="pendente" title="em escrita">15. Validando o Maestro</span></li><li><span class="pendente" title="em escrita">16. O futuro da engenharia agêntica</span></li></ul><div class="nav-parte">Apêndices</div><ul><li><span class="pendente" title="em escrita">A. O Maestro em uma página</span></li><li><a href="apendice-b-aseg-bench.html">B. ASEG-Bench — um benchmark de governança</a></li><li><span class="pendente" title="em escrita">C. Pacote de replicação</span></li><li><span class="pendente" title="em escrita">D. Estudos de campo do ecossistema</span></li></ul>
+  </aside>
+  <main class="conteudo">
+    <article class="markdown"><h1 id="01--a-mudança-de-unidade-de-trabalho" tabindex="-1">01 — A mudança de unidade de trabalho <a class="header-anchor" href="#01--a-mudança-de-unidade-de-trabalho" aria-hidden="true">#</a></h1>
+<blockquote>
+<p><em>Quando a máquina executa, o valor deixa de estar em digitar.</em></p>
+</blockquote>
+<p>Você passou a carreira otimizando a produção de código: estimativas em horas de
+desenvolvimento, <em>pull requests</em> (PRs) por semana, velocidade por <em>sprint</em>. Agentes de
+Inteligência Artificial (IA) derrubaram o preço dessa produção, e o instinto é comemorar ou
+frear. Este capítulo propõe outra leitura: o custo não sumiu, mudou de lugar. Se você não
+souber para onde ele foi, vai gerenciar o que ficou barato e deixar sem dono o que ficou
+caro. É o capítulo que dá o vocabulário econômico para o resto do livro.</p>
+<h2 id="pergunta-central" tabindex="-1" class="callout c-obj" data-rotulo="Pergunta">Pergunta central <a class="header-anchor" href="#pergunta-central" aria-hidden="true">#</a></h2>
+<p>Se gerar código ficou barato, o que ficou caro?</p>
+<h2 id="resultado-de-aprendizagem" tabindex="-1">Resultado de aprendizagem <a class="header-anchor" href="#resultado-de-aprendizagem" aria-hidden="true">#</a></h2>
+<p>Ao final deste capítulo, você consegue:</p>
+<ol>
+<li><strong>Decompor</strong> o custo de uma mudança em gerar, verificar e desfazer, e dizer qual desses
+termos domina no seu time hoje.</li>
+<li><strong>Definir</strong> a nova unidade de trabalho, a <em>mudança aceita</em>, e distingui-la da mudança
+escrita, com um exemplo do seu repositório.</li>
+<li><strong>Explicar</strong> a um par, com o argumento do tamanho de lote, por que frear os agentes piora
+velocidade <em>e</em> estabilidade.</li>
+<li><strong>Classificar</strong> uma ação do seu fluxo pelo custo de desfazê-la, e decidir se ela pede gate
+humano ou só verificação automática.</li>
+<li><strong>Rodar</strong> o modelo do <code>exemplo/</code> com os parâmetros do seu time e ler onde está o piso de
+custo que gerar mais rápido não move.</li>
+</ol>
+<h2 id="a-falha-real" tabindex="-1" class="callout c-falha" data-rotulo="Caso real">A falha real <a class="header-anchor" href="#a-falha-real" aria-hidden="true">#</a></h2>
+<p>Entre 26 de outubro e 1º de novembro de 2026, o ciclo 074 do Maestro — o método que este
+livro usa como objeto de estudo — produziu um protótipo navegável do painel de regência: as
+telas em que um humano acompanha e comanda várias sessões de agentes. Em sete dias, o ciclo
+acumulou 303 commits [CLAIM-01-001]. Produzir não era o problema. Agentes trabalhando em
+fatias paralelas geravam telas, módulos e correções num ritmo que nenhum time humano do
+mesmo tamanho acompanharia.</p>
+<p>A barra de qualidade era exigente de propósito. Cada peça do protótipo enfrentava um
+<em>crítico às cegas</em>: um agente em contexto fresco, que não sabia qual versão era a nossa,
+comparava o protótipo com um produto de referência e dizia qual era melhor e qual era a
+maior lacuna. O laço continuava até a nossa versão vencer. Ao todo, o <em>gauntlet</em> do 074
+registrou onze críticas desse tipo [CLAIM-01-004].</p>
+<p>A peça P3, a tela de Andares, perdeu quatro rodadas seguidas [CLAIM-01-002]. A crítica da
+quarta rodada, de 29 de outubro, abre com um veredito que todo tech lead já ouviu de um
+usuário: o protótipo «mente depois de agir». Pousar um andar não o tirava da contagem; dois
+avisos diziam que algo tinha acontecido quando nada tinha acontecido; e os contadores de
+duas telas, que começavam iguais (4 = 4), divergiam a cada decisão (3 × 4, depois 4 × 5),
+para sempre [CLAIM-01-003].</p>
+<p>O detalhe que transforma o episódio em falha de método, e não de tela, está na decisão
+registrada naquele mesmo dia: da terceira rodada em diante, a lacuna <strong>deixou de ser
+layout</strong> e passou a ser coerência de estado entre telas [CLAIM-01-002]. Cada tela lia sua
+própria fixture; não existia um estado único que todas consultassem. Nenhuma quantidade de
+polimento no HTML (<em>HyperText Markup Language</em>) resolveria isso, porque o defeito não estava
+no que cada rodada produzia. Estava fora da unidade em que o trabalho era cortado.</p>
+<p>Gerar uma nova versão da tela custava pouco. Cada rodada, porém, consumia uma crítica
+independente, uma leitura do humano e mais um ciclo de integração. O que era caro era
+verificar, e era decidir que a pergunta estava errada. O laço gastava o recurso caro para
+refinar o barato.</p>
+<p>No dia seguinte, 30 de outubro, um segundo crítico — o que «anda» pelo protótipo como um
+usuário — reprovou o fecho do ciclo: seis jornadas falharam, com uma causa única, telas e
+avisos que afirmavam efeitos que o estado não tinha registrado [CLAIM-01-005]. A essa
+altura, uma única fatia do ciclo já tinha declarado um piso de cerca de 20,24 milhões de
+<em>tokens</em> consumidos [CLAIM-01-006]. Barato não é grátis; é só muito menos caro do que o
+resto.</p>
+<p>O desfecho veio em 1º de novembro, às 15h40. O responsável humano pelo projeto, o Darú, fez
+o <em>corte da v1</em> [CLAIM-01-007]. O crítico às cegas saiu do caminho de cada fatia: ficou um
+só crítico no fim da primeira versão, mais o gate humano. Por fatia, continuaram valendo o
+teste que nasce vermelho e fica verde, os gates de integração contínua (CI, <em>continuous
+integration</em>) e uma pré-revisão do integrador. Entraram três tarefas pequenas que fechavam
+lacunas reais; saíram para depois da v1 os críticos contra a referência e um <em>spike</em> de
+integração. E uma regra do laço foi aplicada ao pé da letra: quando o juiz devolveu a mesma
+nota pela segunda vez seguida, parou-se o laço e a questão subiu para o humano
+[CLAIM-01-008]. No mesmo dia, o Darú aprovou o gate do 074, com a coerência de estado
+declarada como dívida transferida ao ciclo seguinte [CLAIM-01-009].</p>
+<p>Leia o episódio como contabilidade. Produção praticamente ilimitada; verificação limitada;
+atenção humana mais limitada ainda. O método só destravou quando trocou a pergunta &quot;esta
+tela está boa?&quot; — barata de responder com mais uma geração — por &quot;o que esta versão precisa
+provar, e quem decide quando parar?&quot;. Essa troca é o assunto deste capítulo.</p>
+<h2 id="teoria" tabindex="-1">Teoria <a class="header-anchor" href="#teoria" aria-hidden="true">#</a></h2>
+<h3 id="o-axioma-fazer-e-desfazer-custam-coisas-diferentes" tabindex="-1">O axioma: fazer e desfazer custam coisas diferentes <a class="header-anchor" href="#o-axioma-fazer-e-desfazer-custam-coisas-diferentes" aria-hidden="true">#</a></h3>
+<p>O Maestro organiza suas regras a partir de cinco axiomas. O quinto, A5, diz que o custo é
+assimétrico entre fazer e desfazer: produzir é barato e fica mais barato; apagar dados,
+fazer <em>deploy</em>, migrar e publicar têm custos que nenhuma velocidade compensa
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/axioms.md">axioms.md</a>). O
+teste de independência do axioma é instrutivo: retire A5 e toda ação merece o mesmo
+tratamento — exatamente o gate uniforme que o método rejeita.</p>
+<p>A5 é antigo como intuição e novo como premissa operacional. Engenharia de software sempre
+soube que corrigir em produção custa mais que corrigir no teste. O que mudou é a outra ponta
+da desigualdade. Quando gerar exigia horas de um engenheiro, o custo de produzir dominava a
+conta, e era natural medir o trabalho por ele. Quando gerar passa a custar minutos de
+máquina, a desigualdade se abre e o termo &quot;desfazer&quot; — junto com &quot;verificar&quot;, que é o que
+evita ter de desfazer — passa a dominar.</p>
+<h3 id="três-termos-de-custo" tabindex="-1">Três termos de custo <a class="header-anchor" href="#três-termos-de-custo" aria-hidden="true">#</a></h3>
+<p>Toda mudança paga três contas:</p>
+<ul>
+<li><strong>Gerar</strong>: escrever o código, o teste, o documento. É o que os agentes baratearam.</li>
+<li><strong>Verificar</strong>: estabelecer que a mudança faz o que devia, inclusive que atende à intenção.
+Inclui revisão, testes, gates e, em última instância, o julgamento humano.</li>
+<li><strong>Desfazer</strong>: o custo esperado do erro que escapa — diagnosticar, reverter, migrar de
+volta, explicar ao cliente. Cresce com o tamanho do lote e com a irreversibilidade da ação.</li>
+</ul>
+<p>O <code>exemplo/</code> deste capítulo transforma essa decomposição num modelo de valor esperado. Com
+parâmetros ilustrativos, quando gerar fica 32 vezes mais barato, o custo por mudança aceita
+cai só 6,5 vezes [CLAIM-01-013]. A diferença é o que não barateou. E com gerar tendendo a
+zero, o custo não tende a zero: tende a um piso formado por verificar e desfazer
+[CLAIM-01-015]. Não dá para chegar abaixo do piso gerando mais rápido. Só dá verificando
+melhor ou tornando o erro mais barato de desfazer.</p>
+<h3 id="a-nova-unidade-a-mudança-aceita" tabindex="-1">A nova unidade: a mudança aceita <a class="header-anchor" href="#a-nova-unidade-a-mudança-aceita" aria-hidden="true">#</a></h3>
+<p>Daí o título. A unidade de trabalho de um time com agentes não é a linha escrita, o <em>commit</em>
+ou o PR aberto. É a <strong>mudança aceita</strong>: uma alteração que alguém especificou, um mecanismo
+independente verificou e um humano — ou uma política que um humano escreveu — aceitou
+integrar. A linha escrita virou insumo abundante. A mudança aceita continua escassa, porque
+depende de dois recursos que a máquina não substitui.</p>
+<p>O texto de entrada do Maestro diz isso numa frase: quando a máquina executa, o valor deixa
+de estar em digitar e passa a estar em <strong>duas coisas humanas</strong> — deixar a intenção clara e
+verificar o resultado (<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/comece-por-aqui.md">comece-por-aqui.md</a>).
+O método nasceu de levar a sério uma pergunta simples: se um agente escreve o código, o que
+muda? A resposta reorganiza papéis, artefatos e gates, e cada capítulo deste livro trata de
+um pedaço dessa reorganização.</p>
+<p>As duas coisas humanas correspondem aos dois primeiros axiomas. A intenção é humana (A1):
+um agente propõe e escreve, mas não <em>quer</em>. A consequência precisa de dono (A2): quem não
+tem nada a perder não responde pelo resultado. Juntos com A5, eles dão a forma do princípio
+operacional central do Maestro: <em>IA para explorar, propor e escrever; humano para
+especificar, decidir e aprovar; testes, gates e revisão independente para validar</em>
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/operating-model.md">operating-model.md §2</a>).
+A frase distribui exatamente os três termos de custo: gerar fica com a IA; a intenção e a
+decisão ficam com o humano; a verificação fica com mecanismos que não dependem de quem
+escreveu.</p>
+<h3 id="o-modo-de-falha-mais-caro-compilar-e-errar-a-intenção" tabindex="-1">O modo de falha mais caro: compilar e errar a intenção <a class="header-anchor" href="#o-modo-de-falha-mais-caro-compilar-e-errar-a-intenção" aria-hidden="true">#</a></h3>
+<p>Um prompt vago não gera uma dúvida; gera código. O agente preenche o silêncio adivinhando
+requisitos que ninguém disse, e o resultado compila, passa nos testes que o próprio agente
+escreveu e erra a intenção. É o modo de falha mais caro que existe, porque parece sucesso.
+O ciclo 074 é uma versão dele em escala de produto: cada tela, isolada, parecia pronta; o
+sistema mentia.</p>
+<p>Por isso a verificação da era dos agentes não é só &quot;o teste passa&quot;. É também &quot;o que foi
+pedido está escrito em algum lugar que a verificação possa consultar&quot;. Esse é o argumento do
+<a href="04-a-spec-como-partitura.html">capítulo 4</a>: a especificação deixa de descrever o
+código e passa a gerá-lo. Aqui basta registrar o efeito econômico: intenção clara reduz a
+chance de a mudança estar errada, e essa chance multiplica todos os outros custos.</p>
+<h3 id="os-dois-extremos-que-falham" tabindex="-1">Os dois extremos que falham <a class="header-anchor" href="#os-dois-extremos-que-falham" aria-hidden="true">#</a></h3>
+<p>O material de apresentação do Maestro resume a dor em dois extremos
+(<a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/maestro-handbook/diagramas/02-problema-solucao.md">02-problema-solucao.md</a>, cópia
+congelada do handbook do método):</p>
+<ul>
+<li><strong>Sem IA</strong>, entender um sistema legado exige dúzias de pessoas só para ler o código,
+reconstruir a intenção perdida e documentar o que existe. Lento, caro, e o conhecimento
+evapora com quem sai.</li>
+<li><strong>Com IA, mas sem método</strong>, o agente escreve código que compila e erra a intenção;
+artefatos nascem e apodrecem; agentes trabalham sem contrapeso. Velocidade sem governança
+vira risco.</li>
+</ul>
+<p>O modelo do <code>exemplo/</code> dá número a essa intuição, com a ressalva de que os parâmetros são
+ilustrativos. O cenário do agente sem verificação, integrando em lote grande, sai 1,7 vez
+mais caro que o humano digitando [CLAIM-01-014]. Gerar quase de graça não compensa um erro
+que escapa e arrasta dez mudanças com ele. Falta um método no meio, e o meio não é um ponto
+de equilíbrio entre os extremos: é uma redistribuição deliberada do esforço para verificar e
+para tornar o erro barato.</p>
+<p>O mesmo material aponta onde a redistribuição rende mais: o sistema legado. Ali, a
+economia de contexto (a especificação como memória que sobrevive ao reinício do agente), a
+paralelização por fronteira (agentes lendo partes diferentes do legado sem colidir) e a
+rastreabilidade (spec ↔ PR ↔ teste) atacam justamente o custo que dominava o extremo sem IA.
+O próprio material declara que a comparação &quot;antes × depois&quot; é <strong>direcional</strong> — dúzias de
+pessoas por meses contra um humano e agentes por semanas — e não medida [CLAIM-01-019]. Vale
+imitar essa honestidade: o argumento mecânico é forte, o número ainda é hipótese.</p>
+<h3 id="lote-pequeno-a-alavanca-que-move-tudo-junto" tabindex="-1">Lote pequeno: a alavanca que move tudo junto <a class="header-anchor" href="#lote-pequeno-a-alavanca-que-move-tudo-junto" aria-hidden="true">#</a></h3>
+<p>Se o termo que domina é desfazer, a alavanca mais barata é encolher o que se desfaz. O
+programa DevOps Research and Assessment (DORA) mostrou, ao longo de anos de pesquisa com
+equipes de entrega, que velocidade e estabilidade andam juntas: os mesmos times são rápidos
+<em>e</em> estáveis, e as métricas são resultados de capacidades como integração contínua, testes
+automatizados, revisão e entregas pequenas (Forsgren, Humble e Kim, 2018). A pesquisa que
+fundou o modelo operacional do Maestro registra as quatro métricas clássicas — frequência de
+entrega, tempo de espera da mudança, taxa de falha e tempo de recuperação — e a taxa de
+retrabalho como quinta [CLAIM-01-018].</p>
+<p>O handbook do método resume o mecanismo
+(<a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/maestro-handbook/handbook/02-dora-space.md">02-dora-space.md §5.3</a>): mudança pequena
+chega mais vezes, atravessa mais rápido, é fácil de testar e revisar e, quando falha, é
+fácil de reverter. Uma alavanca, quatro métricas. A analogia que o diário do método usa é a
+<strong>linha de produção cognitiva</strong>. A fábrica anterior a Ford era lenta porque cada peça era
+única; padronizar barateou o fluxo. Mas a linha de Ford não tinha desfazer barato, e a
+cognitiva tem: controle de versão, <em>checkpoints</em>, reversão de um commit. Lote pequeno somado
+a reversibilidade dá rápido <em>e</em> estável.</p>
+<p>No modelo do <code>exemplo/</code>, com a mesma verificação, passar de lotes de dez mudanças para lotes
+de uma (com uma spec que reduz a chance de erro) leva o custo por mudança aceita de 6,91 para
+1,65 [CLAIM-01-013]. Quase toda a diferença vem do termo desfazer.</p>
+<h3 id="reversibilidade-compra-velocidade" tabindex="-1">Reversibilidade compra velocidade <a class="header-anchor" href="#reversibilidade-compra-velocidade" aria-hidden="true">#</a></h3>
+<p>A última peça liga A5 à autonomia. O gate humano sempre foi um <em>proxy</em> de &quot;torne reversível
+ou olhe antes&quot;. Onde existe backup, execução a seco (<em>dry-run</em>), homologação e exclusão
+lógica (<em>soft-delete</em>), a ação muda de classe de risco e passa a ser delegável. É o que o
+Maestro chama de reversibilidade engenheirada, e é o tema do
+<a href="index.html">capítulo 11</a>.</p>
+<p>O modelo mostra o reverso: quando a mesma mudança vira irreversível — o custo de desfazer
+multiplicado por dez —, pagar mais verificação, com um gate humano antes de agir, baixa o
+custo esperado de 4,08 para 2,45 [CLAIM-01-015]. O gate não é uma taxa fixa sobre todo
+trabalho. É um investimento que só se paga onde desfazer é caro. Aplicado a tudo, ele vira o
+funil que o ciclo 074 encontrou.</p>
+<h3 id="o-recurso-escasso-atenção-humana" tabindex="-1">O recurso escasso: atenção humana <a class="header-anchor" href="#o-recurso-escasso-atenção-humana" aria-hidden="true">#</a></h3>
+<p>Juntando as peças: gerar ficou abundante; verificar automaticamente escala com
+infraestrutura; mas decidir — o que construir, quando parar, o que aceitar — continua
+passando por uma cabeça. A Jornada do Maestro, que reconstrói o método na ordem em que foi
+descoberto, tem uma parada só para isso: a nona, &quot;Gargalo&quot;, cuja pergunta é <em>o que passa a
+ser escasso?</em> e cuja resposta é a atenção humana — logo, poucos gates, nos pontos
+irreversíveis [CLAIM-01-020]. O <a href="index.html">capítulo 3</a>
+trata desse limite. Aqui ele fecha a conta: a mudança aceita é escassa porque cada uma
+consome um pouco do único recurso que não escala com dinheiro.</p>
+<h3 id="governança-não-framework" tabindex="-1">Governança, não framework <a class="header-anchor" href="#governança-não-framework" aria-hidden="true">#</a></h3>
+<p>Uma consequência para o restante do livro. Se o custo migrou para intenção, verificação e
+reversibilidade, a resposta não é mais um <em>framework</em> de agentes — mais uma forma de fazer
+agentes gerarem. É um sistema de <strong>governança operacional</strong>: constituição, raias, papéis,
+artefatos, gates, registros de decisão, <em>skills</em>, scripts e <em>hooks</em>, rodando sobre
+diferentes <em>harnesses</em> e modelos. Essa é a tese da base de pesquisa deste livro
+(<a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/pesquisa/base-de-pesquisa.md">base-de-pesquisa.md</a>), e a razão de o Maestro aparecer
+aqui como caso de estudo e não como ferramenta obrigatória.</p>
+<p>A literatura acadêmica caminha na mesma direção por outro lado. A revisão de He, Treude e Lo
+sobre sistemas multiagente baseados em modelos de linguagem para engenharia de software,
+publicada em 2025 na <em>Transactions on Software Engineering and Methodology</em> (TOSEM) da
+Association for Computing Machinery (ACM), organiza o campo e propõe uma agenda de
+pesquisa em que a colaboração entre humanos e agentes aparece como frente aberta. A leitura
+deste livro, que é nossa e não dos autores, é que essa frente é onde o custo foi parar.</p>
+<h2 id="alternativas" tabindex="-1">Alternativas <a class="header-anchor" href="#alternativas" aria-hidden="true">#</a></h2>
+<p>Há outras respostas à pergunta do capítulo. Todas têm algo de certo; nenhuma resolve a conta
+inteira.</p>
+<table>
+<thead>
+<tr>
+<th>Alternativa</th>
+<th>O que faz</th>
+<th>Veredito</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Manter a unidade antiga</strong> (medir linhas, PRs por pessoa, <em>story points</em> entregues)</td>
+<td>Continua otimizando a produção</td>
+<td><strong>Rejeitar.</strong> Mede o que ficou barato. Com agentes, PRs por semana sobem sem que nada de valor suba; a métrica vira alvo e para de medir</td>
+</tr>
+<tr>
+<td><strong>Freio burocrático</strong> (comitê de mudança, janela de deploy mensal, aprovação em várias instâncias)</td>
+<td>Responde ao risco reduzindo a frequência</td>
+<td><strong>Rejeitar.</strong> Aumenta o lote, e lote grande piora as quatro métricas do DORA ao mesmo tempo. Trata desfazer caro com mais coisa para desfazer</td>
+</tr>
+<tr>
+<td><strong>Autonomia total</strong> (o agente decide, integra e publica)</td>
+<td>Elimina a espera humana</td>
+<td><strong>Rejeitar para o irreversível; aceitar no reversível.</strong> É o cenário B do <code>exemplo/</code> quando falta verificação. Onde desfazer é barato e há verificação automática, autonomia alta é a escolha certa</td>
+</tr>
+<tr>
+<td><strong>Frameworks de orquestração</strong> (LangGraph, CrewAI, Google Agent Development Kit (ADK), Microsoft Agent Framework, OpenAI Agents Software Development Kit (SDK))</td>
+<td>Estruturam como agentes cooperam e chamam ferramentas</td>
+<td><strong>Complementar.</strong> Resolvem a execução — o termo gerar. Não dizem quem decide, o que é verificado nem o que é reversível</td>
+</tr>
+<tr>
+<td><strong>Desenvolvimento guiado por especificação</strong> (por exemplo, o GitHub Spec Kit)</td>
+<td>Põe a intenção num artefato antes do código</td>
+<td><strong>Adotar como peça.</strong> Ataca a intenção, o termo <code>p</code> do modelo. Sozinho, não cobre verificação independente nem reversibilidade</td>
+</tr>
+<tr>
+<td><strong>Scrum completo</strong></td>
+<td>Organiza um time humano por papéis e cerimônias</td>
+<td><strong>Adaptar, não adotar.</strong> A pesquisa que fundou o modelo operacional do Maestro recomendou o esqueleto de Shape Up e Kanban (apetite fixo, limite de trabalho em andamento) em vez de Scrum, porque daily e planejamento de sprint sincronizam pessoas, não agentes [CLAIM-01-017]</td>
+</tr>
+</tbody>
+</table>
+<p>O padrão comum aos vereditos: cada alternativa otimiza um termo da conta. A resposta que
+este livro defende trata os três ao mesmo tempo e, principalmente, decide <em>onde</em> gastar o
+recurso escasso.</p>
+<h2 id="o-padrão-maestro" tabindex="-1">O padrão Maestro <a class="header-anchor" href="#o-padrão-maestro" aria-hidden="true">#</a></h2>
+<p>O Maestro responde à mudança de unidade em quatro camadas. Vale distinguir o que é regra
+(texto que um agente lê), o que é script (um comando que dá verde ou vermelho) e o que é
+hook (um mecanismo do <em>harness</em> que intercepta a ação antes de ela acontecer).</p>
+<p><strong>1. A regra: o princípio operacional central.</strong> O modelo operacional abre com a divisão já
+citada — IA explora, propõe e escreve; humano especifica, decide e aprova; testes, gates e
+revisão independente validam — e dela tira três regras: a spec é a fonte de verdade; quem
+executa não verifica; e &quot;prove, não declare&quot;
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/operating-model.md">operating-model.md §2</a>).
+A origem está documentada. A pesquisa de 22 de julho de 2026 que fundamentou o Registro de
+Decisão de Arquitetura (ADR, <em>Architecture Decision Record</em>) 0004 chegou à mesma máxima
+depois de comparar práticas de mercado: desenvolvimento guiado por especificação, o
+programa DORA, Shape Up, os padrões de agentes da Anthropic e o fluxo do Claude Code
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/research/resultado-pesquisa-praticas-desenvolvimento-avaliacao.md">resultado-pesquisa-praticas-desenvolvimento-avaliacao.md</a>)
+[CLAIM-01-017]. A pesquisa registra também sua ressalva mais honesta: a literatura pressupõe
+times de várias pessoas, e transpor para um humano com agentes foi síntese própria, não
+padrão pronto.</p>
+<p><strong>2. A derivação: axiomas e teoremas.</strong> A regra não fica solta. O teorema T3 do Maestro diz
+que o gate escala com a irreversibilidade e nunca é uniforme, e deriva de A2 e A5
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/axioms.md">axioms.md</a>). O
+corolário C4 completa: reversibilidade baixa a classe de risco e é mais barata do que mais
+uma aprovação. Quando alguém propõe uma regra nova, a primeira pergunta é de qual axioma ela
+deriva. É assim que o método evita que &quot;frear os agentes&quot; entre por medo.</p>
+<p><strong>3. O registro: como o método foi descoberto.</strong> Duas trilhas guardam o caminho. O diário de
+aprendizado do modelo operacional critica, um a um, os doze elementos do método — princípio
+central, especificação, fluxo com agentes, orquestração, papéis, cerimônias, artefatos,
+definições de pronto, gates, evidência do DORA, rastreabilidade e governança leve — e fecha
+com uma síntese dos fios que os amarram, em que a reversibilidade aparece como alavanca-mestra
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/research/jornada-aprendizado-modelo-operacional.md">jornada-aprendizado-modelo-operacional.md</a>).
+A Jornada reorganiza o mesmo material em doze paradas, cada uma com a tensão, a pergunta que
+a destravou e a regra que nasceu (<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/jornada/README.md">docs/jornada/README.md</a>)
+[CLAIM-01-016]. Para quem vai adotar o método, o valor dessas trilhas é mostrar que cada
+regra nasceu de uma dor: a parada 3 pergunta &quot;quanto custa desfazer?&quot; e responde que
+reversibilidade compra velocidade; a parada 9 pergunta o que passa a ser escasso e responde
+&quot;atenção humana&quot;.</p>
+<p><strong>4. O mecanismo: scripts e hooks que contabilizam a mudança aceita.</strong> É aqui que o método
+deixa de ser intenção:</p>
+<ul>
+<li><strong>Script</strong> — <code>scripts/promote-main.sh</code> promove o trabalho à linha principal e grava o gate
+em <code>docs/records/decisoes.jsonl</code>, sozinho. O índice de decisões é, na prática, o registro
+das mudanças aceitas. Até o commit de referência deste livro, o repositório tinha 943
+commits e 50 promoções registradas como gate de merge [CLAIM-01-010], ao longo de 75
+ciclos numerados [CLAIM-01-011]. A proporção entre o que se produz e o que se aceita está
+à vista, sem painel.</li>
+<li><strong>Script</strong> — <code>scripts/check-conformance.sh &lt;ciclo&gt;</code> responde &quot;estou seguindo o método?&quot; com
+saída de máquina, e não com a memória do agente.</li>
+<li><strong>Hook</strong> — um <code>PreToolUse</code> (<code>scripts/hooks/guard-immutables.py</code>, ligado em
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/.claude/settings.json"><code>.claude/settings.json</code></a>)
+recusa reescrever o que o método guarda como histórico: um ADR aceito, o índice de
+decisões. É A5 aplicado ao próprio processo: o que é caro de desfazer não depende de o
+agente lembrar.</li>
+<li><strong>Hook</strong> — um <code>Stop</code> roda a conferência de conformidade no fim de cada turno do agente.</li>
+</ul>
+<p><strong>O padrão em movimento: o corte da v1.</strong> O episódio da seção &quot;A falha real&quot; é o padrão
+funcionando, não falhando. O ciclo 076, que sucedeu o 074, foi aberto com construtor e
+crítico separados por fatia — aplicação literal de &quot;quem executa não verifica&quot;. Quando o
+custo dessa verificação passou a dominar, o humano não abandonou a verificação: realocou-a
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/076-padroes-de-engenharia-e-react/tasks.md">tasks.md do 076, seção «Corte da v1»</a>)
+[CLAIM-01-007]. Ficou por fatia o que é barato e automático (teste vermelho→verde, gates da
+CI); ficou para o fim o que é caro e humano (um crítico, um gate). O desenvolvimento guiado
+por testes e a fronteira hexagonal &quot;NÃO baixam&quot;, diz o registro. Os 75 commits do 076 entre
+29 de outubro e 1º de novembro [CLAIM-01-012] mostram que a produção não parou. O que mudou
+foi onde se gastou a atenção.</p>
+<p>Note o que o Maestro <strong>não</strong> faz: não mede produtividade por agente, não instrumenta painel
+de métricas do DORA (foi descartado por YAGNI, <em>You Aren't Gonna Need It</em>, enquanto não houver
+com quem comparar) e não exige gate humano por mudança. A unidade contabilizada é a promoção
+aceita, e o gate humano fica nos pontos em que desfazer é caro.</p>
+<h2 id="exemplo-executável" tabindex="-1" class="callout c-prat" data-rotulo="Mão na massa">Exemplo executável <a class="header-anchor" href="#exemplo-executável" aria-hidden="true">#</a></h2>
+<p>O diretório <a href="01-a-mudanca-de-unidade-de-trabalho-exemplo.html"><code>exemplo/</code></a> tem um modelo em Python 3, só com a biblioteca
+padrão, que calcula o custo esperado por mudança aceita em seis cenários: humano digitando;
+agente sem verificação em lote grande; agente com verificação em lote grande; agente com
+spec, verificação e lote de uma mudança; o mesmo com ação irreversível; e o irreversível com
+gate humano.</p>
+<pre><code class="language-bash">cd livro/01-a-mudanca-de-unidade-de-trabalho/exemplo
+python economia.py               # a tabela
+python economia.py --conferir    # 0 = bate com saida-esperada.txt
+</code></pre>
+<p>O que observar na saída:</p>
+<ol>
+<li><strong>Gerar 32 vezes mais barato derruba o total só 6,5 vezes</strong> [CLAIM-01-013]. O resto é
+verificar e desfazer.</li>
+<li><strong>O agente sem verificação sai mais caro que o humano</strong> (1,7 vez) [CLAIM-01-014].</li>
+<li><strong>O piso</strong>: no cenário com spec, verificação e lote de uma mudança, com gerar tendendo a
+zero, o custo para em 1,38 [CLAIM-01-015]. Esse número é o seu limite de produtividade
+enquanto verificar e desfazer não mudarem.</li>
+<li><strong>O gate compensa onde desfazer é caro</strong>: no cenário irreversível, o gate humano baixa o
+total de 4,08 para 2,45 [CLAIM-01-015].</li>
+</ol>
+<p>Os parâmetros são ilustrativos e estão em <code>cenarios.json</code>. O exercício útil é trocá-los
+pelos do seu time: quanto tempo leva uma revisão, que fração dos defeitos ela pega, quanto
+custa reverter um deploy, de quantas mudanças é o seu lote típico. O README do exemplo
+mostra também como provar que a conferência acusa uma divergência: um check que nunca falhou
+é uma esperança, não um check.</p>
+<h2 id="contraexemplo" tabindex="-1" class="callout c-contra" data-rotulo="Limite">Contraexemplo <a class="header-anchor" href="#contraexemplo" aria-hidden="true">#</a></h2>
+<p>A mudança de unidade não vale em todo lugar, e a regra tem preço.</p>
+<p><strong>Quando verificar já era o custo dominante.</strong> Em domínios em que gerar nunca foi o gargalo —
+migração de dados em produção, mudança de esquema de cobrança, firmware embarcado —,
+agentes mexem pouco na conta. O termo desfazer sempre dominou, e o processo já era desenhado
+em torno dele. Aí o capítulo acrescenta pouco ao que o time sabe, e o risco é o inverso:
+usar a velocidade de geração como argumento para encurtar uma verificação que continua
+necessária.</p>
+<p><strong>Quando a mudança é descartável.</strong> Um protótipo para jogar fora, um script de análise de
+uma tarde, uma prova de conceito: desfazer custa zero, porque ninguém depende do resultado.
+Gastar verificação aí é cerimônia. O Maestro reconhece isso nas raias (um <em>typo</em> não merece
+spec) e é tema do <a href="04-a-spec-como-partitura.html">capítulo 4</a>. O cuidado é a
+transição: o protótipo do 074 era descartável como código, mas não como decisão de produto,
+e foi a decisão que precisou do gate.</p>
+<p><strong>O custo da própria regra.</strong> &quot;Quem executa não verifica&quot;, aplicada a cada fatia, foi exatamente
+o que o corte da v1 aliviou. A verificação independente tem custo de <em>tokens</em>, de tempo de
+integração e, principalmente, de atenção humana para ler o veredito. Aplicada uniformemente,
+ela vira o gate uniforme que A5 manda evitar. O sinal de excesso é visível: o mesmo achado
+voltando rodada após rodada sem convergir [CLAIM-01-008]. Nesse ponto, a resposta não é mais
+uma rodada, é mudar a pergunta ou subir a decisão.</p>
+<p><strong>Quando o &quot;barato&quot; esconde custo.</strong> Gerar é barato em relação ao resto, não grátis. Uma
+fatia do 074 declarou cerca de 20 milhões de <em>tokens</em> [CLAIM-01-006]. Em times com orçamento
+de inferência apertado, o termo gerar volta a pesar, e o <a href="index.html">capítulo 13</a>
+trata de medi-lo por tarefa aceita.</p>
+<p><strong>Quando a unidade &quot;mudança aceita&quot; é gameável.</strong> Contar promoções aceitas também pode virar
+alvo: dividir artificialmente uma mudança em dez para inflar a contagem. A defesa é a mesma
+do DORA — ler aos pares, aceitação junto com retrabalho e escape —, não confiar num número só.</p>
+<h2 id="evidência" tabindex="-1">Evidência <a class="header-anchor" href="#evidência" aria-hidden="true">#</a></h2>
+<p>O que sustenta o capítulo, separado pelo estado:</p>
+<p><strong>Medido no repositório do Maestro</strong> (comandos em <code>claims.md</code>, todos reproduzíveis no commit
+<code>19823c2</code>): o volume de commits do ciclo 074 [CLAIM-01-001] e do 076 [CLAIM-01-012]; as
+onze críticas às cegas do 074 [CLAIM-01-004]; os 943 commits e as 50 promoções registradas
+[CLAIM-01-010]; os 75 ciclos [CLAIM-01-011].</p>
+<p><strong>Observado em registros datados</strong>: as quatro rodadas perdidas da P3 e a mudança de natureza
+da lacuna [CLAIM-01-002]; a divergência dos contadores [CLAIM-01-003]; as seis jornadas
+reprovadas [CLAIM-01-005]; o piso de <em>tokens</em> de uma fatia [CLAIM-01-006]; o corte da v1
+[CLAIM-01-007]; a nota repetida do juiz [CLAIM-01-008]; o gate aprovado [CLAIM-01-009]; a
+pesquisa que fundou o modelo operacional [CLAIM-01-017]; as métricas do DORA tal como essa
+pesquisa as registra [CLAIM-01-018]; as doze paradas da Jornada [CLAIM-01-016] e a parada do
+gargalo [CLAIM-01-020].</p>
+<p><strong>Medido num modelo, não no mundo</strong>: os números do <code>exemplo/</code> [CLAIM-01-013, CLAIM-01-014,
+CLAIM-01-015] são saídas reproduzíveis de parâmetros ilustrativos. Provam a forma da
+redistribuição de custo, não a magnitude no seu time.</p>
+<p><strong>Hipóteses</strong> (da agenda de pesquisa do livro, <code>pesquisa/base-de-pesquisa.md</code>): o modelo
+assume três coisas que ainda não foram testadas com rigor no Maestro.</p>
+<ul>
+<li><strong>H1</strong> — a spec reduz retrabalho (no modelo, <code>p</code> cai de 0,30 para 0,15).</li>
+<li><strong>H5</strong> — gate com teste de mutação reduz escapes (no modelo, <code>d</code> alto).</li>
+<li><strong>H8</strong> — reversibilidade permite mais autonomia (no modelo, <code>u</code> e <code>b</code> pequenos).</li>
+</ul>
+<p>A comparação &quot;dúzias de pessoas × meses contra um humano e agentes × semanas&quot; é declarada
+direcional pela própria fonte e fica como hipótese [CLAIM-01-019]. O <a href="index.html">capítulo 15</a>
+descreve o protocolo que as testaria.</p>
+<p>O limite mais importante: um caso, um repositório, um humano regendo. O episódio do 074 é
+evidência de que a redistribuição acontece, não de quanto ela vale em geral.</p>
+<h2 id="checklist" tabindex="-1" class="callout c-verif" data-rotulo="Aplique">Checklist <a class="header-anchor" href="#checklist" aria-hidden="true">#</a></h2>
+<p>Aplique no seu time, nesta ordem:</p>
+<ul>
+<li>[ ] Para as últimas dez mudanças integradas, estime em horas os três termos: gerar,
+verificar e desfazer (inclusive retrabalho). Qual domina?</li>
+<li>[ ] Defina por escrito o que conta como <strong>mudança aceita</strong> no seu fluxo (quem especifica,
+o que verifica, quem aceita) e conte quantas houve no último mês.</li>
+<li>[ ] Rode <code>exemplo/economia.py</code> com os seus parâmetros e anote o piso de custo.</li>
+<li>[ ] Liste as ações do seu fluxo cujo desfazer custa mais de um dia (deploy, migração,
+publicação, apagar dados). Cada uma tem gate humano ou reversibilidade engenheirada?</li>
+<li>[ ] Liste as ações cujo desfazer custa minutos. Alguma delas ainda espera aprovação humana?
+Remova a espera e ponha uma verificação automática no lugar.</li>
+<li>[ ] Meça o tamanho típico do seu lote (mudanças por integração). Se for maior que um,
+escolha uma mudança de processo que o reduza.</li>
+<li>[ ] Verifique se alguma métrica do time mede produção (PRs, linhas, <em>story points</em>) sem
+par de qualidade. Ponha o par ou retire a métrica.</li>
+<li>[ ] Defina uma regra de parada para laços de revisão: se o mesmo achado voltar duas vezes,
+a decisão sobe para um humano.</li>
+<li>[ ] Confirme que a intenção de cada mudança relevante está escrita num artefato que a
+verificação consulta, e não só no prompt.</li>
+</ul>
+<h2 id="referências" tabindex="-1">Referências <a class="header-anchor" href="#referências" aria-hidden="true">#</a></h2>
+<p><strong>Maestro</strong> (objeto de estudo; todas as citações no commit <code>19823c2</code>):</p>
+<ul>
+<li>Axiomas, teoremas e corolários — https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/axioms.md</li>
+<li>Modelo operacional, §2 — https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/operating-model.md</li>
+<li>Princípios (constituição) — https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/principles.md</li>
+<li>Comece por aqui — https://github.com/GHDaru/maestro/blob/19823c2/docs/comece-por-aqui.md</li>
+<li>A Jornada — https://github.com/GHDaru/maestro/blob/19823c2/docs/jornada/README.md</li>
+<li>Diário de aprendizado do modelo operacional — https://github.com/GHDaru/maestro/blob/19823c2/docs/research/jornada-aprendizado-modelo-operacional.md</li>
+<li>Avaliação da pesquisa de práticas (base do ADR 0004) — https://github.com/GHDaru/maestro/blob/19823c2/docs/research/resultado-pesquisa-praticas-desenvolvimento-avaliacao.md</li>
+<li>Tarefas do ciclo 076, seção «Corte da v1» — https://github.com/GHDaru/maestro/blob/19823c2/specs/076-padroes-de-engenharia-e-react/tasks.md</li>
+<li>Tarefas do ciclo 074 — https://github.com/GHDaru/maestro/blob/19823c2/specs/074-prototipo-navegavel/tasks.md</li>
+<li>Crítica da P3, rodada 4 — https://github.com/GHDaru/maestro/blob/19823c2/specs/074-prototipo-navegavel/gauntlet-maestri/critica-p3-rodada-4.md</li>
+<li>Índice de decisões — https://github.com/GHDaru/maestro/blob/19823c2/docs/records/decisoes.jsonl</li>
+<li>Configuração de hooks — https://github.com/GHDaru/maestro/blob/19823c2/.claude/settings.json</li>
+</ul>
+<p><strong>Handbook do método</strong> (cópia congelada neste repositório, <code>maestro-handbook/</code>, de <code>19823c2</code>):</p>
+<ul>
+<li>01 — Princípio central, §5.3 (reversibilidade) — <code>../../maestro-handbook/handbook/01-principio-central.md</code></li>
+<li>02 — DORA e SPACE, §5.3 (tamanho de lote) — <code>../../maestro-handbook/handbook/02-dora-space.md</code></li>
+<li>03 — Spec-driven, §2 (compilar e errar a intenção) — <code>../../maestro-handbook/handbook/03-spec-driven.md</code></li>
+<li>Diagrama problema → solução — <code>../../maestro-handbook/diagramas/02-problema-solucao.md</code></li>
+<li>Apresentação executiva (slides &quot;Antes × Depois&quot; e &quot;Onde o retorno sobre investimento (ROI) é maior&quot;) — <code>../../maestro-handbook/handbook/apresentacao-executiva-maestro.html</code></li>
+</ul>
+<p><strong>Literatura e fontes externas</strong>:</p>
+<ul>
+<li>Forsgren, N.; Humble, J.; Kim, G. <em>Accelerate: The Science of Lean Software and DevOps</em>. IT
+Revolution, 2018.</li>
+<li>He, J.; Treude, C.; Lo, D. &quot;LLM-Based Multi-Agent Systems for Software Engineering:
+Literature Review, Vision, and the Road Ahead&quot;. <em>ACM Transactions on Software Engineering
+and Methodology</em>, 2025.</li>
+<li>DORA. <em>DORA metrics (four keys)</em> — https://dora.dev/guides/dora-metrics-four-keys/ (URL
+como registrada na pesquisa do Maestro de 22/07/2026; não reacessada nesta escrita).</li>
+<li>Anthropic. <em>Building effective agents</em> — https://www.anthropic.com/engineering/building-effective-agents
+(idem).</li>
+<li>GitHub. <em>Spec-driven development with AI</em> (2025-09-02) —
+https://github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit/
+(idem).</li>
+<li>Basecamp. <em>Shape Up</em> — https://basecamp.com/shapeup/1.1-chapter-02 (idem).</li>
+</ul>
+<p><strong>Base deste livro</strong>: <code>../../pesquisa/base-de-pesquisa.md</code> (tese, hipóteses H1–H10,
+referências-base).</p>
+</article>
+    <nav class="paginacao" aria-label="Anterior e próximo"><a class="pg-prev" href="00-prefacio.html"><small>← anterior</small>Prefácio — por que este livro</a><a class="pg-next" href="01-a-mudanca-de-unidade-de-trabalho-exemplo.html"><small>próximo →</small>Exemplo executável — 01 A mudança de unidade de trabalho</a></nav>
+    <footer class="rodape">
+      <a href="https://github.com/GHDaru/agentic_software_engineering">github.com/GHDaru/agentic_software_engineering</a>
+       · <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/01-a-mudanca-de-unidade-de-trabalho/capitulo.md">fonte desta página</a>
+      · gerado de <code>livro/</code> por <code>publicar/build.mjs</code>
+    </footer>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body></html>

@@ -1,0 +1,15 @@
+{
+  "_nota": "Papéis de um time humano + agentes. 'julga': o papel emite veredito. 'ferramentas': o que o harness entrega ao papel. Escrita = Write ou Edit (Bash fica marcado à parte: também escreve, ver o capítulo).",
+  "papeis": {
+    "implementador": {"tipo": "agente", "julga": false, "ferramentas": ["Read", "Write", "Edit", "Bash"]},
+    "revisor":       {"tipo": "agente", "julga": true,  "ferramentas": ["Read", "Grep", "Glob", "Bash"]},
+    "seguranca":     {"tipo": "agente", "julga": true,  "ferramentas": ["Read", "Grep", "Glob", "Bash"]},
+    "guardiao":      {"tipo": "agente", "julga": true,  "ferramentas": ["Read", "Grep", "Glob"]},
+    "qa":            {"tipo": "agente", "julga": false, "ferramentas": ["Read", "Write", "Bash"]},
+    "regente":       {"tipo": "agente", "julga": false, "ferramentas": ["Read", "Grep", "Glob", "Bash"]},
+    "ana":           {"tipo": "humano", "julga": true,  "ferramentas": []}
+  },
+  "delegacoes": {
+    "deleg-2026-10-24": {"de": "ana", "para": "regente", "gates": ["merge"], "revogada": false}
+  }
+}

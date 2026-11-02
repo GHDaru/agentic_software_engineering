@@ -1,0 +1,53 @@
+{
+  "_formato": "Para cada propriedade: a fixture positiva (o mundo certo: o portão tem de passar), as fixtures legítimas (mundos certos de forma incômoda: o portão tem de passar, senão é falso vermelho) e as mutações (o mundo quebrado de propósito: o portão tem de reprovar cada uma).",
+  "P1": {
+    "propriedade": "a evidência de TAIL:review registra uma revisão que aconteceu",
+    "origem": "ciclo 063 do Maestro: o portão imprimiu '✓ TAIL:review evidence: pendente.'",
+    "positiva": [
+      {"nome": "revisão real", "entrada": "- [x] TAIL:review — review em contexto fresco @ 2ad52df: reprovou, cinco achados corrigidos"}
+    ],
+    "legitimas": [
+      {"nome": "'pendente' no meio da frase", "entrada": "- [x] TAIL:review — aprovado; o único achado pendente foi registrado no índice"}
+    ],
+    "mutacoes": [
+      {"nome": "pendente.", "entrada": "- [x] TAIL:review — pendente."},
+      {"nome": "não executada", "entrada": "- [x] TAIL:review — não executada"},
+      {"nome": "ainda não executada", "entrada": "- [x] TAIL:review — ainda não executada"},
+      {"nome": "(pendente)", "entrada": "- [x] TAIL:review — (pendente)"},
+      {"nome": "> pendente", "entrada": "- [x] TAIL:review — > pendente"},
+      {"nome": "NÃO EXECUTADA", "entrada": "- [x] TAIL:review — NÃO EXECUTADA"},
+      {"nome": "marcador do gerador", "entrada": "- [x] TAIL:review — <evidência da revisão>"},
+      {"nome": "token fora da linha da cauda", "entrada": "Nota: TAIL:review fica para amanhã"}
+    ]
+  },
+  "P2": {
+    "propriedade": "a página declara o número certo de fontes",
+    "origem": "ciclo 016 do Maestro: grep -c \"https://\" contou linhas e reportou 5 onde havia 6",
+    "positiva": [
+      {"nome": "uma fonte por linha", "entrada": "Fontes: 3\n- https://a.example/1\n- https://b.example/2\n- https://c.example/3"}
+    ],
+    "legitimas": [
+      {"nome": "duas fontes na mesma linha", "entrada": "Fontes: 3\n- https://a.example/1 e https://b.example/2\n- https://c.example/3"}
+    ],
+    "mutacoes": [
+      {"nome": "fonte a menos que o declarado", "entrada": "Fontes: 4\n- https://a.example/1\n- https://b.example/2\n- https://c.example/3"},
+      {"nome": "prosa citando o prefixo conta como fonte", "entrada": "Fontes: 3\n- https://a.example/1\n- https://b.example/2\n- todo endereço começa com https:// e nada mais"},
+      {"nome": "página sem declaração", "entrada": "- https://a.example/1"}
+    ]
+  },
+  "P3": {
+    "propriedade": "o aviso de limiar afirma a porcentagem certa",
+    "origem": "ciclo 076 do Maestro, T045: a régua cobrava a palavra 'limite' e deixou passar '9446 %'",
+    "positiva": [
+      {"nome": "aviso correto", "entrada": "o consumo está em 94,5 % do teto: perto do limite", "consumo": 0.945}
+    ],
+    "legitimas": [
+      {"nome": "acima do teto", "entrada": "o consumo está em 102,3 % do teto: passou do limite", "consumo": 1.023}
+    ],
+    "mutacoes": [
+      {"nome": "fator 100 aplicado duas vezes", "entrada": "o consumo está em 9446 % do teto: perto do limite", "consumo": 0.945},
+      {"nome": "aviso sem número", "entrada": "perto do limite", "consumo": 0.945},
+      {"nome": "número de outra sessão", "entrada": "o consumo está em 49,5 % do teto: perto do limite", "consumo": 0.945}
+    ]
+  }
+}

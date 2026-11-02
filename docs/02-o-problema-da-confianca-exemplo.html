@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exemplo executável — 02 O problema da confiança · Engenharia de Software Orientada por Agentes</title>
+<meta name="description" content="Governança operacional para um humano regendo muitos agentes">
+<script>try{var t=localStorage.getItem("tema");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="assets/estilo.css">
+</head><body>
+<header class="barra">
+  <button id="alt-menu" aria-label="Abrir o sumário" aria-expanded="false" aria-controls="sidebar">☰ <span>Sumário</span></button>
+  <a class="barra-titulo" href="index.html">Engenharia de Software Orientada por Agentes</a>
+  <button id="alt-tema" aria-label="Alternar tema claro/escuro">◐</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="marca" href="index.html">Engenharia de Software Orientada por Agentes<small>Agentic Software Engineering</small></a>
+    <div class="nav-parte">Abertura</div><ul><li><a href="00-prefacio.html">Prefácio</a></li></ul><div class="nav-parte">Parte I — Por que agentes mudam a engenharia</div><ul><li><a href="01-a-mudanca-de-unidade-de-trabalho.html">1. A mudança de unidade de trabalho</a></li><li class="filho"><a class="filho" href="01-a-mudanca-de-unidade-de-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="02-o-problema-da-confianca.html">2. O problema da confiança</a></li><li class="filho"><a class="filho ativo" aria-current="page" href="02-o-problema-da-confianca-exemplo.html">Exemplo executável</a></li><li><span class="pendente" title="em escrita">3. Um humano, muitos agentes</span></li></ul><div class="nav-parte">Parte II — Especificar e dar contexto</div><ul><li><a href="04-a-spec-como-partitura.html">4. A spec como partitura</a></li><li class="filho"><a class="filho" href="04-a-spec-como-partitura-exemplo.html">Exemplo executável</a></li><li><span class="pendente" title="em escrita">5. Engenharia de contexto</span></li><li><span class="pendente" title="em escrita">6. Como dividir o trabalho</span></li><li><span class="pendente" title="em escrita">7. Papéis e skills</span></li><li><span class="pendente" title="em escrita">8. DDD para agentes</span></li></ul><div class="nav-parte">Parte III — Provar e conter</div><ul><li><span class="pendente" title="em escrita">9. Arquitetura que se defende</span></li><li><a href="10-quality-gates-que-provam-fatos.html">10. Quality gates que provam fatos</a></li><li class="filho"><a class="filho" href="10-quality-gates-que-provam-fatos-exemplo.html">Exemplo executável</a></li><li><span class="pendente" title="em escrita">11. Risco, reversibilidade e autonomia</span></li><li><span class="pendente" title="em escrita">12. Ferramentas, MCP e o ecossistema</span></li></ul><div class="nav-parte">Parte IV — Medir e aprender</div><ul><li><span class="pendente" title="em escrita">13. Observabilidade e economia</span></li><li><span class="pendente" title="em escrita">14. A organização que aprende</span></li><li><span class="pendente" title="em escrita">15. Validando o Maestro</span></li><li><span class="pendente" title="em escrita">16. O futuro da engenharia agêntica</span></li></ul><div class="nav-parte">Apêndices</div><ul><li><span class="pendente" title="em escrita">A. O Maestro em uma página</span></li><li><a href="apendice-b-aseg-bench.html">B. ASEG-Bench — um benchmark de governança</a></li><li><span class="pendente" title="em escrita">C. Pacote de replicação</span></li><li><span class="pendente" title="em escrita">D. Estudos de campo do ecossistema</span></li></ul>
+  </aside>
+  <main class="conteudo">
+    <article class="markdown"><h1 id="exemplo-do-capítulo-2--confiança-como-estrutura-verificável" tabindex="-1">Exemplo do capítulo 2 — confiança como estrutura verificável <a class="header-anchor" href="#exemplo-do-capítulo-2--confiança-como-estrutura-verificável" aria-hidden="true">#</a></h1>
+<p>Dois scripts, só com a biblioteca padrão do Python 3.8+. Nenhum chama modelo de IA: o que se
+verifica é a <strong>estrutura</strong> que torna um resultado confiável, não o resultado.</p>
+<table>
+<thead>
+<tr>
+<th>Arquivo</th>
+<th>O que é</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>papeis.json</code></td>
+<td>os papéis de um time humano + agentes: quem julga, que ferramentas tem, que delegações existem</td>
+</tr>
+<tr>
+<td><code>registros/*.json</code></td>
+<td>dez fechamentos de ciclo, um correto e os outros com um defeito cada; o campo <code>esperado</code> diz o veredito certo</td>
+</tr>
+<tr>
+<td><code>verifica.py</code></td>
+<td>aplica as regras R0–R5 a cada registro e prova, por mutação, que o portão acusa</td>
+</tr>
+<tr>
+<td><code>veredictos-042-063.csv</code></td>
+<td>para os ciclos 042–063 do Maestro em <code>19823c2</code>: o veredito do cabeçalho do <code>qa-report.md</code> e, lidos na evidência de <code>TAIL:review</code>, quando a revisão rodou e o que ela fez</td>
+</tr>
+<tr>
+<td><code>rendimento.py</code></td>
+<td>mede quantas vezes a revisão independente mudou o resultado</td>
+</tr>
+<tr>
+<td><code>saida-esperada-*.txt</code></td>
+<td>a saída de referência dos dois scripts</td>
+</tr>
+</tbody>
+</table>
+<h2 id="como-rodar" tabindex="-1">Como rodar <a class="header-anchor" href="#como-rodar" aria-hidden="true">#</a></h2>
+<pre><code class="language-bash">cd livro/02-o-problema-da-confianca/exemplo
+python verifica.py   &gt; /tmp/v.txt; diff /tmp/v.txt saida-esperada-verifica.txt   &amp;&amp; echo &quot;verifica: igual&quot;
+python rendimento.py &gt; /tmp/r.txt; diff /tmp/r.txt saida-esperada-rendimento.txt &amp;&amp; echo &quot;rendimento: igual&quot;
+</code></pre>
+<p>No Windows com Git Bash, use <code>python</code> (o <code>python3</code> do Git Bash pode ser um atalho vazio). O
+<code>verifica.py</code> sai com código 0 quando todo registro teve o veredito esperado <strong>e</strong> as duas
+mutações foram acusadas; 1 se não.</p>
+<h2 id="as-regras" tabindex="-1">As regras <a class="header-anchor" href="#as-regras" aria-hidden="true">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Regra</th>
+<th>O que exige</th>
+<th>De onde vem</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R0</td>
+<td>papel que julga não tem <code>Write</code>/<code>Edit</code>; com <code>Bash</code>, só aviso</td>
+<td>corolário C3 do Maestro; <code>scripts/check-agents.sh</code></td>
+</tr>
+<tr>
+<td>R1</td>
+<td>quem executou não é quem revisou, e houve revisão</td>
+<td>teorema T2; anti-padrão 6</td>
+</tr>
+<tr>
+<td>R2</td>
+<td>quem revisou é um papel que julga, sem caneta</td>
+<td>C3 aplicado ao registro</td>
+</tr>
+<tr>
+<td>R3</td>
+<td>a revisão foi em contexto fresco</td>
+<td>T2, pelo lado do axioma A3</td>
+</tr>
+<tr>
+<td>R4</td>
+<td>caixa marcada tem evidência; vazio, <code>&lt;...&gt;</code>, <code>[...]</code> e &quot;pendente&quot; sozinho não contam</td>
+<td>ciclos 042, 043, 061, 062</td>
+</tr>
+<tr>
+<td>R5</td>
+<td>gate com dono humano, ou delegação escrita + quem decide não executou + crítico fresco</td>
+<td>axioma A2; ADR 0026</td>
+</tr>
+</tbody>
+</table>
+<h2 id="saída-esperada--verificapy" tabindex="-1">Saída esperada — <code>verifica.py</code> <a class="header-anchor" href="#saída-esperada--verificapy" aria-hidden="true">#</a></h2>
+<pre><code class="language-text">== configuração dos papéis (R0)
+  aviso R0 'revisor' julga e tem Bash: o shell também escreve
+  aviso R0 'seguranca' julga e tem Bash: o shell também escreve
+  ✓ nenhum papel que julga tem Write/Edit
+
+== registros de fechamento
+  ✓ 01-integro: passa (esperado: passa)
+  ✓ 02-autor-revisa: reprova (esperado: reprova)
+      - R1 quem revisou ('implementador') é quem executou
+      - R2 'implementador' não é papel que julga
+      - R3 revisão em contexto herdado: o revisor carregou os becos do autor
+      - R4 caixa marcada com evidência que é ausência: 'ok'
+  ✓ 03-caixa-sem-testemunha: reprova (esperado: reprova)
+      - R1 não há revisão: ninguém além do autor olhou
+      - R4 caixa marcada com evidência que é ausência: '&lt;pendente&gt;'
+  ✓ 04-pendente-como-prova: reprova (esperado: reprova)
+      - R1 não há revisão: ninguém além do autor olhou
+      - R4 caixa marcada com evidência que é ausência: 'pendente.'
+  ✓ 05-juiz-com-caneta: reprova (esperado: reprova)
+      - R2 'qa' não é papel que julga
+  ✓ 06-contexto-herdado: reprova (esperado: reprova)
+      - R3 revisão em contexto herdado: o revisor carregou os becos do autor
+  ✓ 07-gate-por-agente: reprova (esperado: reprova)
+      - R5 gate 'merge' aberto por 'regente' (agente) sem delegação escrita
+  ✓ 08-gate-delegado: passa (esperado: passa)
+  ✓ 09-gate-delegado-sem-critico: reprova (esperado: reprova)
+      - R5 gate delegado sem crítico em contexto fresco
+  ✓ 10-regente-executou: reprova (esperado: reprova)
+      - R5 quem abre o gate por delegação executou o trabalho
+
+== prova por mutação: o portão acusa quando a regra é violada?
+  revisor ganha Edit -&gt; R0 acusa
+  delegação revogada -&gt; 08-gate-delegado reprova
+
+resultado: 10/10 registros com o veredito esperado; mutações acusadas: 2/2
+✓ verificação de confiança OK
+</code></pre>
+<h2 id="saída-esperada--rendimentopy-últimas-linhas" tabindex="-1">Saída esperada — <code>rendimento.py</code> (últimas linhas) <a class="header-anchor" href="#saída-esperada--rendimentopy-últimas-linhas" aria-hidden="true">#</a></h2>
+<pre><code class="language-text">ciclos: 22 · revisão antes do gate: 20 · revisão só depois da promoção: 2
+rendimento da revisão antes do gate: 19/20 = 95.0%
+cobertura da revisão antes do gate: 20/22 = 90.9%
+ciclos reprovados por um parecer, em qualquer momento: 21/22 = 95.5%
+cabeçalho 'aguardando parecer' com parecer no corpo: 3 (061, 062, 063)
+</code></pre>
+<p>A listagem completa, ciclo a ciclo, está em <code>saida-esperada-rendimento.txt</code>.</p>
+<h2 id="como-o-csv-foi-obtido-reproduzível" tabindex="-1">Como o CSV foi obtido (reproduzível) <a class="header-anchor" href="#como-o-csv-foi-obtido-reproduzível" aria-hidden="true">#</a></h2>
+<p>No clone do Maestro (<code>https://github.com/GHDaru/maestro</code>), duas leituras por ciclo, de 042 a 063.</p>
+<p>O cabeçalho (coluna <code>veredito_no_cabecalho</code>; asteriscos de ênfase retirados):</p>
+<pre><code class="language-bash">for d in $(git ls-tree --name-only 19823c2 specs/ | grep -E 'specs/0(4[2-9]|5[0-9]|6[0-3])-'); do
+  printf '%s | ' &quot;$(basename &quot;$d&quot;)&quot;
+  git show &quot;19823c2:$d/qa-report.md&quot; | grep -m1 -iE 'veredito|verdict' | sed -E 's/.*(Veredito|Verdict)\*\*: *//I'
+done
+</code></pre>
+<p>O corpo (colunas <code>linha_tail_review</code>, <code>revisao</code> e <code>resultado</code>): a entrada <code>TAIL:review</code> da
+seção de fechamento, com as três linhas seguintes.</p>
+<pre><code class="language-bash">for d in $(git ls-tree --name-only 19823c2 specs/ | grep -E 'specs/0(4[2-9]|5[0-9]|6[0-3])-'); do
+  echo &quot;== $d&quot;
+  git show &quot;19823c2:$d/qa-report.md&quot; | grep -n -A3 -E '^- (\*\*)?TAIL:review'
+done
+</code></pre>
+<p>As colunas <code>revisao</code> e <code>resultado</code> são <strong>leitura humana</strong> desse trecho, uma linha por ciclo; o
+script só conta. Por isso o número fica registrado como <em>observado</em>, e não como <em>medido</em>. Três
+casos pedem nota:</p>
+<ul>
+<li><strong>061 e 062</strong>: a evidência diz &quot;rodada depois da promoção&quot; e &quot;REPROVOU: 18 achados cobrindo os
+ciclos 061 e 062&quot; — um parecer só, depois do gate, para os dois ciclos.</li>
+<li><strong>063</strong>: o cabeçalho ficou em &quot;aguardando parecer&quot;, mas a evidência registra a revisão do
+próprio ciclo, que reprovou com 18 defeitos (5 introduzidos por ele), e o gate depois dela.</li>
+<li><strong>052</strong>: a evidência cita o parecer do 051 como origem do ciclo e não relata reprovação; o
+script conta &quot;não mudou&quot;, que é a leitura que menos favorece a revisão.</li>
+</ul>
+<p>A primeira versão deste exemplo classificava pelo cabeçalho e contava 061, 062 e 063 como
+&quot;sem revisão&quot;. O corpo desmente os três; é por isso que a última linha da saída existe.</p>
+<h2 id="experimente-quebrar" tabindex="-1">Experimente quebrar <a class="header-anchor" href="#experimente-quebrar" aria-hidden="true">#</a></h2>
+<ul>
+<li>Dê <code>Write</code> ao <code>guardiao</code> em <code>papeis.json</code>: R0 passa a reprovar e o script sai com 1.</li>
+<li>Troque a evidência de <code>01-integro.json</code> por <code>&quot;pendente.&quot;</code>: o registro reprova e deixa de
+bater com o <code>esperado</code>.</li>
+<li>Escreva um registro seu com o fechamento do último pull request do seu time.</li>
+</ul>
+</article>
+    <nav class="paginacao" aria-label="Anterior e próximo"><a class="pg-prev" href="02-o-problema-da-confianca.html"><small>← anterior</small>02 — O problema da confiança</a><a class="pg-next" href="04-a-spec-como-partitura.html"><small>próximo →</small>04 — A spec como partitura</a></nav>
+    <footer class="rodape">
+      <a href="https://github.com/GHDaru/agentic_software_engineering">github.com/GHDaru/agentic_software_engineering</a>
+       · <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/02-o-problema-da-confianca/exemplo/README.md">fonte desta página</a>
+      · gerado de <code>livro/</code> por <code>publicar/build.mjs</code>
+    </footer>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body></html>

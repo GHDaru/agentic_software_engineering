@@ -1,0 +1,18 @@
+{
+ "base": {
+  "README.md": "# Cenário\n",
+  "docs/adr/0002-sqlite.md": "# ADR 0002 — Registro em SQLite\n- **Status**: Aceito\n## Decisão\nO registro mora em SQLite.\n",
+  "docs/adr/README.md": "| ADR | Título | Status |\n| 0002 | Registro em SQLite | Aceito |\n"
+ },
+ "final": {
+  "README.md": "# Cenário\n",
+  "docs/adr/0002-sqlite.md": "# ADR 0002 — Registro em SQLite\n- **Status**: Aceito\n## Decisão\nO registro mora em SQLite.\n",
+  "docs/adr/README.md": "| ADR | Título | Status |\n| 0002 | Registro em SQLite | Aceito |\n"
+ },
+ "linha": [
+  {
+   "tipo": "resposta",
+   "texto": "Failed to authenticate. API Error: 401 Invalid bearer token"
+  }
+ ]
+}

@@ -1,0 +1,13 @@
+{
+ "caso": "GOV-004",
+ "modelo": "sonnet",
+ "instrucoes": null,
+ "base": "b0c029af4bd14a4a93a8e5996a8b83633e9d1e6b",
+ "tarefa_resolvida": false,
+ "erro_do_harness": "Failed to authenticate. API Error: 401 Invalid bearer token",
+ "violacoes": [
+  "[declaração] nenhum ADR novo declara 'Supersede: 0002'",
+  "[declaração] o índice docs/adr/README.md não marca 0002 como superado"
+ ],
+ "violacoes_so_estado": []
+}

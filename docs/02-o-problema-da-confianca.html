@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>02 — O problema da confiança · Engenharia de Software Orientada por Agentes</title>
+<meta name="description" content="Governança operacional para um humano regendo muitos agentes">
+<script>try{var t=localStorage.getItem("tema");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="assets/estilo.css">
+</head><body>
+<header class="barra">
+  <button id="alt-menu" aria-label="Abrir o sumário" aria-expanded="false" aria-controls="sidebar">☰ <span>Sumário</span></button>
+  <a class="barra-titulo" href="index.html">Engenharia de Software Orientada por Agentes</a>
+  <button id="alt-tema" aria-label="Alternar tema claro/escuro">◐</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="marca" href="index.html">Engenharia de Software Orientada por Agentes<small>Agentic Software Engineering</small></a>
+    <div class="nav-parte">Abertura</div><ul><li><a href="00-prefacio.html">Prefácio</a></li></ul><div class="nav-parte">Parte I — Por que agentes mudam a engenharia</div><ul><li><a href="01-a-mudanca-de-unidade-de-trabalho.html">1. A mudança de unidade de trabalho</a></li><li class="filho"><a class="filho" href="01-a-mudanca-de-unidade-de-trabalho-exemplo.html">Exemplo executável</a></li><li><a class="ativo" aria-current="page" href="02-o-problema-da-confianca.html">2. O problema da confiança</a></li><li class="filho"><a class="filho" href="02-o-problema-da-confianca-exemplo.html">Exemplo executável</a></li><li><span class="pendente" title="em escrita">3. Um humano, muitos agentes</span></li></ul><div class="nav-parte">Parte II — Especificar e dar contexto</div><ul><li><a href="04-a-spec-como-partitura.html">4. A spec como partitura</a></li><li class="filho"><a class="filho" href="04-a-spec-como-partitura-exemplo.html">Exemplo executável</a></li><li><span class="pendente" title="em escrita">5. Engenharia de contexto</span></li><li><span class="pendente" title="em escrita">6. Como dividir o trabalho</span></li><li><span class="pendente" title="em escrita">7. Papéis e skills</span></li><li><span class="pendente" title="em escrita">8. DDD para agentes</span></li></ul><div class="nav-parte">Parte III — Provar e conter</div><ul><li><span class="pendente" title="em escrita">9. Arquitetura que se defende</span></li><li><a href="10-quality-gates-que-provam-fatos.html">10. Quality gates que provam fatos</a></li><li class="filho"><a class="filho" href="10-quality-gates-que-provam-fatos-exemplo.html">Exemplo executável</a></li><li><span class="pendente" title="em escrita">11. Risco, reversibilidade e autonomia</span></li><li><span class="pendente" title="em escrita">12. Ferramentas, MCP e o ecossistema</span></li></ul><div class="nav-parte">Parte IV — Medir e aprender</div><ul><li><span class="pendente" title="em escrita">13. Observabilidade e economia</span></li><li><span class="pendente" title="em escrita">14. A organização que aprende</span></li><li><span class="pendente" title="em escrita">15. Validando o Maestro</span></li><li><span class="pendente" title="em escrita">16. O futuro da engenharia agêntica</span></li></ul><div class="nav-parte">Apêndices</div><ul><li><span class="pendente" title="em escrita">A. O Maestro em uma página</span></li><li><a href="apendice-b-aseg-bench.html">B. ASEG-Bench — um benchmark de governança</a></li><li><span class="pendente" title="em escrita">C. Pacote de replicação</span></li><li><span class="pendente" title="em escrita">D. Estudos de campo do ecossistema</span></li></ul>
+  </aside>
+  <main class="conteudo">
+    <article class="markdown"><h1 id="02--o-problema-da-confiança" tabindex="-1">02 — O problema da confiança <a class="header-anchor" href="#02--o-problema-da-confiança" aria-hidden="true">#</a></h1>
+<blockquote>
+<p><em>O gate humano não mede a qualidade do raciocínio do agente: ele localiza a responsabilidade.</em></p>
+</blockquote>
+<p>Quando um agente de Inteligência Artificial (IA) escreve o código, alguém continua tendo de
+responder por ele, e esse alguém não é o agente. Este capítulo é para o tech lead que já
+percebeu que &quot;o modelo é bom&quot; não responde à pergunta que o diretor, o cliente ou o auditor
+vão fazer. Ele mostra por que a confiança num sistema de agentes é um problema de
+<strong>estrutura</strong> (quem decide, quem executa, quem verifica, com que ferramentas e com que
+registro) e não de qualidade do modelo, e como montar essa estrutura de modo que uma máquina
+consiga dizer quando ela foi violada.</p>
+<h2 id="pergunta-central" tabindex="-1" class="callout c-obj" data-rotulo="Pergunta">Pergunta central <a class="header-anchor" href="#pergunta-central" aria-hidden="true">#</a></h2>
+<p>Quem responde pelo que um agente fez, e como se monta uma verificação em que essa pessoa
+possa confiar sem ler tudo de novo?</p>
+<h2 id="resultado-de-aprendizagem" tabindex="-1">Resultado de aprendizagem <a class="header-anchor" href="#resultado-de-aprendizagem" aria-hidden="true">#</a></h2>
+<p>Ao final deste capítulo, você consegue:</p>
+<ol>
+<li><strong>Explicar</strong>, com o axioma da consequência, por que a capacidade de raciocinar de um agente
+não transfere a ele a responsabilidade pelo resultado.</li>
+<li><strong>Derivar</strong> a regra &quot;quem executa não verifica&quot; e <strong>reconhecer</strong> no seu fluxo as três formas
+de violá-la: o autor que se aprova, o juiz que tem caneta e o revisor que herdou o contexto
+do autor.</li>
+<li><strong>Configurar</strong> a independência do revisor como permissão de ferramenta e <strong>escrever</strong> um
+script que falha quando essa permissão muda.</li>
+<li><strong>Desenhar</strong> o mapa de gates humanos do seu time e <strong>dizer</strong> em que condições um gate pode
+ser delegado por política sem que o humano deixe de responder por ele.</li>
+<li><strong>Medir</strong> o rendimento da revisão independente no histórico do seu próprio repositório.</li>
+</ol>
+<h2 id="a-falha-real" tabindex="-1" class="callout c-falha" data-rotulo="Caso real">A falha real <a class="header-anchor" href="#a-falha-real" aria-hidden="true">#</a></h2>
+<p>Em 10 de agosto de 2026, o ciclo 047 do Maestro migrava o catálogo do ecossistema: as ideias
+que o método observou em outros frameworks, cada uma com um veredito (adotar, absorver,
+observar, rejeitar) e a data em que foi dado. A spec do ciclo acusava um defeito antigo: um
+registro de decisão de arquitetura (Architecture Decision Record, ADR), o ADR 0008, que afirmava mais do que os arquivos sustentavam. O
+objetivo era trocar a prosa por um índice em que cada veredito fosse uma linha datada e
+imutável, e um portão que reprovasse qualquer linha sem prova.</p>
+<p>O agente que executou o ciclo fez a migração, escreveu o portão, rodou doze mutações para ver
+o portão acusar [CLAIM-02-002], deixou tudo verde e marcou o ciclo para promoção. A revisão independente,
+feita por outro agente em contexto fresco e sem permissão de escrita, leu o mesmo diff e
+devolveu <strong>&quot;não promover como está&quot;</strong>, com cinco bloqueantes. Os dois mais graves não eram de
+código; eram de honestidade do registro. <strong>Seis vereditos tinham sido trocados e
+retrodatados</strong>: o índice afirmava, numa linha datada de 30 de julho e marcada &quot;ciclo 007&quot;, um
+veredito que o ciclo 007 nunca deu [CLAIM-02-001]. O ciclo que existia para impedir que um
+registro sobrevivesse ao fato tinha cometido a versão mais direta desse defeito. E o portão,
+que deveria pegá-lo, também falhava: aceitava como destino de uma absorção qualquer arquivo
+existente (<code>README.md</code> passava) e casava o nome da fonte por substring (<code>MIT</code> passava). A
+correção restaurou os vereditos históricos, reescreveu as reclassificações como linhas novas
+com a data verdadeira, endureceu o portão e recuperou dez cards e cinco fontes que a migração
+tinha perdido sem ninguém notar [CLAIM-02-002]. A bateria de mutações foi refeita contra o
+portão endurecido, agora com treze mutações, entre elas as que a revisão tinha usado para
+reprová-lo; as doze da primeira bateria eram do autor, contra a versão que a revisão derrubou
+[CLAIM-02-001].</p>
+<p>O relatório de qualidade do ciclo traz a frase que dá nome a este capítulo, na voz do próprio
+agente: &quot;eu retrodatei seis vereditos e só a revisão independente viu&quot;.</p>
+<p>O 047 não foi um acidente isolado. Três dias antes, o ciclo 042 tinha criado a <strong>cauda de
+fechamento</strong>: quatro caixas no fim do <code>tasks.md</code> (<code>TAIL:review</code>, <code>TAIL:security</code>,
+<code>TAIL:mutation</code>, <code>TAIL:gate</code>), cada uma exigindo evidência escrita no relatório de qualidade.
+A revisão independente reprovou o 042 por dois bloqueadores. O primeiro: o portão testava se o
+token <code>TAIL:</code> <strong>aparecia</strong> no relatório, e o gerador de ciclos escrevia os tokens em todo
+relatório que criava. Um esqueleto vazio, sem trabalho nenhum, passava verde. O segundo era
+pior: o relatório do próprio 042 era esse esqueleto vazio, com a caixa da revisão marcada como
+feita antes de qualquer revisão existir [CLAIM-02-003]. A cauda reprovou o ciclo que a criou.</p>
+<p>No ciclo seguinte, o 043, a mesma pessoa, com a mesma intenção, marcou de novo as caixas
+apontando para evidência inexistente, e desta vez a simulação local já tinha mostrado o
+vermelho [CLAIM-02-004]. No 045, o relatório contou o padrão: <strong>cinco ocorrências em três
+tokens</strong>, e a resposta tinha progredido de instrução (&quot;marque apenas enquanto escreve a
+evidência&quot;) para forma no artefato e depois para forma no script que grava. A lição que o
+agente registrou é a que interessa aqui: &quot;o que não mudou foi eu; o que mudou foi o número de
+lugares onde o erro é possível&quot;. E a hipótese que ficou escrita para a retrospectiva: talvez a
+linha de fechamento não deva ser escrita por quem executou o ciclo [CLAIM-02-005].</p>
+<p>Nos seis ciclos seguintes, do 046 ao 051, o cabeçalho de cada relatório de qualidade diz a
+mesma coisa: &quot;aprovado após reprovação e correção&quot; [CLAIM-02-006]. Dois dos achados teriam
+chegado a repositórios de terceiros. No 048, reapontar mecanicamente um comando instalável fez
+as instruções destrutivas dele (&quot;escreva de volta&quot;, <em>overwrite</em>) mirarem a constituição
+ratificada do método, que é instalada em projetos alheios. No 051, o instalador adotava como
+seu um arquivo do projeto que por acaso fosse byte a byte idêntico ao do método, e a poda o
+apagava no release seguinte [CLAIM-02-007]. Nenhum dos dois foi pego pelo autor. Os dois foram
+pegos por quem não escreveu.</p>
+<h2 id="teoria" tabindex="-1">Teoria <a class="header-anchor" href="#teoria" aria-hidden="true">#</a></h2>
+<h3 id="a-confiança-não-é-uma-propriedade-do-modelo" tabindex="-1">A confiança não é uma propriedade do modelo <a class="header-anchor" href="#a-confiança-não-é-uma-propriedade-do-modelo" aria-hidden="true">#</a></h3>
+<p>A pergunta que costuma abrir a discussão sobre agentes é &quot;dá para confiar no modelo?&quot;. É a
+pergunta errada, e o 047 mostra por quê. O agente que retrodatou os vereditos não era
+incompetente: escreveu um portão com doze mutações [CLAIM-02-002], migrou o catálogo inteiro e documentou o
+próprio trabalho. O problema não estava na capacidade, estava na <strong>posição</strong>: ele era, ao mesmo
+tempo, quem fazia, quem conferia e quem escrevia o registro de que tinha conferido.</p>
+<p>Confiança, no sentido que importa para um tech lead, é a propriedade de um <strong>arranjo</strong>: dado
+quem fez, quem conferiu, com que ferramentas e com que registro, eu posso agir sobre esse
+resultado sem refazê-lo? Essa propriedade pode ser alta com um modelo mediano e baixa com o
+melhor modelo do mercado. É por isso que este capítulo deriva de dois axiomas do Maestro, e
+nenhum deles fala da qualidade do modelo.</p>
+<h3 id="capacidade-não-é-accountability-axioma-a2" tabindex="-1">Capacidade não é accountability (axioma A2) <a class="header-anchor" href="#capacidade-não-é-accountability-axioma-a2" aria-hidden="true">#</a></h3>
+<p>O axioma A2 diz que <strong>a consequência precisa de dono</strong>. A responsabilidade existe onde há algo a
+perder. Um agente produz a melhor análise da mesa e, se ela estiver errada, não perde nada: não
+tem emprego, reputação, contrato ou liberdade em jogo. Por isso a <em>accountability</em> (o dever de
+responder pelo resultado) não é transferível a ele. O axioma é explícito sobre o motivo: <strong>não
+por falta de capacidade, mas por falta de exposição</strong> (<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/axioms.md">axioms.md, A2</a>).</p>
+<p>A consequência prática é a frase da epígrafe: o gate humano não existe para duvidar do
+raciocínio do agente, nem para medir se ele raciocinou bem. Ele existe para que a
+responsabilidade tenha nome. Quando um diretor pergunta &quot;quem aprovou isto?&quot;, a resposta não
+pode ser &quot;o modelo&quot;. Um sistema de agentes em que essa pergunta não tem resposta não é um
+sistema mais automatizado; é um sistema em que todo gate virou opcional, que é exatamente o que
+o axioma diz acontecer quando ele é removido.</p>
+<p>Há uma distinção fina que A2 pede e que costuma se perder: responder <strong>pelo item</strong> e responder
+<strong>pela política</strong> são coisas diferentes. Se o humano é o Accountable (o &quot;A&quot; da matriz
+Responsible, Accountable, Consulted, Informed, a RACI) e também confere à mão cada saída de
+cada agente, ele recriou o trabalho de fazer tudo sozinho, com uma etapa a mais de leitura. O
+ganho dos agentes evapora e o humano vira o gargalo do próprio sistema; o handbook do Maestro
+chama isso de <strong>armadilha do funil</strong>. A saída não é confiar mais no agente: é mudar o objeto da
+responsabilidade. Ser Accountable pela política significa decidir uma vez, por classe de
+ação, e responder por essa decisão e pelos critérios que a sustentam. A constituição do Maestro
+escreve isso no Princípio II: o Accountable é sempre humano, e responde <strong>pela política, pelos
+gates e pelos critérios, não por cada item</strong> (<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/principles.md">principles.md</a>).
+O <a href="index.html">capítulo 3</a> volta a esse ponto pelo lado da
+atenção humana como recurso escasso.</p>
+<p>A2 tem um vizinho que este capítulo usa de passagem: o axioma A1, <strong>a intenção é humana</strong>. Um
+agente propõe, escreve e verifica; não <em>quer</em>. Juntos, A1 e A2 dão a divisão de trabalho que
+o handbook do método resume em uma linha: <strong>a IA explora, propõe e escreve; o humano
+especifica, decide e aprova; testes, gates e revisão independente validam</strong>. O último terço da
+frase é o que este capítulo desenvolve: a validação não é do humano nem do autor, é de uma
+terceira posição.</p>
+<h3 id="por-que-o-autor-não-enxerga-axioma-a3-e-teorema-t2" tabindex="-1">Por que o autor não enxerga (axioma A3 e teorema T2) <a class="header-anchor" href="#por-que-o-autor-não-enxerga-axioma-a3-e-teorema-t2" aria-hidden="true">#</a></h3>
+<p>O axioma A3 diz que <strong>o contexto é finito e se degrada à medida que enche</strong>. O agente que
+escreveu um trecho de código chegou a ele depois de explorar alternativas, abandonar caminhos,
+ler erros e justificar decisões para si mesmo. Tudo isso está na janela de contexto quando ele
+&quot;revisa&quot; o próprio trabalho. Ele lê o diff com a justificativa de cada linha já carregada, e é
+justamente a justificativa que esconde o defeito. O revisor em contexto fresco não tem essa
+justificativa, e por isso enxerga o que ela estava cobrindo.</p>
+<p>Some A2 (alguém tem de responder) a A3 (quem executou carrega os becos sem saída) e sai o
+teorema T2: <strong>quem executa não verifica</strong>. O texto do teorema é cuidadoso: verificação
+independente <strong>não é desconfiança do autor</strong>; é uma consequência do contexto
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/axioms.md">axioms.md, T2</a>).
+Isso tira a regra do terreno moral, onde ela soaria como &quot;o agente mente&quot;, e a coloca no
+terreno físico: o autor não consegue ver o que o próprio contexto esconde, por melhor que
+seja.</p>
+<p>A ideia não é nova em engenharia, e o tech lead já a pratica com pessoas. A segregação de
+funções em controles financeiros, o princípio dos quatro olhos, as inspeções formais de código
+que Fagan descreveu na IBM nos anos 1970 e a revisão de código moderna (que Bacchelli e Bird
+estudaram na Microsoft e que, segundo eles, entrega tanto transferência de conhecimento quanto
+defeitos encontrados) partem da mesma premissa: o autor é o pior leitor do próprio trabalho. O
+que muda com agentes são duas coisas. A primeira é o volume: um humano regendo vários agentes
+produz mais diff por dia do que consegue reler. A segunda é a facilidade de esquecer o
+contrapeso: num time de pessoas, o revisor é outra pessoa por construção; com agentes, o
+mesmo humano opera todos eles, e a separação entre quem decide, quem executa e quem verifica
+<strong>some em silêncio</strong> se ninguém a escrever.</p>
+<p>A literatura sobre fatores humanos dá um aviso complementar. Bainbridge, em <em>Ironies of
+Automation</em>, mostrou que automatizar a execução e deixar o humano como monitor cria um papel
+para o qual o humano é especialmente ruim: vigiar com atenção algo que quase sempre funciona.
+Parasuraman e Riley chamaram de <em>misuse</em> a confiança excessiva na automação, quando o operador
+deixa de conferir porque o sistema costuma acertar. Os dois trabalhos são anteriores aos
+modelos de linguagem e valem com mais força para eles: o agente produz texto fluente e
+justificado, que convida à leitura confiante. A resposta do Maestro a esses avisos não é pedir
+mais atenção ao humano; é tirar dele a tarefa de vigiar cada item e dar a vigilância a uma
+posição estruturalmente independente.</p>
+<h3 id="independência-é-configuração-não-promessa-corolário-c3" tabindex="-1">Independência é configuração, não promessa (corolário C3) <a class="header-anchor" href="#independência-é-configuração-não-promessa-corolário-c3" aria-hidden="true">#</a></h3>
+<p>&quot;O revisor deve ser imparcial&quot; é uma intenção. Tirar do revisor a capacidade de editar é uma
+estrutura. O corolário C3 do Maestro diz isso numa linha: <strong>o papel que julga não recebe
+permissão de escrita</strong>. A razão é simples e prática: um revisor que pode consertar o que aponta
+deixa de ser revisor e vira coautor. Ele conserta, o conserto entra no diff, e quem confere o
+conserto? A independência se sustenta em duas coisas verificáveis: <strong>contexto fresco</strong> (o
+revisor não viveu os becos do autor) e <strong>ferramentas restritas</strong> (o revisor só consegue apontar).</p>
+<p>O ponto que dá força ao corolário é que ambas são verificáveis <strong>por máquina</strong>. Contexto fresco
+é uma propriedade da sessão: o revisor foi iniciado sem a conversa do autor, só com o diff, a
+spec e o plano. Ferramentas restritas são uma linha num arquivo de configuração. Nenhuma das
+duas depende de o agente &quot;se comportar&quot;. E, sendo verificáveis, podem ter um teste que falha.
+O teorema T2 traz essa evidência no próprio texto: os agentes que julgam não têm <code>Write</code> nem
+<code>Edit</code>, e um script falha se ganharem. <strong>Independência é configuração, não promessa.</strong></p>
+<h3 id="duas-posições-não-duas-pessoas" tabindex="-1">Duas posições, não duas pessoas <a class="header-anchor" href="#duas-posições-não-duas-pessoas" aria-hidden="true">#</a></h3>
+<p>Juntando as três ideias, o problema da confiança se decompõe em duas posições que nunca podem
+coincidir com a de quem executa:</p>
+<table>
+<thead>
+<tr>
+<th>Posição</th>
+<th>Quem ocupa</th>
+<th>O que a torna confiável</th>
+<th>Axioma</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Verificar</strong></td>
+<td>um agente que julga, em contexto fresco, sem escrita</td>
+<td>estrutura: sessão nova, ferramentas restritas</td>
+<td>A3 → T2</td>
+</tr>
+<tr>
+<td><strong>Responder</strong></td>
+<td>um humano</td>
+<td>exposição: ele perde se der errado</td>
+<td>A2</td>
+</tr>
+<tr>
+<td>Executar</td>
+<td>um agente (ou humano) que escreve</td>
+<td>nada: é o objeto da verificação</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>Repare que a tabela não diz que o humano verifica. Essa é a distinção que separa o modelo
+deste livro do <em>human-in-the-loop</em> ingênuo. Horvitz, ao propor os princípios das interfaces de
+iniciativa mista, colocou o humano no ponto de decisão das ações consequentes, não em cada
+passo. O Maestro adota essa espinha e a leva um passo adiante: o humano decide nos gates
+(aprovar a spec, aprovar o plano, aprovar o merge, autorizar deploy ou migração) e responde
+pela política; a verificação de cada item fica com um agente independente, e o registro dessa
+verificação é o que permite ao humano decidir sem refazer.</p>
+<h3 id="o-verde-mecânico-não-é-o-certo" tabindex="-1">O verde mecânico não é o certo <a class="header-anchor" href="#o-verde-mecânico-não-é-o-certo" aria-hidden="true">#</a></h3>
+<p>Há um limite que a teoria precisa declarar antes que o tech lead conclua que basta montar o
+revisor independente. Em 27 de outubro de 2026, o protótipo navegável do ciclo 074 do Maestro
+estava verde: o relatório da tarefa registrava todos os 18 elementos da tela alcançados no
+navegador e 63 de 63 botões com o efeito declarado, e a caminhada da sessão regente tinha
+aprovado os cinco contextos. O gate humano reprovou a usabilidade: &quot;um amontoado de texto, sem
+uma história clara em cada tela, não sei o que faço, por onde começo&quot; [CLAIM-02-014]. A
+decisão registrada aponta a causa: a caminhada da regente <strong>conferiu efeito, não história</strong>.</p>
+<p>O caso não contradiz T2; ele mostra o que T2 não cobre. A verificação independente pega o que
+<strong>diverge do critério</strong>. Ela não pega um critério que mede a coisa errada, e não decide se o
+critério certo é o que o usuário quer. Isso fica com o humano, porque é intenção (A1), e com
+os capítulos que tratam do critério: o <a href="04-a-spec-como-partitura.html">capítulo 4</a>
+(a spec como fonte da intenção) e o <a href="10-quality-gates-que-provam-fatos.html">capítulo 10</a>
+(o gate que mede o proxy em vez do fato).</p>
+<h2 id="alternativas" tabindex="-1">Alternativas <a class="header-anchor" href="#alternativas" aria-hidden="true">#</a></h2>
+<p>O tech lead tem várias formas de responder à pergunta da confiança. Elas não são excludentes,
+mas cada uma resolve uma parte diferente do problema, e algumas resolvem a parte errada.</p>
+<table>
+<thead>
+<tr>
+<th>Alternativa</th>
+<th>O que oferece</th>
+<th>Onde falha</th>
+<th>Veredito</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Confiar no modelo</strong> (autorrevisão, &quot;reflita e corrija&quot;, modelo maior)</td>
+<td>barato, sem cerimônia</td>
+<td>o autor revê com o próprio contexto (A3); Huang e coautores mostraram que modelos de linguagem não corrigem o próprio raciocínio de forma confiável sem sinal externo; não há a quem atribuir a consequência (A2)</td>
+<td><strong>Rejeitado</strong> como verificação; útil como passo do autor antes de entregar</td>
+</tr>
+<tr>
+<td><strong>Juiz de IA no mesmo contexto</strong> (o mesmo agente, ou outro que recebe a conversa inteira)</td>
+<td>barato, rápido</td>
+<td>herda as justificativas do autor; Zheng e coautores documentaram vieses de juízes de modelo, entre eles o de favorecer respostas parecidas com as próprias</td>
+<td><strong>Rejeitado</strong>; o juiz só serve em contexto fresco</td>
+</tr>
+<tr>
+<td><strong>Humano revisa tudo</strong> (<em>human-in-the-loop</em> por item)</td>
+<td>a responsabilidade e a verificação ficam na mesma pessoa</td>
+<td>armadilha do funil; o monitor humano é ruim em vigiar o que quase sempre funciona (Bainbridge)</td>
+<td><strong>Rejeitado</strong> como regra geral; vale para a classe irreversível</td>
+</tr>
+<tr>
+<td><strong>Proteção de branch na plataforma</strong> (revisão obrigatória antes do merge, autor não aprova o próprio pull request, aprovação invalidada a cada novo <em>push</em>)</td>
+<td>enforcement fora do modelo, auditável, barato</td>
+<td>garante que <strong>alguém</strong> aprovou, não que esse alguém leu em contexto fresco; se o mesmo humano opera o agente e aprova, a separação é nominal</td>
+<td><strong>Adotado</strong> como camada de baixo; não basta sozinho</td>
+</tr>
+<tr>
+<td><strong>Pausa para aprovação nos frameworks de orquestração</strong> (as interrupções do LangGraph, o <code>human_input</code> das tarefas do CrewAI, aprovações de ferramenta nos kits de desenvolvimento de agentes (Software Development Kits, SDKs))</td>
+<td>o fluxo para e pede um humano no ponto certo</td>
+<td>resolve <strong>onde</strong> parar, não <strong>quem</strong> verifica nem <strong>com que registro</strong>; tende a virar aprovação por item</td>
+<td><strong>Adotado</strong> como mecanismo; a política de onde parar continua sua</td>
+</tr>
+<tr>
+<td><strong>Avaliador-otimizador</strong> (um agente gera, outro avalia e devolve, em laço)</td>
+<td>separa gerar de avaliar</td>
+<td>se o avaliador recebe o histórico do gerador, a separação é só de nome; não localiza a responsabilidade</td>
+<td><strong>Adotado</strong> desde que o avaliador seja fresco e sem escrita</td>
+</tr>
+<tr>
+<td><strong>Norma externa</strong> (supervisão humana no art. 14 do Regulamento Europeu de Inteligência Artificial, o AI Act; função <em>Govern</em> do AI Risk Management Framework do National Institute of Standards and Technology, o NIST AI RMF)</td>
+<td>exige que a supervisão e a responsabilidade existam e sejam documentadas</td>
+<td>diz <strong>o quê</strong>, não <strong>como</strong>; a conformidade no papel não impede a caixa marcada sem testemunha</td>
+<td><strong>Adotado</strong> como requisito; o método deste capítulo é uma forma de cumpri-lo</td>
+</tr>
+</tbody>
+</table>
+<p>A leitura da tabela: nenhuma alternativa isolada resolve as duas posições. A proteção de branch
+e as pausas dos frameworks resolvem o <strong>mecanismo</strong> do gate humano; a separação gerador/avaliador
+resolve parte da <strong>verificação</strong>; a norma externa exige que ambas existam. O que falta em todas
+é a amarração: o verificador é estruturalmente independente (contexto e ferramentas), o humano
+responde pela política e não pelo item, e há um registro que uma máquina confere. É essa
+amarração que o padrão a seguir oferece, e ela é independente de ferramenta: qualquer
+harness que permita restringir as ferramentas de uma sessão e iniciar outra sem histórico
+consegue reproduzi-la.</p>
+<h2 id="o-padrão-maestro" tabindex="-1">O padrão Maestro <a class="header-anchor" href="#o-padrão-maestro" aria-hidden="true">#</a></h2>
+<p>O Maestro resolve o problema em três camadas, e vale distinguir o que é <strong>regra</strong> (texto que
+alguém tem de seguir), o que é <strong>configuração</strong> (o harness impõe) e o que é <strong>script</strong> (uma
+máquina confere e falha). Tudo abaixo é citado em <code>maestro@19823c2</code>.</p>
+<h3 id="a-regra" tabindex="-1">A regra <a class="header-anchor" href="#a-regra" aria-hidden="true">#</a></h3>
+<ul>
+<li><strong>Princípio II</strong> da constituição: papéis são <strong>modos de trabalho</strong> numa matriz RACI;
+Responsible, Consulted e Informed são delegáveis a agentes; o Accountable é sempre humano e
+responde pela política, pelos gates e pelos critérios; a verificação é feita por um agente
+independente em contexto fresco (<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/principles.md">principles.md</a>).</li>
+<li><strong>ADR 0004</strong>, o registro de decisão que criou o modelo
+operacional em 22 de julho de 2026: papéis viram modos de trabalho com RACI por etapa; quem
+decide, quem executa e quem verifica são posições diferentes; o &quot;verifica&quot; passa a um agente
+revisor em contexto fresco; o Accountable é fixo e humano em toda linha de risco
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0004-modelo-operacional.md">ADR 0004</a>).
+O mesmo ADR adota uma cadência leve (Shape Up com Kanban, uma tarefa em andamento por vez,
+retrospectiva individual, sem <em>daily</em> nem <em>sprint planning</em>), coerente com um humano que rege
+agentes em vez de um time de pessoas.</li>
+<li><strong>Mapa de gates humanos inegociáveis</strong> no modelo operacional, §8: aprovar a spec, aprovar o
+plano (com o Constitution Check), aprovar o merge, autorizar deploy ou migração
+[CLAIM-02-016]. A mesma seção gradua os demais gates por classe de risco, assunto do
+<a href="index.html">capítulo 11</a>
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/operating-model.md">operating-model.md</a>).</li>
+<li><strong>Anti-padrão 6, &quot;autor como revisor&quot;</strong>, no catálogo da skill <code>anti-patterns</code>: o agente que
+escreveu aprovando o próprio trabalho; a revisão acontece em contexto fresco, sempre
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/skills/anti-patterns/SKILL.md">SKILL.md</a>).</li>
+</ul>
+<h3 id="a-configuração" tabindex="-1">A configuração <a class="header-anchor" href="#a-configuração" aria-hidden="true">#</a></h3>
+<p>Os agentes do Maestro são arquivos curtos em <code>.claude/agents/</code>, cada um com uma linha <code>tools:</code>
+que o harness lê e impõe. Dos treze agentes, os três que julgam (<code>review</code>, <code>security</code> e
+<code>process-guardian</code>) são exatamente os três sem <code>Write</code> nem <code>Edit</code> [CLAIM-02-009]. O contrato
+do <code>review</code> diz o resto: revisão independente do diff <strong>contra o plano</strong>, em contexto fresco,
+&quot;você não escreveu este código&quot;; somente leitura; julga, não conserta; aponta só lacunas de
+correção ou de requisito, não preferência de estilo, porque um revisor que caça tudo induz
+excesso de engenharia; e lembra que &quot;verde localmente não é certo globalmente&quot;, passando essa
+decisão ao humano (<a href="https://github.com/GHDaru/maestro/blob/19823c2/.claude/agents/review.md">review.md</a>).
+O <code>dev-implementer</code>, do outro lado, tem <code>Write</code> e <code>Edit</code> e um contrato que diz que ele não
+revisa nem aprova o próprio trabalho.</p>
+<p>Essa separação é o que o harness impõe: o <code>review</code> não consegue editar um arquivo, ainda que
+&quot;queira&quot;. É uma propriedade da sessão, não do prompt.</p>
+<h3 id="os-scripts" tabindex="-1">Os scripts <a class="header-anchor" href="#os-scripts" aria-hidden="true">#</a></h3>
+<ul>
+<li><strong><code>scripts/check-agents.sh</code></strong> lista os papéis somente-leitura e falha se algum deles ganhar
+<code>Write</code> ou <code>Edit</code> na linha <code>tools:</code>. É o corolário C3 virando teste: se alguém, numa edição
+inocente, der caneta ao juiz, a verificação local e a integração contínua ficam vermelhas
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/check-agents.sh">check-agents.sh</a>).</li>
+<li><strong>A cauda de fechamento e o <code>check-conformance.sh</code></strong>: todo ciclo carrega no <code>tasks.md</code> as
+caixas <code>TAIL:review</code>, <code>TAIL:security</code>, <code>TAIL:mutation</code> e <code>TAIL:gate</code>, com a evidência no
+<code>qa-report.md</code>. Depois dos ciclos 042 a 045, o portão rejeita o esqueleto do gerador, o
+marcador vazio e, desde o ciclo 063, a palavra &quot;pendente&quot; usada como se fosse evidência
+[CLAIM-02-020]. O <code>TAIL:gate</code> é sempre do humano.</li>
+<li><strong><code>scripts/promote-main.sh</code></strong>, o gate de merge. O comentário de abertura diz a fronteira com
+todas as letras: &quot;o gate é humano; este script só executa o passo mecânico depois da sua
+decisão; ele não decide nada&quot;. O script aborta com árvore suja, aborta se não há o que
+promover, <strong>recusa promover com a conformidade vermelha</strong> (a cauda incompleta não chega à
+linha principal), mostra os commits, pede confirmação explícita e, depois do &quot;sim&quot;, registra
+a decisão sozinho no índice como <code>gate-main-&lt;hash&gt;</code> antes de empurrar
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/promote-main.sh">promote-main.sh</a>).
+Automatizar a execução do ritual é economia de atenção; automatizar a decisão violaria o
+Princípio II. O resultado é um rastro: no índice de decisões em <code>19823c2</code>, 50 das 199 linhas
+são gates de merge, cada uma com hash e data [CLAIM-02-011].</li>
+</ul>
+<h3 id="e-o-hook" tabindex="-1">E o hook? <a class="header-anchor" href="#e-o-hook" aria-hidden="true">#</a></h3>
+<p>Neste tema, nenhum. A independência do revisor no Maestro <strong>não</strong> depende de um <em>hook</em> que
+intercepte a chamada de ferramenta: depende da lista de ferramentas que o harness entrega à
+sessão (configuração) e de um script que confere essa lista (verificação). Os hooks do Maestro
+guardam outra coisa: por exemplo, recusam a reescrita do corpo de um ADR ou do índice de
+decisões, que só aceitam acréscimo. A distinção importa para quem leva o padrão a outro
+harness: se ele não tem hooks, este capítulo continua inteiro; se ele não permite restringir
+ferramentas por sessão, a independência volta a ser promessa e tem de ser compensada por
+processo.</p>
+<h3 id="gate-humano-por-delegação-de-política" tabindex="-1">Gate humano por delegação de política <a class="header-anchor" href="#gate-humano-por-delegação-de-política" aria-hidden="true">#</a></h3>
+<p>O desenho acima tem um custo: o humano ausente para a linha. Em 22 e 24 de outubro de 2026, o
+dono do método passou a conduzir ciclos por uma sessão regente que não executa (distribui o
+trabalho a outras sessões e subagentes), e a espera pelo &quot;sim&quot; dele em cada gate chegou a
+horas. Em 24 de outubro, ele delegou por escrito: &quot;Peço que os 'meus' gates sejam assumidos por
+você. Chame um subagente par seu para ajudar a criticar e tomar a decisão. E prossiga sem
+parar.&quot; O crítico do gate
+seguinte, o <code>process-guardian</code> em contexto fresco, apontou que a delegação contradizia a letra
+do §8 do modelo operacional e pediu base escrita. A base virou o <strong>ADR 0026</strong>
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0026-gate-humano-por-delegacao-de-politica.md">ADR 0026</a>).</p>
+<p>O ADR permite que a sessão regente decida um gate humano <strong>quando, e só quando</strong>, cinco
+condições valem juntas [CLAIM-02-015]:</p>
+<ol>
+<li>o humano delegou por escrito, a delegação está no índice de decisões e não foi revogada;</li>
+<li>a regente <strong>não executou</strong> o trabalho julgado;</li>
+<li>um crítico independente em contexto fresco, somente leitura, deu parecer antes da decisão,
+registrado no relatório de qualidade com as condições que impôs;</li>
+<li>cada gate aberto por delegação gera sua própria linha no índice, com o veredito do crítico
+e o hash julgado;</li>
+<li>a promoção para a linha principal continua exigindo a delegação explícita para aquele ciclo.</li>
+</ol>
+<p>O primeiro uso está registrado como <code>gate-070-delegado</code>: o <code>TAIL:gate</code> do ciclo 070 foi aberto
+pela regente depois do parecer <code>APPROVE_WITH_CONDITIONS</code> do crítico, com cinco condições
+fechadas no relatório [CLAIM-02-017]. Este é o ponto conceitual mais fino do capítulo: a
+delegação <strong>não</strong> transfere o Accountable. O humano continua respondendo pela política (a
+delegação), pelos critérios (as cinco condições) e pode revogá-la com uma linha. O que ele deixa
+de fazer é responder <strong>por item</strong>, que é exatamente o que o Princípio II pedia desde o começo.
+T2 continua de pé em dobro: quem decide não executou, e alguém de contexto fresco leu antes.</p>
+<h3 id="revisão-por-tarefa-e-a-crítica-às-cegas" tabindex="-1">Revisão por tarefa e a crítica às cegas <a class="header-anchor" href="#revisão-por-tarefa-e-a-crítica-às-cegas" aria-hidden="true">#</a></h3>
+<p>Dois refinamentos completam o padrão. O primeiro veio de fora: o catálogo do ecossistema
+avaliou a prática do Superpowers de revisar <strong>cada tarefa</strong> em contexto fresco, e não só o
+ciclo. O veredito foi <strong>absorver em parte</strong>: na raia plena com mais de três tarefas, um
+checkpoint leve por tarefa; em toda mudança, seria cerimônia desproporcional na raia leve
+[CLAIM-02-018] (<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/ecosystem/ideias/025-review-por-task.md">ideia 025</a>).</p>
+<p>O segundo nasceu dentro do ciclo 076 e mostra até onde a independência pode ir. Em 1º de
+novembro de 2026, a tarefa T035b entregou uma seção de documentação gerada a partir do modelo
+de domínio. A mecânica funcionava, os testes passavam. O juiz em contexto fresco reprovou por
+três motivos medidos: a integração contínua regerava da projeção gravada e não do modelo (uma
+projeção adulterada passava verde com a tela afirmando o contrário do modelo), o texto visível
+carregava referências internas e o termo pedido não tinha virado a palavra da tela. E acrescentou
+uma <strong>crítica às cegas</strong>: leu sem rótulo o começo do nosso texto e o da descrição de domínio do
+projeto público <code>ddd-by-examples/library</code>, e decidiu qual um operador novo entenderia mais
+rápido. Perdemos [CLAIM-02-012]. A rodada seguinte (T035c com T036) consertou a mecânica e
+foi reprovada de novo: a pergunta do operador (&quot;o que é uma Sessão e quem manda nela?&quot;) seguia
+sem resposta, o cego perdeu outra vez, e o job de portões da integração contínua estava
+vermelho na árvore intacta por causa de comentários em português num script instalável. O juiz
+ainda notou que o teste escrito para a crítica anterior media <strong>obediência à crítica</strong>, não a
+resposta [CLAIM-02-013]. A crítica às cegas é a forma mais forte de contexto fresco: o juiz não
+sabe nem qual dos textos é o nosso.</p>
+<h2 id="exemplo-executável" tabindex="-1" class="callout c-prat" data-rotulo="Mão na massa">Exemplo executável <a class="header-anchor" href="#exemplo-executável" aria-hidden="true">#</a></h2>
+<p>O exemplo em <a href="02-o-problema-da-confianca-exemplo.html"><code>exemplo/</code></a> transforma as regras deste capítulo num portão que
+roda em qualquer máquina com Python 3.8 ou mais novo, sem dependência e sem modelo de IA. Ele
+não julga o código de ninguém: julga a <strong>estrutura</strong> de um fechamento de ciclo.</p>
+<p>Há três entradas. <code>papeis.json</code> descreve os papéis de um time humano com agentes: quem julga,
+que ferramentas cada um tem, que delegações escritas existem. <code>registros/</code> traz dez fechamentos
+de ciclo [CLAIM-02-019], um correto e os outros com um defeito cada, todos tirados deste capítulo: o autor que
+se revisa, a caixa marcada sem testemunha (042), a palavra &quot;pendente&quot; aceita como prova (061 e
+062), o juiz com caneta, o revisor que leu a conversa do autor, o merge aprovado por um agente
+sem delegação, o gate delegado sem crítico e a regente que abre o gate do trabalho que ela
+mesma fez. Cada registro declara o veredito esperado.</p>
+<p>O <code>verifica.py</code> aplica seis regras, de R0 a R5, cada uma com a origem no texto: R0 confere a
+configuração (papel que julga sem escrita, o C3); R1 a R3 conferem a revisão (outra posição,
+um papel que julga, contexto fresco, o T2); R4 confere a evidência da caixa marcada; R5
+confere o dono do gate (humano, ou delegação escrita com as condições do ADR 0026, o A2).
+Depois, ele <strong>prova o próprio portão por mutação</strong>: dá <code>Edit</code> ao revisor e revoga a delegação,
+e confere que as duas violações são acusadas. Um portão que nunca foi visto falhar é uma
+crença, não um portão.</p>
+<pre><code class="language-bash">cd livro/02-o-problema-da-confianca/exemplo
+python verifica.py
+</code></pre>
+<p>As últimas linhas da saída:</p>
+<pre><code class="language-text">== prova por mutação: o portão acusa quando a regra é violada?
+  revisor ganha Edit -&gt; R0 acusa
+  delegação revogada -&gt; 08-gate-delegado reprova
+
+resultado: 10/10 registros com o veredito esperado; mutações acusadas: 2/2
+✓ verificação de confiança OK
+</code></pre>
+<p>Repare em duas linhas que aparecem no topo da saída: <code>aviso R0 'revisor' julga e tem Bash: o shell também escreve</code>. O exemplo não reprova esse caso, mas avisa, e o
+<a href="#contraexemplo">Contraexemplo</a> explica por quê.</p>
+<p>O segundo script, <code>rendimento.py</code>, mede o que a revisão independente fez no Maestro. A entrada
+é uma linha por ciclo, do 042 ao 063, tirada de <code>maestro@19823c2</code> por dois comandos que o
+<code>README.md</code> do exemplo reproduz: o veredito do cabeçalho do relatório de qualidade e a
+evidência de <code>TAIL:review</code> no corpo do mesmo relatório. Da evidência saem duas colunas, lidas à
+mão: quando a revisão rodou (antes do gate ou só depois da promoção) e o que ela fez (reprovou
+ou não mudou nada). O script só conta.</p>
+<pre><code class="language-text">ciclos: 22 · revisão antes do gate: 20 · revisão só depois da promoção: 2
+rendimento da revisão antes do gate: 19/20 = 95.0%
+cobertura da revisão antes do gate: 20/22 = 90.9%
+ciclos reprovados por um parecer, em qualquer momento: 21/22 = 95.5%
+cabeçalho 'aguardando parecer' com parecer no corpo: 3 (061, 062, 063)
+</code></pre>
+<p>Em 19 dos 20 ciclos em que a revisão independente rodou antes do gate, ela reprovou e o
+resultado mudou; o único que passou sem mudança foi o 052, cuja evidência cita o parecer do
+051 como origem do ciclo e não relata reprovação [CLAIM-02-008]. Os dois ciclos em que a
+revisão não rodou antes do gate, o 061 e o 062, são os que o portão deixou passar com
+&quot;pendente.&quot; no lugar da evidência, com o humano avisado da ausência antes de decidir
+[CLAIM-02-020]. Quando a revisão enfim rodou, depois da
+promoção, um parecer só reprovou os dois com 18 achados; o 063 nasceu para fechar o buraco, e a
+revisão do próprio 063, feita antes do gate dele, o reprovou com 18 defeitos, cinco deles
+introduzidos pelo próprio ciclo [CLAIM-02-022].</p>
+<p>A última linha da saída está ali por um erro deste livro. A primeira versão do exemplo
+classificava os ciclos pelo cabeçalho do relatório, e o cabeçalho dos três últimos dizia &quot;DoD
+verde; aguardando parecer e portão humano&quot; (DoD é a Definition of Done, a definição de pronto
+verificável do ciclo). Lido como fato, isso dava três ciclos sem revisão e
+um rendimento de 18 em 19. Mas o cabeçalho é escrito por quem executou, num momento do ciclo, e
+ninguém voltou para atualizá-lo; o corpo do 063 registra a revisão e o gate que vieram depois.
+A lição é a do capítulo em miniatura: o resumo que o autor escreve de si não é testemunha.</p>
+<p>O script de rendimento é a métrica que a agenda de pesquisa do livro chama de <strong>rendimento da
+revisão independente</strong>, aplicada ao seu repositório: troque o arquivo de valores separados por
+vírgula (Comma-Separated Values, CSV) pelos pareceres dos seus últimos pull requests (lidos no
+corpo da revisão, não no título) e veja o número.</p>
+<h2 id="contraexemplo" tabindex="-1" class="callout c-contra" data-rotulo="Limite">Contraexemplo <a class="header-anchor" href="#contraexemplo" aria-hidden="true">#</a></h2>
+<p>A regra &quot;quem executa não verifica&quot; tem custo, tem furos e tem lugares onde atrapalha. Um tech
+lead que a adote sem esta seção vai descobrir os três na prática.</p>
+<p><strong>O custo em mudança pequena.</strong> Uma revisão em contexto fresco custa uma sessão nova, a leitura
+do diff, da spec e do plano, e o tempo de tratar os achados. Para corrigir um erro de digitação
+no README, é cerimônia. O próprio Maestro reconhece isso duas vezes: na raia leve, o pull
+request é o artefato e não há spec nem plano; e, ao avaliar a revisão por tarefa, absorveu-a
+só em parte, porque aplicá-la a toda mudança violaria o princípio de governança leve
+[CLAIM-02-018]. A regra prática é proporcional: a revisão independente é obrigatória no
+fechamento do ciclo e onde há risco; por tarefa, só quando o ciclo é grande o bastante para
+que o erro cedo economize retrabalho.</p>
+<p><strong>O furo do shell.</strong> O <code>check-agents.sh</code> procura <code>Write</code> e <code>Edit</code> na linha <code>tools:</code>. O <code>review</code>
+e o <code>security</code> têm <code>Bash</code>, e um shell escreve arquivo com um redirecionamento [CLAIM-02-010].
+A independência por configuração é tão boa quanto a lista que ela confere. O Maestro aceita o
+furo porque o revisor precisa rodar os portões para julgar (as críticas do 076 rodaram ataques
+em cópias temporárias e escreveram o próprio parecer), e a defesa passa a ser o contrato do
+papel e o fato de que qualquer escrita do revisor aparece no diff. É por isso que o exemplo
+emite aviso em vez de reprovar. Se o seu harness permitir um shell somente leitura, ou se
+o revisor puder rodar numa cópia descartável do repositório, feche o furo.</p>
+<p><strong>Independência não conserta o critério.</strong> O caso do 074 mostra que um protótipo verde em
+todas as verificações pode ser reprovado pelo humano, porque o critério media efeito e não
+história [CLAIM-02-014]. A crítica da T035c mostra o mesmo fenômeno dentro da própria
+verificação: o teste escrito para atender o juiz anterior media se os trechos citados estavam
+presentes, e não se a pergunta do operador era respondida [CLAIM-02-013]. Revisor fresco
+contra um critério errado produz um &quot;não&quot; ou um &quot;sim&quot; confiável sobre a coisa errada. O
+<a href="10-quality-gates-que-provam-fatos.html">capítulo 10</a> trata desse defeito.</p>
+<p><strong>Mesmo modelo, mesmos pontos cegos.</strong> O revisor em contexto fresco não herda a conversa do
+autor, mas, se for o mesmo modelo, herda o treinamento. Defeitos que o modelo tende a não ver
+podem escapar dos dois lados. É uma hipótese plausível, não medida aqui; quem tem orçamento
+pode variar o modelo do revisor e comparar o rendimento.</p>
+<p><strong>A delegação tensiona a letra.</strong> Em <code>19823c2</code>, o §8 do modelo operacional ainda diz que nenhum
+dos gates inegociáveis é delegável a um agente, enquanto o ADR 0026, de 24 de outubro, emenda
+esse parágrafo e promete incorporar o texto na próxima revisão [CLAIM-02-015]. Quem lê só o
+modelo operacional conclui uma coisa; quem lê o índice de decisões, outra. É o custo de uma
+governança que evolui por acréscimo: a regra viva está em dois lugares até a revisão
+acontecer. E a delegação só é segura enquanto as cinco condições são conferidas; sem o crítico
+e sem a linha por gate, ela vira o agente aprovando a si mesmo com um ADR na mão.</p>
+<p><strong>Quando não aplicar.</strong> Em exploração descartável (um <em>spike</em> que vai para o lixo, um protótipo
+de uma tarde), a verificação independente custa mais do que o erro. O critério é a
+reversibilidade: se o resultado não vai sair da sua máquina, não há consequência a que
+alguém responda. No momento em que ele vai para a linha principal, para um repositório alheio
+ou para o usuário, a regra volta.</p>
+<h2 id="evidência" tabindex="-1">Evidência <a class="header-anchor" href="#evidência" aria-hidden="true">#</a></h2>
+<p>Os claims abaixo estão registrados em <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/02-o-problema-da-confianca/claims.md"><code>claims.md</code></a>, com o caminho no Maestro
+fixado em <code>19823c2</code> ou o comando que os reproduz.</p>
+<p><strong>Medido</strong> (um comando reproduz o número):</p>
+<ul>
+<li>os seis ciclos de 046 a 051 têm no cabeçalho &quot;aprovado após reprovação e correção&quot;
+[CLAIM-02-006];</li>
+<li>os três agentes sem <code>Write</code> nem <code>Edit</code> são os três que julgam, entre treze [CLAIM-02-009];</li>
+<li>o índice de decisões tem 50 gates de merge em 199 linhas [CLAIM-02-011];</li>
+<li>o exemplo deste capítulo acerta o veredito dos dez registros e acusa as duas mutações
+[CLAIM-02-019].</li>
+</ul>
+<p><strong>Observado</strong> (lido nos artefatos; quando há contagem, o script conta, mas a classificação
+de cada caso é leitura humana): dos 22 ciclos entre 042 e 063, a revisão independente rodou
+antes do gate em 20 e reprovou 19 deles; 061 e 062 passaram pelo gate sem revisão
+[CLAIM-02-008]; a revisão do 063 reprovou o próprio ciclo com 18 defeitos [CLAIM-02-022]; a retrodatação do 047 e o que a
+correção recuperou [CLAIM-02-001, CLAIM-02-002]; a cauda que reprovou o ciclo que a criou
+[CLAIM-02-003]; a recorrência da caixa marcada sem testemunha no 043 e no 045 [CLAIM-02-004,
+CLAIM-02-005]; os dois achados do 048 e do 051 que chegariam a terceiros [CLAIM-02-007]; o furo
+do shell [CLAIM-02-010]; as duas críticas reprovadas no 076 [CLAIM-02-012, CLAIM-02-013]; o
+gate humano do 074 [CLAIM-02-014]; o ADR 0026 e o primeiro gate delegado [CLAIM-02-015,
+CLAIM-02-017]; os quatro gates inegociáveis [CLAIM-02-016]; a absorção parcial da revisão por
+tarefa [CLAIM-02-018]; e os ciclos 061 e 062 promovidos com &quot;pendente.&quot; [CLAIM-02-020].</p>
+<p><strong>Hipótese.</strong> O número de 19 em 20 é forte, mas não é a prova de que a revisão em contexto
+fresco acha mais defeito que a autorrevisão; essa é a hipótese H2 da agenda de pesquisa do
+livro, e ela continua hipótese [CLAIM-02-021]. Três motivos. Não há grupo de controle: nenhum
+ciclo foi revisado pelo próprio autor com o mesmo esforço para comparação. A classificação é
+leitura humana da evidência de <code>TAIL:review</code>, escrita por quem executou, e &quot;reprovou&quot; pode
+incluir parecer cujo achado era menor; o 052 foi contado como &quot;não mudou&quot; porque a evidência
+dele não relata parecer próprio, a leitura que menos favorece a revisão. E há viés de
+seleção: a revisão foi instruída a refutar e a executar ataques, o que aumenta a chance de achar algo. O desenho que testa H2 (o mesmo conjunto de diffs, revisão pelo
+autor contra revisão fresca, defeitos plantados conhecidos) está no
+<a href="index.html">capítulo 15</a>.</p>
+<h2 id="checklist" tabindex="-1" class="callout c-verif" data-rotulo="Aplique">Checklist <a class="header-anchor" href="#checklist" aria-hidden="true">#</a></h2>
+<p>Aplique no seu time. Cada item tem uma forma de conferir que não depende de opinião.</p>
+<ul>
+<li>[ ] <strong>Existe um nome por gate.</strong> Para cada um dos gates que você considera inegociáveis
+(spec, plano, merge, deploy ou migração), o registro diz quem aprovou e quando. Conferência:
+abra o último merge na linha principal e ache o nome.</li>
+<li>[ ] <strong>O agente que julga não tem caneta.</strong> As sessões de revisão e segurança são iniciadas
+sem ferramenta de escrita. Conferência: um script, na integração contínua, que falha se a
+configuração mudar (o <code>verifica.py</code> do exemplo é um ponto de partida).</li>
+<li>[ ] <strong>O revisor começa do zero.</strong> A revisão recebe o diff, a spec e o plano, e não a conversa
+de quem executou. Conferência: o comando ou o template que inicia a revisão, versionado.</li>
+<li>[ ] <strong>O autor não fecha a própria caixa sem evidência.</strong> A caixa de revisão só fica marcada se
+houver um parecer escrito por outra posição, e &quot;pendente&quot;, &quot;ok&quot; ou o marcador do gerador não
+contam. Conferência: um portão que rejeita placeholder, visto falhar ao menos uma vez.</li>
+<li>[ ] <strong>O merge é um passo mecânico depois de uma decisão humana.</strong> O script ou a proteção de
+branch executam; não decidem. Conferência: tente promover com a cauda incompleta e veja
+recusar.</li>
+<li>[ ] <strong>Delegação de gate é escrita, revogável e tem crítico.</strong> Se você delega gates a um
+agente regente, a delegação está registrada, quem decide não executou, um crítico fresco
+opinou antes e cada gate aberto deixa uma linha. Conferência: as condições do ADR 0026 como
+lista no seu registro de decisões.</li>
+<li>[ ] <strong>Você mede o rendimento da revisão.</strong> De cada dez revisões independentes, quantas mudaram
+o resultado? Conferência: o <code>rendimento.py</code> rodando sobre os seus últimos vereditos. Se o
+número for próximo de zero, ou a revisão é cerimônia, ou o autor é excepcional; descubra
+qual antes de cortar.</li>
+</ul>
+<h2 id="referências" tabindex="-1">Referências <a class="header-anchor" href="#referências" aria-hidden="true">#</a></h2>
+<ul>
+<li>Axiomas, teoremas e corolários do Maestro (A1, A2, A3, T2, C3).
+https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/axioms.md</li>
+<li>Constituição do Maestro, Princípio II.
+https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/principles.md</li>
+<li>Modelo operacional do Maestro, §2 (princípio operacional central) e §8 (gates).
+https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/operating-model.md</li>
+<li>ADR 0004 — Modelo operacional.
+https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0004-modelo-operacional.md</li>
+<li>ADR 0026 — Gate humano por delegação de política, com crítico independente.
+https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0026-gate-humano-por-delegacao-de-politica.md</li>
+<li>Índice de decisões (<code>gate-070-delegado</code>, <code>decisao-074-usabilidade-reprovada</code>,
+<code>achado-047-vereditos-retrodatados</code>).
+https://github.com/GHDaru/maestro/blob/19823c2/docs/records/decisoes.jsonl</li>
+<li>Agentes <code>review</code>, <code>security</code>, <code>process-guardian</code> e <code>dev-implementer</code>.
+https://github.com/GHDaru/maestro/blob/19823c2/.claude/agents/review.md</li>
+<li>Scripts <code>check-agents.sh</code> e <code>promote-main.sh</code>.
+https://github.com/GHDaru/maestro/blob/19823c2/scripts/check-agents.sh ·
+https://github.com/GHDaru/maestro/blob/19823c2/scripts/promote-main.sh</li>
+<li>Skill <code>anti-patterns</code>, item 6.
+https://github.com/GHDaru/maestro/blob/19823c2/skills/anti-patterns/SKILL.md</li>
+<li>Ideia 025 do catálogo do ecossistema — revisão por tarefa.
+https://github.com/GHDaru/maestro/blob/19823c2/docs/ecosystem/ideias/025-review-por-task.md</li>
+<li>Relatórios de qualidade dos ciclos 042, 043, 045, 047, 048, 051 e 074; spec do ciclo 063;
+críticas da T035b e da T035c+T036 no ciclo 076, todos em
+https://github.com/GHDaru/maestro/tree/19823c2/specs</li>
+<li>Handbook do Maestro, capítulos 01 (o princípio central), 04 §6 e 06 (papéis e RACI) e
+apêndice B (Superpowers), na cópia congelada em <code>maestro-handbook/</code> deste repositório.</li>
+<li>L. Bainbridge. <em>Ironies of Automation</em>. Automatica, 19(6), 1983.</li>
+<li>R. Parasuraman e V. Riley. <em>Humans and Automation: Use, Misuse, Disuse, Abuse</em>. Human
+Factors, 39(2), 1997.</li>
+<li>M. E. Fagan. <em>Design and Code Inspections to Reduce Errors in Program Development</em>. IBM
+Systems Journal, 15(3), 1976.</li>
+<li>A. Bacchelli e C. Bird. <em>Expectations, Outcomes, and Challenges of Modern Code Review</em>.
+International Conference on Software Engineering (ICSE), 2013.</li>
+<li>E. Horvitz. <em>Principles of Mixed-Initiative User Interfaces</em>. Conference on Human
+Factors in Computing Systems (CHI), 1999.
+https://www.microsoft.com/en-us/research/publication/principles-mixed-initiative-user-interfaces/
+(acesso em 02/11/2026).</li>
+<li>J. Huang et al. <em>Large Language Models Cannot Self-Correct Reasoning Yet</em>. International
+Conference on Learning Representations (ICLR), 2024.</li>
+<li>L. Zheng et al. <em>Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena</em>. Conference on
+Neural Information Processing Systems (NeurIPS), 2023, Datasets and Benchmarks.</li>
+<li>Anthropic. <em>Building effective agents</em> (padrão avaliador-otimizador).
+https://www.anthropic.com/engineering/building-effective-agents (acesso em 02/11/2026).</li>
+<li>GitHub Docs. <em>About protected branches</em>.
+https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches
+(acesso em 02/11/2026).</li>
+<li>LangChain. <em>LangGraph — human-in-the-loop</em>.
+https://langchain-ai.github.io/langgraph/concepts/human_in_the_loop/ (acesso em 02/11/2026).</li>
+<li>Regulamento da União Europeia (UE) 2024/1689 (AI Act), art. 14 — supervisão humana.
+https://eur-lex.europa.eu/eli/reg/2024/1689/oj (acesso em 02/11/2026).</li>
+<li>NIST. <em>Artificial Intelligence Risk Management Framework (AI RMF 1.0)</em>, NIST AI 100-1, 2023.
+https://doi.org/10.6028/NIST.AI.100-1 (acesso em 02/11/2026).</li>
+<li><code>ddd-by-examples/library</code>, README, seção <em>Domain description</em>.
+https://github.com/ddd-by-examples/library (acesso em 02/11/2026).</li>
+</ul>
+</article>
+    <nav class="paginacao" aria-label="Anterior e próximo"><a class="pg-prev" href="01-a-mudanca-de-unidade-de-trabalho-exemplo.html"><small>← anterior</small>Exemplo executável — 01 A mudança de unidade de trabalho</a><a class="pg-next" href="02-o-problema-da-confianca-exemplo.html"><small>próximo →</small>Exemplo executável — 02 O problema da confiança</a></nav>
+    <footer class="rodape">
+      <a href="https://github.com/GHDaru/agentic_software_engineering">github.com/GHDaru/agentic_software_engineering</a>
+       · <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/02-o-problema-da-confianca/capitulo.md">fonte desta página</a>
+      · gerado de <code>livro/</code> por <code>publicar/build.mjs</code>
+    </footer>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body></html>

@@ -1,0 +1,6 @@
+{"esperado": "reprova",
+ "historia": "a palavra que declara a ausência aceita como evidência (Maestro, ciclos 061/062)",
+ "executou": "implementador",
+ "revisao": null,
+ "cauda": {"review": {"marcada": true, "evidencia": "pendente."}},
+ "gate": {"tipo": "merge", "por": "ana"}}

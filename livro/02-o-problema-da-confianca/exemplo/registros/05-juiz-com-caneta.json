@@ -1,0 +1,6 @@
+{"esperado": "reprova",
+ "historia": "o papel que julga é um papel que escreve: revisão feita pelo qa, que tem Write",
+ "executou": "implementador",
+ "revisao": {"por": "qa", "contexto_fresco": true, "evidencia": "parecer: corrigi três linhas durante a revisão"},
+ "cauda": {"review": {"marcada": true, "evidencia": "ver revisao.evidencia"}},
+ "gate": {"tipo": "merge", "por": "ana"}}

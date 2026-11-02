@@ -1,0 +1,6 @@
+{"esperado": "reprova",
+ "historia": "o agente aprova o merge sozinho, sem delegação escrita: ninguém responde pela consequência",
+ "executou": "implementador",
+ "revisao": {"por": "revisor", "contexto_fresco": true, "evidencia": "parecer: aprovado sem achados"},
+ "cauda": {"review": {"marcada": true, "evidencia": "ver revisao.evidencia"}},
+ "gate": {"tipo": "merge", "por": "regente"}}

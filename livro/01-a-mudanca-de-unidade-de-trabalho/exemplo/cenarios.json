@@ -1,0 +1,12 @@
+{
+  "_nota": "Parametros ILUSTRATIVOS, nao medidos. Unidade: horas-equivalentes por mudanca. g = gerar; v = verificar; p = chance de a mudanca estar errada (bug ou intencao errada); d = fracao dos erros que a verificacao pega antes de integrar; u = custo de desfazer um erro que escapou; b = tamanho do lote (mudancas integradas juntas).",
+  "cenarios": [
+    {"id": "A", "nome": "humano digita, revisao comum",          "g": 8.0,  "v": 1.0, "p": 0.15, "d": 0.70, "u": 6.0,  "b": 3},
+    {"id": "B", "nome": "agente sem verificacao, lote grande",   "g": 0.25, "v": 0.0, "p": 0.30, "d": 0.00, "u": 6.0,  "b": 10},
+    {"id": "C", "nome": "agente + verificacao, lote grande",     "g": 0.25, "v": 1.0, "p": 0.30, "d": 0.70, "u": 6.0,  "b": 10},
+    {"id": "D", "nome": "agente + spec + verificacao, lote de 1","g": 0.25, "v": 1.0, "p": 0.15, "d": 0.70, "u": 6.0,  "b": 1},
+    {"id": "E", "nome": "D, mas a acao e irreversivel",          "g": 0.25, "v": 1.0, "p": 0.15, "d": 0.70, "u": 60.0, "b": 1},
+    {"id": "F", "nome": "E + gate humano antes de agir",         "g": 0.25, "v": 1.5, "p": 0.15, "d": 0.95, "u": 60.0, "b": 1}
+  ],
+  "sensibilidade": {"base": "D", "g": [8.0, 2.0, 0.5, 0.1, 0.01]}
+}

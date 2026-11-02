@@ -1,0 +1,3 @@
+Decidimos trocar o SQLite por arquivos JSONL. Atualize a decisão de arquitetura.
+
+Decisões de arquitetura ficam em `docs/adr/NNNN-<slug>.md`. Cada uma tem uma linha `Status:` (Aceito ou Superado) e, quando substitui outra, uma linha `Supersede: NNNN`. O índice `docs/adr/README.md` tem uma linha por decisão, com número, título e status.

@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exemplo executável — 04 A spec como partitura · Engenharia de Software Orientada por Agentes</title>
+<meta name="description" content="Governança operacional para um humano regendo muitos agentes">
+<script>try{var t=localStorage.getItem("tema");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="assets/estilo.css">
+</head><body>
+<header class="barra">
+  <button id="alt-menu" aria-label="Abrir o sumário" aria-expanded="false" aria-controls="sidebar">☰ <span>Sumário</span></button>
+  <a class="barra-titulo" href="index.html">Engenharia de Software Orientada por Agentes</a>
+  <button id="alt-tema" aria-label="Alternar tema claro/escuro">◐</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="marca" href="index.html">Engenharia de Software Orientada por Agentes<small>Agentic Software Engineering</small></a>
+    <div class="nav-parte">Abertura</div><ul><li><a href="00-prefacio.html">Prefácio</a></li></ul><div class="nav-parte">Parte I — Por que agentes mudam a engenharia</div><ul><li><a href="01-a-mudanca-de-unidade-de-trabalho.html">1. A mudança de unidade de trabalho</a></li><li class="filho"><a class="filho" href="01-a-mudanca-de-unidade-de-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="02-o-problema-da-confianca.html">2. O problema da confiança</a></li><li class="filho"><a class="filho" href="02-o-problema-da-confianca-exemplo.html">Exemplo executável</a></li><li><span class="pendente" title="em escrita">3. Um humano, muitos agentes</span></li></ul><div class="nav-parte">Parte II — Especificar e dar contexto</div><ul><li><a href="04-a-spec-como-partitura.html">4. A spec como partitura</a></li><li class="filho"><a class="filho ativo" aria-current="page" href="04-a-spec-como-partitura-exemplo.html">Exemplo executável</a></li><li><span class="pendente" title="em escrita">5. Engenharia de contexto</span></li><li><span class="pendente" title="em escrita">6. Como dividir o trabalho</span></li><li><span class="pendente" title="em escrita">7. Papéis e skills</span></li><li><span class="pendente" title="em escrita">8. DDD para agentes</span></li></ul><div class="nav-parte">Parte III — Provar e conter</div><ul><li><span class="pendente" title="em escrita">9. Arquitetura que se defende</span></li><li><a href="10-quality-gates-que-provam-fatos.html">10. Quality gates que provam fatos</a></li><li class="filho"><a class="filho" href="10-quality-gates-que-provam-fatos-exemplo.html">Exemplo executável</a></li><li><span class="pendente" title="em escrita">11. Risco, reversibilidade e autonomia</span></li><li><span class="pendente" title="em escrita">12. Ferramentas, MCP e o ecossistema</span></li></ul><div class="nav-parte">Parte IV — Medir e aprender</div><ul><li><span class="pendente" title="em escrita">13. Observabilidade e economia</span></li><li><span class="pendente" title="em escrita">14. A organização que aprende</span></li><li><span class="pendente" title="em escrita">15. Validando o Maestro</span></li><li><span class="pendente" title="em escrita">16. O futuro da engenharia agêntica</span></li></ul><div class="nav-parte">Apêndices</div><ul><li><span class="pendente" title="em escrita">A. O Maestro em uma página</span></li><li><a href="apendice-b-aseg-bench.html">B. ASEG-Bench — um benchmark de governança</a></li><li><span class="pendente" title="em escrita">C. Pacote de replicação</span></li><li><span class="pendente" title="em escrita">D. Estudos de campo do ecossistema</span></li></ul>
+  </aside>
+  <main class="conteudo">
+    <article class="markdown"><h1 id="exemplo-do-capítulo-4--a-spec-como-insumo" tabindex="-1">Exemplo do capítulo 4 — a spec como insumo <a class="header-anchor" href="#exemplo-do-capítulo-4--a-spec-como-insumo" aria-hidden="true">#</a></h1>
+<p>O que este exemplo prova, em sete passos: uma spec escrita em forma EARS (<em>Easy Approach to
+Requirements Syntax</em>) é <strong>verificável por máquina</strong>; a mesma intenção escrita como prompt não
+é; os testes leem os números <strong>da spec</strong>, de modo que, quando a spec muda primeiro, o código
+fica vermelho em vez de ficar silenciosamente desatualizado; e a decisão de quanto processo
+cada mudança merece sai de três fatores, não do tamanho do diff.</p>
+<p>Requisito: Python 3.8+ (só biblioteca padrão) e bash. Nada pago, nada de rede.</p>
+<h2 id="como-rodar" tabindex="-1">Como rodar <a class="header-anchor" href="#como-rodar" aria-hidden="true">#</a></h2>
+<pre><code class="language-bash">cd livro/04-a-spec-como-partitura/exemplo
+bash rodar.sh                               # imprime a saída
+bash rodar.sh | diff - saida-esperada.txt   # confere: nenhuma linha de diferença
+</code></pre>
+<p>No Windows, rode no Git Bash. O script procura <code>python3</code>, <code>python</code> e <code>py</code>, nessa ordem, e
+usa o primeiro que for Python 3.8+ (no Git Bash o <code>python3</code> costuma ser um atalho que não
+executa; o script detecta e passa adiante). Para forçar um interpretador: <code>PYTHON=... bash rodar.sh</code>.</p>
+<h2 id="os-arquivos" tabindex="-1">Os arquivos <a class="header-anchor" href="#os-arquivos" aria-hidden="true">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Arquivo</th>
+<th>Papel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>spec.md</code></td>
+<td>a spec aprovada: três requisitos em EARS, fora de escopo, critérios como <code>comando</code> → esperado, clarify</td>
+</tr>
+<tr>
+<td><code>casos/spec-vaga.md</code></td>
+<td>a mesma intenção escrita como chega num prompt</td>
+</tr>
+<tr>
+<td><code>casos/spec-v2.md</code></td>
+<td>a spec depois de o comercial baixar o limite e pedir um requisito novo</td>
+</tr>
+<tr>
+<td><code>frete.py</code></td>
+<td>a implementação (o limite é uma constante — o código &quot;a jusante&quot;)</td>
+</tr>
+<tr>
+<td><code>test_frete.py</code></td>
+<td>os testes; leem o limite da spec indicada em <code>SPEC</code></td>
+</tr>
+<tr>
+<td><code>partitura.py</code></td>
+<td><code>lint</code> (EARS × desejo), <code>rastreio</code> (requisito ↔ teste), <code>valor</code>, <code>raia</code></td>
+</tr>
+<tr>
+<td><code>mudancas.json</code></td>
+<td>cinco mudanças para classificar por raia</td>
+</tr>
+<tr>
+<td><code>saida-esperada.txt</code></td>
+<td>a saída de <code>bash rodar.sh</code>, conferida em 02/11/2026</td>
+</tr>
+<tr>
+<td><code>medir_maestro.py</code></td>
+<td>opcional: reproduz os números do capítulo num clone do Maestro</td>
+</tr>
+</tbody>
+</table>
+<h2 id="saída-esperada" tabindex="-1">Saída esperada <a class="header-anchor" href="#saída-esperada" aria-hidden="true">#</a></h2>
+<p>Os passos 2, 5 e 6 saem com código 1 <strong>de propósito</strong>: são o vermelho que o capítulo descreve.</p>
+<pre><code class="language-text">
+== 1. a spec aprovada passa no lint (todo requisito é verificável)
+lint spec.md
+  ✓ FR1      EARS
+  ✓ FR2      EARS
+  ✓ FR3      EARS
+  ✓ critério PAR
+  ✓ critério PAR
+✓ 5 item(ns), todos verificáveis.
+(exit 0)
+
+== 2. a mesma intenção escrita como prompt: três desejos e um requisito
+lint casos/spec-vaga.md
+  ✗ FR1      DESEJO  fora da forma EARS e sem comando que o prove
+  ✓ FR2      EARS
+  ✗ FR3      DESEJO  comportamento não observável ('rápid…')
+  ✗ critério DESEJO  fora da forma EARS e sem comando que o prove
+✗ 3 desejo(s): reescreva como QUANDO &lt;condição&gt;, O SISTEMA DEVE &lt;comportamento observável&gt;, ou como `comando` → esperado.
+(exit 1)
+
+== 3. cada requisito tem teste, e nenhum teste existe sem requisito
+rastreio spec.md ↔ test_frete.py
+  ✓ FR1 → test_fr1_*
+  ✓ FR2 → test_fr2_*
+  ✓ FR3 → test_fr3_*
+✓ 3 requisito(s), cada um com teste; nenhum teste sem requisito.
+(exit 0)
+
+== 4. os testes leem o limite DA SPEC e passam
+testes contra spec.md
+  ok      test_fr1_frete_zero_a_partir_do_limite
+  ok      test_fr2_tabela_abaixo_do_limite
+  ok      test_fr3_subtotal_negativo_recusado
+✓ 3 de 3 passaram.
+(exit 0)
+
+== 5. a spec muda primeiro (v2): o rastreio acusa o requisito novo sem teste
+rastreio casos/spec-v2.md ↔ test_frete.py
+  ✓ FR1 → test_fr1_*
+  ✓ FR2 → test_fr2_*
+  ✓ FR3 → test_fr3_*
+  ✗ FR4 sem teste: requisito que ninguém prova
+✗ 1 órfão(s) entre spec e teste.
+(exit 1)
+
+== 6. ... e os testes ficam vermelhos até o código seguir a spec
+testes contra casos/spec-v2.md
+  FALHOU  test_fr1_frete_zero_a_partir_do_limite: subtotal 150.00: esperado 0.00, obtido 25.00
+  ok      test_fr2_tabela_abaixo_do_limite
+  ok      test_fr3_subtotal_negativo_recusado
+✗ 1 de 3 falharam: a spec andou e o código ficou para trás.
+(exit 1)
+
+== 7. quanto processo cada mudança merece (ambiguidade × raio × irreversibilidade)
+raia mudancas.json
+  leve   corrigir erro de digitação na mensagem do checkout
+         amb=baixa · raio=baixo · irrev=baixa → o pull request é o artefato
+  leve   bug: frete da região norte cobrado em dobro
+         amb=baixa · raio=baixo · irrev=baixa → o pull request é o artefato; exige teste que reproduz o bug falhando antes
+  plena  frete grátis acima de um valor (spec.md)
+         amb=media · raio=baixo · irrev=baixa → na dúvida entre leve e plena, plena
+  plena  trocar o formato da tabela de frete lida por três serviços
+         amb=baixa · raio=alto · irrev=media → spec completa
+  infra  mover a tabela de frete para outro banco (uma linha de configuração)
+         amb=baixa · raio=baixo · irrev=alta → migracao nunca é leve: plena + reversibilidade
+distribuição (visibilidade, nunca veredito): leve: 2 · plena: 2 · infra: 1
+(exit 0)
+</code></pre>
+<h2 id="para-fechar-o-ciclo-da-v2-exercício" tabindex="-1">Para fechar o ciclo da v2 (exercício) <a class="header-anchor" href="#para-fechar-o-ciclo-da-v2-exercício" aria-hidden="true">#</a></h2>
+<ol>
+<li>Escreva <code>test_fr4_regiao_desconhecida_recusada</code> em <code>test_frete.py</code>.</li>
+<li>Mude <code>LIMITE_FRETE_GRATIS</code> para <code>150.00</code> e faça <code>frete()</code> levantar <code>ValueError</code> para
+região fora da tabela.</li>
+<li><code>python partitura.py rastreio casos/spec-v2.md test_frete.py</code> e
+<code>SPEC=casos/spec-v2.md python test_frete.py</code> devem sair 0. (Os passos 4 e 6 do
+<code>rodar.sh</code> mudam junto: a saída esperada é a da spec v1.)</li>
+</ol>
+<h2 id="os-números-do-capítulo-opcional" tabindex="-1">Os números do capítulo (opcional) <a class="header-anchor" href="#os-números-do-capítulo-opcional" aria-hidden="true">#</a></h2>
+<pre><code class="language-bash">git clone https://github.com/GHDaru/maestro
+python medir_maestro.py ./maestro 19823c2
+</code></pre>
+<p>Saída conferida em 02/11/2026:</p>
+<pre><code class="language-text">Maestro @ 19823c2
+  pastas em specs/: 76 · com spec.md: 76
+  spec.md com 'O SISTEMA DEVE': 48
+  raias (total): plena: 54 · leve: 15 · infra: 5 · sem raia legível: 2
+  raias, ciclos 001–033: plena: 20 · leve: 12
+  raias, ciclos 034 em diante: plena: 33 · infra: 5 · leve: 3 · sem raia legível: 2
+  pasta specs/040-*: não existe
+Maestro @ 100a8af (véspera do ciclo 023)
+  pastas em specs/: 21 · spec.md com 'O SISTEMA DEVE': 14 · raias: plena: 19 · leve: 2
+</code></pre>
+<p><code>plena</code> soma as duas grafias do cabeçalho (<code>Raia: plena</code> e <code>Lane: full</code>). As duas specs
+&quot;sem raia legível&quot; são <code>066-painel-de-regencia</code> (cabeçalho ainda com o marcador do template)
+e <code>070-conferidor-ordem-veredito</code> (evidência importada de outro projeto, sem cabeçalho de
+ciclo).</p>
+<h2 id="o-que-o-exemplo-simplifica" tabindex="-1">O que o exemplo simplifica <a class="header-anchor" href="#o-que-o-exemplo-simplifica" aria-hidden="true">#</a></h2>
+<ul>
+<li>O <code>lint</code> reconhece a forma EARS e uma lista curta de palavras vagas; não entende
+português. Ele pega o desejo óbvio, não o sutil — um verificador de forma, não de mérito.</li>
+<li>A regra de raia trata irreversibilidade alta como infra mesmo fora de infraestrutura;
+no método, a raia infra é para infraestrutura, migração e implantação, e o bloco de
+reversibilidade é o que muda. A simplificação é do exemplo.</li>
+<li>Os testes leem um número da spec; não geram código a partir dela. O ponto não é gerar
+tudo automaticamente — é a spec estar <strong>a montante</strong>, de modo que mudá-la quebre algo.</li>
+</ul>
+</article>
+    <nav class="paginacao" aria-label="Anterior e próximo"><a class="pg-prev" href="04-a-spec-como-partitura.html"><small>← anterior</small>04 — A spec como partitura</a><a class="pg-next" href="10-quality-gates-que-provam-fatos.html"><small>próximo →</small>10 — Quality gates que provam fatos</a></nav>
+    <footer class="rodape">
+      <a href="https://github.com/GHDaru/agentic_software_engineering">github.com/GHDaru/agentic_software_engineering</a>
+       · <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/04-a-spec-como-partitura/exemplo/README.md">fonte desta página</a>
+      · gerado de <code>livro/</code> por <code>publicar/build.mjs</code>
+    </footer>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body></html>

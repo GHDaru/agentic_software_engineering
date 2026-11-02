@@ -1,0 +1,36 @@
+== configuração dos papéis (R0)
+  aviso R0 'revisor' julga e tem Bash: o shell também escreve
+  aviso R0 'seguranca' julga e tem Bash: o shell também escreve
+  ✓ nenhum papel que julga tem Write/Edit
+
+== registros de fechamento
+  ✓ 01-integro: passa (esperado: passa)
+  ✓ 02-autor-revisa: reprova (esperado: reprova)
+      - R1 quem revisou ('implementador') é quem executou
+      - R2 'implementador' não é papel que julga
+      - R3 revisão em contexto herdado: o revisor carregou os becos do autor
+      - R4 caixa marcada com evidência que é ausência: 'ok'
+  ✓ 03-caixa-sem-testemunha: reprova (esperado: reprova)
+      - R1 não há revisão: ninguém além do autor olhou
+      - R4 caixa marcada com evidência que é ausência: '<pendente>'
+  ✓ 04-pendente-como-prova: reprova (esperado: reprova)
+      - R1 não há revisão: ninguém além do autor olhou
+      - R4 caixa marcada com evidência que é ausência: 'pendente.'
+  ✓ 05-juiz-com-caneta: reprova (esperado: reprova)
+      - R2 'qa' não é papel que julga
+  ✓ 06-contexto-herdado: reprova (esperado: reprova)
+      - R3 revisão em contexto herdado: o revisor carregou os becos do autor
+  ✓ 07-gate-por-agente: reprova (esperado: reprova)
+      - R5 gate 'merge' aberto por 'regente' (agente) sem delegação escrita
+  ✓ 08-gate-delegado: passa (esperado: passa)
+  ✓ 09-gate-delegado-sem-critico: reprova (esperado: reprova)
+      - R5 gate delegado sem crítico em contexto fresco
+  ✓ 10-regente-executou: reprova (esperado: reprova)
+      - R5 quem abre o gate por delegação executou o trabalho
+
+== prova por mutação: o portão acusa quando a regra é violada?
+  revisor ganha Edit -> R0 acusa
+  delegação revogada -> 08-gate-delegado reprova
+
+resultado: 10/10 registros com o veredito esperado; mutações acusadas: 2/2
+✓ verificação de confiança OK

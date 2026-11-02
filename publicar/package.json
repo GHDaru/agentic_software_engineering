@@ -1,0 +1,13 @@
+{
+  "name": "livro-esoa-publicar",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "description": "Motor de publicação do livro Engenharia de Software Orientada por Agentes (Markdown -> docs/ para o GitHub Pages).",
+  "scripts": { "build": "node build.mjs" },
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "markdown-it": "^14.1.0",
+    "markdown-it-anchor": "^9.2.0"
+  }
+}

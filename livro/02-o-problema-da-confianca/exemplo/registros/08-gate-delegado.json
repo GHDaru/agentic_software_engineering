@@ -1,0 +1,7 @@
+{"esperado": "passa",
+ "historia": "gate por delegação de política: humano delegou por escrito, a regente não executou, um crítico fresco deu parecer antes",
+ "executou": "implementador",
+ "revisao": {"por": "revisor", "contexto_fresco": true, "evidencia": "parecer: APPROVE_WITH_CONDITIONS, 5 condições fechadas"},
+ "cauda": {"review": {"marcada": true, "evidencia": "ver revisao.evidencia"}},
+ "gate": {"tipo": "merge", "por": "regente", "delegacao": "deleg-2026-10-24",
+          "critico": {"por": "guardiao", "contexto_fresco": true, "parecer": "APPROVE_WITH_CONDITIONS"}}}

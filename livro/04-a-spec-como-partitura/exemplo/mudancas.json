@@ -1,0 +1,12 @@
+[
+  {"descricao": "corrigir erro de digitação na mensagem do checkout",
+   "ambiguidade": "baixa", "raio": "baixo", "irreversibilidade": "baixa"},
+  {"descricao": "bug: frete da região norte cobrado em dobro",
+   "tipo": "bug", "ambiguidade": "baixa", "raio": "baixo", "irreversibilidade": "baixa"},
+  {"descricao": "frete grátis acima de um valor (spec.md)",
+   "ambiguidade": "media", "raio": "baixo", "irreversibilidade": "baixa"},
+  {"descricao": "trocar o formato da tabela de frete lida por três serviços",
+   "ambiguidade": "baixa", "raio": "alto", "irreversibilidade": "media"},
+  {"descricao": "mover a tabela de frete para outro banco (uma linha de configuração)",
+   "tipo": "migracao", "ambiguidade": "baixa", "raio": "baixo", "irreversibilidade": "alta"}
+]

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exemplo executável — 10 Quality gates que provam fatos · Engenharia de Software Orientada por Agentes</title>
+<meta name="description" content="Governança operacional para um humano regendo muitos agentes">
+<script>try{var t=localStorage.getItem("tema");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="assets/estilo.css">
+</head><body>
+<header class="barra">
+  <button id="alt-menu" aria-label="Abrir o sumário" aria-expanded="false" aria-controls="sidebar">☰ <span>Sumário</span></button>
+  <a class="barra-titulo" href="index.html">Engenharia de Software Orientada por Agentes</a>
+  <button id="alt-tema" aria-label="Alternar tema claro/escuro">◐</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="marca" href="index.html">Engenharia de Software Orientada por Agentes<small>Agentic Software Engineering</small></a>
+    <div class="nav-parte">Abertura</div><ul><li><a href="00-prefacio.html">Prefácio</a></li></ul><div class="nav-parte">Parte I — Por que agentes mudam a engenharia</div><ul><li><a href="01-a-mudanca-de-unidade-de-trabalho.html">1. A mudança de unidade de trabalho</a></li><li class="filho"><a class="filho" href="01-a-mudanca-de-unidade-de-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="02-o-problema-da-confianca.html">2. O problema da confiança</a></li><li class="filho"><a class="filho" href="02-o-problema-da-confianca-exemplo.html">Exemplo executável</a></li><li><span class="pendente" title="em escrita">3. Um humano, muitos agentes</span></li></ul><div class="nav-parte">Parte II — Especificar e dar contexto</div><ul><li><a href="04-a-spec-como-partitura.html">4. A spec como partitura</a></li><li class="filho"><a class="filho" href="04-a-spec-como-partitura-exemplo.html">Exemplo executável</a></li><li><span class="pendente" title="em escrita">5. Engenharia de contexto</span></li><li><span class="pendente" title="em escrita">6. Como dividir o trabalho</span></li><li><span class="pendente" title="em escrita">7. Papéis e skills</span></li><li><span class="pendente" title="em escrita">8. DDD para agentes</span></li></ul><div class="nav-parte">Parte III — Provar e conter</div><ul><li><span class="pendente" title="em escrita">9. Arquitetura que se defende</span></li><li><a href="10-quality-gates-que-provam-fatos.html">10. Quality gates que provam fatos</a></li><li class="filho"><a class="filho ativo" aria-current="page" href="10-quality-gates-que-provam-fatos-exemplo.html">Exemplo executável</a></li><li><span class="pendente" title="em escrita">11. Risco, reversibilidade e autonomia</span></li><li><span class="pendente" title="em escrita">12. Ferramentas, MCP e o ecossistema</span></li></ul><div class="nav-parte">Parte IV — Medir e aprender</div><ul><li><span class="pendente" title="em escrita">13. Observabilidade e economia</span></li><li><span class="pendente" title="em escrita">14. A organização que aprende</span></li><li><span class="pendente" title="em escrita">15. Validando o Maestro</span></li><li><span class="pendente" title="em escrita">16. O futuro da engenharia agêntica</span></li></ul><div class="nav-parte">Apêndices</div><ul><li><span class="pendente" title="em escrita">A. O Maestro em uma página</span></li><li><a href="apendice-b-aseg-bench.html">B. ASEG-Bench — um benchmark de governança</a></li><li><span class="pendente" title="em escrita">C. Pacote de replicação</span></li><li><span class="pendente" title="em escrita">D. Estudos de campo do ecossistema</span></li></ul>
+  </aside>
+  <main class="conteudo">
+    <article class="markdown"><h1 id="exemplo-do-capítulo-10--provar-um-portão-por-mutação" tabindex="-1">Exemplo do capítulo 10 — provar um portão por mutação <a class="header-anchor" href="#exemplo-do-capítulo-10--provar-um-portão-por-mutação" aria-hidden="true">#</a></h1>
+<p>Três propriedades, dois portões para cada uma: um mede o <strong>proxy</strong> (a forma que um portão
+real do Maestro tinha antes de alguém o quebrar de propósito), o outro mede o <strong>fato</strong>. Um
+harness pequeno põe os seis à prova com fixtures — e separa portão de decoração.</p>
+<table>
+<thead>
+<tr>
+<th>Arquivo</th>
+<th>O que é</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>portoes.py</code></td>
+<td>os seis portões, funções puras (texto → verde/vermelho)</td>
+</tr>
+<tr>
+<td><code>casos.json</code></td>
+<td>para cada propriedade: fixture positiva, fixtures legítimas e mutações</td>
+</tr>
+<tr>
+<td><code>provar.py</code></td>
+<td>o harness: roda cada portão contra cada fixture e dá o veredito</td>
+</tr>
+</tbody>
+</table>
+<p>Cada propriedade em <code>casos.json</code> segue a forma de <em>gate mutation</em> estruturado: <strong>propriedade</strong>,
+<strong>fixture positiva</strong> (o mundo certo), <strong>fixtures negativas</strong> (o mundo quebrado de propósito) e
+<strong>resultado esperado</strong> (verde na positiva, vermelho em cada negativa). A fixture <em>legítima</em> é a
+quarta peça que o capítulo defende: um mundo certo de forma incômoda, que o portão não pode
+reprovar — senão ele vira falso vermelho, e portão de falso vermelho se aprende a ignorar.</p>
+<h2 id="como-rodar" tabindex="-1">Como rodar <a class="header-anchor" href="#como-rodar" aria-hidden="true">#</a></h2>
+<p>Requisito: Python 3.8 ou mais novo, sem dependência externa. No Git Bash do Windows, onde
+<code>python3</code> pode ser um atalho vazio, use <code>python</code>.</p>
+<pre><code class="language-bash">cd livro/10-quality-gates-que-provam-fatos/exemplo
+python3 provar.py               # os seis portões
+python3 provar.py --so fato     # só os que medem o fato
+</code></pre>
+<h2 id="saída-esperada" tabindex="-1">Saída esperada <a class="header-anchor" href="#saída-esperada" aria-hidden="true">#</a></h2>
+<p><code>python3 provar.py</code> — <strong>sai com código 1</strong>, e é esse o ponto: três dos seis portões são decoração.</p>
+<pre><code class="language-text">P1 — a evidência de TAIL:review registra uma revisão que aconteceu
+  P1/ingenua  mutações mortas 1/8  →  DECORAÇÃO
+      ✗ mutação sobreviveu: 'pendente.'
+      ✗ mutação sobreviveu: 'não executada'
+      ✗ mutação sobreviveu: 'ainda não executada'
+      ✗ mutação sobreviveu: '(pendente)'
+      ✗ mutação sobreviveu: '&gt; pendente'
+      ✗ mutação sobreviveu: 'NÃO EXECUTADA'
+      ✗ mutação sobreviveu: 'token fora da linha da cauda'
+  P1/fato     mutações mortas 8/8  →  PORTÃO
+P2 — a página declara o número certo de fontes
+  P2/ingenua  mutações mortas 2/3  →  DECORAÇÃO
+      ✗ falso vermelho em 'duas fontes na mesma linha'
+      ✗ mutação sobreviveu: 'prosa citando o prefixo conta como fonte'
+  P2/fato     mutações mortas 3/3  →  PORTÃO
+P3 — o aviso de limiar afirma a porcentagem certa
+  P3/ingenua  mutações mortas 0/3  →  DECORAÇÃO
+      ✗ mutação sobreviveu: 'fator 100 aplicado duas vezes'
+      ✗ mutação sobreviveu: 'aviso sem número'
+      ✗ mutação sobreviveu: 'número de outra sessão'
+  P3/fato     mutações mortas 3/3  →  PORTÃO
+resumo: 6 portões provados, 3 portão(ões), 3 decoração(ões)
+</code></pre>
+<p><code>python3 provar.py --so fato</code> — <strong>sai com código 0</strong>:</p>
+<pre><code class="language-text">P1 — a evidência de TAIL:review registra uma revisão que aconteceu
+  P1/fato     mutações mortas 8/8  →  PORTÃO
+P2 — a página declara o número certo de fontes
+  P2/fato     mutações mortas 3/3  →  PORTÃO
+P3 — o aviso de limiar afirma a porcentagem certa
+  P3/fato     mutações mortas 3/3  →  PORTÃO
+resumo: 3 portões provados, 3 portão(ões), 0 decoração(ões)
+</code></pre>
+<p>Conferido em 02/11/2026 com Python 3.12.10 (Windows 11, Git Bash): as duas saídas acima são
+cópia literal da execução.</p>
+<h2 id="o-que-observar" tabindex="-1">O que observar <a class="header-anchor" href="#o-que-observar" aria-hidden="true">#</a></h2>
+<ul>
+<li><strong>Os três portões ingênuos ficam verdes na fixture positiva.</strong> Rodados só no caminho feliz,
+os seis parecem iguais. Só a mutação os separa.</li>
+<li><strong>P1/ingenua mata uma mutação em oito</strong> — a do marcador <code>&lt;...&gt;</code> que o gerador de ciclo
+escreve. É o portão que reconhece a forma que <em>ele mesmo</em> produz, não a ausência de fato.</li>
+<li><strong>P2/ingenua erra nos dois sentidos</strong>: reprova a página certa (duas fontes numa linha) e
+aprova a errada (a palavra <code>https://</code> na prosa). Contar linhas não é contar itens.</li>
+<li><strong>P3/ingenua não mata nada.</strong> A palavra &quot;limite&quot; está em todo aviso, certo ou errado.</li>
+</ul>
+<h2 id="exercício-quebre-o-portão-bom" tabindex="-1">Exercício: quebre o portão bom <a class="header-anchor" href="#exercício-quebre-o-portão-bom" aria-hidden="true">#</a></h2>
+<p>Abra <code>portoes.py</code> e afrouxe o P1/fato: na constante <code>_AUSENCIA</code>, troque o começo do padrão
+<code>r&quot;^[\s&gt;(*_</code>-]*(ainda\s+)?(pendente|<code>por</code>r&quot;(ainda\s+)?(pendente|<code>, e em </code>evidencia_fato<code>troque</code>_AUSENCIA.match(valor)<code>por</code>_AUSENCIA.search(valor)<code>. Rode </code>python3 provar.py --so fato`.
+Saída esperada (código 1):</p>
+<pre><code class="language-text">P1 — a evidência de TAIL:review registra uma revisão que aconteceu
+  P1/fato     mutações mortas 8/8  →  DECORAÇÃO
+      ✗ falso vermelho em ''pendente' no meio da frase'
+</code></pre>
+<p>O portão continua matando as oito mutações — e passou a reprovar a evidência legítima. É o
+defeito espelhado que o ciclo 063 do Maestro evitou ao ler o vocabulário <strong>do início</strong> da
+evidência: a correção ingênua de um proxy costuma ser outro proxy. Desfaça a mudança antes de
+seguir.</p>
+</article>
+    <nav class="paginacao" aria-label="Anterior e próximo"><a class="pg-prev" href="10-quality-gates-que-provam-fatos.html"><small>← anterior</small>10 — Quality gates que provam fatos</a><a class="pg-next" href="apendice-b-aseg-bench.html"><small>próximo →</small>Apêndice B — ASEG-Bench — um benchmark de governança</a></nav>
+    <footer class="rodape">
+      <a href="https://github.com/GHDaru/agentic_software_engineering">github.com/GHDaru/agentic_software_engineering</a>
+       · <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/10-quality-gates-que-provam-fatos/exemplo/README.md">fonte desta página</a>
+      · gerado de <code>livro/</code> por <code>publicar/build.mjs</code>
+    </footer>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body></html>

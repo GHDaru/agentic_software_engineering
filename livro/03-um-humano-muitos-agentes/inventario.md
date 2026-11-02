@@ -1,0 +1,88 @@
+# Inventário do capítulo 3
+
+Gerado de `pesquisa/inventario/itens.json` (02/11/2026).
+
+## Itens PRINCIPAIS (32) — cada um tem de estar coberto neste capítulo
+
+| id | fonte | resumo | falha real |
+|---|---|---|---|
+| CICLOS-B-036 | maestro:specs/066-painel-de-coordenacao-v0/spec.md | Ciclo 066 v0: painel localhost que projeta os arquivos, spec retroativa do código Hindiana (16 sessões, ~160 worktrees, 52 desvios em três dias); supera em parte o dashboard YAGNI. |  |
+| CICLOS-B-041 | maestro:specs/068-chamados-gate-a-gate/spec.md | Ciclo 068 (retroativo): um chamado, uma pasta; cada gate, um entregável — a tela deriva o estado dos arquivos e mostra custo por sessão; o estado digitado envelhecia em horas. |  |
+| CICLOS-B-047 | maestro:specs/072-painel-de-regencia/spec.md | Ciclo 072 rodada 1: kanban por gate e fila de decisões, consumindo o conferidor do 068/069; gate DoR delegado a crítico independente (ADR 0026). |  |
+| DECISOES-019 | maestro:docs/adr/0022-painel-de-coordenacao-como-projecao-dos-arquivos.md | ADR 0022: painel de coordenação (stdlib, localhost) com DORA com fonte; SQLite é projeção reconstruída a cada ingestão, única escrita direta é eventos. Não há linha adr-0022 em decisoes.jsonl. |  |
+| DECISOES-028 | maestro:docs/adr/0031-abas-de-contexto-no-topo.md | ADR 0031: vistas irmãs viram abas no topo (SectionTabs) e a regra (ag) do verificador do 074 deixa de valer, com dívida legada declarada. |  |
+| DECISOES-088 | maestro:docs/records/decisoes.jsonl#decisao-074-prototipo-navegavel | Abertura do 074: protótipo clicável por contexto delimitado com contrato de ações simuladas e DoD verifica-navegacao.py. |  |
+| DECISOES-111 | maestro:docs/roadmap.md#F34-F35 | F34–F35: workflow em SQLite (parcial) e painel de regência rodada 1. |  |
+| DECISOES-142 | maestro:docs/ecosystem/ideias/018-frota-de-agentes.md | Ideia 018 (claude-flow): frota de agentes — observar até a atenção humana governar. |  |
+| DECISOES-165 | maestro:docs/ecosystem/ideias/041-diagrama-vivo-do-time.md | Ideia 041 (archify): diagrama vivo do time — observar. |  |
+| LIVRO-METODO-055 | livro:maestro-handbook/handbook/06-papeis-raci.md §5.2 | Armadilha do funil: ser A por item recria fazer tudo sozinho com uma etapa de leitura a mais; ser A pela politica, gates e criterios e o que escala. |  |
+| LIVRO-METODO-061 | livro:maestro-handbook/handbook/07-cerimonias-cadencia.md §5.1 | Cerimonia e funcao, nao reuniao: planejamento vira dar forma + spec, revisao vira checkpoint de ciclo, daily e refinamento cortados por nao terem funcao com um humano + N agentes. |  |
+| LIVRO-METODO-063 | livro:maestro-handbook/handbook/07-cerimonias-cadencia.md §5.3 | WIP e limitado pela atencao humana, nao pela capacidade dos agentes: frentes paralelas funilam pelos mesmos gates humanos. |  |
+| LIVRO-METODO-064 | livro:maestro-handbook/handbook/07-cerimonias-cadencia.md §4 | Paralelize dentro de uma feature ja decidida, nao entre features ambiguas; para escalar, barateie o gate em vez de abrir frentes. |  |
+| LIVRO-METODO-065 | livro:maestro-handbook/handbook/07-cerimonias-cadencia.md §4 | Apetite (Shape Up): tempo fixo, escopo variavel; quando o tempo acaba corta-se escopo, ilustrado pela migracao de capitulos um por ciclo. |  |
+| LIVRO-METODO-066 | livro:maestro-handbook/handbook/07-cerimonias-cadencia.md §5.4 | Kanban adotado (limite de WIP = atencao humana), Shape Up adotado como esqueleto, Scrum parcial e Scrumban observado. |  |
+| LIVRO-METODO-071 | livro:maestro-handbook/handbook/07-cerimonias-cadencia.md §6 | WIP de um: 26 ciclos com apenas duas branches (dev e main), sem frente paralela. |  |
+| LIVRO-METODO-137 | livro:maestro-handbook/handbook/apendice-b-superpowers.md §6 | Continuous execution (nao perguntar 'continuo?') validada: atencao humana se gasta em gates, nao em progresso. |  |
+| LIVRO-METODO-209 | livro:maestro-handbook/diagramas/06-fluxo-v5-proposta.md; maestro commit 9be9c3f | Lacuna 1: a fila existe (roadmap por dependencia, gatilhos), mas sem dono por item nem criterio de elegibilidade; 'por que este ciclo' segue julgamento nao registrado. | sim |
+| LIVRO-METODO-218 | maestro:docs/jornada/072-painel-de-regencia.md | Objetivo do regente: 'em 5 segundos, saber o que me espera e quem morreu; em 5 minutos, decidir' (Kanban por gate G0-G9 e Fila de decisoes). |  |
+| LIVRO-METODO-219 | maestro:docs/jornada/072-painel-de-regencia.md | Anti-regras do painel conferidas: vazio e informacao, '-' com motivo nunca valor padrao, nada marcado conferido que foi calculado a mao, veredito original ao lado do normalizado. |  |
+| LIVRO-METODO-220 | maestro:docs/jornada/072-painel-de-regencia.md; maestro commit 02e434f | R1: derivacao preguicosa sem estado 'carregando' faz o painel frio mostrar vazio que nao e o estado do projeto; o script contorna com aquecimento, a tela nao. | sim |
+| LIVRO-METODO-221 | maestro:docs/jornada/072-painel-de-regencia.md; maestro commit 02e434f | R7: o quadro G0-G9 empilha numa coluna de 232 px a 1440x900, medido na pagina renderizada; registrado para a rodada 2. | sim |
+| LIVRO-METODO-279 | livro:pesquisa/base-de-pesquisa.md §Agenda metricas | Metrica: espera humana. |  |
+| GOV-043 | maestro:docs/governance/operating-model.md | Cerimônias (§5): esqueleto Shape Up + Kanban, sem Scrum; WIP limitado a uma feature/spec por vez; shaping, execução, checkpoint, cooldown e retrospectiva. |  |
+| GOV-044 | maestro:docs/governance/operating-model.md | Apetite (Shape Up): ciclo de tempo fixo e escopo variável; quando o apetite acaba corta-se escopo, não se estende prazo. |  |
+| GOV-065 | maestro:docs/governance/glossary.md | Ref de sessão expira ao reiniciar; por isso a identidade de sessão é escrita 'nome · ref · projeto' e endereçar é por ref, nunca pelo 'mais provável'. |  |
+| GOV-071 | maestro:docs/governance/glossary.md | Painel de regência, pedido de decisão, ruling e portão do regente (ciclo 072): read-model local que nunca promove nem decide; ruling sem autor ou destinatário é recusado; G7, G8 e TAIL:gate só o humano registra. |  |
+| GOV-075 | maestro:docs/governance/glossary.md | Frase-chave e registrar ruling (ciclo 074): a frase de abertura da tela conta os pedidos de decisão abertos e envelhece o mais antigo, derivada da fila; registrar um ruling baixa o contador. |  |
+| GOV-080 | maestro:docs/governance/task-ledger.md | Protocolo de tags [[TASK ...]] / [[DONE ...]]: tag sozinha na linha; contam o primeiro TASK e o último DONE da mensagem; auditoria carrega target e verdict; é o contrato entre sessão gerente e workers. |  |
+| GOV-152 | maestro:scripts/README.md | Princípio dos scripts (II + III): o script faz a parte mecânica do ritual repetido e o gate fica humano; cada script nasceu de dor real em retro; os marcados '¹' não viajam com a instalação. |  |
+| GOV-181 | maestro:scripts/multi-session.py | Lançador multissessão (ciclo 066): abre as sessões do ciclo no Windows Terminal com --model por sessão (gerente num modelo, workers noutro), uma git worktree por worker para isolar edições, e nenhum segredo no repositório. |  |
+| GOV-182 | maestro:scripts/test_multi_session_retomar.py @ 1a70b25 | --retomar (ciclo 074): o time caiu e cada pane reabriu sessão NOVA perdendo o contexto vivo; agora cada pane usa --resume '<nome>' --name '<nome>', porque sessão renascida com outro nome não é achada pelos pares. | sim |
+
+## Itens SECUNDÁRIOS (43) — o capítulo principal é outro; cite ou remeta quando servir ao argumento
+
+| id | fonte | resumo | principal |
+|---|---|---|---|
+| CICLOS-B-033 | maestro:specs/065-o-metodo-se-cobra-e-bate-o-ponto/spec.md · commit dda2225 | Ciclo 065: autocobrança por hook Stop e ponto de tarefas ([[TASK]]/[[DONE]] com tokens e custo); renumerado de 064, mantendo ids 064-* no livro só-acréscimo. | 13 |
+| CICLOS-B-034 | maestro:docs/records/tarefas.jsonl | Livro de ponto append-only: eventos assigned/start/stop com tentativa, redoes, desfecho, duração, tokens por modelo e cost_usd; 52 linhas do ciclo 064/065. | 13 |
+| CICLOS-B-037 | maestro:specs/066-painel-de-regencia/plan.md | Ciclo 066 guarda-chuva: coordenação da integração da linha paralela Hindiana (filhos 066 v0, 067–070, 072) e o lançador multi-sessão com Gerente e Worker01–06. | 6 |
+| CICLOS-B-043 | maestro:specs/069-conferidor-pela-data/spec.md · commit aa0efd1 | O conferidor tomava o último veredito na ordem alfabética do nome; como o hash não tem ordem temporal, o painel mostrava uma FALHA antiga em vez do PASSA novo. | 10 |
+| CICLOS-B-049 | maestro:specs/073-area-administrativa/qa-report.md | Ciclo 073: pesquisa sem software da área administrativa; matriz 25 plataformas × 26 funcionalidades (650 células) e confronto: ENTRA 13, NÃO PRECISA 8, DEPOIS 5. | D |
+| CICLOS-B-050 | maestro:specs/074-prototipo-navegavel/spec.md | Ciclo 074: protótipo navegável com ramo de interface (papel semântico, ux-design, gate de UX, jornada viva); verifica-navegacao.py --mutacao discrimina (boa 0, ruim 24). | 8 |
+| CICLOS-B-051 | maestro:specs/074-prototipo-navegavel/qa-report.md · commit dedc475 | O gate humano de usabilidade de 27/10 reprovou o protótipo: rodada 2 com história por tela e redesenho e congelamento de fragmentos novos. | 10 |
+| CICLOS-B-061 | maestro:specs/076-padroes-de-engenharia-e-react/tasks.md · commit 3719cbd | Corte da v1 (Darú, 01/11): o crítico às cegas sai do caminho de cada fatia e fica um só no fim da v1, mais o gate humano; entram T040, T045 e T047. | 1 |
+| CICLOS-A-043 | maestro:specs/025-capitulo-05-padrao-v2/spec.md @ c47ea48 | Ciclo 025: capítulo 05 (orquestração) no padrão v2 dizendo quais padrões foram usados — encadeamento fixo dominante, avaliador-otimizador em 4 ciclos, padrão autônomo nunca usado em 25 ciclos (regra da menor autonomia). | 6 |
+| CICLOS-A-046 | maestro:specs/027-capitulo-07-padrao-v2/spec.md @ a6b7907 | Ciclo 027: capítulo 07 (cerimônias e cadência) no padrão v2, mostrando a retro produzindo regra versionada pelo histórico do catálogo de anti-padrões e o WIP de um só (git branch -a devolve dev e main). | 14 |
+| CICLOS-A-084 | maestro:specs/043-portoes-na-integracao-continua/qa-report.md @ 746b036 | Falha real (G4): check-conformance foi posto como bloqueante embora fique vermelho do primeiro ao último commit de qualquer ciclo — 'portão vermelho em quase todo push é portão que se aprende a ignorar'; saiu da CI e virou recusa no promote-main.sh. | 10 |
+| DECISOES-001 | maestro:docs/adr/0004-modelo-operacional.md | ADR 0004: papéis viram modos de trabalho com RACI por etapa; quem decide ≠ executa ≠ verifica, o verifica passa a um agente revisor em contexto fresco e o Accountable é sempre humano. Cadência Shape Up + Kanban com WIP=1 e retro individual, sem daily nem sprint planning. | 2 |
+| DECISOES-018 | maestro:docs/adr/0021-o-metodo-se-cobra-e-bate-o-ponto.md | ADR 0021: hook Stop mede conformance --ticked-only e bloqueia uma vez, depois avisa o humano; livro de ponto tarefas.jsonl alimentado por [[TASK]]/[[DONE]] via maestro-ledger. | 10 |
+| DECISOES-023 | maestro:docs/adr/0026-gate-humano-por-delegacao-de-politica.md | ADR 0026: gate humano decidido pela regente só com delegação escrita, regente que não executou, crítico em contexto fresco com parecer registrado e linha no índice por gate. | 11 |
+| DECISOES-081 | maestro:docs/records/decisoes.jsonl#ciclo-066-integra-painel-controle | 066 inicia seis ciclos de integração da linha paralela (42 branches), merge --no-ff preservando histórico. | 6 |
+| DECISOES-082 | maestro:docs/records/decisoes.jsonl#gate-dev-integra-066-069 | Gate humano dos ciclos 066–069 concedido em bloco no chat, com evidência de conformance, revisão, mutações e CI. | 11 |
+| DECISOES-083 | maestro:docs/records/decisoes.jsonl#decisao-072-gates-delegados | Delegação escrita dos gates à regente com subagente crítico — origem textual do ADR 0026. | 11 |
+| DECISOES-086 | maestro:docs/records/decisoes.jsonl#gate-073-rodada-4-r3-parada | Regra das duas rodadas: o laço para e a regente leva a consolidação ao humano. | 10 |
+| DECISOES-087 | maestro:docs/records/decisoes.jsonl#decisao-073-teto-60 | Teto de consumo elevado de 40% para 60% do semanal após a rodada de juízes chegar a 39%. | 13 |
+| DECISOES-089 | maestro:docs/records/decisoes.jsonl#decisao-074-usabilidade-reprovada · commit 7de8d83 | Gate humano reprovou a usabilidade após verificadores e regente aprovarem: verde mecânico não é certo. | 2 |
+| DECISOES-093 | maestro:docs/records/decisoes.jsonl#gate-074-daru-aprovado | Gate do 074 aprovado em 01/11 pelo corte da v1; coerência segue no 076 com ux-semantics antes de cada tela. | 11 |
+| LIVRO-METODO-008 | livro:maestro-handbook/handbook/01-principio-central.md §4 | Quatro gates indelegaveis: aprovar a spec, aprovar o plano, aprovar o merge, autorizar deploy/migracao. | 11 |
+| LIVRO-METODO-009 | livro:maestro-handbook/handbook/01-principio-central.md §4 | O humano decide a politica, nao a instancia: permitir/negar/perguntar por classe de acao, com a politica registrada (OpenAI Agents, Open Policy Agent avaliados). | 11 |
+| LIVRO-METODO-011 | livro:maestro-handbook/handbook/01-principio-central.md §6 | scripts/promote-main.sh automatiza a execucao do ritual (mover ref, push com retry, registrar decisao) e nao decide: guardas de arvore suja, sem avanco e confirmacao sem --yes verificadas no ciclo 006. | 11 |
+| LIVRO-METODO-012 | livro:maestro-handbook/handbook/01-principio-central.md §7 | Anti-padroes do principio: gate uniforme vira funil/carimbo (quem aprova 200 itens por dia nao aprova nenhum), confundir auditoria com controle, esperar confianca estatistica antes de delegar. | 11 |
+| LIVRO-METODO-045 | livro:maestro-handbook/handbook/05-orquestracao.md §3 | Map-reduce cognitivo: o reduce nao e concatenacao, e julgamento com contexto global, e pertence ao orquestrador (humano). | 6 |
+| LIVRO-METODO-060 | livro:maestro-handbook/handbook/06-papeis-raci.md §5.4 | Papeis Scrum adotados so em parte (Product Owner vira Steward), time T-shaped reinterpretado (agente cobre a largura) e 'aprovo tudo/aprovo nada' rejeitado. | 7 |
+| LIVRO-METODO-070 | livro:maestro-handbook/handbook/07-cerimonias-cadencia.md §6 | scripts/retro.sh pre-computa o material da retro e e somente-leitura por declaracao; a retro continua cerimonia humana. | 14 |
+| LIVRO-METODO-091 | livro:maestro-handbook/handbook/10-gates-classes-de-risco.md §5.1 | Dois fracassos simetricos do gate uniforme: pesado em tudo vira funil e carimbo; leve em tudo deixa o irreversivel passar. | 11 |
+| LIVRO-METODO-096 | livro:maestro-handbook/handbook/10-gates-classes-de-risco.md §6 | --yes do promote-main e escape declarado usado quando o humano ja decidiu na conversa; gate que ninguem consegue pular vira gate contornado por fora. | 11 |
+| LIVRO-METODO-152 | livro:maestro-handbook/handbook/apresentacao-desenvolvimento-maestro.html | Caderno de desenvolvimento (v0.2.0): o ciclo do ponto de vista de quem executa, de intencao a retro, sem daily, planning ou grooming. | 4 |
+| LIVRO-METODO-197 | livro:maestro-handbook/receitas/instalar-o-maestro.md | Livro de ponto opcional (mod maestro-ledger): registra inicio e fim das tarefas [[TASK]]/[[DONE]] com tokens por requisicao em livro append-only, com limites declarados. | 13 |
+| LIVRO-METODO-204 | livro:maestro-handbook/diagramas/05-bpmn-processo.md | BPMN em sete raias (Steward, agentes, ramo de interface, automacao, distribuicao, portoes, artefatos), navegavel: cada caixa e link para o capitulo que a define. | A |
+| LIVRO-METODO-217 | maestro:docs/jornada/072-painel-de-regencia.md | Jornada viva do painel de regencia: capturas do DOM renderizado do build real por script versionado (captura-072.sh) e heuristica datada, cobrindo o que fitness functions de fonte nao cobrem. | 10 |
+| LIVRO-METODO-278 | livro:pesquisa/base-de-pesquisa.md §Agenda metricas | Metrica: tempo de ciclo. | 13 |
+| LIVRO-METODO-304 | livro:pesquisa/base-de-pesquisa.md §Referencias | OMG BPMN 2.0.2. | A |
+| GOV-003 | maestro:docs/governance/principles.md | Princípio II, orquestração governada por humano: papéis são modos de trabalho numa matriz RACI; R/C/I delegáveis a agentes, Accountable sempre humano e responsável pela política, gates e critérios, não por item; verificação por agente independente em contexto fresco. | 2 |
+| GOV-041 | maestro:docs/governance/operating-model.md | Papéis como modos de trabalho (§4): Product Steward e Orchestrator humanos; Spec, Plan, UX, Dev, QA/SDET, Review, Security e Tech Writer como agentes, cada um com seu gate. | 7 |
+| GOV-046 | maestro:docs/governance/operating-model.md | Catálogo de entregáveis (§6) com dono, gate e lugar; o painel de coordenação passou de 'Later/YAGNI' a essencial no ciclo 066 (ADR 0022), com eventos append-only e SQLite como projeção reconstruível. | 14 |
+| GOV-066 | maestro:docs/governance/glossary.md | Agente (perfil) x sessão de agente: o perfil é o par arquivo em .claude/agents + executável, sem ref; a sessão é uma execução, unidade de administração que o humano sobe, observa e derruba. | 7 |
+| GOV-068 | maestro:docs/governance/glossary.md | Chamado e gates G0-G9 (ciclo 068): uma pasta por chamado com arquivo de veredito por gate; estado derivado dos arquivos pelo conferidor (autor != crítico, data não posterior ao commit, runner2 limpo), nunca digitado. | 10 |
+| GOV-070 | maestro:docs/governance/glossary.md | Rodada, passo e outbox (ciclo 070): execução do workflow gravada passo a passo em SQLite; passo sem saída bloqueia o próximo; fila SQLite (WAL) para mensagens entre sessões sem broker. | 6 |
+| GOV-100 | maestro:skills/anti-patterns/SKILL.md | Anti-padrão 5. Retry cego: repetir o mesmo prompt esperando outro resultado; falhou duas vezes, mude prompt, contexto ou tarefa. | 5 |

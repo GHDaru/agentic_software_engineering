@@ -1,0 +1,23 @@
+ciclo,veredito_no_cabecalho,linha_tail_review,revisao,resultado
+042-conformidade-executavel,aprovado depois de reprovado,17,antes-do-gate,reprovou
+043-portoes-na-integracao-continua,aprovado depois de reprovado,18,antes-do-gate,reprovou
+044-speckit-plan-defere-a-declaracao,aprovado depois de reprovado,17,antes-do-gate,reprovou
+045-fechar-v0-1-0,aprovado depois de reprovado,17,antes-do-gate,reprovou
+046-licenca-e-atribuicao,aprovado após reprovação e correção,42,antes-do-gate,reprovou
+047-catalogo-do-ecossistema,aprovado após reprovação e correção,43,antes-do-gate,reprovou
+048-instalacao-que-funciona,aprovado após reprovação e correção,36,antes-do-gate,reprovou
+049-indice-de-adrs-com-portao,aprovado após reprovação e correção,38,antes-do-gate,reprovou
+050-fechar-v0-2-0,aprovado após reprovação e correção,32,antes-do-gate,reprovou
+051-instalador-que-atualiza,aprovado após reprovação e correção,32,antes-do-gate,reprovou
+052-symlink-nao-e-porta-de-saida,aprovado,16,antes-do-gate,nao-mudou
+053-pecas-de-apresentacao,aprovado após correção do parecer,27,antes-do-gate,reprovou
+054-material-de-apresentacao-no-livro,aprovado após correção do parecer,31,antes-do-gate,reprovou
+055-retro-do-portao-que-mede-a-frase,aprovado após correção do parecer,28,antes-do-gate,reprovou
+056-instalar-o-harness,aprovado após correção do parecer,26,antes-do-gate,reprovou
+057-o-agente-e-escolha-declarada,aprovado após correção do parecer,27,antes-do-gate,reprovou
+058-a-porta-da-frente,aprovado após correção do parecer,25,antes-do-gate,reprovou
+059-clonei-e-agora,aprovado após correção do parecer,27,antes-do-gate,reprovou
+060-a-arvore-que-nao-mente,aprovado após correção do parecer,30,antes-do-gate,reprovou
+061-retro-da-caixa-marcada-sem-testemunha,DoD verde; aguardando parecer e portão humano,41,depois-da-promocao,reprovou
+062-fechar-v0-3-0,DoD verde; aguardando parecer e portão humano,41,depois-da-promocao,reprovou
+063-pendente-nao-e-evidencia,DoD verde; aguardando parecer e portão humano,60,antes-do-gate,reprovou

@@ -1,0 +1,7 @@
+{"esperado": "reprova",
+ "historia": "a regente abre o gate por delegação de um trabalho que ela mesma executou",
+ "executou": "regente",
+ "revisao": {"por": "revisor", "contexto_fresco": true, "evidencia": "parecer: aprovado sem achados"},
+ "cauda": {"review": {"marcada": true, "evidencia": "ver revisao.evidencia"}},
+ "gate": {"tipo": "merge", "por": "regente", "delegacao": "deleg-2026-10-24",
+          "critico": {"por": "guardiao", "contexto_fresco": true, "parecer": "APPROVE"}}}

@@ -1,0 +1,6 @@
+{"esperado": "reprova",
+ "historia": "anti-padrão 'autor como revisor': quem escreveu aprova o próprio trabalho",
+ "executou": "implementador",
+ "revisao": {"por": "implementador", "contexto_fresco": false, "evidencia": "revisei com cuidado, está tudo certo"},
+ "cauda": {"review": {"marcada": true, "evidencia": "ok"}},
+ "gate": {"tipo": "merge", "por": "ana"}}

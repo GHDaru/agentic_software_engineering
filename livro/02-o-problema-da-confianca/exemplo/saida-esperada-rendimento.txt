@@ -1,0 +1,28 @@
+  042  antes-do-gate       reprovou   (qa-report.md:17)
+  043  antes-do-gate       reprovou   (qa-report.md:18)
+  044  antes-do-gate       reprovou   (qa-report.md:17)
+  045  antes-do-gate       reprovou   (qa-report.md:17)
+  046  antes-do-gate       reprovou   (qa-report.md:42)
+  047  antes-do-gate       reprovou   (qa-report.md:43)
+  048  antes-do-gate       reprovou   (qa-report.md:36)
+  049  antes-do-gate       reprovou   (qa-report.md:38)
+  050  antes-do-gate       reprovou   (qa-report.md:32)
+  051  antes-do-gate       reprovou   (qa-report.md:32)
+  052  antes-do-gate       nao-mudou  (qa-report.md:16)
+  053  antes-do-gate       reprovou   (qa-report.md:27)
+  054  antes-do-gate       reprovou   (qa-report.md:31)
+  055  antes-do-gate       reprovou   (qa-report.md:28)
+  056  antes-do-gate       reprovou   (qa-report.md:26)
+  057  antes-do-gate       reprovou   (qa-report.md:27)
+  058  antes-do-gate       reprovou   (qa-report.md:25)
+  059  antes-do-gate       reprovou   (qa-report.md:27)
+  060  antes-do-gate       reprovou   (qa-report.md:30)
+  061  depois-da-promocao  reprovou   (qa-report.md:41)
+  062  depois-da-promocao  reprovou   (qa-report.md:41)
+  063  antes-do-gate       reprovou   (qa-report.md:60)
+
+ciclos: 22 · revisão antes do gate: 20 · revisão só depois da promoção: 2
+rendimento da revisão antes do gate: 19/20 = 95.0%
+cobertura da revisão antes do gate: 20/22 = 90.9%
+ciclos reprovados por um parecer, em qualquer momento: 21/22 = 95.5%
+cabeçalho 'aguardando parecer' com parecer no corpo: 3 (061, 062, 063)

@@ -1,0 +1,40 @@
+# Fonte única da ordem do livro. Build e portões leem daqui.
+titulo: Engenharia de Software Orientada por Agentes
+subtitulo: Governança operacional para um humano regendo muitos agentes
+titulo_en: Agentic Software Engineering
+leitor: tech lead
+maestro_ref: 19823c2
+
+prefacio: {slug: 00-prefacio, titulo: Prefácio — por que este livro}
+
+partes:
+  - nome: Parte I — Por que agentes mudam a engenharia
+    capitulos:
+      - {n: 1, slug: 01-a-mudanca-de-unidade-de-trabalho, titulo: A mudança de unidade de trabalho, deriva: [A5]}
+      - {n: 2, slug: 02-o-problema-da-confianca, titulo: O problema da confiança, deriva: [A2, T2]}
+      - {n: 3, slug: 03-um-humano-muitos-agentes, titulo: "Um humano, muitos agentes", deriva: [A1, A3]}
+  - nome: Parte II — Especificar e dar contexto
+    capitulos:
+      - {n: 4, slug: 04-a-spec-como-partitura, titulo: A spec como partitura, deriva: [T1]}
+      - {n: 5, slug: 05-engenharia-de-contexto, titulo: Engenharia de contexto, deriva: [A3, T5]}
+      - {n: 6, slug: 06-como-dividir-o-trabalho, titulo: Como dividir o trabalho, deriva: [A3]}
+      - {n: 7, slug: 07-papeis-e-skills, titulo: Papéis e skills, deriva: [T2]}
+      - {n: 8, slug: 08-ddd-para-agentes, titulo: DDD para agentes, deriva: [A4]}
+  - nome: Parte III — Provar e conter
+    capitulos:
+      - {n: 9, slug: 09-arquitetura-que-se-defende, titulo: Arquitetura que se defende, deriva: [T4]}
+      - {n: 10, slug: 10-quality-gates-que-provam-fatos, titulo: Quality gates que provam fatos, deriva: [T4, T7]}
+      - {n: 11, slug: 11-risco-reversibilidade-e-autonomia, titulo: "Risco, reversibilidade e autonomia", deriva: [T3]}
+      - {n: 12, slug: 12-ferramentas-mcp-e-o-ecossistema, titulo: "Ferramentas, MCP e o ecossistema", deriva: [T3]}
+  - nome: Parte IV — Medir e aprender
+    capitulos:
+      - {n: 13, slug: 13-observabilidade-e-economia, titulo: Observabilidade e economia, deriva: [A5, T7]}
+      - {n: 14, slug: 14-a-organizacao-que-aprende, titulo: A organização que aprende, deriva: [T6, T5]}
+      - {n: 15, slug: 15-validando-o-maestro, titulo: Validando o Maestro, deriva: [T7]}
+      - {n: 16, slug: 16-o-futuro-da-engenharia-agentica, titulo: O futuro da engenharia agêntica, deriva: []}
+
+apendices:
+  - {letra: A, slug: apendices/a-o-maestro-em-uma-pagina, titulo: O Maestro em uma página}
+  - {letra: B, slug: apendices/b-aseg-bench, titulo: ASEG-Bench — um benchmark de governança}
+  - {letra: C, slug: apendices/c-pacote-de-replicacao, titulo: Pacote de replicação}
+  - {letra: D, slug: apendices/d-estudos-de-campo, titulo: Estudos de campo do ecossistema}

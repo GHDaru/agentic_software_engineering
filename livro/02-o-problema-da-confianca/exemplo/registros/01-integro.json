@@ -1,0 +1,6 @@
+{"esperado": "passa",
+ "historia": "o caso correto: agente implementa, outro agente revisa em contexto fresco, humano aprova o merge",
+ "executou": "implementador",
+ "revisao": {"por": "revisor", "contexto_fresco": true, "evidencia": "parecer em qa-report.md: 2 achados bloqueantes, corrigidos em a1b2c3d"},
+ "cauda": {"review": {"marcada": true, "evidencia": "ver revisao.evidencia"}},
+ "gate": {"tipo": "merge", "por": "ana"}}

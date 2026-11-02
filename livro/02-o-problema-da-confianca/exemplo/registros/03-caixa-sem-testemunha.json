@@ -1,0 +1,6 @@
+{"esperado": "reprova",
+ "historia": "a caixa da revisão marcada antes de a revisão existir (Maestro, ciclos 042/043)",
+ "executou": "implementador",
+ "revisao": null,
+ "cauda": {"review": {"marcada": true, "evidencia": "<pendente>"}},
+ "gate": {"tipo": "merge", "por": "ana"}}

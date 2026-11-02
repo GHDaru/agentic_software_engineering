@@ -1,0 +1,6 @@
+{"esperado": "reprova",
+ "historia": "revisor certo, contexto errado: leu a conversa inteira do autor antes de julgar",
+ "executou": "implementador",
+ "revisao": {"por": "revisor", "contexto_fresco": false, "evidencia": "parecer: aprovado, o raciocínio do autor faz sentido"},
+ "cauda": {"review": {"marcada": true, "evidencia": "ver revisao.evidencia"}},
+ "gate": {"tipo": "merge", "por": "ana"}}
