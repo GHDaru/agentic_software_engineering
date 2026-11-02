@@ -1,0 +1,1 @@
+﻿origem: GHDaru/maestro, branch 066-painel-de-regencia, commit 19823c2, copiado em 2026-11-01 23:13. Padrao editorial do livro: ADR 0011 no repositorio do Maestro (docs/adr/0011-livro-padrao-editorial-e-companion.md).

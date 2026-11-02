@@ -1,0 +1,793 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Maestro — como um ciclo atravessa o método",
+    "visual_preset": "blueprint",
+    "quality_profile": "standard",
+    "output": "maestro-workflow.html",
+    "repository": {
+      "url": "https://github.com/GHDaru/maestro.git",
+      "provider": "github",
+      "link_mode": "web",
+      "revision": "39a86bad312d3a70b19c43f6821ac23db0f3f405"
+    }
+  },
+  "lanes": [
+    {
+      "id": "humano",
+      "label": "Darú (Accountable)"
+    },
+    {
+      "id": "agentes",
+      "label": "Agentes (Responsible)"
+    },
+    {
+      "id": "portoes",
+      "label": "Portões, scripts e hooks"
+    },
+    {
+      "id": "artefatos",
+      "label": "Artefatos vivos"
+    },
+    {
+      "id": "excecao",
+      "label": "Vermelho e retrospectiva",
+      "variant": "exception"
+    }
+  ],
+  "phases": [
+    {
+      "id": "especificar",
+      "label": "Especificar",
+      "fromCol": 0,
+      "toCol": 1
+    },
+    {
+      "id": "planejar",
+      "label": "Planejar",
+      "fromCol": 2,
+      "toCol": 2,
+      "variant": "emphasis"
+    },
+    {
+      "id": "executar",
+      "label": "Executar",
+      "fromCol": 3,
+      "toCol": 3
+    },
+    {
+      "id": "provar",
+      "label": "Provar (cauda)",
+      "fromCol": 4,
+      "toCol": 4,
+      "variant": "security"
+    },
+    {
+      "id": "gate",
+      "label": "Portão humano",
+      "fromCol": 5,
+      "toCol": 5,
+      "variant": "dashed"
+    }
+  ],
+  "groups": [
+    {
+      "id": "cauda",
+      "label": "TAIL: review · security · mutation · gate",
+      "lane": "agentes",
+      "fromCol": 4,
+      "toCol": 5,
+      "variant": "security"
+    },
+    {
+      "id": "fitness",
+      "label": "Fitness functions: check-*.sh",
+      "lane": "portoes",
+      "fromCol": 3,
+      "toCol": 5,
+      "variant": "emphasis"
+    },
+    {
+      "id": "ciclo",
+      "label": "specs/NNN-slug/",
+      "lane": "artefatos",
+      "fromCol": 1,
+      "toCol": 4,
+      "variant": "dashed"
+    }
+  ],
+  "mainPath": [
+    "pedido",
+    "spec_agent",
+    "gate_dor",
+    "plan_architect",
+    "gate_plan",
+    "dev",
+    "dod",
+    "review",
+    "conformance",
+    "ci",
+    "gate_merge"
+  ],
+  "nodes": [
+    {
+      "id": "pedido",
+      "lane": "humano",
+      "col": 0,
+      "type": "external",
+      "label": "Intenção",
+      "sublabel": "pedido do humano",
+      "icon": "person",
+      "width": 150,
+      "sources": [
+        {
+          "path": "docs/governance/principles.md",
+          "line": 21,
+          "label": "Princípio I: spec-driven"
+        }
+      ]
+    },
+    {
+      "id": "gate_dor",
+      "lane": "humano",
+      "col": 1,
+      "type": "security",
+      "label": "DoR: spec aprovada",
+      "sublabel": "não delegável",
+      "icon": "decision",
+      "width": 150,
+      "sources": [
+        {
+          "path": ".specify/templates/spec-template.md",
+          "line": 56,
+          "label": "GATE no template"
+        },
+        {
+          "path": "docs/governance/operating-model.md",
+          "line": 147,
+          "label": "§7 DoR e DoD"
+        }
+      ]
+    },
+    {
+      "id": "gate_plan",
+      "lane": "humano",
+      "col": 2,
+      "type": "security",
+      "label": "Plano aprovado",
+      "sublabel": "guardião dá o veredito",
+      "icon": "decision",
+      "width": 150,
+      "sources": [
+        {
+          "path": ".specify/templates/plan-template.md",
+          "line": 5,
+          "label": "Constitution Check"
+        },
+        {
+          "path": ".claude/agents/process-guardian.md",
+          "line": 2,
+          "label": "guardião"
+        },
+        {
+          "path": "docs/governance/operating-model.md",
+          "line": 185,
+          "label": "§8 gates humanos"
+        }
+      ]
+    },
+    {
+      "id": "gate_merge",
+      "lane": "humano",
+      "col": 5,
+      "type": "security",
+      "label": "TAIL:gate → promote",
+      "sublabel": "DoD verde → promote-main.sh",
+      "tag": "não delegável",
+      "icon": "flag",
+      "width": 150,
+      "sources": [
+        {
+          "path": ".specify/templates/tasks-template.md",
+          "line": 62,
+          "label": "TAIL:gate"
+        },
+        {
+          "path": "scripts/promote-main.sh",
+          "line": 68,
+          "label": "registra gate-main"
+        },
+        {
+          "path": "docs/governance/principles.md",
+          "line": 27,
+          "label": "Princípio II"
+        }
+      ]
+    },
+    {
+      "id": "spec_agent",
+      "lane": "agentes",
+      "col": 1,
+      "type": "backend",
+      "label": "spec-agent",
+      "sublabel": "o quê e por quê",
+      "width": 150,
+      "sources": [
+        {
+          "path": ".claude/agents/spec-agent.md",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "id": "plan_architect",
+      "lane": "agentes",
+      "col": 2,
+      "type": "backend",
+      "label": "plan-architect",
+      "sublabel": "raia · CC · ART · DOM",
+      "tag": "constitution-check",
+      "width": 150,
+      "sources": [
+        {
+          "path": ".claude/agents/plan-architect.md",
+          "line": 2
+        },
+        {
+          "path": "skills/constitution-check/SKILL.md",
+          "line": 8,
+          "label": "Iron Law"
+        },
+        {
+          "path": "docs/governance/operating-model.md",
+          "line": 41,
+          "label": "§3 raias"
+        }
+      ]
+    },
+    {
+      "id": "dev",
+      "lane": "agentes",
+      "col": 3,
+      "type": "backend",
+      "label": "dev-implementer + qa",
+      "sublabel": "teste antes do código",
+      "tag": "verifiable-dod",
+      "width": 150,
+      "sources": [
+        {
+          "path": ".claude/agents/dev-implementer.md",
+          "line": 2
+        },
+        {
+          "path": ".claude/agents/qa.md",
+          "line": 2
+        },
+        {
+          "path": "skills/verifiable-dod/SKILL.md",
+          "line": 8,
+          "label": "Iron Law"
+        }
+      ]
+    },
+    {
+      "id": "review",
+      "lane": "agentes",
+      "col": 4,
+      "type": "security",
+      "label": "review",
+      "sublabel": "contexto fresco",
+      "tag": "quem executa não verifica",
+      "width": 150,
+      "sources": [
+        {
+          "path": ".claude/agents/review.md",
+          "line": 2
+        },
+        {
+          "path": ".claude/commands/eval.md",
+          "line": 1,
+          "label": "/eval"
+        },
+        {
+          "path": "docs/governance/principles.md",
+          "line": 27,
+          "label": "Princípio II"
+        }
+      ]
+    },
+    {
+      "id": "security",
+      "lane": "agentes",
+      "col": 5,
+      "type": "security",
+      "label": "security + mutation",
+      "sublabel": "classe de risco · mutação",
+      "width": 150,
+      "sources": [
+        {
+          "path": ".claude/agents/security.md",
+          "line": 2
+        },
+        {
+          "path": "scripts/check-conformance.sh",
+          "line": 24,
+          "label": "TAIL:mutation"
+        }
+      ]
+    },
+    {
+      "id": "skills",
+      "lane": "portoes",
+      "col": 0,
+      "type": "messagebus",
+      "label": "Skills primeiro",
+      "sublabel": "6 skills com Iron Law",
+      "width": 150,
+      "sources": [
+        {
+          "path": "CLAUDE.md",
+          "line": 23,
+          "label": "Skills first"
+        },
+        {
+          "path": "skills/README.md",
+          "line": 1
+        },
+        {
+          "path": "skills/anti-patterns/SKILL.md",
+          "line": 8,
+          "label": "anti-patterns"
+        }
+      ]
+    },
+    {
+      "id": "new_cycle",
+      "lane": "portoes",
+      "col": 1,
+      "type": "backend",
+      "label": "new-cycle.sh",
+      "sublabel": "abre specs/NNN-slug",
+      "width": 150,
+      "sources": [
+        {
+          "path": "scripts/new-cycle.sh",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "hooks",
+      "lane": "portoes",
+      "col": 2,
+      "type": "security",
+      "label": "Hooks",
+      "sublabel": "guard · session-state · stop",
+      "width": 150,
+      "sources": [
+        {
+          "path": "scripts/hooks/guard-immutables.py",
+          "line": 1
+        },
+        {
+          "path": "scripts/hooks/session-state.sh",
+          "line": 1
+        },
+        {
+          "path": "scripts/hooks/stop-conformance.py",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "dod",
+      "lane": "portoes",
+      "col": 3,
+      "type": "security",
+      "label": "/dod",
+      "sublabel": "testes + check-*.sh",
+      "tag": "prove, não afirme",
+      "icon": "decision",
+      "width": 150,
+      "sources": [
+        {
+          "path": ".claude/commands/dod.md",
+          "line": 1
+        },
+        {
+          "path": "docs/governance/operating-model.md",
+          "line": 253,
+          "label": "§12 enforcement"
+        }
+      ]
+    },
+    {
+      "id": "conformance",
+      "lane": "portoes",
+      "col": 4,
+      "type": "security",
+      "label": "check-conformance.sh",
+      "sublabel": "CC 8/8 · ART · DOM · TAIL",
+      "icon": "decision",
+      "width": 150,
+      "sources": [
+        {
+          "path": "scripts/check-conformance.sh",
+          "line": 295,
+          "label": "Constitution Check"
+        },
+        {
+          "path": "scripts/check-conformance.sh",
+          "line": 57,
+          "label": "DOM_FLOOR"
+        }
+      ]
+    },
+    {
+      "id": "ci",
+      "lane": "portoes",
+      "col": 5,
+      "type": "cloud",
+      "label": "CI",
+      "sublabel": "changelog + gates",
+      "icon": "decision",
+      "width": 150,
+      "sources": [
+        {
+          "path": ".github/workflows/ci.yml",
+          "line": 28,
+          "label": "job changelog"
+        },
+        {
+          "path": ".github/workflows/ci.yml",
+          "line": 57,
+          "label": "job gates"
+        },
+        {
+          "path": ".github/pull_request_template.md",
+          "line": 1,
+          "label": "checklist da PR"
+        }
+      ]
+    },
+    {
+      "id": "spec_md",
+      "lane": "artefatos",
+      "col": 1,
+      "type": "database",
+      "label": "spec.md",
+      "sublabel": "FR em EARS + aceite",
+      "width": 150,
+      "sources": [
+        {
+          "path": ".specify/templates/spec-template.md",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "plan_tasks",
+      "lane": "artefatos",
+      "col": 2,
+      "type": "database",
+      "label": "plan.md + tasks.md",
+      "sublabel": "CC · ART · DOM · TAIL",
+      "width": 150,
+      "sources": [
+        {
+          "path": ".specify/templates/plan-template.md",
+          "line": 66,
+          "label": "DOM:aggregate"
+        },
+        {
+          "path": ".specify/templates/tasks-template.md",
+          "line": 50,
+          "label": "cauda"
+        },
+        {
+          "path": "docs/governance/task-ledger.md",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "codigo",
+      "lane": "artefatos",
+      "col": 3,
+      "type": "database",
+      "label": "Código + testes",
+      "sublabel": "mesmo PR",
+      "width": 150,
+      "sources": [
+        {
+          "path": "docs/governance/principles.md",
+          "line": 39,
+          "label": "Princípio IV"
+        }
+      ]
+    },
+    {
+      "id": "qa_report",
+      "lane": "artefatos",
+      "col": 4,
+      "type": "database",
+      "label": "qa-report.md",
+      "sublabel": "evidência de cada TAIL",
+      "width": 150,
+      "sources": [
+        {
+          "path": ".specify/templates/qa-report-template.md",
+          "line": 1
+        },
+        {
+          "path": "docs/governance/artifacts.md",
+          "line": 1,
+          "label": "catálogo"
+        }
+      ]
+    },
+    {
+      "id": "vivos",
+      "lane": "artefatos",
+      "col": 5,
+      "type": "database",
+      "label": "CHANGELOG · ADR",
+      "sublabel": "roadmap · decisoes.jsonl",
+      "tag": "hook recusa reescrita",
+      "width": 150,
+      "sources": [
+        {
+          "path": "CHANGELOG.md",
+          "line": 6,
+          "label": "forcing function"
+        },
+        {
+          "path": "docs/adr/README.md",
+          "line": 1
+        },
+        {
+          "path": "docs/records/decisoes.jsonl",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "vermelho",
+      "lane": "excecao",
+      "col": 3,
+      "type": "security",
+      "label": "Portão vermelho",
+      "sublabel": "diagnosticar antes de corrigir",
+      "tag": "diagnose-before-fix",
+      "icon": "failure",
+      "width": 150,
+      "sources": [
+        {
+          "path": "skills/diagnose-before-fix/SKILL.md",
+          "line": 8,
+          "label": "Iron Law"
+        }
+      ]
+    },
+    {
+      "id": "retro",
+      "lane": "excecao",
+      "col": 5,
+      "type": "messagebus",
+      "label": "Retrospectiva",
+      "sublabel": "achado → regra versionada",
+      "width": 150,
+      "sources": [
+        {
+          "path": "scripts/retro.sh",
+          "line": 1
+        },
+        {
+          "path": "scripts/check-retro.sh",
+          "line": 1
+        },
+        {
+          "path": "docs/governance/principles.md",
+          "line": 58,
+          "label": "Princípio VII"
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "from": "pedido",
+      "to": "spec_agent",
+      "label": "intenção",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e2",
+      "from": "spec_agent",
+      "to": "gate_dor",
+      "label": "spec",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e3",
+      "from": "gate_dor",
+      "to": "plan_architect",
+      "label": "aprovada",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e4",
+      "from": "plan_architect",
+      "to": "gate_plan",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e5",
+      "from": "gate_plan",
+      "to": "dev",
+      "label": "tasks",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e6",
+      "from": "dev",
+      "to": "dod",
+      "label": "DoD?",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e7",
+      "from": "dod",
+      "to": "review",
+      "label": "verde",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e8",
+      "from": "review",
+      "to": "conformance",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e9",
+      "from": "conformance",
+      "to": "ci",
+      "label": "verde",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e10",
+      "from": "ci",
+      "to": "gate_merge",
+      "label": "PR verde",
+      "variant": "emphasis"
+    },
+    {
+      "id": "s1",
+      "from": "skills",
+      "to": "spec_agent",
+      "label": "aplica-se?",
+      "variant": "dashed"
+    },
+    {
+      "id": "s3",
+      "from": "spec_agent",
+      "to": "spec_md",
+      "variant": "dashed",
+      "role": "async"
+    },
+    {
+      "id": "s5",
+      "from": "plan_architect",
+      "to": "plan_tasks",
+      "variant": "dashed",
+      "role": "async"
+    },
+    {
+      "id": "s8",
+      "from": "hooks",
+      "to": "dev",
+      "label": "recusa reescrita",
+      "variant": "security"
+    },
+    {
+      "id": "s9",
+      "from": "dev",
+      "to": "codigo",
+      "variant": "dashed",
+      "role": "async"
+    },
+    {
+      "id": "s11",
+      "from": "review",
+      "to": "qa_report",
+      "label": "veredito",
+      "variant": "dashed",
+      "role": "async"
+    },
+    {
+      "id": "s12",
+      "from": "security",
+      "to": "qa_report",
+      "label": "classe + mutação",
+      "variant": "dashed",
+      "role": "async"
+    },
+    {
+      "id": "s13",
+      "from": "qa_report",
+      "to": "conformance",
+      "label": "evidência",
+      "variant": "default"
+    },
+    {
+      "id": "s14",
+      "from": "vivos",
+      "to": "ci",
+      "label": "gate CHANGELOG",
+      "variant": "default"
+    },
+    {
+      "id": "s15",
+      "from": "gate_merge",
+      "to": "vivos",
+      "label": "gate-main-sha",
+      "variant": "dashed",
+      "role": "async"
+    },
+    {
+      "id": "x1",
+      "from": "dod",
+      "to": "vermelho",
+      "label": "vermelho",
+      "variant": "security",
+      "role": "error"
+    },
+    {
+      "id": "x2",
+      "from": "conformance",
+      "to": "vermelho",
+      "label": "falta evidência",
+      "variant": "security",
+      "role": "error"
+    },
+    {
+      "id": "x3",
+      "from": "vermelho",
+      "to": "dev",
+      "label": "corrige e roda de novo",
+      "variant": "dashed",
+      "role": "return"
+    },
+    {
+      "id": "x4",
+      "from": "retro",
+      "to": "vivos",
+      "label": "ADR + regra",
+      "variant": "dashed",
+      "role": "branch"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Oito princípios (constituição 1.3.0)",
+      "items": [
+        "I spec-driven · II humano rege · III reversibilidade × raio de impacto",
+        "IV prove, não afirme · V economia de contexto · VI artefatos vivos",
+        "VII governança leve (YAGNI) · VIII sigla nunca nasce nua"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "O que nunca é delegado",
+      "items": [
+        "DoR, plano e TAIL:gate são do humano",
+        "Quem executa não verifica: revisão em contexto fresco",
+        "ADR, decisoes.jsonl e ideias: só acréscimo (hook recusa)"
+      ]
+    }
+  ]
+}
