@@ -61,8 +61,8 @@ OK    ids citados = ids registrados                obtido: 15 citados, 15 regist
 7 conferências, 0 falha(s), 0 pulada(s)
 ```
 
-Num clone que **não** tem o `19823c2` — o caso de qualquer clone do repositório público em
-03/11/2026, porque o *commit* ainda está só numa *branch* local do autor (CLAIM-93-014). Saída 1:
+Num clone que **não** tem o `19823c2` — o caso de qualquer clone do repositório público até
+03/11/2026, quando o *commit* estava só numa *branch* local do autor (CLAIM-93-014); desde então ele está em `livro-ref-19823c2` (CLAIM-93-016). Saída 1:
 
 ```text
 FALHA 19823c2 existe no clone                      obtido: ausente   esperado: commit

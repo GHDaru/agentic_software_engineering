@@ -206,12 +206,12 @@ qualquer versão numerada. É por isso que cada link ao Maestro neste livro apon
 <code>blob/19823c2/…</code>, e não para uma versão: o <em>commit</em> é a única referência que congela de fato o
 que foi lido. Um <em>commit</em> resolve a reprodução, mas não a comunicação. &quot;Rodei com o Maestro
 <code>19823c2</code>&quot; não diz a um leitor o que mudou desde a 0.3.0, e uma <em>release</em> diria.</p>
-<p>Há um furo maior, e ele vale ser dito antes de você clonar. Na mesma consulta de 03/11/2026, o
-repositório aceita leitura anônima, mas nenhuma das 50 <em>branches</em> públicas contém o <em>commit</em>
-<code>19823c2</code>: ele está numa <em>branch</em> local do autor que ainda não foi publicada [CLAIM-93-014]. Até
-ser publicado, um clone feito por você não tem a versão de referência, e o passo 1 do roteiro
-mais abaixo falha. O pacote não esconde isso: o script do exemplo deste apêndice marca
-<code>FALHA</code> exatamente nesse ponto. Um <em>commit</em> de referência que só existe na máquina do autor é o
+<p>Houve um furo maior, e ele vale ser contado. Na primeira consulta de 03/11/2026, o
+repositório aceitava leitura anônima, mas nenhuma das 50 <em>branches</em> públicas continha o <em>commit</em>
+<code>19823c2</code>: ele estava numa <em>branch</em> local do autor [CLAIM-93-014]. Um clone feito por um leitor
+não tinha a versão de referência, o passo 1 do roteiro mais abaixo falhava, e o script do exemplo
+deste apêndice marcava <code>FALHA</code> exatamente nesse ponto. A crítica do livro achou o furo, e no mesmo
+dia o <em>commit</em> foi publicado na <em>branch</em> <code>livro-ref-19823c2</code> [CLAIM-93-016]. Um <em>commit</em> de referência que só existe na máquina do autor é o
 caso-limite da epígrafe, e é o primeiro item a corrigir antes de qualquer <em>run</em>.</p>
 <h2 id="as-hipóteses-o-que-o-livro-afirma-sem-ter-medido" tabindex="-1">As hipóteses: o que o livro afirma sem ter medido <a class="header-anchor" href="#as-hipóteses-o-que-o-livro-afirma-sem-ter-medido" aria-hidden="true">#</a></h2>
 <p>Boa parte deste livro descreve o que aconteceu num repositório: um ciclo, um <em>commit</em>, um
@@ -475,7 +475,7 @@ coisa.</li>
 <p>O roteiro, de ponta a ponta:</p>
 <pre><code class="language-bash"># 1. o método na versão de referência
 git clone https://github.com/GHDaru/maestro.git &amp;&amp; cd maestro
-git cat-file -t 19823c2                      # → commit (em 03/11/2026: ainda falha, ver acima)
+git cat-file -t 19823c2                      # → commit (publicado em livro-ref-19823c2)
 
 # 2. um claim medido do prefácio (CLAIM-00-008: oito princípios)
 git show 19823c2:docs/governance/principles.md | grep -cE '^### [IVX]+\.'   # → 8
@@ -599,10 +599,10 @@ do <em>harness</em>; essa pretensão é ela mesma uma hipótese.</p>
 inteira [CLAIM-93-012], e <code>check-claims.sh</code> prova que cada id citado está registrado. Nenhum dos
 dois prova que o método funciona ou que o número está certo. A segunda prova é sua: rodar a
 evidência.</p>
-<p><strong>A versão de referência ainda não é pública.</strong> Em 03/11/2026 o <em>commit</em> <code>19823c2</code> não está em
-nenhuma <em>branch</em> do repositório público [CLAIM-93-014]. Até estar, todo claim cuja evidência
-começa por <code>git show 19823c2:</code> é conferível só na máquina do autor, e a epígrafe deste apêndice
-vale contra ele mesmo.</p>
+<p><strong>A versão de referência é uma <em>branch</em>, não uma <em>tag</em>.</strong> O <em>commit</em> <code>19823c2</code> ficou público em
+03/11/2026 na <em>branch</em> <code>livro-ref-19823c2</code> [CLAIM-93-016]; até então só existia na máquina do autor
+[CLAIM-93-014]. Uma <em>branch</em> pode ser apagada ou movida; uma <em>tag</em> anotada seria a âncora mais
+firme, e ainda não existe.</p>
 <p><strong>Não há <em>release</em> para citar.</strong> A referência é um <em>commit</em> posterior à última versão numerada
 [CLAIM-93-013]. Reproduzir funciona; comparar com &quot;a versão anterior&quot; exige ler o histórico do
 <code>CHANGELOG.md</code>.</p>

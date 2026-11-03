@@ -152,12 +152,12 @@ qualquer versão numerada. É por isso que cada link ao Maestro neste livro apon
 que foi lido. Um *commit* resolve a reprodução, mas não a comunicação. "Rodei com o Maestro
 `19823c2`" não diz a um leitor o que mudou desde a 0.3.0, e uma *release* diria.
 
-Há um furo maior, e ele vale ser dito antes de você clonar. Na mesma consulta de 03/11/2026, o
-repositório aceita leitura anônima, mas nenhuma das 50 *branches* públicas contém o *commit*
-`19823c2`: ele está numa *branch* local do autor que ainda não foi publicada [CLAIM-93-014]. Até
-ser publicado, um clone feito por você não tem a versão de referência, e o passo 1 do roteiro
-mais abaixo falha. O pacote não esconde isso: o script do exemplo deste apêndice marca
-`FALHA` exatamente nesse ponto. Um *commit* de referência que só existe na máquina do autor é o
+Houve um furo maior, e ele vale ser contado. Na primeira consulta de 03/11/2026, o
+repositório aceitava leitura anônima, mas nenhuma das 50 *branches* públicas continha o *commit*
+`19823c2`: ele estava numa *branch* local do autor [CLAIM-93-014]. Um clone feito por um leitor
+não tinha a versão de referência, o passo 1 do roteiro mais abaixo falhava, e o script do exemplo
+deste apêndice marcava `FALHA` exatamente nesse ponto. A crítica do livro achou o furo, e no mesmo
+dia o *commit* foi publicado na *branch* `livro-ref-19823c2` [CLAIM-93-016]. Um *commit* de referência que só existe na máquina do autor é o
 caso-limite da epígrafe, e é o primeiro item a corrigir antes de qualquer *run*.
 
 ## As hipóteses: o que o livro afirma sem ter medido
@@ -385,7 +385,7 @@ O roteiro, de ponta a ponta:
 ```bash
 # 1. o método na versão de referência
 git clone https://github.com/GHDaru/maestro.git && cd maestro
-git cat-file -t 19823c2                      # → commit (em 03/11/2026: ainda falha, ver acima)
+git cat-file -t 19823c2                      # → commit (publicado em livro-ref-19823c2)
 
 # 2. um claim medido do prefácio (CLAIM-00-008: oito princípios)
 git show 19823c2:docs/governance/principles.md | grep -cE '^### [IVX]+\.'   # → 8
@@ -524,10 +524,10 @@ inteira [CLAIM-93-012], e `check-claims.sh` prova que cada id citado está regis
 dois prova que o método funciona ou que o número está certo. A segunda prova é sua: rodar a
 evidência.
 
-**A versão de referência ainda não é pública.** Em 03/11/2026 o *commit* `19823c2` não está em
-nenhuma *branch* do repositório público [CLAIM-93-014]. Até estar, todo claim cuja evidência
-começa por `git show 19823c2:` é conferível só na máquina do autor, e a epígrafe deste apêndice
-vale contra ele mesmo.
+**A versão de referência é uma *branch*, não uma *tag*.** O *commit* `19823c2` ficou público em
+03/11/2026 na *branch* `livro-ref-19823c2` [CLAIM-93-016]; até então só existia na máquina do autor
+[CLAIM-93-014]. Uma *branch* pode ser apagada ou movida; uma *tag* anotada seria a âncora mais
+firme, e ainda não existe.
 
 **Não há *release* para citar.** A referência é um *commit* posterior à última versão numerada
 [CLAIM-93-013]. Reproduzir funciona; comparar com "a versão anterior" exige ler o histórico do

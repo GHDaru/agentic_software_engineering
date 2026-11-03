@@ -19,7 +19,7 @@
   <main class="conteudo">
     <article class="markdown"><h1 id="evidências-claims" tabindex="-1">Evidências (CLAIMS) <a class="header-anchor" href="#evidências-claims" aria-hidden="true">#</a></h1>
 <p>Toda afirmação quantitativa do livro tem um id aqui. Estados: <code>medido</code>, <code>observado</code>, <code>hipótese</code>. Gerado por <code>scripts/consolidar.py</code> a partir de <code>livro/*/claims.md</code>.</p>
-<p>Total: 645 claims.</p>
+<p>Total: 646 claims.</p>
 <h2 id="00-prefacio-12" tabindex="-1">00-prefacio (12) <a class="header-anchor" href="#00-prefacio-12" aria-hidden="true">#</a></h2>
 <table>
 <thead>
@@ -3873,7 +3873,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="apêndice-c-15" tabindex="-1">apêndice C (15) <a class="header-anchor" href="#apêndice-c-15" aria-hidden="true">#</a></h2>
+<h2 id="apêndice-c-16" tabindex="-1">apêndice C (16) <a class="header-anchor" href="#apêndice-c-16" aria-hidden="true">#</a></h2>
 <table>
 <thead>
 <tr>
@@ -3973,6 +3973,12 @@
 <td>O validador do exemplo recusa o registro da primeira execução do ASEG-Bench, tal como o <em>runner</em> o gravou, por onze campos ausentes do ambiente congelado, e aceita o <code>run-modelo/</code> com a marca <code>modelo_nao_verificado</code>.</td>
 <td>medido</td>
 <td>livro: <code>cd livro/apendices/c-pacote-de-replicacao/exemplo &amp;&amp; python conferir_pacote.py --validar-run run-como-veio</code> → 11 linhas <code>FALTA</code>, «NÃO ENTRA», saída 1; <code>python conferir_pacote.py --validar-run run-modelo</code> → <code>MARCA modelo_nao_verificado</code>, «ENTRA na análise (com marca)», saída 0; <code>diff run-como-veio/run.json ../../../../pesquisa/benchmarks/aseg-bench/execucoes/2026-11-02-GOV-004-01/veredito.json</code> → vazio (cópia byte a byte)</td>
+</tr>
+<tr>
+<td>CLAIM-93-016</td>
+<td>Em 03/11/2026, depois da consulta de CLAIM-93-014, o <em>commit</em> <code>19823c2</code> foi publicado no repositório do Maestro na <em>branch</em> <code>livro-ref-19823c2</code>, sem mover nenhuma <em>branch</em> existente.</td>
+<td>medido</td>
+<td><code>git ls-remote https://github.com/GHDaru/maestro.git refs/heads/livro-ref-19823c2</code> → <code>19823c2…</code>; <code>https://github.com/GHDaru/maestro/commit/19823c2</code> responde 200</td>
 </tr>
 </tbody>
 </table>

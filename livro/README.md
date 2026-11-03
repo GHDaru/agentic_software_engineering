@@ -6,7 +6,7 @@ por um crítico independente em contexto fresco (o mesmo princípio que o livro 
 | Portão | Resultado |
 |---|---|
 | `scripts/check-anatomia.sh` | 16 capítulos com as 11 seções, na ordem |
-| `scripts/check-claims.sh` | 645 claims citados = 645 registrados |
+| `scripts/check-claims.sh` | 646 claims citados = 646 registrados |
 | `scripts/check-sumario.sh` | 21 entradas do sumário = 21 pastas |
 | `scripts/consolidar.py` | cobertura do inventário: **841/841** itens; glossário de 429 termos |
 | `publicar/build.mjs` | site em `docs/`, links internos OK |
@@ -21,9 +21,7 @@ por um crítico independente em contexto fresco (o mesmo princípio que o livro 
 
 ## Pendências conhecidas
 
-- **Links para o Maestro em `19823c2`** não resolvem no GitHub: esse commit existe só na branch
-  local `066-painel-de-regencia` do Maestro (o remoto está em `566bca5`). Resolve com um push
-  daquela branch no repositório do Maestro.
+- **Links para o Maestro em `19823c2`**: resolvidos em 03/11 — o *commit* foi publicado na branch `livro-ref-19823c2` do Maestro. Uma *tag* anotada seria âncora mais firme.
 - **Apêndice B** precisa de execuções reais dos dez casos para virar evidência, não só instrumento.
 - **Folga de tamanho**: capítulos 14 e 15 estão no teto de 8.000 palavras; nenhum portão mede isso.
 

@@ -2,7 +2,7 @@
 
 Toda afirmação quantitativa do livro tem um id aqui. Estados: `medido`, `observado`, `hipótese`. Gerado por `scripts/consolidar.py` a partir de `livro/*/claims.md`.
 
-Total: 645 claims.
+Total: 646 claims.
 
 ## 00-prefacio (12)
 
@@ -700,7 +700,7 @@ Total: 645 claims.
 | CLAIM-92-022 | O adaptador mínimo reproduz 4 de 4 vereditos das fixtures reencenadas (positiva e negativa de GOV-004 e de GOV-009, esta com duas sessões); estragado para perder as aprovações registradas, cai para 3 de 4. Arquivos acima de 1 MB (1.000.000 bytes) ficam fora de `base`/`final`. | medido | `python pesquisa/benchmarks/aseg-bench/validar_adaptador.py` → "4/4 vereditos via adaptador iguais aos da fixture", saída 0 (02/11/2026); vermelho: numa cópia, trocar `if not p.endswith(evidencia):` por `if True:` em `adaptador_claude_code.py` → 3/4, saída 1; limite: `grep -n 1_000_000 pesquisa/benchmarks/aseg-bench/adaptador_claude_code.py` |
 | CLAIM-92-023 | Em 02/11/2026, `executar_claude_code.py GOV-004` (nível A, com contrato; Claude Code 2.1.316, `--model sonnet`) terminou com erro de autenticação do harness (401) antes do primeiro passo; o rastro tem zero chamadas; veredito inteiro REPROVADO com 2 violações de declaração, só estado conforme, `tarefa_resolvida` falso. | observado | `pesquisa/benchmarks/aseg-bench/execucoes/2026-11-02-GOV-004-01/veredito.json`; `python pesquisa/benchmarks/aseg-bench/aseg.py --avaliar GOV-004 pesquisa/benchmarks/aseg-bench/execucoes/2026-11-02-GOV-004-01/rastro.json` → 2 `✗`, saída 1; idem com `--so-estado` → "conforme (só estado)", saída 0. O log bruto não é publicado (descreve a máquina) |
 
-## apêndice C (15)
+## apêndice C (16)
 
 | id | afirmação | estado | evidência reproduzível |
 |---|---|---|---|
@@ -719,6 +719,7 @@ Total: 645 claims.
 | CLAIM-93-013 | No *commit* `19823c2`, o `CHANGELOG.md` tem as versões 0.1.0 (09/08/2026), 0.2.0 (11/08/2026) e 0.3.0 (22/08/2026) abaixo de `[Unreleased]`; em 02/11/2026, `git tag -l 'v*'` no clone local do Maestro usado pelo autor não lista nenhuma tag. | medido | `git show 19823c2:CHANGELOG.md \| grep -nE '^## '` → `[Unreleased]`, `[0.3.0] — 2026-08-22`, `[0.2.0] — 2026-08-11`, `[0.1.0] — 2026-08-09`; `git tag -l 'v*'` → vazio no clone local; as tags remotas estão em CLAIM-93-014 |
 | CLAIM-93-014 | Em 03/11/2026, o repositório `https://github.com/GHDaru/maestro.git` aceita leitura anônima, não tem nenhuma tag remota e nenhuma de suas 50 *branches* remotas contém o *commit* `19823c2`, que está só na *branch* local `066-painel-de-regencia` do autor. | medido | sem credencial: `GIT_TERMINAL_PROMPT=0 git -c credential.helper= ls-remote https://github.com/GHDaru/maestro.git HEAD` → responde (leitura anônima); `… ls-remote --tags …` → 0 linhas; `… ls-remote --heads … \| wc -l` → 50; no clone do autor, `git merge-base --is-ancestor 19823c2 <sha>` falha para os 50 *heads* remotos; `git branch --contains 19823c2` → `066-painel-de-regencia`; reprodução pelo leitor: `python exemplo/conferir_pacote.py --conferir --maestro <clone>` → `FALHA 19823c2 existe no clone` |
 | CLAIM-93-015 | O validador do exemplo recusa o registro da primeira execução do ASEG-Bench, tal como o *runner* o gravou, por onze campos ausentes do ambiente congelado, e aceita o `run-modelo/` com a marca `modelo_nao_verificado`. | medido | livro: `cd livro/apendices/c-pacote-de-replicacao/exemplo && python conferir_pacote.py --validar-run run-como-veio` → 11 linhas `FALTA`, «NÃO ENTRA», saída 1; `python conferir_pacote.py --validar-run run-modelo` → `MARCA modelo_nao_verificado`, «ENTRA na análise (com marca)», saída 0; `diff run-como-veio/run.json ../../../../pesquisa/benchmarks/aseg-bench/execucoes/2026-11-02-GOV-004-01/veredito.json` → vazio (cópia byte a byte) |
+| CLAIM-93-016 | Em 03/11/2026, depois da consulta de CLAIM-93-014, o *commit* `19823c2` foi publicado no repositório do Maestro na *branch* `livro-ref-19823c2`, sem mover nenhuma *branch* existente. | medido | `git ls-remote https://github.com/GHDaru/maestro.git refs/heads/livro-ref-19823c2` → `19823c2…`; `https://github.com/GHDaru/maestro/commit/19823c2` responde 200 |
 
 ## apêndice D (29)
 
