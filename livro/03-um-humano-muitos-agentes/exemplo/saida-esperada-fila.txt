@@ -1,0 +1,47 @@
+== eventos do registro (só-acréscimo)
+  ✓ seq  1 07:04 pedido    D-01: aceito (esperado: aceito)
+  ✓ seq  2 07:30 pedido    D-02: aceito (esperado: aceito)
+  ✓ seq  3 07:41 pedido    D-03: recusado (esperado: recusado)
+      - P1 pedido sem prazo: sem prazo não há como ordenar nem envelhecer
+  ✓ seq  4 08:15 ruling    D-02: recusado (esperado: recusado)
+      - R2 'Worker01' não é humano: portão do regente
+  ✓ seq  5 08:20 pedido    D-04: recusado (esperado: recusado)
+      - E endereço incompleto 'Gerente': sem 'nome · ref · projeto' não se adivinha
+  ✓ seq  6 09:12 pedido    D-05: recusado (esperado: recusado)
+      - E 'Office · 77ab12' está caída
+  ✓ seq  7 09:30 pedido    D-06: recusado (esperado: recusado)
+      - E ref 'c0ffee' é de 'Gerente · outro', não de 'Gerente · loja'
+  ✓ seq  8 10:05 dispensar D-01: recusado (esperado: recusado)
+      - N 'dispensar' não existe: responda ou devolva, nunca dispense
+  ✓ seq  9 11:40 pedido    D-07: aceito (esperado: aceito)
+  ✓ seq 10 12:10 ruling    D-02: aceito (esperado: aceito)
+  ✓ seq 11 13:10 pedido    D-09: aceito (esperado: aceito)
+  ✓ seq 12 14:30 ruling    D-07: recusado (esperado: recusado)
+      - R3 ruling sem destino: a resposta não volta a ninguém
+  ✓ seq 13 14:31 ruling    D-07: aceito (esperado: aceito)
+  ✓ seq 14 15:05 pedido    D-08: aceito (esperado: aceito)
+  ✓ seq 15 15:20 ruling    D-01: aceito (esperado: aceito)
+  ✓ seq 16 15:40 ruling    D-09: aceito (esperado: aceito)
+
+== frase-chave (derivada da fila, nunca digitada)
+  14:00  você tem 3 decisões esperando; a mais antiga (D-01) há 6 h 56 min
+           D-01 · prazo vencido há 5 h 00 min · destrava: integração da frente de pagamentos · de Gerente · a1b2c3 · loja
+           D-09 · prazo em 2 h 00 min · destrava: T08 · de Worker01 · d4e5f6 · loja
+           D-07 · prazo em 4 h 00 min · destrava: G7 do chamado 105 · de Office · 9f0e1d · loja
+  14:35  você tem 2 decisões esperando; a mais antiga (D-01) há 7 h 31 min
+           D-01 · prazo vencido há 5 h 35 min · destrava: integração da frente de pagamentos · de Gerente · a1b2c3 · loja
+           D-09 · prazo em 1 h 25 min · destrava: T08 · de Worker01 · d4e5f6 · loja
+  16:00  você tem 1 decisão esperando; a mais antiga (D-08) há 55 min
+           D-08 · prazo em 1 h 00 min · destrava: T12 · de Worker02 · 0718aa · loja
+
+== espera humana (do pedido ao ruling)
+  D-01  07:04 → 15:20    8 h 16 min  (prazo estourado)
+  D-02  07:30 → 12:10    4 h 40 min  (prazo estourado)
+  D-07  11:40 → 14:31    2 h 51 min
+  D-09  13:10 → 15:40    2 h 30 min
+  média 4 h 34 min · máxima 8 h 16 min · 2 de 4 respondidos depois do prazo
+
+== prova por mutação: reescrever uma linha do registro
+  ✓ guarda A acusou: seq 2 depois de 4: o registro foi reescrito, não acrescido
+
+resultado: 16/16 eventos com o veredito esperado; mutação acusada: 1/1

@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exemplo executável — 07 Papéis e skills · Engenharia de Software Orientada por Agentes</title>
+<meta name="description" content="Governança operacional para um humano regendo muitos agentes">
+<script>try{var t=localStorage.getItem("tema");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="assets/estilo.css">
+</head><body>
+<header class="barra">
+  <button id="alt-menu" aria-label="Abrir o sumário" aria-expanded="false" aria-controls="sidebar">☰ <span>Sumário</span></button>
+  <a class="barra-titulo" href="index.html">Engenharia de Software Orientada por Agentes</a>
+  <button id="alt-tema" aria-label="Alternar tema claro/escuro">◐</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="marca" href="index.html">Engenharia de Software Orientada por Agentes<small>Agentic Software Engineering</small></a>
+    <div class="nav-parte">Abertura</div><ul><li><a href="00-prefacio.html">Prefácio</a></li></ul><div class="nav-parte">Parte I — Por que agentes mudam a engenharia</div><ul><li><a href="01-a-mudanca-de-unidade-de-trabalho.html">1. A mudança de unidade de trabalho</a></li><li class="filho"><a class="filho" href="01-a-mudanca-de-unidade-de-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="02-o-problema-da-confianca.html">2. O problema da confiança</a></li><li class="filho"><a class="filho" href="02-o-problema-da-confianca-exemplo.html">Exemplo executável</a></li><li><a href="03-um-humano-muitos-agentes.html">3. Um humano, muitos agentes</a></li><li class="filho"><a class="filho" href="03-um-humano-muitos-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte II — Especificar e dar contexto</div><ul><li><a href="04-a-spec-como-partitura.html">4. A spec como partitura</a></li><li class="filho"><a class="filho" href="04-a-spec-como-partitura-exemplo.html">Exemplo executável</a></li><li><a href="05-engenharia-de-contexto.html">5. Engenharia de contexto</a></li><li class="filho"><a class="filho" href="05-engenharia-de-contexto-exemplo.html">Exemplo executável</a></li><li><a href="06-como-dividir-o-trabalho.html">6. Como dividir o trabalho</a></li><li class="filho"><a class="filho" href="06-como-dividir-o-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="07-papeis-e-skills.html">7. Papéis e skills</a></li><li class="filho"><a class="filho ativo" aria-current="page" href="07-papeis-e-skills-exemplo.html">Exemplo executável</a></li><li><a href="08-ddd-para-agentes.html">8. DDD para agentes</a></li><li class="filho"><a class="filho" href="08-ddd-para-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte III — Provar e conter</div><ul><li><a href="09-arquitetura-que-se-defende.html">9. Arquitetura que se defende</a></li><li class="filho"><a class="filho" href="09-arquitetura-que-se-defende-exemplo.html">Exemplo executável</a></li><li><a href="10-quality-gates-que-provam-fatos.html">10. Quality gates que provam fatos</a></li><li class="filho"><a class="filho" href="10-quality-gates-que-provam-fatos-exemplo.html">Exemplo executável</a></li><li><a href="11-risco-reversibilidade-e-autonomia.html">11. Risco, reversibilidade e autonomia</a></li><li class="filho"><a class="filho" href="11-risco-reversibilidade-e-autonomia-exemplo.html">Exemplo executável</a></li><li><a href="12-ferramentas-mcp-e-o-ecossistema.html">12. Ferramentas, MCP e o ecossistema</a></li><li class="filho"><a class="filho" href="12-ferramentas-mcp-e-o-ecossistema-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte IV — Medir e aprender</div><ul><li><a href="13-observabilidade-e-economia.html">13. Observabilidade e economia</a></li><li class="filho"><a class="filho" href="13-observabilidade-e-economia-exemplo.html">Exemplo executável</a></li><li><a href="14-a-organizacao-que-aprende.html">14. A organização que aprende</a></li><li class="filho"><a class="filho" href="14-a-organizacao-que-aprende-exemplo.html">Exemplo executável</a></li><li><a href="15-validando-o-maestro.html">15. Validando o Maestro</a></li><li class="filho"><a class="filho" href="15-validando-o-maestro-exemplo.html">Exemplo executável</a></li><li><a href="16-o-futuro-da-engenharia-agentica.html">16. O futuro da engenharia agêntica</a></li><li class="filho"><a class="filho" href="16-o-futuro-da-engenharia-agentica-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Apêndices</div><ul><li><a href="apendice-a-o-maestro-em-uma-pagina.html">A. O Maestro em uma página</a></li><li><a href="apendice-b-aseg-bench.html">B. ASEG-Bench — um benchmark de governança</a></li><li><a href="apendice-c-pacote-de-replicacao.html">C. Pacote de replicação</a></li><li><a href="apendice-d-estudos-de-campo.html">D. Estudos de campo do ecossistema</a></li></ul><div class="nav-parte">Consulta</div><ul><li><a href="glossario.html">Glossário</a></li><li><a href="evidencias.html">Evidências (claims)</a></li></ul>
+  </aside>
+  <main class="conteudo">
+    <article class="markdown"><h1 id="exemplo-do-capítulo-7--papéis-e-skills-como-arquivos-que-um-portão-confere" tabindex="-1">Exemplo do capítulo 7 — papéis e skills como arquivos que um portão confere <a class="header-anchor" href="#exemplo-do-capítulo-7--papéis-e-skills-como-arquivos-que-um-portão-confere" aria-hidden="true">#</a></h1>
+<p>Dois scripts, só com a biblioteca padrão do Python 3.8+. Nenhum chama modelo de IA: o que se
+confere é a <strong>forma</strong> que faz de um prompt um papel (escopo, contrato, permissões, faixa de
+modelo, tamanho) e de um texto uma skill (gatilho, lei de ferro, dor de origem, linha de
+base, consumidor). Se a forma não existe, o modelo nem chega a ter a chance de obedecer.</p>
+<table>
+<thead>
+<tr>
+<th>Arquivo</th>
+<th>O que é</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>time/modelo-operacional.md</code></td>
+<td>a <strong>norma</strong>: a tabela de papéis de um time fictício (1 humano, 6 papéis de agente)</td>
+</tr>
+<tr>
+<td><code>time/papeis/*.md</code></td>
+<td>os <strong>executáveis</strong>: um perfil por papel, com front matter (<code>papel</code>, <code>ferramentas</code>, <code>julga</code>, <code>modelo</code>, <code>skills</code>) e o contrato Faz / Não faz / Consome / Produz / Entrega a</td>
+</tr>
+<tr>
+<td><code>time/skills/*/SKILL.md</code></td>
+<td>duas skills no formato <code>SKILL.md</code>, cada uma com <code>linha-de-base.md</code> (ilustrativa: registra o formato, não uma medição)</td>
+</tr>
+<tr>
+<td><code>confere.py</code></td>
+<td>aplica as dez regras (P1–P6 de papel, S1–S4 de skill) e prova, com dez mutações, que cada regra acusa</td>
+</tr>
+<tr>
+<td><code>mede.py</code></td>
+<td>mede uma pasta de perfis: linhas, bytes, ~tokens, ferramentas, se escreve, se declara modelo</td>
+</tr>
+<tr>
+<td><code>saida-esperada-*.txt</code></td>
+<td>as saídas de referência</td>
+</tr>
+</tbody>
+</table>
+<h2 id="como-rodar" tabindex="-1">Como rodar <a class="header-anchor" href="#como-rodar" aria-hidden="true">#</a></h2>
+<pre><code class="language-bash">cd livro/07-papeis-e-skills/exemplo
+python confere.py      &gt; /tmp/c.txt; diff /tmp/c.txt saida-esperada-confere.txt &amp;&amp; echo &quot;confere: igual&quot;
+python mede.py time/papeis &gt; /tmp/m.txt; diff /tmp/m.txt saida-esperada-mede.txt &amp;&amp; echo &quot;mede: igual&quot;
+</code></pre>
+<p>No Windows com Git Bash, use <code>python</code> (o <code>python3</code> do Git Bash pode ser um atalho vazio).
+O <code>confere.py</code> sai com 0 quando o time está conforme <strong>e</strong> as dez mutações foram acusadas
+pela regra certa; 1 se não.</p>
+<p>Para medir os agentes do Maestro na versão citada pelo livro (precisa de um clone de
+<code>https://github.com/GHDaru/maestro</code>):</p>
+<pre><code class="language-bash">mkdir -p /tmp/m19 &amp;&amp; git -C &lt;clone-do-maestro&gt; archive 19823c2 .claude/agents | tar -x -C /tmp/m19
+python mede.py /tmp/m19/.claude/agents &gt; /tmp/mm.txt
+diff /tmp/mm.txt saida-esperada-mede-maestro-19823c2.txt &amp;&amp; echo &quot;maestro: igual&quot;
+</code></pre>
+<h2 id="as-regras" tabindex="-1">As regras <a class="header-anchor" href="#as-regras" aria-hidden="true">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Regra</th>
+<th>O que exige</th>
+<th>De onde vem no Maestro (<code>19823c2</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P1</td>
+<td>todo papel de agente que a norma prescreve tem um perfil que o entrega</td>
+<td><code>scripts/check-roles.sh</code> (nasceu no ciclo 018)</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>todo perfil entrega um papel que a norma prescreve (sem papel órfão)</td>
+<td>idem, no sentido inverso (ciclo 039 fez o índice × disco nos dois sentidos)</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>papel que julga não tem <code>Write</code>/<code>Edit</code>; com <code>Bash</code>, aviso</td>
+<td>corolário C3; <code>scripts/check-agents.sh</code></td>
+</tr>
+<tr>
+<td>P4</td>
+<td>o contrato tem Faz, Não faz, Consome, Produz, Entrega a</td>
+<td>formato de <code>.claude/agents/*.md</code> (escopo, faz/não faz, consome/produz, <em>handoff</em>)</td>
+</tr>
+<tr>
+<td>P5</td>
+<td>o perfil cabe no teto de 40 linhas</td>
+<td>corolário C8 (&quot;agente estreito é mais barato que agente capaz&quot;)</td>
+</tr>
+<tr>
+<td>P6</td>
+<td>o papel declara a faixa de modelo (<code>pequeno</code>, <code>medio</code>, <code>grande</code>)</td>
+<td><strong>não existe no Maestro</strong> — é a recomendação do capítulo para a lacuna papel × modelo × custo</td>
+</tr>
+<tr>
+<td>S1</td>
+<td>a <code>description</code> da skill traz o gatilho (&quot;Use quando&quot;)</td>
+<td><code>skills/README.md</code>; agente <code>skill-author</code></td>
+</tr>
+<tr>
+<td>S2</td>
+<td>a skill abre com a lei de ferro em bloco, &quot;Violar a letra…&quot; e ≥ 2 desculpas fechadas</td>
+<td>ciclo 011 (Iron Laws, absorvidas do Superpowers)</td>
+</tr>
+<tr>
+<td>S3</td>
+<td>a skill diz de que dor nasceu e tem linha de base com SEM e COM a skill</td>
+<td>regra de nascimento do <code>skills/README.md</code>; protocolo do <code>skill-author</code></td>
+</tr>
+<tr>
+<td>S4</td>
+<td>toda skill tem um papel que a consome; nenhum papel cita skill inexistente</td>
+<td>a coluna &quot;Consumed by&quot; do <code>skills/README.md</code>; achado <code>achado-063-quatro-skills-sem-capitulo</code> (a mesma família: o que existe sem quem consuma)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="saída-esperada--conferepy" tabindex="-1">Saída esperada — <code>confere.py</code> <a class="header-anchor" href="#saída-esperada--conferepy" aria-hidden="true">#</a></h2>
+<pre><code class="language-text">== papel × modelo × custo fixo de contexto
+  perfil                  julga  modelo    linhas  ~tokens
+  arquiteto               não    grande        21      180
+  especificador           não    medio         21      184
+  implementador           não    medio         21      176
+  revisor                 sim    grande        21      203
+  seguranca               sim    medio         21      164
+  semantica-de-interface  não    medio         21      212
+  total                                       126     1119
+
+== o time como está
+  ✓ dez regras conformes
+
+== mutações (cada uma deve ser acusada pela SUA regra)
+  ✓ M1 o papel de interface perde o agente: P1 acusou — 'Semântica de interface' é prescrito pelo modelo e nenhum perfil o entrega
+  ✓ M2 o modelo deixa de citar a segurança: P2 acusou — perfil 'seguranca' entrega 'Segurança', que o modelo não prescreve
+  ✓ M3 o revisor ganha caneta: P3 acusou — 'revisor' julga e tem Edit
+  ✓ M4 o implementador perde o 'Não faz': P4 acusou — 'implementador' sem: Não faz:
+  ✓ M5 o arquiteto incha: P5 acusou — 'arquiteto' tem 46 linhas (teto 40)
+  ✓ M6 o especificador esquece o modelo: P6 acusou — 'especificador' não declara a faixa de modelo (pequeno|medio|grande)
+  ✓ M7 a skill perde o gatilho: S1 acusou — skill 'criterio-verificavel' sem gatilho ('Use quando') na description
+  ✓ M8 a lei vira sugestão: S2 acusou — skill 'diagnosticar-antes-de-consertar' sem lei de ferro completa (lei=sim, desculpas fechadas=3)
+  ✓ M9 a skill nasce sem linha de base: S3 acusou — skill 'criterio-verificavel' sem linha de base (linha-de-base.md)
+  ✓ M10 ninguém consome a skill: S4 acusou — skill 'diagnosticar-antes-de-consertar' não é consumida por nenhum papel (skill órfã)
+
+resultado: time conforme · mutações acusadas: 10/10
+</code></pre>
+<p>O <code>~tokens</code> é bytes ÷ 4, uma aproximação grosseira e só comparativa; o total da tabela soma
+os arredondamentos por linha, por isso difere em 1 do total do <code>mede.py</code>.</p>
+<h2 id="saída-esperada--medepy-nos-agentes-do-maestro-em-19823c2" tabindex="-1">Saída esperada — <code>mede.py</code> nos agentes do Maestro em <code>19823c2</code> <a class="header-anchor" href="#saída-esperada--medepy-nos-agentes-do-maestro-em-19823c2" aria-hidden="true">#</a></h2>
+<pre><code class="language-text">perfil                 linhas  bytes  ~tok  escreve modelo  ferramentas
+agent-designer             24   1493   373  sim     —       Read, Write, Edit, Grep
+dev-implementer            22   1124   281  sim     —       Read, Write, Edit, Bash
+didactics-editor           20    916   229  sim     —       Read, Write, Edit, Grep
+plan-architect             23   1375   344  sim     —       Read, Write, Grep, Glob, WebFetch
+process-guardian           21   1080   270  não     —       Read, Grep, Glob
+qa                         18    754   188  sim     —       Read, Write, Bash
+research-curator           18    966   242  sim     —       Read, Write, WebSearch, WebFetch
+review                     19    936   234  não     —       Read, Grep, Glob, Bash
+security                   18    813   203  não     —       Read, Grep, Glob, Bash
+skill-author               30   1682   420  sim     —       Read, Write, WebFetch
+spec-agent                 18    900   225  sim     —       Read, Write, Grep, Glob
+tech-writer                18    875   219  sim     —       Read, Write, Edit, Grep
+ux-semantics               36   1923   481  sim     —       Read, Write, Grep, Glob
+
+perfis: 13 · linhas: 285 (média 21.9, menor 18, maior 36) · bytes: 14837 (~3709 tokens)
+sem escrita (Write/Edit): 3 → process-guardian, review, security
+com modelo declarado: 0 de 13
+</code></pre>
+<p>Duas leituras que o capítulo usa: os treze perfis somam 285 linhas, e não as 267 que o
+corolário C8 ainda cita (o número envelheceu enquanto o <code>ux-semantics</code> ganhou a lei de ferro e
+o <code>skill-author</code> o protocolo de teste); e nenhum perfil declara modelo.</p>
+<h2 id="o-que-este-exemplo-não-prova" tabindex="-1">O que este exemplo não prova <a class="header-anchor" href="#o-que-este-exemplo-não-prova" aria-hidden="true">#</a></h2>
+<p>Ele prova a <strong>forma</strong>, não o comportamento. Um perfil conforme pode ser ignorado pelo modelo;
+uma lei de ferro pode ser racionalizada; uma linha de base pode ter sido escrita sem rodar
+nada (as duas desta fixture são ilustrativas e dizem isso). O comportamento se prova com
+avaliação contra uma linha de base e ablação — o capítulo 15 trata do desenho; o Maestro tem
+dois casos em <code>evals/</code>.</p>
+</article>
+    <nav class="paginacao" aria-label="Anterior e próximo"><a class="pg-prev" href="07-papeis-e-skills.html"><small>← anterior</small>07 — Papéis e skills</a><a class="pg-next" href="08-ddd-para-agentes.html"><small>próximo →</small>08 — DDD para agentes</a></nav>
+    <footer class="rodape">
+      <a href="https://github.com/GHDaru/agentic_software_engineering">github.com/GHDaru/agentic_software_engineering</a>
+       · <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/07-papeis-e-skills/exemplo/README.md">fonte desta página</a>
+      · gerado de <code>livro/</code> por <code>publicar/build.mjs</code>
+    </footer>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body></html>

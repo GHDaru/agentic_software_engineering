@@ -1,0 +1,12 @@
+{
+  "_nota": "Roster fictício de um time (um humano, um gerente, workers). O formato do endereço, 'nome · ref · projeto', é o do glossário do Maestro; os nomes repetidos e a sessão caída imitam os casos de 13 a 16/10/2026 descritos no capítulo.",
+  "humanos": ["regente"],
+  "sessoes": [
+    {"nome": "Gerente",  "ref": "a1b2c3", "projeto": "loja",  "viva": true},
+    {"nome": "Worker01", "ref": "d4e5f6", "projeto": "loja",  "viva": true},
+    {"nome": "Worker02", "ref": "0718aa", "projeto": "loja",  "viva": true},
+    {"nome": "Office",   "ref": "9f0e1d", "projeto": "loja",  "viva": true},
+    {"nome": "Office",   "ref": "77ab12", "projeto": "loja",  "viva": false},
+    {"nome": "Gerente",  "ref": "c0ffee", "projeto": "outro", "viva": true}
+  ]
+}

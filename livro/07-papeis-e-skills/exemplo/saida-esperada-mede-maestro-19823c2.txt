@@ -1,0 +1,18 @@
+perfil                 linhas  bytes  ~tok  escreve modelo  ferramentas
+agent-designer             24   1493   373  sim     —       Read, Write, Edit, Grep
+dev-implementer            22   1124   281  sim     —       Read, Write, Edit, Bash
+didactics-editor           20    916   229  sim     —       Read, Write, Edit, Grep
+plan-architect             23   1375   344  sim     —       Read, Write, Grep, Glob, WebFetch
+process-guardian           21   1080   270  não     —       Read, Grep, Glob
+qa                         18    754   188  sim     —       Read, Write, Bash
+research-curator           18    966   242  sim     —       Read, Write, WebSearch, WebFetch
+review                     19    936   234  não     —       Read, Grep, Glob, Bash
+security                   18    813   203  não     —       Read, Grep, Glob, Bash
+skill-author               30   1682   420  sim     —       Read, Write, WebFetch
+spec-agent                 18    900   225  sim     —       Read, Write, Grep, Glob
+tech-writer                18    875   219  sim     —       Read, Write, Edit, Grep
+ux-semantics               36   1923   481  sim     —       Read, Write, Grep, Glob
+
+perfis: 13 · linhas: 285 (média 21.9, menor 18, maior 36) · bytes: 14837 (~3709 tokens)
+sem escrita (Write/Edit): 3 → process-guardian, review, security
+com modelo declarado: 0 de 13

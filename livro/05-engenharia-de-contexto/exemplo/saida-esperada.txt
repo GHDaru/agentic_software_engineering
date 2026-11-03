@@ -1,0 +1,118 @@
+
+== 1. seleção: uma tarefa cortada pela fronteira carrega pouco do repositório
+seleção 007/T2
+  + spec.md (contexto integrador)        230 tokens
+  + T2 (a linha da tarefa)                30 tokens
+  + src/cupom.py                          99 tokens
+  + src/carrinho.py                      105 tokens
+  selecionado 464 de 4777 tokens do repositório inteiro → economia 90%
+✓ corte por fronteira: a tarefa cabe no que ela mesma declara.
+(exit 0)
+
+== 2. seleção: a tarefa que atravessa o código inteiro — economia baixa é sinal de corte errado
+seleção 007/T4
+  + spec.md (contexto integrador)        230 tokens
+  + T4 (a linha da tarefa)                57 tokens
+  + src/cupom.py                          99 tokens
+  + src/carrinho.py                      105 tokens
+  + src/pagamento.py                     703 tokens
+  + src/frete.py                         212 tokens
+  + src/relatorios.py                   2152 tokens
+  + src/usuarios.py                      337 tokens
+  selecionado 3895 de 4777 tokens do repositório inteiro → economia 18%
+✗ economia baixa: a tarefa atravessa fronteiras. Reveja o corte; não aumente a janela.
+(exit 1)
+
+== 3. seleção: a tarefa que não cita nada manda o executor procurar sozinho
+seleção 007/T3
+  + spec.md (contexto integrador)        230 tokens
+  + T3 (a linha da tarefa)                18 tokens
+  selecionado 248 de 4777 tokens do repositório inteiro → economia 94%
+✗ a tarefa não cita arquivo: quem a executa vai procurar o contexto sozinho (ou na conversa).
+(exit 1)
+
+== 4. compressão: a janela compacta e só o tasks.md fica — a cauda morava na spec e na conversa
+compactação 007: janela com spec.md, plan.md, tasks.md, conversa (573 tokens)
+  → depois: só o que o executor segue, tasks.md (162 tokens)
+  ✗ revisão em contexto fresco     APAGADO (estava em: spec.md, conversa)
+  ✗ revisão de segurança           APAGADO (estava em: spec.md, conversa)
+  ✗ gate humano antes do merge     APAGADO (estava em: spec.md, conversa)
+  ✗ data dd/mm/aaaa na mensagem    APAGADO (estava em: conversa)
+  ✗ T3 não se executa com contexto zero (sem arquivo/comando e critério →)
+✗ 4 fato(s) apagado(s), 1 tarefa(s) presa(s) à conversa. O executor vai obedecer, com fidelidade, a versão truncada.
+(exit 1)
+
+== 5. compressão: a mesma janela, com a cauda como token no tasks.md
+compactação 007: janela com spec.md, plan.md, tasks-com-cauda.md, conversa (607 tokens)
+  → depois: só o que o executor segue, tasks-com-cauda.md (196 tokens)
+  ✓ revisão em contexto fresco     sobrevive (está em tasks-com-cauda.md)
+  ✓ revisão de segurança           sobrevive (está em tasks-com-cauda.md)
+  ✓ gate humano antes do merge     sobrevive (está em tasks-com-cauda.md)
+  ✓ data dd/mm/aaaa na mensagem    sobrevive (está em tasks-com-cauda.md)
+✓ tudo o que importa está no artefato consumido: a compactação não apaga nada que conte.
+(exit 0)
+
+== 6. persistência: acrescentar uma decisão (numa cópia do índice)
+✓ acrescentada como linha 4: achado-007-fecha-006
+(exit 0)
+
+== 7. persistência: o mesmo id de novo, e um registro que aponta para um marcador
+✗ recusado: o id achado-006-mensagem-sem-data já existe. Corrigir é acrescentar uma linha nova com outro id (e o campo "fecha"), nunca reescrever.
+(exit 1)
+✗ recusado: o registro aponta um marcador (<pendente>), não uma evidência.
+(exit 1)
+
+== 8. persistência: o índice com uma linha acrescentada × o índice com uma linha reescrita
+histórico: decisoes.jsonl (3 linhas) → decisoes.jsonl (4 linhas)
+✓ só acréscimo: 1 linha(s) nova(s), nenhuma antiga tocada.
+(exit 0)
+histórico: decisoes.jsonl (3 linhas) → decisoes-reescrito.jsonl (3 linhas)
+✗ linha 2 foi reescrita ou apagada: achado-006-mensagem-sem-data
+  o que se pensava antes deixou de existir; a próxima sessão lê a versão nova como se sempre tivesse sido assim.
+(exit 1)
+
+== 9. transferência: CLAUDE.md e AGENTS.md escritos à mão, contra as skills do disco
+transferência: a instrução que a IA lê × o disco (projeto)
+  skills no disco: dod-verificavel, jornada-viva, revisar-diff
+  ✗ CLAUDE.md  não cita jornada-viva
+  ✗ AGENTS.md  não cita dod-verificavel, jornada-viva; sem a regra 'skills primeiro'
+  ✗ CLAUDE.md e AGENTS.md divergem: duas cópias escritas à mão
+✗ 4 deriva(s): a IA segue menos método do que o repositório declara.
+(exit 1)
+
+== 10. transferência: fonte única e bloco gerado do disco (numa cópia temporária)
+transferência corrigida (numa cópia temporária do projeto):
+  bloco de skills GERADO do disco:
+    - `dod-verificavel` — Transforma critério vago em comando que passa ou falha.
+    - `jornada-viva` — Documenta a jornada de tela com captura do build real e heurística datada.
+    - `revisar-diff` — Revisão do diff em contexto fresco, só lacunas de correção.
+  AGENTS.md passa a ter o conteúdo de CLAUDE.md
+  skills no disco: dod-verificavel, jornada-viva, revisar-diff
+  ✓ CLAUDE.md  cita toda skill e manda consultá-las
+  ✓ AGENTS.md  cita toda skill e manda consultá-las
+  ✓ CLAUDE.md e AGENTS.md: mesmo conteúdo (fonte única)
+✓ instrução coerente: skill nova sem entrada na instrução passa a ser impossível.
+(exit 0)
+
+== 11. rastreabilidade: do gate ao porquê, de trás para frente
+rastreio, de trás para frente, a partir de gate-main-b7e41c2
+  1. índice     gate-main-b7e41c2 (2026-09-05) → commit b7e41c2
+  2. commit     b7e41c2 feat(carrinho): cupom de desconto substitui, nunca soma (ciclo 007, ADR 0003)
+  3. ciclo      specs/007-cupom-de-desconto/ (spec.md · plan.md · tasks.md · qa-report.md)
+  4. porquê     docs/adr/0003-cupom-nao-acumula.md
+  elos: 3 de 4 commits citam ciclo ou ADR
+  ✗ sem citação: 41c88e0 fix: ajusta mensagem  (de onde veio? só a memória de alguém sabe)
+(exit 1)
+
+== 12. o quadro: as quatro operações do ciclo 007 numa tela
+inspeção de contexto do ciclo 007-cupom-de-desconto
+  seleção       T1:   263/4777 tokens, economia 94%  ok
+  seleção       T2:   464/4777 tokens, economia 90%  ok
+  seleção       T3:   248/4777 tokens, economia 94%  presa à conversa
+  seleção       T4:  3895/4777 tokens, economia 18%  corte errado?
+  seleção       T5:   246/4777 tokens, economia 94%  ok
+  compressão    4 fato(s) apagado(s) se a janela compactar agora  ✗
+  persistência  3 decisão(ões) no índice; a última: gate-main-b7e41c2
+  transferência deriva na instrução  ✗
+  rastreio      há commit sem citação  ✗
+(exit 1)

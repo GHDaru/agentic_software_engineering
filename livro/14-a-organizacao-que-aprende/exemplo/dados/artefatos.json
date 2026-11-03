@@ -1,0 +1,9 @@
+[
+  {"nome": "spec.md", "consumidor": "o agente que gera o código", "falha_quando_velho": "código errado; o revisor compara com a spec", "ultimo_ciclo": 34},
+  {"nome": "CHANGELOG.md", "consumidor": "quem lê a versão", "falha_quando_velho": "a CI reprova o pull request sem entrada", "ultimo_ciclo": 34},
+  {"nome": "decisoes.jsonl", "consumidor": "check-retro.sh e retro.sh", "falha_quando_velho": "o gatilho acusa dívida errada", "ultimo_ciclo": 34},
+  {"nome": "adr/0017.md", "imutavel": true, "commits_no_merito": 1},
+  {"nome": "adr/README.md (índice)", "consumidor": "quem procura uma decisão", "falha_quando_velho": null, "ultimo_ciclo": 17},
+  {"nome": "roadmap.md", "consumidor": "quem decide o próximo ciclo", "falha_quando_velho": null, "ultimo_ciclo": 9},
+  {"nome": "prd-avulso.md", "consumidor": null, "falha_quando_velho": null, "ultimo_ciclo": 20}
+]

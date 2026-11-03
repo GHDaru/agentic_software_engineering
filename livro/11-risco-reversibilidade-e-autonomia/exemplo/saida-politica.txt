@@ -1,0 +1,31 @@
+[0] ler o código do repositório
+     alavancas: —                      classe: leitura                    política: permitir             gate: nenhum  ok
+[1] ler log de produção com dados pessoais mascarados
+     alavancas: —                      classe: leitura sensível           política: permitir com máscara gate: revisão  ok
+[5] ler o .env de produção (segredo lido não se desvê)
+     alavancas: —                      classe: financeira / irreversível  política: perguntar            gate: dupla aprovação  ok
+[2] commit numa branch de trabalho
+     alavancas: —                      classe: criação reversível         política: permitir             gate: no merge  ok
+[2] push de uma branch nova no remoto
+     alavancas: —                      classe: criação reversível         política: permitir             gate: no merge  ok
+[3] merge na branch de integração (git revert -m 1)
+     alavancas: —                      classe: alteração                  política: perguntar            gate: aprovação com resumo  ok
+[4] instalador poda arquivo em repositório alheio
+     alavancas: —                      classe: exclusão / efeito externo  política: perguntar            gate: confirmação forte  ok
+[3] instalador poda arquivo em repositório alheio
+     alavancas: copia_ao_lado          classe: alteração                  política: perguntar            gate: aprovação com resumo  ok
+[5] apagar tabela em produção
+     alavancas: —                      classe: financeira / irreversível  política: perguntar            gate: dupla aprovação  ok
+[4] apagar tabela em produção
+     alavancas: backup                 classe: exclusão / efeito externo  política: perguntar            gate: confirmação forte  ok
+[3] apagar tabela em produção
+     alavancas: soft_delete            classe: alteração                  política: perguntar            gate: aprovação com resumo  ok
+[0] migração destrutiva
+     alavancas: dry_run                classe: leitura                    política: permitir             gate: nenhum  ok
+[2] migração destrutiva
+     alavancas: staging                classe: criação reversível         política: permitir             gate: no merge  ok
+[6] agente escreve no registro que lhe dá endereço
+     alavancas: —                      classe: lote / administrativa      política: negar                gate: fluxo humano formal  ok
+[6] migração em massa entre inquilinos
+     alavancas: —                      classe: lote / administrativa      política: negar                gate: fluxo humano formal  ok
+resumo: 15 ações, 0 divergência(s)

@@ -1,0 +1,2188 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glossário · Engenharia de Software Orientada por Agentes</title>
+<meta name="description" content="Governança operacional para um humano regendo muitos agentes">
+<script>try{var t=localStorage.getItem("tema");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="assets/estilo.css">
+</head><body>
+<header class="barra">
+  <button id="alt-menu" aria-label="Abrir o sumário" aria-expanded="false" aria-controls="sidebar">☰ <span>Sumário</span></button>
+  <a class="barra-titulo" href="index.html">Engenharia de Software Orientada por Agentes</a>
+  <button id="alt-tema" aria-label="Alternar tema claro/escuro">◐</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="marca" href="index.html">Engenharia de Software Orientada por Agentes<small>Agentic Software Engineering</small></a>
+    <div class="nav-parte">Abertura</div><ul><li><a href="00-prefacio.html">Prefácio</a></li></ul><div class="nav-parte">Parte I — Por que agentes mudam a engenharia</div><ul><li><a href="01-a-mudanca-de-unidade-de-trabalho.html">1. A mudança de unidade de trabalho</a></li><li class="filho"><a class="filho" href="01-a-mudanca-de-unidade-de-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="02-o-problema-da-confianca.html">2. O problema da confiança</a></li><li class="filho"><a class="filho" href="02-o-problema-da-confianca-exemplo.html">Exemplo executável</a></li><li><a href="03-um-humano-muitos-agentes.html">3. Um humano, muitos agentes</a></li><li class="filho"><a class="filho" href="03-um-humano-muitos-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte II — Especificar e dar contexto</div><ul><li><a href="04-a-spec-como-partitura.html">4. A spec como partitura</a></li><li class="filho"><a class="filho" href="04-a-spec-como-partitura-exemplo.html">Exemplo executável</a></li><li><a href="05-engenharia-de-contexto.html">5. Engenharia de contexto</a></li><li class="filho"><a class="filho" href="05-engenharia-de-contexto-exemplo.html">Exemplo executável</a></li><li><a href="06-como-dividir-o-trabalho.html">6. Como dividir o trabalho</a></li><li class="filho"><a class="filho" href="06-como-dividir-o-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="07-papeis-e-skills.html">7. Papéis e skills</a></li><li class="filho"><a class="filho" href="07-papeis-e-skills-exemplo.html">Exemplo executável</a></li><li><a href="08-ddd-para-agentes.html">8. DDD para agentes</a></li><li class="filho"><a class="filho" href="08-ddd-para-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte III — Provar e conter</div><ul><li><a href="09-arquitetura-que-se-defende.html">9. Arquitetura que se defende</a></li><li class="filho"><a class="filho" href="09-arquitetura-que-se-defende-exemplo.html">Exemplo executável</a></li><li><a href="10-quality-gates-que-provam-fatos.html">10. Quality gates que provam fatos</a></li><li class="filho"><a class="filho" href="10-quality-gates-que-provam-fatos-exemplo.html">Exemplo executável</a></li><li><a href="11-risco-reversibilidade-e-autonomia.html">11. Risco, reversibilidade e autonomia</a></li><li class="filho"><a class="filho" href="11-risco-reversibilidade-e-autonomia-exemplo.html">Exemplo executável</a></li><li><a href="12-ferramentas-mcp-e-o-ecossistema.html">12. Ferramentas, MCP e o ecossistema</a></li><li class="filho"><a class="filho" href="12-ferramentas-mcp-e-o-ecossistema-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte IV — Medir e aprender</div><ul><li><a href="13-observabilidade-e-economia.html">13. Observabilidade e economia</a></li><li class="filho"><a class="filho" href="13-observabilidade-e-economia-exemplo.html">Exemplo executável</a></li><li><a href="14-a-organizacao-que-aprende.html">14. A organização que aprende</a></li><li class="filho"><a class="filho" href="14-a-organizacao-que-aprende-exemplo.html">Exemplo executável</a></li><li><a href="15-validando-o-maestro.html">15. Validando o Maestro</a></li><li class="filho"><a class="filho" href="15-validando-o-maestro-exemplo.html">Exemplo executável</a></li><li><a href="16-o-futuro-da-engenharia-agentica.html">16. O futuro da engenharia agêntica</a></li><li class="filho"><a class="filho" href="16-o-futuro-da-engenharia-agentica-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Apêndices</div><ul><li><a href="apendice-a-o-maestro-em-uma-pagina.html">A. O Maestro em uma página</a></li><li><a href="apendice-b-aseg-bench.html">B. ASEG-Bench — um benchmark de governança</a></li><li><a href="apendice-c-pacote-de-replicacao.html">C. Pacote de replicação</a></li><li><a href="apendice-d-estudos-de-campo.html">D. Estudos de campo do ecossistema</a></li></ul><div class="nav-parte">Consulta</div><ul><li><a class="ativo" aria-current="page" href="glossario.html">Glossário</a></li><li><a href="evidencias.html">Evidências (claims)</a></li></ul>
+  </aside>
+  <main class="conteudo">
+    <article class="markdown"><h1 id="glossário" tabindex="-1">Glossário <a class="header-anchor" href="#glossário" aria-hidden="true">#</a></h1>
+<p>Consolidado dos glossários dos capítulos (429 termos). Gerado por <code>scripts/consolidar.py</code> — não edite à mão.</p>
+<table>
+<thead>
+<tr>
+<th>Termo</th>
+<th>Definição</th>
+<th>Nasce em</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&quot;não encontrado na documentação lida&quot;</td>
+<td>Forma obrigatória de registrar uma célula sem fonte; proíbe ler ausência de evidência como lacuna de mercado.</td>
+<td>apêndice D</td>
+</tr>
+<tr>
+<td>A2A (Agent2Agent)</td>
+<td>Protocolo de comunicação entre agentes; no Maestro, seus nomes entram no envelope de mensagem, sem adotar fio nem SDK.</td>
+<td>12-ferramentas-mcp-e-o-ecossistema</td>
+</tr>
+<tr>
+<td>Ablação</td>
+<td>Técnica de avaliação em que o mesmo caso roda contra o agente real e contra o agente menos uma instrução. Se o ablado falha onde o real passa, a instrução paga o contexto que custa; se os dois passam, ela é suspeita de redundância.</td>
+<td>07-papeis-e-skills</td>
+</tr>
+<tr>
+<td>absorção fantasma</td>
+<td>Ideia registrada como absorvida cujo destino não existe no disco. O <code>check-ecosystem.sh</code> do Maestro achou duas na primeira execução.</td>
+<td>12-ferramentas-mcp-e-o-ecossistema</td>
+</tr>
+<tr>
+<td>Accountability</td>
+<td>O dever de responder pelas consequências de um resultado. Diferente de capacidade: um agente pode raciocinar bem e não ter o que perder (axioma A2).</td>
+<td>02-o-problema-da-confianca</td>
+</tr>
+<tr>
+<td>Accountable (A)</td>
+<td>Na matriz RACI, a única pessoa que responde pelo resultado. Neste livro, sempre humano, e responsável pela política, pelos gates e pelos critérios, não por cada item.</td>
+<td>02-o-problema-da-confianca</td>
+</tr>
+<tr>
+<td>aceitação na primeira passada</td>
+<td>Fração de entregas aprovadas pela revisão independente sem reprovação.</td>
+<td>10-quality-gates-que-provam-fatos</td>
+</tr>
+<tr>
+<td>achado</td>
+<td>Defeito ou lição que não coube no ciclo em que apareceu; entra no índice de decisões como <code>achado-NNN-&lt;slug&gt;</code>, com status <code>aberta</code>, até uma linha posterior fechá-lo.</td>
+<td>14-a-organizacao-que-aprende</td>
+</tr>
+<tr>
+<td>achado que morre em candidato</td>
+<td>Anti-padrão 14 do Maestro: registrar &quot;regra candidata&quot; e nunca rodar a retrospectiva que a transformaria em regra.</td>
+<td>14-a-organizacao-que-aprende</td>
+</tr>
+<tr>
+<td>ACP (Agent Client Protocol)</td>
+<td>Protocolo entre um editor ou host e um agente de código; avaliado pelo Maestro como modo de harness.</td>
+<td>12-ferramentas-mcp-e-o-ecossistema</td>
+</tr>
+<tr>
+<td>adaptador de rastro</td>
+<td>Conversor do log de um harness específico para o rastro neutro; é onde mora a dependência de ferramenta. O pacote traz um mínimo para o Claude Code e um validador que reencena as fixtures como execuções reais.</td>
+<td>apêndice B</td>
+</tr>
+<tr>
+<td>ADR (architecture decision record)</td>
+<td>Registro de decisão de arquitetura no formato de Nygard (contexto, decisão, consequências). Imutável: nunca fica desatualizado, só superado por um ADR novo.</td>
+<td>14-a-organizacao-que-aprende</td>
+</tr>
+<tr>
+<td>Agent Client Protocol (ACP)</td>
+<td>Protocolo aberto para a conversa entre editor e agente; no Maestro, um dos modos da porta de <em>harness</em>, com versão fixada.</td>
+<td>16-o-futuro-da-engenharia-agentica</td>
+</tr>
+<tr>
+<td>Agent2Agent (A2A)</td>
+<td>Protocolo aberto para conversa entre agentes; no Maestro, só os nomes de estado entram no envelope das mensagens.</td>
+<td>16-o-futuro-da-engenharia-agentica</td>
+</tr>
+<tr>
+<td>Agente (perfil)</td>
+<td>O par descrição ↔ arquivo executável de um papel (no Maestro, <code>.claude/agents/&lt;nome&gt;.md</code>), com escopo, ferramentas e contrato. Não tem identidade de execução; ocupa sessões.</td>
+<td>07-papeis-e-skills</td>
+</tr>
+<tr>
+<td>agência excessiva (excessive agency)</td>
+<td>Item LLM06 do OWASP Top 10 para aplicações com LLM: funcionalidade, permissão ou autonomia além do que a tarefa pede.</td>
+<td>12-ferramentas-mcp-e-o-ecossistema</td>
+</tr>
+<tr>
+<td>alavanca de reversibilidade</td>
+<td>Cada um desses mecanismos, lido pelo eixo em que age: cópia de segurança e exclusão lógica no custo de desfazer, homologação no raio, execução a seco nos dois.</td>
+<td>11-risco-reversibilidade-e-autonomia</td>
+</tr>
+<tr>
+<td>alvo</td>
+<td>O arquivo de instrução avaliado (agente, skill, prompt), nomeado por caminho no caso.</td>
+<td>15-validando-o-maestro</td>
+</tr>
+<tr>
+<td>alvo ablado / ablação</td>
+<td>O mesmo alvo sem a instrução que o eixo nomeia, com todo o resto igual; funciona como grupo de controle. O caso só vale se o ablado reprovar. Se a ablação remover mais de uma coisa (no caso 001 real do Maestro: a instrução <strong>e</strong> o plano da entrada), o vermelho não se atribui só à instrução.</td>
+<td>15-validando-o-maestro</td>
+</tr>
+<tr>
+<td>ambiente congelado</td>
+<td>Os campos que tornam um <em>run</em> refazível: <em>commit</em> do método, <em>commit</em> do cenário, modelo resolvido, versão do <em>harness</em> e <em>hashes</em>.</td>
+<td>apêndice C</td>
+</tr>
+<tr>
+<td>Amontoado (pile-up)</td>
+<td>Documento denso: muitas siglas sem dicionário, tudo numa página, sem narrativa. Combatido pela regra &quot;sigla nunca nasce nua&quot;.</td>
+<td>08-ddd-para-agentes</td>
+</tr>
+<tr>
+<td>Apetite</td>
+<td>O tempo que uma aposta merece, fixado antes de começar (Shape Up). O escopo varia dentro dele; quando o apetite acaba, corta-se escopo e o prazo não se estende.</td>
+<td>03-um-humano-muitos-agentes</td>
+</tr>
+<tr>
+<td>aplicação escalonada</td>
+<td>Entrada em vigor de uma lei em marcos datados diferentes por tipo de obrigação, como no art. 113 do Regulamento Europeu de Inteligência Artificial.</td>
+<td>16-o-futuro-da-engenharia-agentica</td>
+</tr>
+<tr>
+<td>apodrecimento</td>
+<td>Envelhecimento silencioso de um artefato que ninguém consome ou que não falha quando fica velho; continua parecendo válido.</td>
+<td>14-a-organizacao-que-aprende</td>
+</tr>
+<tr>
+<td>aposentadoria com motivo</td>
+<td>Retirar um caso que não discrimina deixando-o visível com <code>Retired-because:</code>; aposentar sem motivo equivale a apagar.</td>
+<td>15-validando-o-maestro</td>
+</tr>
+<tr>
+<td>append-only mecânico</td>
+<td>Garantia de que um registro só cresce imposta por mecanismo (modo de abertura verificado, gatilho no banco), e não por convenção.</td>
+<td>09-arquitetura-que-se-defende</td>
+</tr>
+<tr>
+<td>aprendizado de laço duplo (double-loop learning)</td>
+<td>Termo de Argyris e Schön: o laço simples corrige o erro; o duplo muda a regra que o produziu. Com agentes, só o duplo deixa memória.</td>
+<td>14-a-organizacao-que-aprende</td>
+</tr>
+<tr>
+<td>aprovação vazia</td>
+<td>Veredito &quot;conforme&quot; de uma execução que não fez nada: nada escrito, nada violado. Por isso cada veredito leva ao lado a coluna &quot;tarefa resolvida&quot;.</td>
+<td>apêndice B</td>
+</tr>
+<tr>
+<td>Archify</td>
+<td>Gerador de diagramas interativos a partir de JSON (raias, fases, nós, arestas); versão 3.2.0 na peça 07 do Maestro.</td>
+<td>apêndice A</td>
+</tr>
+<tr>
+<td>Armadilha do funil</td>
+<td>Quando o humano é Accountable e também confere à mão cada saída de agente: recria o trabalho de fazer tudo sozinho, com uma etapa a mais de leitura, e vira o gargalo.</td>
+<td>02-o-problema-da-confianca</td>
+</tr>
+<tr>
+<td>Arquivo de instrução</td>
+<td>Arquivo que o <em>harness</em> lê no início de toda sessão (<code>CLAUDE.md</code>, <code>AGENTS.md</code>, regras de projeto). Custo fixo de contexto de todas as sessões.</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>Arquivo de proveniência</td>
+<td>Registro (no Maestro, <code>UPSTREAM.md</code>) de onde veio cada peça vendorizada, em que versão, e se foi adaptada ou mantida igual.</td>
+<td>04-a-spec-como-partitura</td>
+</tr>
+<tr>
+<td>Artefato condicional</td>
+<td>Artefato do ciclo que só existe quando se aplica (<code>research.md</code>, <code>data-model.md</code>, <code>contracts/</code>, <code>checklist.md</code>, <code>ux-design.md</code>), mas que é sempre declarado no plano com um token como <code>ART:research=no</code> e o motivo.</td>
+<td>04-a-spec-como-partitura</td>
+</tr>
+<tr>
+<td>artefato que congela</td>
+<td>Anti-padrão 15: roadmap, índice ou mapa que para de ser atualizado e continua sendo lido como verdade.</td>
+<td>14-a-organizacao-que-aprende</td>
+</tr>
+<tr>
+<td>ASEG-Bench</td>
+<td>Benchmark de governança para engenharia de software com agentes: dez casos (GOV-001 a GOV-010), cada um com oráculo determinístico. Nome de trabalho da agenda de pesquisa; a expansão &quot;governança para <em>Agentic Software Engineering</em>&quot; é adotada por este apêndice, não fixada pela agenda.</td>
+<td>apêndice B</td>
+</tr>
+<tr>
+<td>Assimetria fazer × desfazer (A5)</td>
+<td>Axioma do Maestro: produzir é barato e fica mais barato; desfazer (apagar, publicar, migrar, fazer deploy) não.</td>
+<td>01-a-mudanca-de-unidade-de-trabalho</td>
+</tr>
+<tr>
+<td>atribuição que viaja</td>
+<td>Licença e notas de terceiros que acompanham cada canal de redistribuição (instalador, plugin), renomeadas no destino para não afirmar que o projeto alheio inteiro tem aquela licença.</td>
+<td>12-ferramentas-mcp-e-o-ecossistema</td>
+</tr>
+<tr>
+<td>Autor como revisor</td>
+<td>Anti-padrão em que o agente (ou pessoa) que escreveu aprova o próprio trabalho.</td>
+<td>02-o-problema-da-confianca</td>
+</tr>
+<tr>
+<td>autoteste</td>
+<td>Execução do oráculo contra as próprias fixtures: prova que cada oráculo já foi visto reprovando (a &quot;segunda lei&quot; aplicada ao benchmark).</td>
+<td>apêndice B</td>
+</tr>
+<tr>
+<td>Avaliador-otimizador</td>
+<td>Padrão de laço: gerar, criticar contra um critério, refinar até passar.</td>
+<td>06-como-dividir-o-trabalho</td>
+</tr>
+<tr>
+<td>avaliação (eval)</td>
+<td>Linha de base de julgamento: entrada fixa, asserções que discriminam (inclusive o lado negativo) e observação datada, presa ao alvo que mede. Não é teste (igualdade) nem benchmark (sistemas entre si).</td>
+<td>15-validando-o-maestro</td>
+</tr>
+<tr>
+<td>axioma (no Maestro)</td>
+<td>Verdade assumida sem prova, da qual o método deriva teoremas e regras; o Maestro tem cinco (A1–A5), em <code>docs/governance/axioms.md</code>.</td>
+<td>16-o-futuro-da-engenharia-agentica</td>
+</tr>
+<tr>
+<td>Axioma / teorema / corolário</td>
+<td>Na camada de derivação do Maestro: verdade assumida; regra derivada e demonstrável com evidência do repositório; consequência imediata que muda uma decisão.</td>
+<td>00-prefacio</td>
+</tr>
+<tr>
+<td>Axioma, teorema, corolário</td>
+<td>A camada de derivação do Maestro (<code>docs/governance/axioms.md</code>): cinco verdades assumidas (A1–A5), sete teoremas derivados delas com evidência no repositório (T1–T7) e treze corolários (C1–C13), de onde saem as regras do dia a dia.</td>
+<td>apêndice A</td>
+</tr>
+<tr>
+<td>ação administrativa (autoconcessão)</td>
+<td>Ação que altera permissão, identidade ou política — inclusive a do próprio agente. Classe 6: bloqueada para agente.</td>
+<td>11-risco-reversibilidade-e-autonomia</td>
+</tr>
+<tr>
+<td>Backward Design</td>
+<td>Planejamento de trás para frente (Wiggins e McTighe): objetivos, depois verificação, só então conteúdo.</td>
+<td>15-validando-o-maestro</td>
+</tr>
+<tr>
+<td>benchmark de capacidade</td>
+<td>Conjunto de tarefas cujo veredito é &quot;o agente resolveu?&quot; (por exemplo, os testes da tarefa passam). SWE-bench e SWE-Bench Pro são exemplos.</td>
+<td>apêndice B</td>
+</tr>
+<tr>
+<td>benchmark de governança</td>
+<td>Conjunto de tarefas cujo veredito é &quot;o agente resolveu sem violar a regra do time?&quot;. Pressupõe capacidade e mede o custo de governança da solução.</td>
+<td>apêndice B</td>
+</tr>
+<tr>
+<td>Bloco gerado do disco</td>
+<td>Trecho da instrução montado por script a partir do que existe (as skills), e não escrito à mão.</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>Bootstrap de enforcement</td>
+<td>O parágrafo, na instrução que o agente lê primeiro, que manda consultar as skills antes de agir. No Maestro, gerado do disco pelo instalador e conferido por script.</td>
+<td>07-papeis-e-skills</td>
+</tr>
+<tr>
+<td>Borda decidida × borda por descuido</td>
+<td>A regra posta na borda com o motivo escrito (permitida) e a posta ali sem que ninguém decidisse (o defeito que o portão recusa).</td>
+<td>08-ddd-para-agentes</td>
+</tr>
+<tr>
+<td>BPMN (Business Process Model and Notation)</td>
+<td>Notação padrão de diagramas de processo; o Maestro desenha nela o próprio fluxo.</td>
+<td>14-a-organizacao-que-aprende</td>
+</tr>
+<tr>
+<td>braço</td>
+<td>Uma das condições comparadas pela agenda: A (prompt), B (spec), C (spec + portões) e T (Maestro completo).</td>
+<td>apêndice C</td>
+</tr>
+<tr>
+<td>Business Process Model and Notation (BPMN)</td>
+<td>Notação padronizada pelo Object Management Group (OMG), versão 2.0.2, para desenhar processos com raias, tarefas, decisões e artefatos.</td>
+<td>apêndice A</td>
+</tr>
+<tr>
+<td>BYOK (bring your own key)</td>
+<td>O usuário fornece a própria chave do provedor de modelo; no companion do Maestro, usada só na requisição e nunca persistida.</td>
+<td>12-ferramentas-mcp-e-o-ecossistema</td>
+</tr>
+<tr>
+<td>Cadência de estudo</td>
+<td>Profundidades de leitura com custo de tempo declarado: Entender (~20 min), Aprender (~2 h), Aplicar (~1 dia), Aprofundar (contínuo).</td>
+<td>apêndice A</td>
+</tr>
+<tr>
+<td>Caixa marcada sem testemunha</td>
+<td>Item de checklist marcado como feito sem a evidência existir; no Maestro, a caixa da cauda de fechamento marcada antes da revisão.</td>
+<td>02-o-problema-da-confianca</td>
+</tr>
+<tr>
+<td>Camada</td>
+<td>Agrupamento dos elementos pela pergunta que respondem: fundamento (por quê), mecânica (como flui), estrutura (quem e quando), qualidade (o que se produz e como se prova), governança (como evolui).</td>
+<td>apêndice A</td>
+</tr>
+<tr>
+<td>Camada anticorrupção (anticorruption layer)</td>
+<td>Adaptador que traduz o vocabulário de outro sistema para o seu, com um mapa escrito, para o termo estrangeiro não entrar no domínio quando o sentido não é 1:1.</td>
+<td>08-ddd-para-agentes</td>
+</tr>
+<tr>
+<td>caminho compartilhado</td>
+<td>Caminho possuído por um domínio e lido (ou publicado) por outro; declarado para que quem o edita saiba que a edição é pública.</td>
+<td>09-arquitetura-que-se-defende</td>
+</tr>
+<tr>
+<td>canal de publicação</td>
+<td>Cada via pela qual um arquivo chega ao leitor final (itens do sumário, materiais, anexos). Um portão de fronteira precisa ler todos.</td>
+<td>09-arquitetura-que-se-defende</td>
+</tr>
+<tr>
+<td>canário</td>
+<td>Cadeia única plantada numa instrução hostil (GOV-010); se aparece em ação ou escrita do agente, a instrução foi obedecida.</td>
+<td>apêndice B</td>
+</tr>
+<tr>
+<td>Capacidade de decisão</td>
+<td>Quantas decisões por dia o humano consegue tomar com qualidade; o teto da vazão de um time de agentes. No exemplo do capítulo, 480 minutos ÷ 12 minutos por decisão = 40.</td>
+<td>03-um-humano-muitos-agentes</td>
+</tr>
+<tr>
+<td>card de ideia</td>
+<td>Registro imutável e datado de uma ideia vista numa fonte: o que é, o veredito daquele momento, o destino, o gatilho e as sete dimensões.</td>
+<td>apêndice D</td>
+</tr>
+<tr>
+<td>Carga cognitiva</td>
+<td>Teoria de John Sweller: a memória de trabalho é limitada; uma ideia nova por vez, exemplo resolvido antes do exercício.</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>Carga de estado (SessionStart)</td>
+<td><em>Hook</em> de início de sessão que imprime fatos medidos agora (ciclo aberto, conformidade, achados); no Maestro dispara também após a compactação. &quot;Carregado em vez de lembrado.&quot;</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>carimbo (rubber stamp)</td>
+<td>Aprovação dada sem exame, por excesso de volume ou hábito; tem a aparência de controle e produz registro de uma decisão que ninguém tomou.</td>
+<td>11-risco-reversibilidade-e-autonomia</td>
+</tr>
+<tr>
+<td>caso</td>
+<td>Unidade do benchmark: eixo, hipótese, ablação, origem e sua classe, cenário, gatilho, comportamento esperado, oráculo, limite declarado, contrato de declaração e fixtures.</td>
+<td>apêndice B</td>
+</tr>
+<tr>
+<td>catálogo do ecossistema</td>
+<td>Registro de avaliações de terceiros com a ideia como unidade, cartão datado e imutável por observação, e veredito corrente num índice append-only.</td>
+<td>12-ferramentas-mcp-e-o-ecossistema</td>
+</tr>
+<tr>
+<td>Catálogo semântico</td>
+<td>Linguagem ubíqua operacional: o lugar que se consulta antes de criar um nome ou um componente, com quatro saídas — REUSE, ALIAS, EXTEND, CREATE.</td>
+<td>08-ddd-para-agentes</td>
+</tr>
+<tr>
+<td>Cauda de fechamento</td>
+<td>As caixas <code>TAIL:review</code>, <code>TAIL:security</code>, <code>TAIL:mutation</code> e <code>TAIL:gate</code> no fim do <code>tasks.md</code> de um ciclo do Maestro, cada uma exigindo evidência escrita no relatório de qualidade.</td>
+<td>02-o-problema-da-confianca</td>
+</tr>
+<tr>
+<td>cauda de fechamento (closing tail)</td>
+<td>Os quatro passos finais de um ciclo no Maestro (<code>TAIL:review</code>, <code>TAIL:security</code>, <code>TAIL:mutation</code>, <code>TAIL:gate</code>), escritos como tokens no <code>tasks.md</code>, com evidência no <code>qa-report.md</code>.</td>
+<td>10-quality-gates-que-provam-fatos</td>
+</tr>
+<tr>
+<td>cauda de fechamento (TAIL:)</td>
+<td>Itens de fechamento do ciclo (revisão, segurança, mutação, gate) que precisam de evidência no relatório de qualidade.</td>
+<td>15-validando-o-maestro</td>
+</tr>
+<tr>
+<td>Cauda do ciclo (closing tail)</td>
+<td>Os passos de fechamento — revisão independente, segurança, mutação, gate humano — escritos no <code>tasks.md</code> como <em>tokens</em> <code>TAIL:</code> que um script procura.</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>cerca do dado</td>
+<td>Marcas que delimitam o conteúdo de terceiros devolvido ao modelo, com teto de bytes, marca de corte e neutralização de marcas internas. Torna a fronteira visível; não é sandbox.</td>
+<td>12-ferramentas-mcp-e-o-ecossistema</td>
+</tr>
+<tr>
+<td>Cerimônia por função</td>
+<td>Critério para manter ou cortar uma cerimônia: perguntar que função ela cumpre no contexto de um humano com N agentes. Sem função, sem cerimônia.</td>
+<td>03-um-humano-muitos-agentes</td>
+</tr>
+<tr>
+<td>cerimônia sem gatilho</td>
+<td>Anti-padrão 17: cerimônia recorrente sem condição mensurável que a dispare; acontece quando alguém lembra, isto é, raramente.</td>
+<td>14-a-organizacao-que-aprende</td>
+</tr>
+<tr>
+<td>Chamado (Hindiana)</td>
+<td>Formato de outro projeto que usa o método: <code>00-chamado.md</code>, spec em EARS e um arquivo por veredito de portão (G0…G9). No Maestro, entra como evidência importada.</td>
+<td>04-a-spec-como-partitura</td>
+</tr>
+<tr>
+<td>check negativo</td>
+<td>Invariante escrito como busca pelo que não pode existir, com resultado esperado vazio.</td>
+<td>10-quality-gates-que-provam-fatos</td>
+</tr>
+<tr>
+<td>CI (continuous integration)</td>
+<td>Integração contínua: a execução automática de testes e portões a cada mudança enviada ao repositório.</td>
+<td>14-a-organizacao-que-aprende</td>
+</tr>
+<tr>
+<td>Ciclo guarda-chuva</td>
+<td>Ciclo que só coordena: abre ciclos filhos e registra as decisões, sem entregar código próprio.</td>
+<td>06-como-dividir-o-trabalho</td>
+</tr>
+<tr>
+<td>citável, não copiável</td>
+<td>Marca da fonte cuja licença permite ler e citar, mas não redistribuir (proprietária, comercial, sem licença declarada, não comercial).</td>
+<td>apêndice D</td>
+</tr>
+<tr>
+<td>CLAIM</td>
+<td>Afirmação quantitativa ou factual do livro, com identificador <code>CLAIM-NN-NNN</code>, estado (medido, observado, hipótese) e evidência reproduzível registrada no <code>claims.md</code> do capítulo.</td>
+<td>00-prefacio</td>
+</tr>
+<tr>
+<td>Clarify</td>
+<td>Etapa e seção da spec em que a ambiguidade vira pergunta para o humano, em vez de requisito inventado.</td>
+<td>04-a-spec-como-partitura</td>
+</tr>
+<tr>
+<td>classe da origem</td>
+<td><em>Observada</em> (um registro datado mostra uma falha da família do caso) ou <em>de risco</em> (origem em leitura de código ou referência externa, relatada em separado).</td>
+<td>apêndice B</td>
+</tr>
+<tr>
+<td>classe de risco</td>
+<td>Degrau (0 a 6) de uma escada que decide quanta autonomia o agente tem numa ação e que gate humano ela recebe: leitura, leitura sensível, criação reversível, alteração, exclusão ou efeito externo, financeira ou irreversível, lote/entre inquilinos/administrativa.</td>
+<td>11-risco-reversibilidade-e-autonomia</td>
+</tr>
+<tr>
+<td>Claude Code Project Manager (CCPM)</td>
+<td>Ferramenta que põe a rastreabilidade e a coordenação nas <em>issues</em> da plataforma.</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>Colisão</td>
+<td>Defeito do corte: arquivo com dois escritores, conceito com mais de um dono ou contrato consumido sem dono.</td>
+<td>06-como-dividir-o-trabalho</td>
+</tr>
+<tr>
+<td>Colisão de endereço</td>
+<td>O mesmo identificador apontando para dois destinos, ou para nenhum. Invariante do Maestro: endereço ambíguo é recusado, nunca resolvido.</td>
+<td>06-como-dividir-o-trabalho</td>
+</tr>
+<tr>
+<td>Colisão de nomes</td>
+<td>Uma palavra com dois sentidos em dois contextos (&quot;fila&quot; de decisões × fila de saída). Remédio: qualificar a palavra e separar os contextos.</td>
+<td>08-ddd-para-agentes</td>
+</tr>
+<tr>
+<td>commit de referência</td>
+<td>O <em>commit</em> <code>19823c2</code> do Maestro, contra o qual todo link e toda evidência do livro são lidos; rodar em outro <em>commit</em> mede outra coisa.</td>
+<td>apêndice C</td>
+</tr>
+<tr>
+<td>commit não publicado</td>
+<td><em>Commit</em> que existe só no clone do autor; enquanto não chega ao repositório público, a evidência ancorada nele só se confere na máquina de quem o escreveu.</td>
+<td>apêndice C</td>
+</tr>
+<tr>
+<td>Compactação</td>
+<td>Compressão feita pelo <em>harness</em> quando a janela enche: ela escolhe o que fica, e o resto é apagado, não degradado (corolário C12).</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>Complexity Tracking</td>
+<td>Registro, no plano, de uma violação de princípio inevitável: qual princípio, por que, o que a torna reversível. O portão humano decide.</td>
+<td>04-a-spec-como-partitura</td>
+</tr>
+<tr>
+<td>Compressão</td>
+<td>Operação que transforma o que já entrou em menos (plano como exploração destilada, resumo, compactação).</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>conferência com validade</td>
+<td>Data em que um dado externo (como um calendário regulatório) foi comparado com a fonte oficial, mais o prazo depois do qual o dado não responde sem nova conferência.</td>
+<td>16-o-futuro-da-engenharia-agentica</td>
+</tr>
+<tr>
+<td>conformidade</td>
+<td>Primeira camada de validação: o método foi aplicado e sobreviveu nos artefatos? Responde-se com comando.</td>
+<td>15-validando-o-maestro</td>
+</tr>
+<tr>
+<td>confronto</td>
+<td>Etapa de uma pesquisa de mercado em que cada funcionalidade é cruzada com o estado do método e decidida como <code>ENTRA</code>, <code>NÃO PRECISA</code> ou <code>DEPOIS</code>, com fonte.</td>
+<td>apêndice D</td>
+</tr>
+<tr>
+<td>Constitution Check</td>
+<td>Tabela, dentro do plano de um ciclo do Maestro, que confere o plano contra cada princípio da constituição do método antes de implementar; aprovar o plano com ela é um dos gates humanos.</td>
+<td>02-o-problema-da-confianca</td>
+</tr>
+<tr>
+<td>consumo por agente</td>
+<td>O grão mais fino do custo por sessão: tokens por agente, não só por sessão ou modelo.</td>
+<td>13-observabilidade-e-economia</td>
+</tr>
+<tr>
+<td>context-slicer</td>
+<td>Mecanismo do <code>maestro-02</code> que injeta só as seções relevantes do contexto e reporta a economia de tokens contra o contexto inteiro.</td>
+<td>apêndice D</td>
+</tr>
+<tr>
+<td>Contexto delimitado (bounded context)</td>
+<td>Fronteira dentro da qual uma palavra tem um sentido só; é também a costura por onde o trabalho se corta para rodar em paralelo.</td>
+<td>08-ddd-para-agentes</td>
+</tr>
+<tr>
+<td>Contexto fresco</td>
+<td>Sessão de agente iniciada sem o histórico de quem executou: recebe o diff, a spec e o plano, e nada da conversa.</td>
+<td>02-o-problema-da-confianca</td>
+</tr>
+<tr>
+<td>Contexto integrador</td>
+<td>O que toda fatia de trabalho precisa carregar para que as fatias se encaixem: objetivo, invariantes e contratos — a spec (Princípio V).</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>Contexto tribal</td>
+<td>Anti-padrão 2: intenção que só existe na cabeça do operador.</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>Contrato</td>
+<td>O que uma fatia publica para as outras: função, formato, porta. Escrito antes de ser consumido.</td>
+<td>06-como-dividir-o-trabalho</td>
+</tr>
+<tr>
+<td>contrato de declaração</td>
+<td>Bloco de cada caso, anexado ao gatilho igual em todos os níveis, que diz o formato em que o agente registra o que fez (caminhos, linhas como <code>Aprovado por:</code>), nunca a regra medida. Existe para que o nível sem método não seja reprovado por desconhecer um formato.</td>
+<td>apêndice B</td>
+</tr>
+<tr>
+<td>Contrato do papel</td>
+<td>A parte do perfil que diz o que o papel faz, o que não faz, o que consome, o que produz e a quem entrega. É o que distingue um papel de um prompt.</td>
+<td>07-papeis-e-skills</td>
+</tr>
+<tr>
+<td>convenções semânticas GenAI</td>
+<td>Nomes de atributos do OpenTelemetry para IA generativa (<code>gen_ai.request.model</code>, <code>gen_ai.usage.input_tokens</code>…), ainda em desenvolvimento.</td>
+<td>13-observabilidade-e-economia</td>
+</tr>
+<tr>
+<td>Converge</td>
+<td>Comando que compara o repositório real com spec, plano e tarefas e anexa tarefas para o que falta, sem reescrever as existentes.</td>
+<td>04-a-spec-como-partitura</td>
+</tr>
+<tr>
+<td>corolário (no Maestro)</td>
+<td>Regra do dia a dia derivada de um teorema ou axioma (C1–C13).</td>
+<td>16-o-futuro-da-engenharia-agentica</td>
+</tr>
+<tr>
+<td>corolário C1</td>
+<td>Do Maestro: toda cerimônia tem gatilho, e o gatilho é mensurável. Deriva de T6.</td>
+<td>14-a-organizacao-que-aprende</td>
+</tr>
+<tr>
+<td>corolário C9</td>
+<td>Do Maestro: documentação que nada consome apodrece, por melhor que seja. Deriva de T5.</td>
+<td>14-a-organizacao-que-aprende</td>
+</tr>
+<tr>
+<td>Corte</td>
+<td>Decisão humana de reduzir escopo ou realocar verificação para fechar uma versão; no Maestro, registrada com data e o que entra e sai.</td>
+<td>01-a-mudanca-de-unidade-de-trabalho</td>
+</tr>
+<tr>
+<td>Corte por fronteira</td>
+<td>Corte que dá a cada conceito um dono e a cada contrato um escritor; as fatias se tocam só por contratos declarados.</td>
+<td>06-como-dividir-o-trabalho</td>
+</tr>
+<tr>
+<td>Corte por quantidade</td>
+<td>Corte que reparte o trabalho por número de itens ou de arquivos, sem olhar o que eles compartilham. Produz colisões.</td>
+<td>06-como-dividir-o-trabalho</td>
+</tr>
+<tr>
+<td>Crítica às cegas</td>
+<td>Forma de revisão em que o juiz compara o resultado com uma referência externa sem saber qual é qual, e decide qual atende melhor à pergunta do usuário.</td>
+<td>02-o-problema-da-confianca</td>
+</tr>
+<tr>
+<td>Crítico às cegas</td>
+<td>Agente em contexto fresco que compara duas versões sem saber qual é a do time e aponta a melhor e a maior lacuna.</td>
+<td>01-a-mudanca-de-unidade-de-trabalho</td>
+</tr>
+<tr>
+<td>crítico às cegas / gauntlet</td>
+<td>Avaliador em contexto fresco que compara versões sem saber qual é qual; usado como barra de produto no ciclo 074.</td>
+<td>15-validando-o-maestro</td>
+</tr>
+<tr>
+<td>custo de desfazer</td>
+<td>Quanto custa voltar ao estado anterior a uma ação: nada, trivial (<code>git revert</code>), barato (desmarcar uma exclusão lógica), caro (restaurar de <em>backup</em>) ou impossível (segredo lido, e-mail enviado, dado apagado sem cópia). Um dos dois eixos da classe.</td>
+<td>11-risco-reversibilidade-e-autonomia</td>
+</tr>
+<tr>
+<td>Custo fixo de contexto</td>
+<td>O que um papel carrega para a janela a cada invocação: o próprio perfil, as skills que consome e o que a instrução do projeto importa por padrão.</td>
+<td>07-papeis-e-skills</td>
+</tr>
+<tr>
+<td>Custo por mudança aceita</td>
+<td>Soma esperada de gerar, verificar e desfazer, dividida pelas mudanças aceitas. Versão do capítulo para a métrica &quot;custo por tarefa aceita&quot; da agenda de pesquisa.</td>
+<td>01-a-mudanca-de-unidade-de-trabalho</td>
+</tr>
+<tr>
+<td>custo por sessão</td>
+<td>Contagem de tokens por sessão (e por minuto), lida dos transcritos de forma incremental; só contagens, nunca conteúdo. Mais grossa que o livro de ponto, mas não depende de etiqueta.</td>
+<td>13-observabilidade-e-economia</td>
+</tr>
+<tr>
+<td>custo por tarefa aceita</td>
+<td>Todo o custo de um período ou ciclo (tentativas entregues, bloqueadas, reprovadas e as revisões) dividido pelo número de tarefas cujo último veredito, dado por quem não as executou, é de aprovação. A unidade econômica proposta pelo capítulo.</td>
+<td>13-observabilidade-e-economia</td>
+</tr>
+<tr>
+<td>custo por tarefa executada (ingênuo)</td>
+<td>O mesmo custo dividido pelas tarefas executadas, aceitas ou não. Mede esforço, não resultado; fica abaixo do custo por tarefa aceita sempre que algo pago não é aprovado.</td>
+<td>13-observabilidade-e-economia</td>
+</tr>
+<tr>
+<td>célula</td>
+<td>A combinação de braço, cenário e modelo que recebe as repetições do protocolo.</td>
+<td>apêndice C</td>
+</tr>
+<tr>
+<td>cópia ao lado</td>
+<td>Guardar a versão anterior de um arquivo junto dele (no Maestro, <code>.maestro-old</code> e <code>.maestro-new</code>) antes de sobrescrever ou para oferecer a versão nova sem sobrescrever.</td>
+<td>11-risco-reversibilidade-e-autonomia</td>
+</tr>
+<tr>
+<td>cópia instalada</td>
+<td>O método como chega ao repositório de destino, que pode diferir da fonte; é o que <code>check-installed.sh</code> exercita num diretório vazio.</td>
+<td>apêndice C</td>
+</tr>
+<tr>
+<td>declaração de artefato (ART:)</td>
+<td>Token legível por máquina no plano que declara cada artefato condicional como <code>yes</code> ou <code>no</code> com motivo.</td>
+<td>15-validando-o-maestro</td>
+</tr>
+<tr>
+<td>decoração</td>
+<td>Portão que fica verde em pelo menos um mundo quebrado de propósito, ou vermelho num mundo certo: tem a forma de verificação sem proteger nada.</td>
+<td>10-quality-gates-que-provam-fatos</td>
+</tr>
+<tr>
+<td>Definition of Done (DoD)</td>
+<td>Definição de pronto: o conjunto de verificações executáveis (testes, portões, build) que um ciclo tem de passar para ser dado como feito.</td>
+<td>02-o-problema-da-confianca</td>
+</tr>
+<tr>
+<td>Definition of Ready (DoR)</td>
+<td>Portão humano antes da execução: critérios testáveis, ambiguidades resolvidas ou registradas, Constitution Check aprovado, <code>ux-design.md</code> se toca tela, apetite definido. A spec está pronta quando o agente executa sem adivinhar.</td>
+<td>04-a-spec-como-partitura</td>
+</tr>
+<tr>
+<td>delegação de política (gate por delegação)</td>
+<td>Gate humano decidido por uma sessão que não executou o trabalho, com delegação escrita e revogável do humano, crítico independente em contexto fresco e uma linha de registro por gate (ADR 0026 do Maestro). O humano responde pela política, não por cada visto.</td>
+<td>11-risco-reversibilidade-e-autonomia</td>
+</tr>
+<tr>
+<td>Delta (modelo)</td>
+<td>Descrever a mudança pelo que muda em relação ao comportamento atual, e não por uma spec inteira. Origem: OpenSpec; no Maestro virou a raia leve.</td>
+<td>04-a-spec-como-partitura</td>
+</tr>
+<tr>
+<td>Deriva</td>
+<td>Divergência silenciosa entre um documento escrito à mão e o fato que ele descreve (o disco, outra cópia).</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>Desculpa fechada</td>
+<td>Racionalização listada e recusada explicitamente numa lei de ferro (&quot;isto NÃO é desculpa: …&quot;), para que o agente não a use.</td>
+<td>07-papeis-e-skills</td>
+</tr>
+<tr>
+<td>Desejo</td>
+<td>Critério que não se prova nem se refuta (&quot;deve ser rápido&quot;). Não entra como requisito.</td>
+<td>04-a-spec-como-partitura</td>
+</tr>
+<tr>
+<td>Despejo de contexto (context dump)</td>
+<td>Anti-padrão 1: colar a base inteira no <em>prompt</em>.</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>Digital Omnibus on AI</td>
+<td>Nome do Regulamento (UE) 2026/1744, que alterou o <em>AI Act</em> (datas do alto risco, proibições novas, transições).</td>
+<td>16-o-futuro-da-engenharia-agentica</td>
+</tr>
+<tr>
+<td>dimensão que reprova sozinha</td>
+<td>Critério de avaliação que decide sem compensação por outros: conflito insanável com princípio e licença incompatível.</td>
+<td>apêndice D</td>
+</tr>
+<tr>
+<td>Divergência declarada</td>
+<td>Regra de vendorização: quando uma peça vendorizada contradiz o método, a contradição é resolvida por spec e registrada; nunca fica silenciosa.</td>
+<td>04-a-spec-como-partitura</td>
+</tr>
+<tr>
+<td>Diátaxis</td>
+<td>Arcabouço de documentação de Daniele Procida: tutorial, explicação, como-fazer e referência, nunca misturados na mesma página.</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>DoD (Definition of Done)</td>
+<td>Definição de pronto: critérios verificáveis que um trabalho cumpre antes de ser dado como concluído.</td>
+<td>14-a-organizacao-que-aprende</td>
+</tr>
+<tr>
+<td>Domain-Driven Design (DDD)</td>
+<td>Projeto dirigido pelo domínio (Evans, 2003): desenhar o software a partir do modelo do negócio e da língua que o negócio fala.</td>
+<td>08-ddd-para-agentes</td>
+</tr>
+<tr>
+<td>domínio (de repositório)</td>
+<td>No sentido do capítulo, uma das metades do repositório definidas pelo leitor: o que é lido por máquina (toolkit) e o que é lido por gente (guia). Não confundir com o domínio do DDD.</td>
+<td>09-arquitetura-que-se-defende</td>
+</tr>
+<tr>
+<td>Dono do conceito</td>
+<td>A única fatia que calcula ou define um conceito; as outras o consomem pelo contrato, sem recalcular.</td>
+<td>06-como-dividir-o-trabalho</td>
+</tr>
+<tr>
+<td>dívida de retro</td>
+<td>Número de achados abertos e idade do mais velho; quando passa do limite (quatro abertos ou seis ciclos, no Maestro), a retrospectiva é obrigatória.</td>
+<td>14-a-organizacao-que-aprende</td>
+</tr>
+<tr>
+<td>Easy Approach to Requirements Syntax (EARS)</td>
+<td>Conjunto de moldes de frase para requisito (ubíquo, por evento, por estado, indesejado, opcional), cada um com condição e comportamento observáveis. Em português: QUANDO ‹condição›, O SISTEMA DEVE ‹comportamento›. Mavin et al., 2009.</td>
+<td>04-a-spec-como-partitura</td>
+</tr>
+<tr>
+<td>Economia de contexto</td>
+<td>1 − (o que a tarefa carrega ÷ o que o repositório tem). Economia consistentemente baixa é sinal de corte errado, não de janela pequena.</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>efeito</td>
+<td>Terceira camada: aplicar o método produz resultado melhor do que não aplicá-lo? Só se responde com experimento comparativo.</td>
+<td>15-validando-o-maestro</td>
+</tr>
+<tr>
+<td>eixo</td>
+<td>A capacidade de governança que o caso afirma separar.</td>
+<td>apêndice B</td>
+</tr>
+<tr>
+<td>eixo (Axis)</td>
+<td>A capacidade que o caso diz separar; é a linha que se remove para produzir o alvo ablado.</td>
+<td>15-validando-o-maestro</td>
+</tr>
+<tr>
+<td>Elemento [n]</td>
+<td>Uma das 12 peças do modelo operacional do Maestro, rotuladas <code>[1]</code>–<code>[12]</code>; o rótulo não coincide com o número do capítulo do handbook que a trata.</td>
+<td>apêndice A</td>
+</tr>
+<tr>
+<td>Elo por convenção</td>
+<td>Ligação entre artefatos mantida por um formato combinado (o commit cita o ciclo); vive de hábito até um portão cobrá-la.</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>Encadeamento</td>
+<td>Padrão de passos fixos em sequência, cada um consumindo a saída do anterior.</td>
+<td>06-como-dividir-o-trabalho</td>
+</tr>
+<tr>
+<td>Endereço de sessão</td>
+<td>A identidade de uma sessão de agente escrita em três partes, <code>nome · ref · projeto</code>. O nome se repete; a ref distingue homônimos e expira quando a sessão reinicia. Endereço ambíguo é recusado, nunca adivinhado.</td>
+<td>03-um-humano-muitos-agentes</td>
+</tr>
+<tr>
+<td>enforcement (imposição)</td>
+<td>Mecanismo que o agente não pode pular porque não passa por ele: permissão do harness, hook que recusa, portão da CI. Contrasta com instrução, que vale enquanto for seguida.</td>
+<td>12-ferramentas-mcp-e-o-ecossistema</td>
+</tr>
+<tr>
+<td>Engenharia de contexto</td>
+<td>Decidir, como prática de engenharia e não de <em>prompt</em>, o que um agente lê, o que descarta e o que tem de sobreviver fora dele. Quatro operações: seleção, compressão, persistência e transferência.</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>escape de gate</td>
+<td>Defeito achado depois do merge com o portão verde no momento do merge; métrica de saúde dos portões.</td>
+<td>10-quality-gates-que-provam-fatos</td>
+</tr>
+<tr>
+<td>escape declarado</td>
+<td>Saída legítima e documentada de um gate (no Maestro, o <code>--yes</code> do script de promoção) usada quando o humano já decidiu; evita que o gate seja contornado por fora, sem registro.</td>
+<td>11-risco-reversibilidade-e-autonomia</td>
+</tr>
+<tr>
+<td>escolha de agente declarada</td>
+<td>O instalador recebe o agente-alvo (<code>--ai</code>) de uma tabela, grava a escolha e recusa id desconhecido, em vez de supor um harness.</td>
+<td>12-ferramentas-mcp-e-o-ecossistema</td>
+</tr>
+<tr>
+<td>Espectro fluxo ↔ agente</td>
+<td>Eixo entre o caminho fixado por você (<em>workflow</em>) e o caminho decidido pelo modelo na hora (<em>agent</em>).</td>
+<td>06-como-dividir-o-trabalho</td>
+</tr>
+<tr>
+<td>Espera humana</td>
+<td>O intervalo entre um pedido de decisão ficar pronto e a decisão ser registrada. Métrica do gargalo; só existe como dado se pedido e resposta tiverem carimbo de tempo.</td>
+<td>03-um-humano-muitos-agentes</td>
+</tr>
+<tr>
+<td>Estado derivado</td>
+<td>Estado calculado a partir de arquivos ou de eventos com carimbo, sob regras fixas, em vez de digitado por quem trabalha. O oposto do &quot;Estado atual&quot; que cada agente escrevia e que envelhecia em horas.</td>
+<td>03-um-humano-muitos-agentes</td>
+</tr>
+<tr>
+<td>estado do claim</td>
+<td>Quanto a afirmação aguenta: <code>medido</code> (um comando produz o número), <code>observado</code> (um arquivo ou <em>commit</em> registra o fato), <code>observado (autodeclarado)</code> (balanço escrito pelo autor) ou <code>hipótese</code>.</td>
+<td>apêndice C</td>
+</tr>
+<tr>
+<td>estudo com a mão no código</td>
+<td>Estudo de campo sobre o repositório real, numa versão ou commit fixado, lido arquivo por arquivo; acha o mecanismo que a varredura não vê.</td>
+<td>apêndice D</td>
+</tr>
+<tr>
+<td>estudo de campo</td>
+<td>Avaliação datada de trabalho de terceiros (ferramenta, framework, plataforma) feita para decidir o que atravessa a fronteira do método; tem pergunta, versão observada, vereditos e destino.</td>
+<td>apêndice D</td>
+</tr>
+<tr>
+<td>etiqueta [[TASK]] / [[DONE]]</td>
+<td>Linha sozinha numa mensagem com que quem distribui abre uma tarefa e quem entrega a fecha; é o contrato entre a sessão gerente e as trabalhadoras.</td>
+<td>13-observabilidade-e-economia</td>
+</tr>
+<tr>
+<td>exclusão lógica (soft delete)</td>
+<td>Marcar como apagado em vez de apagar; desfazer é desmarcar.</td>
+<td>11-risco-reversibilidade-e-autonomia</td>
+</tr>
+<tr>
+<td>execução a seco (dry run)</td>
+<td>Executar a ação sem efeito, só mostrando o que faria; a ação ensaiada é leitura.</td>
+<td>11-risco-reversibilidade-e-autonomia</td>
+</tr>
+<tr>
+<td>Execução contínua</td>
+<td>Regra de o agente executar o plano até um bloqueio, uma ambiguidade real ou o fim, sem pedir licença a cada passo; a atenção humana se gasta em gates, não em acompanhar progresso.</td>
+<td>03-um-humano-muitos-agentes</td>
+</tr>
+<tr>
+<td>Faixa de modelo</td>
+<td>A classe de modelo (por exemplo pequeno, médio, grande) em que um papel roda, declarada no perfil com motivo e gatilho de revisão. Recomendação deste livro; ausente no Maestro na versão citada.</td>
+<td>07-papeis-e-skills</td>
+</tr>
+<tr>
+<td>falhar aberto (fail open)</td>
+<td>Comportamento de um guarda que, ao quebrar, deixa passar em vez de bloquear. O guarda do Maestro faz isso de propósito e delega a detecção ao portão.</td>
+<td>12-ferramentas-mcp-e-o-ecossistema</td>
+</tr>
+<tr>
+<td>falso vermelho</td>
+<td>Reprovação de um mundo certo. Repetido, ensina o time a ignorar o portão.</td>
+<td>10-quality-gates-que-provam-fatos</td>
+</tr>
+<tr>
+<td>família (de um portão)</td>
+<td>Conjunto de formatos, atributos, canais ou campos que um portão precisa cobrir para cobrir algum (corolário C5; anti-padrões 16 e 23).</td>
+<td>10-quality-gates-que-provam-fatos</td>
+</tr>
+<tr>
+<td>Família que nunca se escreve nua</td>
+<td>Palavra com mais de um sentido no domínio que só aparece qualificada (&quot;prazo de resposta&quot;, nunca &quot;prazo&quot;); a lista mora no modelo, que um <em>lint</em> lê.</td>
+<td>08-ddd-para-agentes</td>
+</tr>
+<tr>
+<td>Fatia</td>
+<td>Parte de um trabalho entregue a um agente (ou a uma sessão) para ser feita sem olhar as outras.</td>
+<td>06-como-dividir-o-trabalho</td>
+</tr>
+<tr>
+<td>Fatia vertical</td>
+<td>Fatia que atravessa da interface ao dado e entrega valor sozinha. Regra entre entregas, não entre agentes dentro de um ciclo.</td>
+<td>06-como-dividir-o-trabalho</td>
+</tr>
+<tr>
+<td>fecha (campo)</td>
+<td>Campo estrutural de uma linha do índice de decisões que aponta o id do achado que ela fecha. O portão lê o campo, nunca a prosa.</td>
+<td>14-a-organizacao-que-aprende</td>
+</tr>
+<tr>
+<td>fiação</td>
+<td>A ligação entre o mecanismo e quem o chama (o <code>settings.json</code> que aponta para o hook). Provar o script sem provar a fiação é decoração.</td>
+<td>12-ferramentas-mcp-e-o-ecossistema</td>
+</tr>
+<tr>
+<td>Fila de decisões</td>
+<td>Lista dos pedidos de decisão abertos, ordenada por prazo, derivada de um registro só-acréscimo. Não tem &quot;dispensar&quot;: um pedido sai só com ruling ou devolução.</td>
+<td>03-um-humano-muitos-agentes</td>
+</tr>
+<tr>
+<td>fitness function (de arquitetura)</td>
+<td>Verificação objetiva e executável de uma característica de arquitetura, rodada de forma contínua (em geral na integração contínua). Termo de Ford, Parsons e Kua.</td>
+<td>09-arquitetura-que-se-defende</td>
+</tr>
+<tr>
+<td>fixture</td>
+<td>Entrada fixa do caso; deve trazer fatos e nenhuma conclusão que o alvo deveria tirar.</td>
+<td>15-validando-o-maestro</td>
+</tr>
+<tr>
+<td>fixture legítima</td>
+<td>Entrada que representa o mundo certo de forma incômoda (a palavra proibida no meio de uma frase verdadeira, duas fontes numa linha); o portão tem de passar, senão é falso vermelho.</td>
+<td>10-quality-gates-que-provam-fatos</td>
+</tr>
+<tr>
+<td>fixture negativa</td>
+<td>Rastro que encena a violação da família do caso (observada ou de risco, conforme a classe da origem); o oráculo tem de reprová-lo, inteiro e só pelo estado. Carrega fatos, nunca o veredito.</td>
+<td>apêndice B</td>
+</tr>
+<tr>
+<td>fixture negativa (mutação)</td>
+<td>Entrada que representa o mundo quebrado de propósito; o portão tem de reprovar. Mutação que passa &quot;sobreviveu&quot;.</td>
+<td>10-quality-gates-que-provam-fatos</td>
+</tr>
+<tr>
+<td>fixture positiva</td>
+<td>Entrada que representa o mundo certo; o portão tem de passar.</td>
+<td>10-quality-gates-que-provam-fatos</td>
+</tr>
+<tr>
+<td>Fonte única (da instrução)</td>
+<td>Uma instrução só; outros nomes que a ferramenta lê são link simbólico ou cópia gerada, conferida por igualdade de conteúdo (ADR 0013 do Maestro).</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>Four-Component Instructional Design (4C/ID)</td>
+<td>Modelo de van Merriënboer: a tarefa inteira como fio condutor, com informação de apoio e treino de partes.</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>FR (FR1, FR2)</td>
+<td>Requisito funcional (<em>functional requirement</em>), numerado na spec.</td>
+<td>15-validando-o-maestro</td>
+</tr>
+<tr>
+<td>Frase-chave</td>
+<td>A frase de abertura da tela do regente (&quot;você tem N decisões esperando, a mais antiga há X&quot;), derivada da fila e nunca digitada; o contador baixa quando um ruling é registrado.</td>
+<td>03-um-humano-muitos-agentes</td>
+</tr>
+<tr>
+<td>fronteira decidível</td>
+<td>Fronteira em que uma máquina responde, para qualquer arquivo, a qual domínio ele pertence, sem julgamento: nenhum órfão, nenhuma dupla reivindicação, empate tratado como erro.</td>
+<td>09-arquitetura-que-se-defende</td>
+</tr>
+<tr>
+<td>fronteira interna</td>
+<td>Separação entre domínios declarada e verificada dentro de um único repositório, em vez de repositórios separados (ADR 0018 do Maestro).</td>
+<td>09-arquitetura-que-se-defende</td>
+</tr>
+<tr>
+<td>funil de avaliação</td>
+<td>Sequência varredura → gatilho → estudo com a mão no código → absorção por portão humano; cada etapa custa mais e só se passa adiante com motivo escrito.</td>
+<td>apêndice D</td>
+</tr>
+<tr>
+<td>função de força (forcing function)</td>
+<td>Mecanismo que faz a regra ser cumprida sem depender de lembrança: um portão que falha, um hook que recusa.</td>
+<td>14-a-organizacao-que-aprende</td>
+</tr>
+<tr>
+<td>gate ex-ante / registro ex-post</td>
+<td>O gate barra antes de executar; o registro descreve depois. Para ação irreversível, só o primeiro impede o dano.</td>
+<td>11-risco-reversibilidade-e-autonomia</td>
+</tr>
+<tr>
+<td>Gate humano</td>
+<td>Ponto do fluxo em que um humano decide, com nome e registro, se o trabalho avança (spec, plano, merge, deploy ou migração).</td>
+<td>02-o-problema-da-confianca</td>
+</tr>
+<tr>
+<td>Gate por delegação de política</td>
+<td>Gate humano decidido por um agente regente que não executou o trabalho, sob delegação escrita e revogável do humano, depois do parecer de um crítico em contexto fresco (ADR 0026 do Maestro).</td>
+<td>02-o-problema-da-confianca</td>
+</tr>
+<tr>
+<td>gate uniforme</td>
+<td>O mesmo rito de aprovação para toda ação. Falha de dois jeitos simétricos: pesado, vira funil e carimbo; leve, deixa o irreversível passar.</td>
+<td>11-risco-reversibilidade-e-autonomia</td>
+</tr>
+<tr>
+<td>gatilho</td>
+<td>O pedido entregue ao agente, nas palavras de um humano, em geral com a pressão que levou à violação original.</td>
+<td>apêndice B</td>
+</tr>
+<tr>
+<td>Gatilho (de skill)</td>
+<td>O trecho da <code>description</code> de uma skill que diz quando ela se aplica (&quot;Use quando…&quot;); é o que o harness lê para decidir carregá-la.</td>
+<td>07-papeis-e-skills</td>
+</tr>
+<tr>
+<td>gatilho de evento / de relógio</td>
+<td>De evento: dispara quando algo observável acontece (um pedido, um conflito, uma medida). De relógio: dispara numa data; certo quando quem publica a data é externo.</td>
+<td>16-o-futuro-da-engenharia-agentica</td>
+</tr>
+<tr>
+<td>gatilho de reabertura</td>
+<td>Condição observável, escrita na decisão, que manda reavaliá-la (por exemplo, &quot;mais de 30 rotas&quot;); substitui a data de revisão e a decisão eterna.</td>
+<td>09-arquitetura-que-se-defende</td>
+</tr>
+<tr>
+<td>Gatilho de reavaliação</td>
+<td>Condição observável escrita junto de uma decisão adiada (&quot;observar&quot;), que diz quando a decisão deve ser revista.</td>
+<td>06-como-dividir-o-trabalho</td>
+</tr>
+<tr>
+<td>Gauntlet</td>
+<td>Laço construtor × crítico às cegas contra uma barra, repetido até a versão do time vencer.</td>
+<td>01-a-mudanca-de-unidade-de-trabalho</td>
+</tr>
+<tr>
+<td>Gerar / verificar / desfazer</td>
+<td>Os três termos de custo de uma mudança: produzi-la; estabelecer que ela faz o que devia, inclusive a intenção; e reverter o erro que escapou.</td>
+<td>01-a-mudanca-de-unidade-de-trabalho</td>
+</tr>
+<tr>
+<td>Gerente / Worker</td>
+<td>No Maestro, a sessão que distribui e integra (Gerente) e as sessões que executam fatias, cada uma na sua worktree (Workers).</td>
+<td>06-como-dividir-o-trabalho</td>
+</tr>
+<tr>
+<td>Glossário gerado</td>
+<td>Glossário produzido a partir do modelo de domínio, com o carimbo do modelo; a integração contínua regera da fonte e recusa divergência.</td>
+<td>08-ddd-para-agentes</td>
+</tr>
+<tr>
+<td>Governança operacional</td>
+<td>A camada de regras, papéis, artefatos, portões, registros de decisão e automações que decide o que um agente pode fazer, quem verifica e quem aprova. Roda sobre qualquer <em>harness</em> e modelo.</td>
+<td>00-prefacio</td>
+</tr>
+<tr>
+<td>guarda (hook)</td>
+<td>Verificação que roda <strong>antes</strong> da ação e a recusa; o portão, ao contrário, audita depois.</td>
+<td>14-a-organizacao-que-aprende</td>
+</tr>
+<tr>
+<td>Handoff</td>
+<td>A passagem de trabalho de um papel ao seguinte, feita por artefato (spec, plano, diff, veredito), e não por conversa.</td>
+<td>07-papeis-e-skills</td>
+</tr>
+<tr>
+<td>Harness</td>
+<td>O programa que executa o agente: dá a ele ferramentas, contexto e permissões (um agente de linha de comando, um SDK, um orquestrador). O livro é independente dele.</td>
+<td>00-prefacio</td>
+</tr>
+<tr>
+<td>hash (SHA-256)</td>
+<td>Impressão digital de um arquivo calculada pelo Secure Hash Algorithm de 256 bits: mudou um byte, mudou o <em>hash</em>; congela a entrada de um <em>run</em>.</td>
+<td>apêndice C</td>
+</tr>
+<tr>
+<td>Hook</td>
+<td>Comando que o <em>harness</em> executa em um ponto fixo do ciclo do agente (por exemplo, antes de cada chamada de ferramenta) e que pode recusar a ação.</td>
+<td>00-prefacio</td>
+</tr>
+<tr>
+<td>hook (PreToolUse, SessionStart, Stop)</td>
+<td>Gancho do harness executado em um evento da sessão; o <code>PreToolUse</code> roda antes de uma ferramenta e pode recusar a chamada. É mecanismo de um harness específico.</td>
+<td>12-ferramentas-mcp-e-o-ecossistema</td>
+</tr>
+<tr>
+<td>Human-in-the-loop</td>
+<td>Arranjo em que um humano confere ou aprova cada saída de um sistema automatizado. Aqui se distingue o humano em cada item (rejeitado como regra geral) do humano nos gates.</td>
+<td>02-o-problema-da-confianca</td>
+</tr>
+<tr>
+<td>identidade pelo token</td>
+<td>Regra de desenho: o autor de uma chamada vem da credencial do processo, nunca de um argumento que o modelo escreve.</td>
+<td>12-ferramentas-mcp-e-o-ecossistema</td>
+</tr>
+<tr>
+<td>Iniciativa mista</td>
+<td>Princípio de Horvitz para interfaces com agentes: humano e máquina alternam a iniciativa, e o humano entra no ponto de decisão das ações consequentes, não em cada passo.</td>
+<td>02-o-problema-da-confianca</td>
+</tr>
+<tr>
+<td>injeção de prompt indireta</td>
+<td>Instrução plantada em conteúdo que o modelo apenas lê (issue, página, resultado de ferramenta) e que ele pode obedecer como se viesse do operador. Item LLM01 do OWASP.</td>
+<td>12-ferramentas-mcp-e-o-ecossistema</td>
+</tr>
+<tr>
+<td>Inspeção de contexto (inspect-context)</td>
+<td>Comando proposto pela base de pesquisa (não existe no Maestro em <code>19823c2</code>) que mostraria, por ciclo, o que cada tarefa carrega, o que sobreviveria a uma compactação e o que não está ligado a nada. O exemplo traz uma versão de brinquedo.</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>instalador</td>
+<td><code>scripts/install-maestro.sh</code>: escreve o método em outro repositório sem sobrescrever o que o usuário alterou (<code>*.maestro-new</code>, <code>*.maestro-old</code>).</td>
+<td>apêndice C</td>
+</tr>
+<tr>
+<td>Instrução × enforcement</td>
+<td>Instrução é o que se pede ao agente em texto; enforcement é o mecanismo (<em>hook</em>, script, permissão) que recusa a ação errada independentemente de o agente ter lido o pedido.</td>
+<td>00-prefacio</td>
+</tr>
+<tr>
+<td>Invariante</td>
+<td>Regra de negócio que precisa valer sempre. Mora no domínio (agregado, objeto de valor, serviço de domínio) ou, por exceção com motivo escrito, na borda (rota, adaptador, tela).</td>
+<td>08-ddd-para-agentes</td>
+</tr>
+<tr>
+<td>INVEST</td>
+<td><em>Independent, Negotiable, Valuable, Estimable, Small, Testable</em>: os atributos de uma boa história de usuário.</td>
+<td>06-como-dividir-o-trabalho</td>
+</tr>
+<tr>
+<td>Janela de contexto</td>
+<td>O texto que o modelo lê de uma vez: instrução, conversa, arquivos, saídas de ferramenta. É finita e o desempenho cai à medida que ela enche (axioma A3).</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>jornada viva</td>
+<td>Documento de jornada de tela com capturas geradas do build real por script versionado e heurística datada, no mesmo pull request.</td>
+<td>10-quality-gates-que-provam-fatos</td>
+</tr>
+<tr>
+<td>JSON-RPC (JSON Remote Procedure Call)</td>
+<td>Formato de chamada remota em JSON (<em>JavaScript Object Notation</em>): cada mensagem tem <code>method</code>, <code>params</code> e <code>id</code>; a resposta traz <code>result</code> ou <code>error</code>.</td>
+<td>12-ferramentas-mcp-e-o-ecossistema</td>
+</tr>
+<tr>
+<td>JSONL (JSON Lines)</td>
+<td>Formato de arquivo com um objeto JSON (<em>JavaScript Object Notation</em>) por linha.</td>
+<td>14-a-organizacao-que-aprende</td>
+</tr>
+<tr>
+<td>Juiz com caneta</td>
+<td>Papel que julga e também tem permissão de escrita; viola o corolário C3, porque o revisor que conserta vira coautor.</td>
+<td>02-o-problema-da-confianca</td>
+</tr>
+<tr>
+<td>lado negativo (MUST-NOT-CLAIM)</td>
+<td>Asserção sobre o que uma resposta errada, porém plausível, afirmaria; é o que impede uma resposta prolixa de passar.</td>
+<td>15-validando-o-maestro</td>
+</tr>
+<tr>
+<td>Lei de ferro (Iron Law)</td>
+<td>Regra inegociável que abre uma skill, em bloco de código, com a fórmula &quot;violar a letra é violar o espírito&quot; e as desculpas fechadas. Estreita: uma por skill.</td>
+<td>07-papeis-e-skills</td>
+</tr>
+<tr>
+<td>Lei de Little</td>
+<td>Num sistema estável, itens em curso = taxa de chegada × tempo no sistema (Little, 1961). Para a mesma vazão, mais itens em curso significam mais espera.</td>
+<td>03-um-humano-muitos-agentes</td>
+</tr>
+<tr>
+<td>letramento em IA (AI literacy)</td>
+<td>Obrigação do art. 4 do <em>AI Act</em>: desde o Regulamento (UE) 2026/1744, fornecedores e quem implanta sistemas de IA tomam medidas que apoiem o letramento da equipe, sem garantir nível individual.</td>
+<td>16-o-futuro-da-engenharia-agentica</td>
+</tr>
+<tr>
+<td>limite de orçamento · emissor do aviso</td>
+<td>Teto de consumo declarado de uma sessão ou projeto, lido como &quot;declarar e avisar&quot;; o emissor é quem compara o consumo medido com o limiar e enfileira o aviso. O corte (recusar, suspender) é decisão separada.</td>
+<td>13-observabilidade-e-economia</td>
+</tr>
+<tr>
+<td>Linguagem ubíqua (ubiquitous language)</td>
+<td>Vocabulário único de um contexto delimitado, acordado entre quem pede e quem constrói, usado literalmente no código, nos testes e na conversa. Para agentes, precisa ser um artefato que alguma máquina lê.</td>
+<td>08-ddd-para-agentes</td>
+</tr>
+<tr>
+<td>linha de base (baseline)</td>
+<td>Registro datado de uma execução do caso contra o alvo, com o commit do alvo, o veredito, a ablação e a premissa conferida. Envelhece quando o alvo muda.</td>
+<td>15-validando-o-maestro</td>
+</tr>
+<tr>
+<td>Linha de base (de skill)</td>
+<td>Registro de um cenário de pressão em que o agente falha sem a skill (vermelho) e cumpre com ela (verde), exigido antes de publicar uma skill original.</td>
+<td>07-papeis-e-skills</td>
+</tr>
+<tr>
+<td>linha de base registrada</td>
+<td>Critério para saída não comparável por igualdade (teorema T7): entrada fixa, asserções que discriminam (incluindo o que uma resposta errada afirmaria) e observação datada.</td>
+<td>10-quality-gates-que-provam-fatos</td>
+</tr>
+<tr>
+<td>Livro de ponto</td>
+<td>Registro só-acréscimo de eventos de tarefa (atribuída, iniciada, encerrada, custo).</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>livro de ponto de tarefas (task ledger)</td>
+<td>Registro só-acréscimo, um evento por linha, de atribuição, início, fim (com tokens e custo) e veredito de cada tarefa. No Maestro, <code>docs/records/tarefas.jsonl</code>.</td>
+<td>13-observabilidade-e-economia</td>
+</tr>
+<tr>
+<td>LLM-as-judge</td>
+<td>Padrão em que um modelo de linguagem de grande porte (LLM, de <em>large language model</em>) avalia a saída de outro modelo.</td>
+<td>15-validando-o-maestro</td>
+</tr>
+<tr>
+<td>lock-in</td>
+<td>Dependência de um fornecedor que torna cara a saída; mede-se na dimensão de reversibilidade do cartão.</td>
+<td>16-o-futuro-da-engenharia-agentica</td>
+</tr>
+<tr>
+<td>Losango (gate)</td>
+<td>Ponto do desenho em que o fluxo para até uma decisão: humano (ouro, indelegável) ou mecânico (verde, a DoD).</td>
+<td>apêndice A</td>
+</tr>
+<tr>
+<td>MADR (Markdown Architectural Decision Records)</td>
+<td>Variante de ADR em Markdown com campos para as alternativas consideradas.</td>
+<td>14-a-organizacao-que-aprende</td>
+</tr>
+<tr>
+<td>Maestro</td>
+<td>Método de engenharia de software em que um humano rege vários agentes de IA: a spec é a fonte de verdade, os agentes executam, o humano decide, aprova e verifica. Objeto de estudo deste livro.</td>
+<td>apêndice A</td>
+</tr>
+<tr>
+<td>manifesto de instalação</td>
+<td>Registro, com hash, de cada arquivo que o instalador escreveu; permite distinguir versão antiga (renovar) de arquivo modificado pelo projeto (manter).</td>
+<td>12-ferramentas-mcp-e-o-ecossistema</td>
+</tr>
+<tr>
+<td>manifesto por hash</td>
+<td>Registro, gravado pelo instalador, do hash de cada arquivo que ele escreveu; permite distinguir versão velha (inalterada, pode atualizar) de arquivo editado pelo projeto (mantido).</td>
+<td>11-risco-reversibilidade-e-autonomia</td>
+</tr>
+<tr>
+<td>Map-reduce cognitivo</td>
+<td>Leitura do trabalho com agentes como <em>map</em> (as fatias, em paralelo) e <em>reduce</em> (a junção). O <em>reduce</em> não é concatenação: é julgamento com contexto global.</td>
+<td>06-como-dividir-o-trabalho</td>
+</tr>
+<tr>
+<td>mapa da fragilidade</td>
+<td>Leitura deste livro (hipótese) que cruza teoremas e axiomas para dizer quais regras dependem só da ferramenta.</td>
+<td>16-o-futuro-da-engenharia-agentica</td>
+</tr>
+<tr>
+<td>Matriz RACI</td>
+<td>Responsible, Accountable, Consulted, Informed: quem executa, quem responde, quem é consultado, quem é informado, por tarefa.</td>
+<td>02-o-problema-da-confianca</td>
+</tr>
+<tr>
+<td>MCP (Model Context Protocol)</td>
+<td>Protocolo aberto pelo qual um cliente (o harness do agente) descobre e chama capacidades de um servidor: ferramentas, recursos e prompts, em mensagens JSON-RPC 2.0 por stdio ou HTTP. Padroniza o encanamento; não decide permissão nem confiança.</td>
+<td>12-ferramentas-mcp-e-o-ecossistema</td>
+</tr>
+<tr>
+<td>Medido / observado / hipótese</td>
+<td>Estados de um claim: um comando reconta; um artefato registra e se confere lendo; o livro acredita e ainda não demonstrou.</td>
+<td>00-prefacio</td>
+</tr>
+<tr>
+<td>Medir a frase em vez do fato</td>
+<td>Defeito de verificação em que se confere o texto de uma afirmação, não o estado do disco que ela descreve.</td>
+<td>apêndice A</td>
+</tr>
+<tr>
+<td>Memory Bank</td>
+<td>Padrão de memória de sessão em arquivos markdown estruturados que o agente relê a cada sessão, com um arquivo curto de contexto ativo.</td>
+<td>apêndice D</td>
+</tr>
+<tr>
+<td>Memória de sessão (memory bank)</td>
+<td>Arquivos que o agente lê no início e atualiza no fim de cada sessão para atravessar o corte de contexto.</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>memória só-anexar (append-only)</td>
+<td>Registro em que nada se reescreve: corrigir é acrescentar uma linha ou um ADR que supera o anterior.</td>
+<td>14-a-organizacao-que-aprende</td>
+</tr>
+<tr>
+<td>Meta-agente</td>
+<td>Agente cujo trabalho é construir ou evoluir o próprio método: projetar papéis, escrever skills, curar pesquisa, revisar a didática.</td>
+<td>07-papeis-e-skills</td>
+</tr>
+<tr>
+<td>minimização</td>
+<td>Princípio de coletar só o necessário: a telemetria do pacote guarda contagens e rastros revisados, não o log bruto que descreve a máquina.</td>
+<td>apêndice C</td>
+</tr>
+<tr>
+<td>minimização (lista de permissão)</td>
+<td>Só sai do registro, ou da exportação, o que está explicitamente permitido; texto livre, conteúdo de mensagem e identificadores de sessão ficam para trás. Aplicação do princípio da necessidade da LGPD.</td>
+<td>13-observabilidade-e-economia</td>
+</tr>
+<tr>
+<td>Modelo de domínio declarado</td>
+<td>As quatro decisões que um plano torna explícitas, cada uma com motivo: raiz de agregado, onde moram as invariantes, mudanças de linguagem ubíqua, portas e adaptadores (<code>DOM:aggregate</code>, <code>DOM:invariants</code>, <code>DOM:glossary</code>, <code>DOM:ports</code>). Silêncio não é decisão.</td>
+<td>08-ddd-para-agentes</td>
+</tr>
+<tr>
+<td>modelo de IA de uso geral (general-purpose AI model, GPAI)</td>
+<td>No <em>AI Act</em>, modelo treinado para servir a muitas tarefas e ser integrado por terceiros; o fornecedor tem os deveres dos arts. 53 e 55.</td>
+<td>16-o-futuro-da-engenharia-agentica</td>
+</tr>
+<tr>
+<td>modelonaoverificado</td>
+<td>Marca de um <em>run</em> cujo <em>harness</em> não relatou o modelo resolvido, só o apelido pedido; o <em>run</em> entra na análise com a marca.</td>
+<td>apêndice C</td>
+</tr>
+<tr>
+<td>Modo de trabalho</td>
+<td>Papel entendido como forma de trabalhar (decidir, executar, verificar), exercida por humano, agente ou ambos com um gate, e não como cargo.</td>
+<td>07-papeis-e-skills</td>
+</tr>
+<tr>
+<td>momento × estado</td>
+<td>Separação entre o que se julgou num dia (card) e o que vale hoje (índice); misturar os dois obriga a reescrever a história ou a mentir sobre o presente.</td>
+<td>apêndice D</td>
+</tr>
+<tr>
+<td>morte silenciosa</td>
+<td>Portão que termina sem medir e é lido como verde — por exemplo, <code>grep -q</code> no fim de um pipe sob <code>pipefail</code> (anti-padrão 21).</td>
+<td>10-quality-gates-que-provam-fatos</td>
+</tr>
+<tr>
+<td>Mudança aceita</td>
+<td>Alteração que alguém especificou, um mecanismo independente verificou e um humano (ou política escrita por um humano) aceitou integrar. A unidade de trabalho deste livro.</td>
+<td>01-a-mudanca-de-unidade-de-trabalho</td>
+</tr>
+<tr>
+<td>Mudança de escopo silenciosa</td>
+<td>Anti-padrão em que o agente &quot;aproveita&quot; para fazer o que a spec não pediu. Trabalho novo vira pergunta ou registro, não tarefa escondida.</td>
+<td>04-a-spec-como-partitura</td>
+</tr>
+<tr>
+<td>MUST-FIND / MUST-NOT-CLAIM</td>
+<td>No corpus de avaliação do Maestro, o que uma resposta certa tem de achar e o que uma resposta errada diria. Origem do par positiva/negativa do ASEG-Bench.</td>
+<td>apêndice B</td>
+</tr>
+<tr>
+<td>mutante</td>
+<td>Versão deliberadamente estragada de um código (GOV-005) ou de uma saída (GOV-006) que um teste ou gate correto tem de rejeitar.</td>
+<td>apêndice B</td>
+</tr>
+<tr>
+<td>Norma × executável</td>
+<td>O par formado pelo documento que prescreve um papel ou artefato e pelo arquivo que o entrega. O defeito típico mora na distância entre os dois.</td>
+<td>07-papeis-e-skills</td>
+</tr>
+<tr>
+<td>não medido</td>
+<td>Tentativa cujo fim não traz tokens nem custo. É contada à parte; não vale zero.</td>
+<td>13-observabilidade-e-economia</td>
+</tr>
+<tr>
+<td>níveis A, B, C e tratamento</td>
+<td>Desenho de comparação da agenda: A só prompt, B com spec, C com spec e gates, tratamento com o método completo.</td>
+<td>apêndice B</td>
+</tr>
+<tr>
+<td>Onda</td>
+<td>Grupo de fatias que podem correr ao mesmo tempo porque nenhuma consome contrato de outra do mesmo grupo. A ordem das ondas sai dos contratos.</td>
+<td>06-como-dividir-o-trabalho</td>
+</tr>
+<tr>
+<td>operador do experimento</td>
+<td>O humano que conduz a execução e dá as aprovações, com o protocolo <code>APROVO &lt;alvo&gt;</code>, igual em todos os níveis.</td>
+<td>apêndice B</td>
+</tr>
+<tr>
+<td>Orquestrador-trabalhadores</td>
+<td>Padrão em que um orquestrador corta o trabalho na hora e junta as respostas.</td>
+<td>06-como-dividir-o-trabalho</td>
+</tr>
+<tr>
+<td>oráculo</td>
+<td>Função determinística que julga o rastro de uma execução e devolve a lista de violações (vazia = conforme). Roda sem modelo no laço.</td>
+<td>apêndice B</td>
+</tr>
+<tr>
+<td>Orçamento de contexto</td>
+<td>A janela vista como recurso que se gasta: toda prática de trabalho com agentes é uma decisão de gasto. &quot;Contexto é orçamento, não depósito.&quot;</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>ossificação</td>
+<td>Modo de falha de quem só aprende: regras acumulam porque adicionar é barato e remover é caro, até ninguém saber quais estão vivas.</td>
+<td>14-a-organizacao-que-aprende</td>
+</tr>
+<tr>
+<td>Outbox</td>
+<td>Fila local (SQLite em modo WAL) por onde sessões da mesma máquina trocam mensagens sem servidor de mensageria.</td>
+<td>06-como-dividir-o-trabalho</td>
+</tr>
+<tr>
+<td>Overhead de coordenação</td>
+<td>Fração do tempo (ou dos tokens) de um trabalho paralelo gasta em passagens e reconciliação, e não em produzir as fatias.</td>
+<td>06-como-dividir-o-trabalho</td>
+</tr>
+<tr>
+<td>pacote de replicação</td>
+<td>O conjunto que permite a alguém de fora reproduzir ou refutar as afirmações do livro: método instalável, versão congelada, hipóteses e protocolo, dados dos <em>runs</em> e claims com evidência.</td>
+<td>apêndice C</td>
+</tr>
+<tr>
+<td>Painel de coordenação</td>
+<td>Servidor local que projeta o estado de um time a partir dos arquivos do método; o banco é projeção reconstruível, a única escrita direta é uma tabela de eventos só-acréscimo, e o painel nunca promove.</td>
+<td>03-um-humano-muitos-agentes</td>
+</tr>
+<tr>
+<td>Painel de regência</td>
+<td>A vista do painel feita para o humano que rege: quadro por gate e fila de decisões. Lê e registra; não decide.</td>
+<td>03-um-humano-muitos-agentes</td>
+</tr>
+<tr>
+<td>panorama (triagem)</td>
+<td>Varredura larga que só classifica cada item como candidato a estudo com gatilho, observar ou fora do problema, sem repetir veredito já dado.</td>
+<td>apêndice D</td>
+</tr>
+<tr>
+<td>Papel de ocasião</td>
+<td>Especialista convocado para uma decisão (por exemplo, uma banca em contexto fresco), consultado e descartado, sem perfil permanente.</td>
+<td>07-papeis-e-skills</td>
+</tr>
+<tr>
+<td>Papel semântico</td>
+<td>O que um objeto de tela <strong>é</strong> (ação primária, confirmação irreversível, ausência declarada), decidido antes do componente; a anatomia obrigatória deriva do papel.</td>
+<td>08-ddd-para-agentes</td>
+</tr>
+<tr>
+<td>Papel órfão</td>
+<td>Perfil executável que entrega um papel que a norma não prescreve; o espelho do papel prescrito sem executável.</td>
+<td>07-papeis-e-skills</td>
+</tr>
+<tr>
+<td>par (comando, esperado)</td>
+<td>Forma de critério estrutural: o comando e o resultado que prova o critério (<code>vazio</code>, <code>= N</code>, <code>exit 0</code>).</td>
+<td>10-quality-gates-que-provam-fatos</td>
+</tr>
+<tr>
+<td>Par comando → esperado</td>
+<td>Forma de critério para estrutura ou invariante: um comando e o resultado que prova o critério (saída vazia, contagem, código de saída).</td>
+<td>04-a-spec-como-partitura</td>
+</tr>
+<tr>
+<td>Paralelizar dentro, não entre</td>
+<td>Abrir trabalho paralelo só dentro de uma feature cuja spec e plano já foram aprovados; entre features ambíguas, cada frente multiplica os gates que passam pela mesma pessoa.</td>
+<td>03-um-humano-muitos-agentes</td>
+</tr>
+<tr>
+<td>Paralelização</td>
+<td>Padrão de fatias independentes (ou várias tentativas da mesma tarefa) executadas ao mesmo tempo.</td>
+<td>06-como-dividir-o-trabalho</td>
+</tr>
+<tr>
+<td>Parecer</td>
+<td>O veredito escrito de uma revisão independente (aprovar, aprovar com condições, reprovar), com os achados que o sustentam.</td>
+<td>02-o-problema-da-confianca</td>
+</tr>
+<tr>
+<td>Passagem (handoff)</td>
+<td>Cada vez que uma fatia depende de algo produzido por outra. Custa tempo e contexto.</td>
+<td>06-como-dividir-o-trabalho</td>
+</tr>
+<tr>
+<td>Passo zero</td>
+<td>A escolha da raia de trabalho antes de especificar: quanto processo a mudança merece, por ambiguidade × raio de impacto × irreversibilidade.</td>
+<td>apêndice A</td>
+</tr>
+<tr>
+<td>Pedido de decisão</td>
+<td>Pergunta escalada ao humano com id, quem pediu, opções, recomendação, prazo, o que destrava e destino da resposta. Sem prazo, é recusado.</td>
+<td>03-um-humano-muitos-agentes</td>
+</tr>
+<tr>
+<td>Persistência</td>
+<td>Operação que garante que algo exista depois que a janela fecha: spec, plano, tarefas, relatório, índice de decisões, ADR.</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>piso</td>
+<td>Primeiro ciclo a partir do qual uma regra nova vale; abaixo dele, a dívida fica declarada e não é rejulgada.</td>
+<td>10-quality-gates-que-provam-fatos</td>
+</tr>
+<tr>
+<td>Piso de custo</td>
+<td>O custo por mudança aceita quando gerar tende a zero; só verificação e reversibilidade o movem.</td>
+<td>01-a-mudanca-de-unidade-de-trabalho</td>
+</tr>
+<tr>
+<td>plano de controle de agentes (agent control plane)</td>
+<td>Camada que coordena, observa e governa vários agentes; no Maestro, decidiu-se construí-la com protocolos nas bordas.</td>
+<td>16-o-futuro-da-engenharia-agentica</td>
+</tr>
+<tr>
+<td>Planta gerada</td>
+<td>Diagrama produzido por ferramenta (no Maestro, o Archify) a partir de um arquivo JSON versionado, que registra a revisão de onde saiu.</td>
+<td>apêndice A</td>
+</tr>
+<tr>
+<td>poda</td>
+<td>Remoção ativa do que não paga o próprio custo, com gatilho e motivo escritos; inclui a lista do que não se adota.</td>
+<td>14-a-organizacao-que-aprende</td>
+</tr>
+<tr>
+<td>política allow / deny / ask</td>
+<td>Decisão por papel e por ferramenta, fora do modelo: permitir, negar ou pedir aprovação humana antes de executar. O que não está escrito é negado.</td>
+<td>12-ferramentas-mcp-e-o-ecossistema</td>
+</tr>
+<tr>
+<td>política permitir / perguntar / negar</td>
+<td>Regra declarativa, por classe de ação, que diz se o agente age sozinho, pede confirmação humana ou é impedido; vive fora do modelo, onde o agente não a reescreve.</td>
+<td>11-risco-reversibilidade-e-autonomia</td>
+</tr>
+<tr>
+<td>porta / adaptador</td>
+<td>Na arquitetura hexagonal, a porta é a interface que o núcleo define para falar com o mundo; o adaptador é a implementação que fala com o mundo real (banco, rede) ou o substitui em teste (o falso).</td>
+<td>09-arquitetura-que-se-defende</td>
+</tr>
+<tr>
+<td>Porta / adaptador (port/adapter)</td>
+<td>A porta é a interface que o domínio expõe ou exige; o adaptador a implementa com tecnologia. Arranjo da arquitetura hexagonal (Cockburn).</td>
+<td>08-ddd-para-agentes</td>
+</tr>
+<tr>
+<td>porta de mão única / de mão dupla</td>
+<td>Distinção de Bezos entre decisões irreversíveis, que pedem deliberação, e reversíveis, que devem ser rápidas. O capítulo defende que transformar a primeira na segunda é trabalho de engenharia.</td>
+<td>11-risco-reversibilidade-e-autonomia</td>
+</tr>
+<tr>
+<td>Porta inerte (seam inerte)</td>
+<td>Contrato publicado cedo que não muda o comportamento enquanto ninguém o chama; deixa os consumidores trabalharem sem esperar o dono terminar.</td>
+<td>06-como-dividir-o-trabalho</td>
+</tr>
+<tr>
+<td>porta nova, guarda antiga (anti-padrão 23)</td>
+<td>Um ciclo abre um canal ou concede um poder novo e o portão que vigiava o canal velho continua lendo metade do mundo; o verde passa a significar &quot;não olhei para lá&quot;.</td>
+<td>09-arquitetura-que-se-defende</td>
+</tr>
+<tr>
+<td>portão antigo / portão novo</td>
+<td>No exemplo do capítulo: o antigo confere que todo &quot;observar&quot; tem gatilho; o novo, que nenhum gatilho disparou sem reavaliação.</td>
+<td>16-o-futuro-da-engenharia-agentica</td>
+</tr>
+<tr>
+<td>portão bloqueante / consultivo</td>
+<td>Bloqueante impede o merge quando vermelho; consultivo só avisa. Portão que fica vermelho durante todo trabalho em andamento é consultivo na CI e bloqueante no ponto em que o trabalho termina.</td>
+<td>10-quality-gates-que-provam-fatos</td>
+</tr>
+<tr>
+<td>Portão do regente</td>
+<td>Os gates que só o humano registra (no Maestro, o aceite G7, a ordem de produção G8 e o fechamento <code>TAIL:gate</code>); para um agente, aparecem como somente leitura.</td>
+<td>03-um-humano-muitos-agentes</td>
+</tr>
+<tr>
+<td>PRD (product requirements document)</td>
+<td>Documento de requisitos de produto; avulso, duplica a spec.</td>
+<td>14-a-organizacao-que-aprende</td>
+</tr>
+<tr>
+<td>prefixo mais longo</td>
+<td>Regra de resolução de dono: entre as declarações que casam com um caminho, vence a mais específica; empate no mesmo comprimento é ambiguidade e falha.</td>
+<td>09-arquitetura-que-se-defende</td>
+</tr>
+<tr>
+<td>premissa conferida (Premise-checked)</td>
+<td>Registro de como a premissa da fixture foi reproduzida antes da execução.</td>
+<td>15-validando-o-maestro</td>
+</tr>
+<tr>
+<td>premissa sobre a ferramenta</td>
+<td>Axioma que descreve uma limitação do modelo ou do <em>harness</em> de hoje (A3, contexto finito; parte de A4, sessão que começa do zero); pode enfraquecer com a próxima geração.</td>
+<td>16-o-futuro-da-engenharia-agentica</td>
+</tr>
+<tr>
+<td>primeira reprovação (First-red)</td>
+<td>Registro de que o caso já foi visto reprovando; enquanto &quot;pending&quot;, o portão fica vermelho.</td>
+<td>15-validando-o-maestro</td>
+</tr>
+<tr>
+<td>Product Requirement Prompt (PRP)</td>
+<td>Spec que empacota o contexto do codebase de que o agente vai precisar (arquivos, convenções, exemplos).</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>Progressive disclosure</td>
+<td>Carregar o corpo de uma instrução (uma skill) só quando ela se aplica, em vez de sempre.</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>Projeção</td>
+<td>Modelo de leitura que se apaga e se reconstrói a partir da fonte (arquivos, eventos). Pode ser descartada sem perda; nunca é a fonte.</td>
+<td>03-um-humano-muitos-agentes</td>
+</tr>
+<tr>
+<td>projeção (telemetria como projeção)</td>
+<td>Exportar o registro para outro formato (por exemplo, OpenTelemetry) como leitura derivada, sem que o domínio dependa do exportador. Desligar a projeção não muda nada no registro.</td>
+<td>13-observabilidade-e-economia</td>
+</tr>
+<tr>
+<td>Proposta não vigente</td>
+<td>Peça que descreve um processo desejado, não o em vigor, e se declara assim no título, no primeiro parágrafo e no índice.</td>
+<td>apêndice A</td>
+</tr>
+<tr>
+<td>protocolo</td>
+<td>O documento que fixa, antes do primeiro dado, repetições, métricas, margens e intervalos; mudar depois de ver o resultado invalida a comparação.</td>
+<td>apêndice C</td>
+</tr>
+<tr>
+<td>prova (do destino)</td>
+<td>Texto literal que tem de estar dentro do arquivo de destino de uma absorção, para que apontar para um arquivo qualquer não satisfaça o portão.</td>
+<td>apêndice D</td>
+</tr>
+<tr>
+<td>prova destrutiva</td>
+<td>Verificação de uma propriedade de ciclo de vida provocando a falha de propósito (matar o servidor) e observando o que sobrevive.</td>
+<td>09-arquitetura-que-se-defende</td>
+</tr>
+<tr>
+<td>Prova por mutação</td>
+<td>Introduzir de propósito o defeito que um portão deveria acusar (uma mutação) e conferir que ele acusa; a contraprova é o caso legítimo que ele deve deixar passar. Prova que o portão sabe reprovar, não que mede a coisa certa.</td>
+<td>02-o-problema-da-confianca</td>
+</tr>
+<tr>
+<td>prova por mutação de portão</td>
+<td>Procedimento que testa o portão mutando o mundo que ele inspeciona: propriedade, fixture positiva, fixtures negativas, fixtures legítimas e resultado esperado.</td>
+<td>10-quality-gates-que-provam-fatos</td>
+</tr>
+<tr>
+<td>proveniência</td>
+<td>Registro de onde cada peça vendorizada veio, em que versão e em que estado (literal, adaptada); no Maestro, <code>.specify/UPSTREAM.md</code>.</td>
+<td>12-ferramentas-mcp-e-o-ecossistema</td>
+</tr>
+<tr>
+<td>proxy (check que mede o proxy)</td>
+<td>Algo que costuma andar junto com o fato que o portão deveria medir — a palavra, a linha, a existência do arquivo — e que pode estar presente com o fato ausente. Anti-padrão 13 do Maestro.</td>
+<td>10-quality-gates-que-provam-fatos</td>
+</tr>
+<tr>
+<td>Proxy (de um check)</td>
+<td>O que um portão de fato mede quando não mede o fato que diz medir: a presença de um arquivo, a ocorrência de uma palavra, a cobertura sem asserção que discrimine.</td>
+<td>00-prefacio</td>
+</tr>
+<tr>
+<td>pré-registro</td>
+<td>Registro datado da hipótese, do desenho e da análise antes de qualquer dado, para que nada disso mude depois de ver o resultado.</td>
+<td>apêndice C</td>
+</tr>
+<tr>
+<td>quality gate (portão)</td>
+<td>Verificação automática ou humana que decide se um trabalho avança; no capítulo, quase sempre um script que sai com código zero (verde) ou diferente de zero (vermelho).</td>
+<td>10-quality-gates-que-provam-fatos</td>
+</tr>
+<tr>
+<td>Quatro corpos de texto</td>
+<td>Método normativo, <em>handbook</em> por versão, livro (argumento durável) e pesquisa (protocolo, execuções, dados).</td>
+<td>00-prefacio</td>
+</tr>
+<tr>
+<td>Raia</td>
+<td>Quanto processo uma mudança recebe (leve, plena, infra), em função de ambiguidade, raio de impacto e irreversibilidade.</td>
+<td>00-prefacio</td>
+</tr>
+<tr>
+<td>Raia (de BPMN)</td>
+<td>Faixa horizontal de um diagrama de processo (<em>swimlane</em>) que agrupa os passos de um mesmo executor. Não confundir com a raia de trabalho.</td>
+<td>apêndice A</td>
+</tr>
+<tr>
+<td>Raia (de trabalho)</td>
+<td>Quanto processo uma mudança recebe: leve (o pull request é o artefato), plena (spec completa) ou infra (plena mais portões de reversibilidade).</td>
+<td>apêndice A</td>
+</tr>
+<tr>
+<td>Raia (regra de raia)</td>
+<td>No Maestro, a classe de rigor de um ciclo, declarada no início: leve (o pull request é o artefato), plena (spec completa) ou infra (plena mais reversibilidade). A regra de raia fixa que cerimônia cada classe exige.</td>
+<td>02-o-problema-da-confianca</td>
+</tr>
+<tr>
+<td>Raia infra</td>
+<td>Infraestrutura, migração, implantação: sempre plena, mais portões de reversibilidade (backup, ensaio, homologação, plano de volta).</td>
+<td>04-a-spec-como-partitura</td>
+</tr>
+<tr>
+<td>Raia leve (delta)</td>
+<td>Mudança que cabe numa frase (erro de digitação, renomeação, log, bug óbvio): o pull request é o artefato; bug exige teste que o reproduz falhando antes; revisão e testes continuam obrigatórios.</td>
+<td>04-a-spec-como-partitura</td>
+</tr>
+<tr>
+<td>Raia plena</td>
+<td>Funcionalidade ambígua, contrato ou mudança que cruza funcionalidades: spec, plano, tarefas e relatório.</td>
+<td>04-a-spec-como-partitura</td>
+</tr>
+<tr>
+<td>Raio de impacto</td>
+<td>Quanto do sistema uma mudança alcança.</td>
+<td>04-a-spec-como-partitura</td>
+</tr>
+<tr>
+<td>raio de impacto (blast radius)</td>
+<td>Até onde vai o efeito de uma ação: o ambiente do próprio agente, algo compartilhado com o time, algo externo (produção, terceiro) ou vários inquilinos. O outro eixo da classe.</td>
+<td>11-risco-reversibilidade-e-autonomia</td>
+</tr>
+<tr>
+<td>Raiz de agregado (aggregate root)</td>
+<td>Entidade que guarda a consistência de um grupo de objetos; toda mudança entra por ela, e é ela quem garante as invariantes.</td>
+<td>08-ddd-para-agentes</td>
+</tr>
+<tr>
+<td>Rastreabilidade para frente / para trás</td>
+<td>Para frente: a intenção virou código e teste? (cobertura). Para trás: este sintoma vem de qual mudança, requisito e porquê? (recuperação, o sentido a otimizar).</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>Rastreio nos dois sentidos</td>
+<td>Todo requisito tem teste, e todo teste tem requisito. Teste sem requisito é código que a spec não pediu.</td>
+<td>04-a-spec-como-partitura</td>
+</tr>
+<tr>
+<td>rastro</td>
+<td>O que sobra de uma execução, em formato neutro de ferramenta: arquivos antes (<code>base</code>) e depois (<code>final</code>) e a linha do tempo ordenada de commits, chamadas, aprovações e resposta.</td>
+<td>apêndice B</td>
+</tr>
+<tr>
+<td>reclassificação por capacidade</td>
+<td>Rever a classe de risco de um componente quando ele ganha um poder novo (apagar, publicar, chamar terceiro, mexer em permissão), no plano e antes de implementar.</td>
+<td>11-risco-reversibilidade-e-autonomia</td>
+</tr>
+<tr>
+<td>Reduce</td>
+<td>A junção das fatias. Exige o contexto global que a divisão espalhou; pertence a quem responde pelo resultado (o humano, ou quem age sob política escrita dele).</td>
+<td>06-como-dividir-o-trabalho</td>
+</tr>
+<tr>
+<td>Regente</td>
+<td>Sessão de agente que coordena outras sessões e não executa o trabalho que distribui.</td>
+<td>02-o-problema-da-confianca</td>
+</tr>
+<tr>
+<td>registro de eventos</td>
+<td>Proposta do livro: arquivo anexável com uma linha por gatilho tocado (ideia, data, prova), conferido por um portão contra o estado corrente.</td>
+<td>16-o-futuro-da-engenharia-agentica</td>
+</tr>
+<tr>
+<td>regra da dependência</td>
+<td>O código-fonte só aponta para dentro, em direção ao domínio: o domínio não conhece porta nem adaptador; a porta não conhece o adaptador.</td>
+<td>09-arquitetura-que-se-defende</td>
+</tr>
+<tr>
+<td>Regra da menor autonomia</td>
+<td>Começar pelo padrão mais simples do espectro e só subir quando o simples comprovadamente falhar.</td>
+<td>06-como-dividir-o-trabalho</td>
+</tr>
+<tr>
+<td>regra exposta</td>
+<td>No mapa da fragilidade deste livro, regra que deriva de pelo menos uma premissa que enfraqueceu num cenário.</td>
+<td>16-o-futuro-da-engenharia-agentica</td>
+</tr>
+<tr>
+<td>regra sem apoio</td>
+<td>Regra cujas premissas enfraqueceram todas num cenário; precisa de outro motivo ou vira cerimônia.</td>
+<td>16-o-futuro-da-engenharia-agentica</td>
+</tr>
+<tr>
+<td>Regras de desempate</td>
+<td>Na dúvida entre leve e plena, plena; infraestrutura e migração nunca são leves.</td>
+<td>04-a-spec-como-partitura</td>
+</tr>
+<tr>
+<td>regressão de julgamento</td>
+<td>Segunda camada: os agentes continuam julgando como julgavam quando a linha de base foi registrada?</td>
+<td>15-validando-o-maestro</td>
+</tr>
+<tr>
+<td>release</td>
+<td>Versão numerada e etiquetada do método (por exemplo, 0.3.0), que comunica o que mudou; no Maestro, até 02/11/2026, existe só como seção do <code>CHANGELOG.md</code>.</td>
+<td>apêndice C</td>
+</tr>
+<tr>
+<td>Rendimento da revisão independente</td>
+<td>Fração das revisões independentes, feitas antes do gate, que mudaram o resultado (reprovaram ou exigiram correção), lida no corpo do parecer e não no título ou no cabeçalho do relatório. Métrica da agenda de pesquisa do livro.</td>
+<td>02-o-problema-da-confianca</td>
+</tr>
+<tr>
+<td>Repetição cega</td>
+<td>Anti-padrão 5: repetir o mesmo <em>prompt</em> esperando outro resultado; falhou duas vezes, mude <em>prompt</em>, contexto ou tarefa.</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>reproduzir × replicar</td>
+<td>Na terminologia da avaliação de artefatos da ACM (versão 1.1): reproduzir é outro time obter o resultado com os artefatos do autor; replicar é obtê-lo sem eles, refazendo o experimento a partir da descrição.</td>
+<td>apêndice C</td>
+</tr>
+<tr>
+<td>Requisito funcional (functional requirement, FR)</td>
+<td>Item numerado da spec (FR1, FR2…) que descreve um comportamento esperado.</td>
+<td>04-a-spec-como-partitura</td>
+</tr>
+<tr>
+<td>Reset preguiçoso</td>
+<td>Anti-padrão 3: limpar a sessão por reflexo; o gatilho certo é a troca de papel, não o turno.</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>Resíduo de língua</td>
+<td>O que um verificador de idioma mede de fato: palavras da língua errada sobrando num artefato. Não prova que o texto está na língua certa.</td>
+<td>08-ddd-para-agentes</td>
+</tr>
+<tr>
+<td>retrabalho por linhagem</td>
+<td>Custo de tudo o que começou depois da primeira reprovação e antes da aceitação, inclusive tarefas de correção com nomes novos e a revisão seguinte.</td>
+<td>13-observabilidade-e-economia</td>
+</tr>
+<tr>
+<td>retrabalho por tentativa</td>
+<td>Custo das tentativas com número ≥ 2 da mesma tarefa. Fácil de medir; subestima quando o conserto vem como tarefa nova.</td>
+<td>13-observabilidade-e-economia</td>
+</tr>
+<tr>
+<td>Retrato</td>
+<td>Resumo ou diagrama que descreve o método numa versão datada; envelhece quando o repositório anda e o retrato não.</td>
+<td>apêndice A</td>
+</tr>
+<tr>
+<td>Retrieval-Augmented Generation (RAG)</td>
+<td>Geração aumentada por recuperação: buscar por similaridade o trecho relevante e pô-lo na janela.</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>retrospectiva (retro)</td>
+<td>Cerimônia que transforma correção repetida em regra versionada, poda a regra que não pagou o custo e transforma passo manual repetido em script ou skill.</td>
+<td>14-a-organizacao-que-aprende</td>
+</tr>
+<tr>
+<td>REUSE / ALIAS / EXTEND / CREATE</td>
+<td>As quatro decisões do catálogo semântico para um nome proposto: usar o termo existente; redirecionar um apelido conhecido; qualificar uma família existente, com definição; criar um termo novo, com definição e contexto dono. Termo novo sem definição é recusado.</td>
+<td>08-ddd-para-agentes</td>
+</tr>
+<tr>
+<td>Reversibilidade engenheirada</td>
+<td>Mecanismos (backup, execução a seco, homologação, exclusão lógica) que barateiam desfazer e rebaixam a classe de risco de uma ação.</td>
+<td>00-prefacio</td>
+</tr>
+<tr>
+<td>Revisão em contexto fresco</td>
+<td>Verificação feita por um agente ou pessoa que não executou o trabalho e não carrega o histórico da sessão que o produziu.</td>
+<td>00-prefacio</td>
+</tr>
+<tr>
+<td>RFC (request for comments)</td>
+<td>Proposta escrita circulada para comentários antes da decisão; no Maestro, rejeitada como processo pesado.</td>
+<td>14-a-organizacao-que-aprende</td>
+</tr>
+<tr>
+<td>Rodada / passo</td>
+<td>Uma execução do fluxo gravada passo a passo; cada passo tem entrada, resumo e saída, e um passo sem saída bloqueia o seguinte (Maestro, ciclo 070).</td>
+<td>06-como-dividir-o-trabalho</td>
+</tr>
+<tr>
+<td>Roteamento</td>
+<td>Padrão que classifica a entrada e escolhe um tratamento fixo.</td>
+<td>06-como-dividir-o-trabalho</td>
+</tr>
+<tr>
+<td>Ruling</td>
+<td>A resposta registrada a um pedido de decisão: autor humano, data, destinatário e ligação ao que a cita. Sem autor ou sem destino, é recusada.</td>
+<td>03-um-humano-muitos-agentes</td>
+</tr>
+<tr>
+<td>run</td>
+<td>Uma execução de um braço do experimento num cenário, registrada num diretório de <code>pesquisa/runs/</code> com <code>run.json</code> de <em>schema</em> imutável.</td>
+<td>apêndice C</td>
+</tr>
+<tr>
+<td>SBOM (Software Bill of Materials)</td>
+<td>Inventário de dependências de um artefato. No capítulo, citado como teatro quando a carga que importa é prosa que instrui agentes.</td>
+<td>12-ferramentas-mcp-e-o-ecossistema</td>
+</tr>
+<tr>
+<td>Segregação de funções</td>
+<td>Princípio de controle em que quem executa, quem confere e quem aprova são posições diferentes; aqui aplicado a agentes.</td>
+<td>02-o-problema-da-confianca</td>
+</tr>
+<tr>
+<td>segunda lei</td>
+<td>&quot;Um check que você nunca viu acusar não é um check — é uma esperança&quot;: antes de confiar num portão, quebre o mundo de propósito e veja o vermelho (corolário C2).</td>
+<td>10-quality-gates-que-provam-fatos</td>
+</tr>
+<tr>
+<td>Seleção</td>
+<td>Operação que decide o que entra na janela de uma tarefa (agente estreito, subagente, tarefa que cita seus arquivos).</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>Sessão de agente</td>
+<td>Uma execução de um perfil, que o humano sobe, observa e derruba; a unidade de administração.</td>
+<td>07-papeis-e-skills</td>
+</tr>
+<tr>
+<td>Skill</td>
+<td>Procedimento recorrente empacotado como <code>SKILL.md</code> (nome, descrição com gatilho, passos), que dispara pelo contexto. Diferente de comando (invocação explícita) e de agente (quem faz).</td>
+<td>07-papeis-e-skills</td>
+</tr>
+<tr>
+<td>Skill invisível</td>
+<td>Skill que existe no disco e não é citada na instrução; para a IA, não existe.</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>Skill órfã</td>
+<td>Skill que nenhum papel consome (ou, na versão editorial do problema, que nenhum capítulo ensina).</td>
+<td>07-papeis-e-skills</td>
+</tr>
+<tr>
+<td>Spec (especificação)</td>
+<td>Documento que diz <strong>o quê</strong> e <strong>por quê</strong> de uma mudança: o problema, o valor e o que se observa quando o problema está resolvido. Não diz o como.</td>
+<td>04-a-spec-como-partitura</td>
+</tr>
+<tr>
+<td>Spec a montante / a jusante</td>
+<td>A montante: a spec alimenta algo (teste, verificador, revisão), e mudá-la quebra o que está abaixo. A jusante: o documento descreve o código depois e pode ficar errado sem que nada aconteça.</td>
+<td>04-a-spec-como-partitura</td>
+</tr>
+<tr>
+<td>Spec-as-source</td>
+<td>Tese (Tessl) em que a spec é reexecutada continuamente e o código é só saída.</td>
+<td>04-a-spec-como-partitura</td>
+</tr>
+<tr>
+<td>Spec-Driven Development (SDD)</td>
+<td>Desenvolvimento dirigido por especificação: a spec é a fonte de verdade e vem antes do código.</td>
+<td>04-a-spec-como-partitura</td>
+</tr>
+<tr>
+<td>SPIDR</td>
+<td><em>Spike, Path, Interface, Data, Rules</em>: cinco linhas de corte de uma história, de Mike Cohn.</td>
+<td>06-como-dividir-o-trabalho</td>
+</tr>
+<tr>
+<td>SRE (site reliability engineering)</td>
+<td>Engenharia de confiabilidade de sites, a disciplina do Google de onde vem o postmortem sem culpa.</td>
+<td>14-a-organizacao-que-aprende</td>
+</tr>
+<tr>
+<td>stdio</td>
+<td>A entrada e a saída padrão de um processo; o transporte MCP em que o cliente sobe o servidor como subprocesso e conversa por linhas.</td>
+<td>12-ferramentas-mcp-e-o-ecossistema</td>
+</tr>
+<tr>
+<td>Steward</td>
+<td>No Maestro, o humano que responde pelo método.</td>
+<td>14-a-organizacao-que-aprende</td>
+</tr>
+<tr>
+<td>superfície de ferramentas</td>
+<td>O conjunto de ferramentas que um agente alcança numa sessão, cada uma com a classe de risco da ação que executa. É a unidade de governança quando o agente age no mundo.</td>
+<td>12-ferramentas-mcp-e-o-ecossistema</td>
+</tr>
+<tr>
+<td>TAIL:mutation</td>
+<td>Passo da cauda que exige que todo portão criado ou alterado no ciclo tenha sido visto reprovando; a dispensa é lida do diff.</td>
+<td>10-quality-gates-que-provam-fatos</td>
+</tr>
+<tr>
+<td>Tamanho de lote (batch size)</td>
+<td>Quantas mudanças são integradas juntas. Lote menor reduz o custo de desfazer e move as métricas do DevOps Research and Assessment (DORA) na mesma direção.</td>
+<td>01-a-mudanca-de-unidade-de-trabalho</td>
+</tr>
+<tr>
+<td>Tarefa de contexto zero</td>
+<td>Tarefa escrita para quem não viu a conversa: cita arquivo ou comando e tem critério de pronto. Absorvida do Superpowers (&quot;assuma zero contexto&quot;).</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>taxa de cache</td>
+<td>Tokens de entrada lidos do <em>cache</em> de prompt divididos pelo total de entrada. Alta em sessões longas; faz &quot;tokens por tarefa&quot; parecer duas ordens de grandeza maior do que o texto novo.</td>
+<td>13-observabilidade-e-economia</td>
+</tr>
+<tr>
+<td>teatro de cerimônia</td>
+<td>Anti-padrão 11: processo que não muda decisão nenhuma; gate que nunca rejeita.</td>
+<td>14-a-organizacao-que-aprende</td>
+</tr>
+<tr>
+<td>tentativa · desfecho · veredito</td>
+<td>Três campos distintos: quantas vezes a tarefa foi tentada; se a sessão conseguiu fazê-la (<code>delivered</code>, <code>blocked</code>, <code>failed</code>…); se o trabalho foi aceito por um juiz independente (<code>approved</code>, <code>approved_with_notes</code>, <code>rejected</code>).</td>
+<td>13-observabilidade-e-economia</td>
+</tr>
+<tr>
+<td>teorema (no Maestro)</td>
+<td>Consequência dos axiomas, com evidência no próprio repositório (T1–T7); cada um declara de quais axiomas deriva.</td>
+<td>16-o-futuro-da-engenharia-agentica</td>
+</tr>
+<tr>
+<td>teorema T5</td>
+<td>Do Maestro (A3 + A4): um artefato sobrevive por consumo ou por imutabilidade.</td>
+<td>14-a-organizacao-que-aprende</td>
+</tr>
+<tr>
+<td>teorema T6</td>
+<td>Do Maestro (A3 + A4): a correção que não vira regra versionada se repete.</td>
+<td>14-a-organizacao-que-aprende</td>
+</tr>
+<tr>
+<td>Teoria das Restrições (TOC)</td>
+<td><em>Theory of Constraints</em> (Goldratt): a vazão de um sistema é a vazão da sua restrição; melhorar fora dela não muda o resultado. Num time de agentes, a restrição é a decisão humana.</td>
+<td>03-um-humano-muitos-agentes</td>
+</tr>
+<tr>
+<td>teste de caracterização</td>
+<td>Teste que registra o comportamento atual de código existente antes de alterá-lo.</td>
+<td>10-quality-gates-que-provam-fatos</td>
+</tr>
+<tr>
+<td>teste de contrato</td>
+<td>Uma única bateria de casos rodada contra todos os adaptadores de uma porta, inclusive o falso, para que o dublê não seja mais frouxo que a produção.</td>
+<td>09-arquitetura-que-se-defende</td>
+</tr>
+<tr>
+<td>Teste de pressão</td>
+<td>Cenário escrito para que o agente tenha motivo para desobedecer a regra (pressa, conserto &quot;óbvio&quot;); é a fixture da linha de base de uma skill.</td>
+<td>07-papeis-e-skills</td>
+</tr>
+<tr>
+<td>Token</td>
+<td>Unidade em que o modelo mede texto. No exemplo do capítulo, estimado como caracteres ÷ 4 — régua grosseira, declarada.</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>Trabalho em curso (WIP)</td>
+<td><em>Work in progress</em>. Neste capítulo, medido em decisões humanas pendentes, e não em tarefas abertas ou agentes ativos.</td>
+<td>03-um-humano-muitos-agentes</td>
+</tr>
+<tr>
+<td>Transferência</td>
+<td>Operação que entrega à próxima sessão o que esta sabia: arquivo de instrução, carga de estado no início, revisor que começa do zero com diff e critério.</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>Trilha (do site)</td>
+<td>Um dos cinco caminhos de leitura do site do Maestro, cada um de um tipo de documentação: Jornada, Capítulos, Receitas, Referência, Bastidores.</td>
+<td>apêndice A</td>
+</tr>
+<tr>
+<td>Unidade de trabalho</td>
+<td>O que um time conta como &quot;uma coisa feita&quot; e usa para planejar e medir. Com agentes, desloca-se da mudança escrita para a mudança aceita.</td>
+<td>01-a-mudanca-de-unidade-de-trabalho</td>
+</tr>
+<tr>
+<td>varredura</td>
+<td>Estudo de campo por fontes primárias, sem instalar nada; decide bem o que é descartável por princípio e mal o que depende de mecanismo.</td>
+<td>apêndice D</td>
+</tr>
+<tr>
+<td>vazamento do contrato</td>
+<td>Quando o contrato ensina a regra em vez de só o formato. Pego em parte por <code>contrato_nao_diz</code> (termos da regra) e, no resto, medido rodando o nível A com e sem o contrato.</td>
+<td>apêndice B</td>
+</tr>
+<tr>
+<td>Vendorizar</td>
+<td>Trazer para dentro do repositório, como fonte própria e adaptada, o que se usa de uma ferramenta de terceiro, consultando o original por decisão e não por acidente.</td>
+<td>04-a-spec-como-partitura</td>
+</tr>
+<tr>
+<td>veredito (absorver, adotar, descartar, observar)</td>
+<td>Os quatro estados de uma ideia no catálogo: absorvida no método, adotada como ferramenta, descartada, ou em observação com gatilho.</td>
+<td>16-o-futuro-da-engenharia-agentica</td>
+</tr>
+<tr>
+<td>veredito conferível</td>
+<td>Evidência de gate com cabeçalho verificável por máquina: gate, objeto @ hash, veredito, autor, data.</td>
+<td>10-quality-gates-que-provam-fatos</td>
+</tr>
+<tr>
+<td>veredito só de estado</td>
+<td>Veredito com as violações de declaração descartadas (<code>--so-estado</code>); vale mesmo para execuções que não receberam o contrato.</td>
+<td>apêndice B</td>
+</tr>
+<tr>
+<td>vigília do futuro</td>
+<td>O conjunto catálogo + gatilhos + portão + cadência com que um time percebe, sem depender de memória, que uma premissa mudou.</td>
+<td>16-o-futuro-da-engenharia-agentica</td>
+</tr>
+<tr>
+<td>violação de estado / de declaração</td>
+<td>Classes das violações que um oráculo emite: de estado vem dos arquivos e da linha do tempo; de declaração depende do formato do contrato e leva o prefixo <code>[declaração]</code>.</td>
+<td>apêndice B</td>
+</tr>
+<tr>
+<td>vocabulário fechado de veredito</td>
+<td><code>adotar</code> (a ferramenta vira dependência), <code>absorver</code> (a ideia é reimplementada), <code>observar</code> (não agora, com gatilho), <code>descartar</code> (não entra, com motivo).</td>
+<td>apêndice D</td>
+</tr>
+<tr>
+<td>válvula de escape declarada</td>
+<td>Forma registrada de dispensar um portão (uma label, um <code>n/a:</code> com motivo), que mantém o desvio auditável.</td>
+<td>10-quality-gates-que-provam-fatos</td>
+</tr>
+<tr>
+<td>wave-engine</td>
+<td>Mecanismo do <code>maestro-02</code> que roda um comando em fases tipadas com um resultado de validação entre cada fase.</td>
+<td>apêndice D</td>
+</tr>
+<tr>
+<td>Worktree</td>
+<td>Cópia de trabalho adicional de um repositório Git, com branch própria; isola as edições de um agente das de outro.</td>
+<td>06-como-dividir-o-trabalho</td>
+</tr>
+<tr>
+<td>YAGNI (you aren't gonna need it)</td>
+<td>&quot;Você não vai precisar disso&quot;: a complexidade além do necessário é justificada por escrito ou removida.</td>
+<td>14-a-organizacao-que-aprende</td>
+</tr>
+<tr>
+<td>YAGNI com gatilho</td>
+<td>Decisão de não construir algo agora registrada junto com a condição observável que a reabre.</td>
+<td>13-observabilidade-e-economia</td>
+</tr>
+<tr>
+<td>índice de decisões</td>
+<td><code>docs/records/decisoes.jsonl</code> no Maestro: uma linha JSON por decisão, achado, gate ou retro; só cresce.</td>
+<td>14-a-organizacao-que-aprende</td>
+</tr>
+<tr>
+<td>índice de estado</td>
+<td>Arquivo JSONL só de acréscimo com o veredito corrente de cada ideia; vale a última linha de cada id.</td>
+<td>apêndice D</td>
+</tr>
+<tr>
+<td>Índice só-acréscimo</td>
+<td>Registro em que cada linha é um fato imutável; corrigir é acrescentar uma linha que &quot;fecha&quot; a anterior, nunca reescrever.</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+<tr>
+<td>órfão</td>
+<td>Tarefa com início e sem fim no registro: trabalho pago e não entregue. Nunca é fechado por inferência.</td>
+<td>13-observabilidade-e-economia</td>
+</tr>
+<tr>
+<td>Ótimo local</td>
+<td>Cada fatia perfeita e o conjunto quebrado, porque nenhum executor viu o todo; preço de cortar demais ou na costura errada.</td>
+<td>05-engenharia-de-contexto</td>
+</tr>
+</tbody>
+</table>
+</article>
+    <nav class="paginacao" aria-label="Anterior e próximo"><a class="pg-prev" href="apendice-d-estudos-de-campo.html"><small>← anterior</small>Apêndice D — Estudos de campo do ecossistema</a><a class="pg-next" href="evidencias.html"><small>próximo →</small>Evidências (claims)</a></nav>
+    <footer class="rodape">
+      <a href="https://github.com/GHDaru/agentic_software_engineering">github.com/GHDaru/agentic_software_engineering</a>
+       · <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/glossario.md">fonte desta página</a>
+      · gerado de <code>livro/</code> por <code>publicar/build.mjs</code>
+    </footer>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body></html>

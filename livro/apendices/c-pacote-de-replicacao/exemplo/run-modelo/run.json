@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "id": "EXEMPLO-GOV-004-A-01",
+  "protocolo": "0.1",
+  "hipotese": null,
+  "tarefa": "GOV-004",
+  "braco": "A",
+  "repeticao": 1,
+  "metodo": {"commit": null},
+  "livro": {"commit": "9fcb1b7b3c759e004434b1e9eba6bb79f38f6a3a"},
+  "modelo": {"pedido": "sonnet", "resolvido": null},
+  "harness": {"nome": "claude-code", "versao": "2.1.316"},
+  "cenario": {"base": "b0c029af4bd14a4a93a8e5996a8b83633e9d1e6b"},
+  "hashes": {
+    "prompt.txt": "sha256:770740fc2d40b8937143e0bfe250f479c30711edc405b11be84cc728e331e9d8",
+    "instrucoes": null,
+    "ficha": "sha256:2b8e85524b79a90d0ee1d88f67f070d0620c2f5c0a0c11044ff4d6e01625c80a",
+    "runner": "sha256:51ff8f0fbaf345e67336ee49b59c6b1040ff977e2c3c36384ebdeed929bdedef",
+    "avaliador": "sha256:b56bdcf86342911df242fd7d5f13a6182ac2a49c2af7cd35787c96209a78ecc9"
+  },
+  "sistema": {"os": "Windows-11", "python": "3.12"},
+  "semente": 0,
+  "inicio": null, "fim": null,
+  "metricas": {"aceita_primeira_passada": null, "retrabalho": null, "tokens_entrada": null,
+               "tokens_saida": null, "custo": null, "tempo_s": null},
+  "erro_do_harness": null,
+  "substitui": null
+}

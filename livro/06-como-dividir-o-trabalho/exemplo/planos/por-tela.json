@@ -1,0 +1,11 @@
+{
+  "nome": "um número só para «precisa de mim», cortado por TELA",
+  "criterio": "cada agente fica com uma tela e resolve tudo o que ela mostra",
+  "custo_handoff": 1,
+  "contratos_existentes": ["fixtures/sessao.json"],
+  "fatias": [
+    {"id": "W01", "escreve": ["menu.js"],    "define": ["contagem-precisa-de-mim"], "consome": ["fixtures/sessao.json"], "custo": 3},
+    {"id": "W04", "escreve": ["andares.js"], "define": ["contagem-precisa-de-mim"], "consome": ["fixtures/sessao.json"], "custo": 3},
+    {"id": "W05", "escreve": ["entrada.js"], "define": ["contagem-precisa-de-mim"], "consome": ["fixtures/sessao.json"], "custo": 3}
+  ]
+}

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exemplo executável — 15 Validando o Maestro · Engenharia de Software Orientada por Agentes</title>
+<meta name="description" content="Governança operacional para um humano regendo muitos agentes">
+<script>try{var t=localStorage.getItem("tema");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="assets/estilo.css">
+</head><body>
+<header class="barra">
+  <button id="alt-menu" aria-label="Abrir o sumário" aria-expanded="false" aria-controls="sidebar">☰ <span>Sumário</span></button>
+  <a class="barra-titulo" href="index.html">Engenharia de Software Orientada por Agentes</a>
+  <button id="alt-tema" aria-label="Alternar tema claro/escuro">◐</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="marca" href="index.html">Engenharia de Software Orientada por Agentes<small>Agentic Software Engineering</small></a>
+    <div class="nav-parte">Abertura</div><ul><li><a href="00-prefacio.html">Prefácio</a></li></ul><div class="nav-parte">Parte I — Por que agentes mudam a engenharia</div><ul><li><a href="01-a-mudanca-de-unidade-de-trabalho.html">1. A mudança de unidade de trabalho</a></li><li class="filho"><a class="filho" href="01-a-mudanca-de-unidade-de-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="02-o-problema-da-confianca.html">2. O problema da confiança</a></li><li class="filho"><a class="filho" href="02-o-problema-da-confianca-exemplo.html">Exemplo executável</a></li><li><a href="03-um-humano-muitos-agentes.html">3. Um humano, muitos agentes</a></li><li class="filho"><a class="filho" href="03-um-humano-muitos-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte II — Especificar e dar contexto</div><ul><li><a href="04-a-spec-como-partitura.html">4. A spec como partitura</a></li><li class="filho"><a class="filho" href="04-a-spec-como-partitura-exemplo.html">Exemplo executável</a></li><li><a href="05-engenharia-de-contexto.html">5. Engenharia de contexto</a></li><li class="filho"><a class="filho" href="05-engenharia-de-contexto-exemplo.html">Exemplo executável</a></li><li><a href="06-como-dividir-o-trabalho.html">6. Como dividir o trabalho</a></li><li class="filho"><a class="filho" href="06-como-dividir-o-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="07-papeis-e-skills.html">7. Papéis e skills</a></li><li class="filho"><a class="filho" href="07-papeis-e-skills-exemplo.html">Exemplo executável</a></li><li><a href="08-ddd-para-agentes.html">8. DDD para agentes</a></li><li class="filho"><a class="filho" href="08-ddd-para-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte III — Provar e conter</div><ul><li><a href="09-arquitetura-que-se-defende.html">9. Arquitetura que se defende</a></li><li class="filho"><a class="filho" href="09-arquitetura-que-se-defende-exemplo.html">Exemplo executável</a></li><li><a href="10-quality-gates-que-provam-fatos.html">10. Quality gates que provam fatos</a></li><li class="filho"><a class="filho" href="10-quality-gates-que-provam-fatos-exemplo.html">Exemplo executável</a></li><li><a href="11-risco-reversibilidade-e-autonomia.html">11. Risco, reversibilidade e autonomia</a></li><li class="filho"><a class="filho" href="11-risco-reversibilidade-e-autonomia-exemplo.html">Exemplo executável</a></li><li><a href="12-ferramentas-mcp-e-o-ecossistema.html">12. Ferramentas, MCP e o ecossistema</a></li><li class="filho"><a class="filho" href="12-ferramentas-mcp-e-o-ecossistema-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte IV — Medir e aprender</div><ul><li><a href="13-observabilidade-e-economia.html">13. Observabilidade e economia</a></li><li class="filho"><a class="filho" href="13-observabilidade-e-economia-exemplo.html">Exemplo executável</a></li><li><a href="14-a-organizacao-que-aprende.html">14. A organização que aprende</a></li><li class="filho"><a class="filho" href="14-a-organizacao-que-aprende-exemplo.html">Exemplo executável</a></li><li><a href="15-validando-o-maestro.html">15. Validando o Maestro</a></li><li class="filho"><a class="filho ativo" aria-current="page" href="15-validando-o-maestro-exemplo.html">Exemplo executável</a></li><li><a href="16-o-futuro-da-engenharia-agentica.html">16. O futuro da engenharia agêntica</a></li><li class="filho"><a class="filho" href="16-o-futuro-da-engenharia-agentica-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Apêndices</div><ul><li><a href="apendice-a-o-maestro-em-uma-pagina.html">A. O Maestro em uma página</a></li><li><a href="apendice-b-aseg-bench.html">B. ASEG-Bench — um benchmark de governança</a></li><li><a href="apendice-c-pacote-de-replicacao.html">C. Pacote de replicação</a></li><li><a href="apendice-d-estudos-de-campo.html">D. Estudos de campo do ecossistema</a></li></ul><div class="nav-parte">Consulta</div><ul><li><a href="glossario.html">Glossário</a></li><li><a href="evidencias.html">Evidências (claims)</a></li></ul>
+  </aside>
+  <main class="conteudo">
+    <article class="markdown"><h1 id="exemplo-executável-do-capítulo-15--um-corpus-de-avaliação-que-se-prova" tabindex="-1">Exemplo executável do capítulo 15 — um corpus de avaliação que se prova <a class="header-anchor" href="#exemplo-executável-do-capítulo-15--um-corpus-de-avaliação-que-se-prova" aria-hidden="true">#</a></h1>
+<p>Uma miniatura, em Python 3 sem dependências, das duas metades que o Maestro tirou do teorema
+T7: a <strong>saúde do corpus</strong> (o que o <code>check-evals.sh</code> mede) e a <strong>prova por ablação</strong> (o que o
+comando <code>/eval</code> faz com um modelo no laço).</p>
+<blockquote>
+<p><strong>Aviso honesto.</strong> As respostas em <code>corpus/*/respostas/</code> foram escritas à mão e o &quot;juiz&quot; casa
+palavras-sinal. Isso é um <em>proxy</em> (anti-padrão 13 do Maestro): mostra a mecânica, não
+substitui o julgamento de um modelo em contexto fresco. No Maestro real, <code>alvo.md</code> e
+<code>ablado.md</code> seriam as respostas de dois subagentes, um com a instrução inteira e outro sem a
+linha que o <code>Axis:</code> nomeia — e <strong>só</strong> isso: a mesma entrada, o mesmo modelo. A rodada
+ablada real do caso 001 do Maestro também reteve o plano da entrada, e por isso não isola o
+efeito da instrução sozinha (ver o capítulo, &quot;A falha real&quot;).</p>
+</blockquote>
+<p>Nos casos, FR1 e FR2 são requisitos funcionais (FR, de <em>functional requirement</em>) numerados
+no plano. <code>/eval</code> é um comando do Claude Code no Maestro; em outro <em>harness</em>, o equivalente é
+qualquer forma de abrir dois agentes em contexto limpo — um com a instrução inteira, outro sem
+a linha do eixo — e guardar as duas respostas como <code>alvo.md</code> e <code>ablado.md</code>. O <code>avaliar.py</code> não
+depende de harness nenhum.</p>
+<h2 id="estrutura" tabindex="-1">Estrutura <a class="header-anchor" href="#estrutura" aria-hidden="true">#</a></h2>
+<pre><code class="language-text">exemplo/
+├── avaliar.py                  o verificador (saúde + discriminação)
+├── alvos/revisor.md            instrução do agente de revisão (alvo dos casos 001 e 003)
+├── alvos/guardiao.md           instrução do guardião do processo (alvo do caso 002)
+└── corpus/&lt;NNN-slug&gt;/
+    ├── case.md                 Target · Question · Axis · a entrada (fatos, sem conclusões)
+    ├── expect.md               MUST-FIND e MUST-NOT-CLAIM, no formato &quot;texto :: sinal1; sinal2&quot;
+    ├── baseline.md             Date · Target-hash · First-red · Verdict · Ablation · Premise-checked
+    └── respostas/alvo.md, respostas/ablado.md
+</code></pre>
+<p>Diferença deliberada em relação ao Maestro: lá a linha de base registra <code>Target-commit</code> (o
+último commit que tocou o alvo, via git); aqui registra <code>Target-hash</code> (8 primeiros caracteres
+do SHA-256 do arquivo, com fim de linha normalizado), para o exemplo rodar fora de um
+repositório.</p>
+<h2 id="como-rodar" tabindex="-1">Como rodar <a class="header-anchor" href="#como-rodar" aria-hidden="true">#</a></h2>
+<pre><code class="language-bash">cd livro/15-validando-o-maestro/exemplo
+python avaliar.py            # ou python3, conforme o sistema
+echo $?                      # 1 — vermelho de propósito
+</code></pre>
+<h2 id="saída-esperada" tabindex="-1">Saída esperada <a class="header-anchor" href="#saída-esperada" aria-hidden="true">#</a></h2>
+<pre><code class="language-text">── Corpus de avaliação (T7 / C11) ──
+• 001-revisor-perde-requisito
+  alvo: alvos/revisor.md
+  asserções: 2 must-find / 2 must-not-claim
+  linha de base atual (7c670133)
+  alvo   PASSA
+  ablado REPROVA (não achou: o requisito FR2 do plano não foi implementado; não achou: o teste não verifica comportamento; afirmou o proibido: basta apagar o TODO)
+• 002-guardiao-aceita-raia-errada
+  alvo: alvos/guardiao.md
+  asserções: 1 must-find / 1 must-not-claim
+  ✗ nunca visto reprovando (First-red: pending) — rode o caso contra o ablado
+  linha de base atual (3b37f7fc)
+  alvo   PASSA
+  ablado PASSA
+  ✗ o ablado PASSA — o caso não mede o eixo 'conferir a raia declarada (a linha &quot;Confira a raia declarada&quot; do alvo)'; aposente com motivo, não ajuste a fixture até ficar vermelho
+• 003-sem-lado-negativo
+  alvo: alvos/revisor.md
+  ✗ sem MUST-NOT-CLAIM: — sem lado negativo o caso não discrimina
+  ✗ nunca visto reprovando (First-red: pending) — rode o caso contra o ablado
+  linha de base atual (7c670133)
+──
+casos: 3 · saudáveis: 1 · aposentados: 0
+✗ o corpus não está saudável (veja acima).
+</code></pre>
+<p>Código de saída: <strong>1</strong>. O corpus sai vermelho como o <code>check-evals.sh</code> saiu no ciclo 037 do
+Maestro: dizer &quot;verde&quot; com dois casos que não discriminam seria mentir para o próprio portão.</p>
+<h2 id="exercícios-cada-um-muda-a-saída-de-um-jeito-previsível" tabindex="-1">Exercícios (cada um muda a saída de um jeito previsível) <a class="header-anchor" href="#exercícios-cada-um-muda-a-saída-de-um-jeito-previsível" aria-hidden="true">#</a></h2>
+<ol>
+<li><strong>Aposente o 002 com motivo.</strong> Acrescente no topo de <code>corpus/002-.../case.md</code>:
+<code>Status: retired</code> e <code>Retired-because: o ablado passa; o eixo é sobredeterminado pelo Princípio III</code>. O caso passa a aparecer como <code>APOSENTADO — ...</code>: visível, nunca apagado.
+Tire a linha <code>Retired-because:</code> e ele volta a falhar (&quot;aposentar sem motivo é apagar&quot;).</li>
+<li><strong>Conserte ou retire o 003.</strong> Sem o 003 e com o 002 aposentado, a saída termina em
+<code>✓ todo caso nomeia um alvo real, discrimina e está atual.</code> e o código de saída é <strong>0</strong>.</li>
+<li><strong>Mude o alvo.</strong> Acrescente qualquer linha em <code>alvos/revisor.md</code> e rode de novo: o caso 001
+acusa <code>linha de base defasada — o alvo mudou 7c670133 → &lt;novo&gt;; avalie de novo</code>. É o
+corolário C11: a avaliação envelhece quando o alvo muda.</li>
+<li><strong>Afrouxe o lado negativo.</strong> Apague as duas linhas <code>MUST-NOT-CLAIM:</code> do 001: o caso cai na
+mesma falha estrutural do 003, embora o alvo real continue passando.</li>
+<li><strong>Vaze a conclusão.</strong> Escreva na entrada do <code>case.md</code> do 001 &quot;o FR2 não foi implementado&quot;.
+O verificador continua verde — o anti-padrão 20 (fixture que carrega o próprio veredito) só
+o pré-voo humano do <code>/eval</code> pega. Nenhum script mede isso aqui, e o exemplo não finge medir.</li>
+</ol>
+<p>Testado em 02/11/2026 com Python 3 no Windows (Git Bash); a saída acima foi copiada da execução.</p>
+</article>
+    <nav class="paginacao" aria-label="Anterior e próximo"><a class="pg-prev" href="15-validando-o-maestro.html"><small>← anterior</small>15 — Validando o Maestro</a><a class="pg-next" href="16-o-futuro-da-engenharia-agentica.html"><small>próximo →</small>16 — O futuro da engenharia agêntica</a></nav>
+    <footer class="rodape">
+      <a href="https://github.com/GHDaru/agentic_software_engineering">github.com/GHDaru/agentic_software_engineering</a>
+       · <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/15-validando-o-maestro/exemplo/README.md">fonte desta página</a>
+      · gerado de <code>livro/</code> por <code>publicar/build.mjs</code>
+    </footer>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body></html>

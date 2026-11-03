@@ -1,0 +1,14 @@
+[
+  {"caso": "1. Conduzir um ciclo: spec → plano → tarefas → implementar → DoD",
+   "criterio_executavel": true},
+  {"caso": "2. Triar o que chega: correção de texto, funcionalidade nova, migração de banco",
+   "entradas_de_tipos_diferentes": true},
+  {"caso": "3. Número único: domínio, casca e entrada, com o contrato escrito antes",
+   "partes_independentes": true, "fronteira_declarada": true, "criterio_executavel": true},
+  {"caso": "4. Metade dos arquivos para cada agente, 'porque são independentes'",
+   "partes_independentes": true, "fronteira_declarada": false},
+  {"caso": "5. Integrar 42 branches de outra linha: o corte só aparece lendo o histórico",
+   "corte_predefinivel": false},
+  {"caso": "6. Um agente que 'descobre sozinho' o que refatorar no repositório",
+   "pede_autonomo": true}
+]

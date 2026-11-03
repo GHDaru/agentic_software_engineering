@@ -1,0 +1,9 @@
+ações no dia (fictício): 189
+  classe 0 (leitura): 143
+  classe 2 (criação reversível): 41
+  classe 3 (alteração): 3
+  classe 5 (financeira / irreversível): 1
+  classe 6 (lote / administrativa): 1
+gate uniforme pesado : 189 decisões humanas
+gate proporcional    : 4 decisões humanas, 1 bloqueada(s) por política
+gate uniforme leve   : 0 decisões humanas — e 1 ação(ões) irreversível(is) sem ninguém olhar

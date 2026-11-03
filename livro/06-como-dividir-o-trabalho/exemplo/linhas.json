@@ -1,0 +1,8 @@
+{
+  "principal": "dev",
+  "linhas": {
+    "dev":      ["064-capa-para-a-ia-que-instala", "065-o-metodo-se-cobra"],
+    "paralela": ["064-workflow-painel", "065-board", "066-custeio", "067-painel-chamados", "070-conferidor"]
+  },
+  "resolver": ["064", "066", "068"]
+}

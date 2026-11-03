@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exemplo executável — 08 DDD para agentes · Engenharia de Software Orientada por Agentes</title>
+<meta name="description" content="Governança operacional para um humano regendo muitos agentes">
+<script>try{var t=localStorage.getItem("tema");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="assets/estilo.css">
+</head><body>
+<header class="barra">
+  <button id="alt-menu" aria-label="Abrir o sumário" aria-expanded="false" aria-controls="sidebar">☰ <span>Sumário</span></button>
+  <a class="barra-titulo" href="index.html">Engenharia de Software Orientada por Agentes</a>
+  <button id="alt-tema" aria-label="Alternar tema claro/escuro">◐</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="marca" href="index.html">Engenharia de Software Orientada por Agentes<small>Agentic Software Engineering</small></a>
+    <div class="nav-parte">Abertura</div><ul><li><a href="00-prefacio.html">Prefácio</a></li></ul><div class="nav-parte">Parte I — Por que agentes mudam a engenharia</div><ul><li><a href="01-a-mudanca-de-unidade-de-trabalho.html">1. A mudança de unidade de trabalho</a></li><li class="filho"><a class="filho" href="01-a-mudanca-de-unidade-de-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="02-o-problema-da-confianca.html">2. O problema da confiança</a></li><li class="filho"><a class="filho" href="02-o-problema-da-confianca-exemplo.html">Exemplo executável</a></li><li><a href="03-um-humano-muitos-agentes.html">3. Um humano, muitos agentes</a></li><li class="filho"><a class="filho" href="03-um-humano-muitos-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte II — Especificar e dar contexto</div><ul><li><a href="04-a-spec-como-partitura.html">4. A spec como partitura</a></li><li class="filho"><a class="filho" href="04-a-spec-como-partitura-exemplo.html">Exemplo executável</a></li><li><a href="05-engenharia-de-contexto.html">5. Engenharia de contexto</a></li><li class="filho"><a class="filho" href="05-engenharia-de-contexto-exemplo.html">Exemplo executável</a></li><li><a href="06-como-dividir-o-trabalho.html">6. Como dividir o trabalho</a></li><li class="filho"><a class="filho" href="06-como-dividir-o-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="07-papeis-e-skills.html">7. Papéis e skills</a></li><li class="filho"><a class="filho" href="07-papeis-e-skills-exemplo.html">Exemplo executável</a></li><li><a href="08-ddd-para-agentes.html">8. DDD para agentes</a></li><li class="filho"><a class="filho ativo" aria-current="page" href="08-ddd-para-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte III — Provar e conter</div><ul><li><a href="09-arquitetura-que-se-defende.html">9. Arquitetura que se defende</a></li><li class="filho"><a class="filho" href="09-arquitetura-que-se-defende-exemplo.html">Exemplo executável</a></li><li><a href="10-quality-gates-que-provam-fatos.html">10. Quality gates que provam fatos</a></li><li class="filho"><a class="filho" href="10-quality-gates-que-provam-fatos-exemplo.html">Exemplo executável</a></li><li><a href="11-risco-reversibilidade-e-autonomia.html">11. Risco, reversibilidade e autonomia</a></li><li class="filho"><a class="filho" href="11-risco-reversibilidade-e-autonomia-exemplo.html">Exemplo executável</a></li><li><a href="12-ferramentas-mcp-e-o-ecossistema.html">12. Ferramentas, MCP e o ecossistema</a></li><li class="filho"><a class="filho" href="12-ferramentas-mcp-e-o-ecossistema-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte IV — Medir e aprender</div><ul><li><a href="13-observabilidade-e-economia.html">13. Observabilidade e economia</a></li><li class="filho"><a class="filho" href="13-observabilidade-e-economia-exemplo.html">Exemplo executável</a></li><li><a href="14-a-organizacao-que-aprende.html">14. A organização que aprende</a></li><li class="filho"><a class="filho" href="14-a-organizacao-que-aprende-exemplo.html">Exemplo executável</a></li><li><a href="15-validando-o-maestro.html">15. Validando o Maestro</a></li><li class="filho"><a class="filho" href="15-validando-o-maestro-exemplo.html">Exemplo executável</a></li><li><a href="16-o-futuro-da-engenharia-agentica.html">16. O futuro da engenharia agêntica</a></li><li class="filho"><a class="filho" href="16-o-futuro-da-engenharia-agentica-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Apêndices</div><ul><li><a href="apendice-a-o-maestro-em-uma-pagina.html">A. O Maestro em uma página</a></li><li><a href="apendice-b-aseg-bench.html">B. ASEG-Bench — um benchmark de governança</a></li><li><a href="apendice-c-pacote-de-replicacao.html">C. Pacote de replicação</a></li><li><a href="apendice-d-estudos-de-campo.html">D. Estudos de campo do ecossistema</a></li></ul><div class="nav-parte">Consulta</div><ul><li><a href="glossario.html">Glossário</a></li><li><a href="evidencias.html">Evidências (claims)</a></li></ul>
+  </aside>
+  <main class="conteudo">
+    <article class="markdown"><h1 id="exemplo-do-capítulo-8--a-linguagem-ubíqua-que-a-máquina-lê" tabindex="-1">Exemplo do capítulo 8 — a linguagem ubíqua que a máquina lê <a class="header-anchor" href="#exemplo-do-capítulo-8--a-linguagem-ubíqua-que-a-máquina-lê" aria-hidden="true">#</a></h1>
+<p>O que este exemplo prova, em nove passos, sobre um domínio pequeno (uma central de atendimento
+com três contextos: atendimento, mensageria, faturamento):</p>
+<ul>
+<li>três sessões de agente que nomeiam a mesma tarefa produzem quatro nomes para o mesmo conceito,
+e um catálogo com quatro decisões (REUSE, ALIAS, EXTEND, CREATE) os reduz a um identificador;</li>
+<li>um <em>lint</em> lido do mesmo modelo acusa sigla nua, palavra de família escrita nua (&quot;fila&quot;,
+&quot;prazo&quot;) e apelido no lugar do termo do modelo;</li>
+<li>o plano que não declara o domínio, ou que põe uma regra na borda sem motivo, reprova;</li>
+<li>endereço ambíguo ou morto é recusado, nunca adivinhado;</li>
+<li>o glossário é gerado do modelo, e qualquer divergência (edição à mão, modelo mudado sem
+regerar) é apontada pela linha;</li>
+<li>cada régua tem fixture boa e ruim, e discrimina.</li>
+</ul>
+<p>Requisito: Python 3.8+ (só biblioteca padrão) e bash. Nada pago, nada de rede.</p>
+<h2 id="como-rodar" tabindex="-1">Como rodar <a class="header-anchor" href="#como-rodar" aria-hidden="true">#</a></h2>
+<pre><code class="language-bash">cd livro/08-ddd-para-agentes/exemplo
+bash rodar.sh                               # imprime a saída
+bash rodar.sh | diff - saida-esperada.txt   # confere: nenhuma linha de diferença
+</code></pre>
+<p>No Windows, rode no Git Bash. O script procura <code>python3</code>, <code>python</code> e <code>py</code>, nessa ordem, e usa o
+primeiro que for Python 3.8+ de verdade. Para forçar: <code>PYTHON=... bash rodar.sh</code>.</p>
+<p>Opcional: <code>bash medir_maestro.sh /caminho/do/clone/maestro</code> reproduz os números do Maestro citados
+no capítulo (só lê o clone, com <code>git show</code>; em Git Bash no Windows pode levar alguns minutos).</p>
+<h2 id="os-arquivos" tabindex="-1">Os arquivos <a class="header-anchor" href="#os-arquivos" aria-hidden="true">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Arquivo</th>
+<th>Papel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>modelo.json</code></td>
+<td>o modelo único: contextos, termos (tela → identificador, contexto, definição, apelidos), famílias que nunca se escrevem nuas, siglas</td>
+</tr>
+<tr>
+<td><code>propostas.json</code></td>
+<td>dez nomes propostos por três sessões para a mesma tarefa</td>
+</tr>
+<tr>
+<td><code>catalogo.py</code></td>
+<td><code>decidir</code>, <code>lint</code>, <code>plano</code>, <code>endereco</code>, <code>glossario gerar/conferir</code>, <code>mutacao</code></td>
+</tr>
+<tr>
+<td><code>glossario-gerado.md</code></td>
+<td>o glossário gerado do modelo (<code>python catalogo.py glossario gerar modelo.json</code>)</td>
+</tr>
+<tr>
+<td><code>sessoes.json</code></td>
+<td>sessões vivas e mortas, para o passo de endereço</td>
+</tr>
+<tr>
+<td><code>casos/tela-ruim.md</code>, <code>casos/tela-boa.md</code></td>
+<td>o mesmo texto de tela antes e depois do catálogo</td>
+</tr>
+<tr>
+<td><code>casos/plan-*.md</code></td>
+<td>planos sem declaração, com borda sem motivo, correto e com três defeitos</td>
+</tr>
+<tr>
+<td><code>rodar.sh</code></td>
+<td>os nove passos</td>
+</tr>
+<tr>
+<td><code>saida-esperada.txt</code></td>
+<td>a saída de <code>bash rodar.sh</code>, conferida em 02/11/2026</td>
+</tr>
+<tr>
+<td><code>medir_maestro.sh</code></td>
+<td>opcional: os números do Maestro (<code>19823c2</code>)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="saída-esperada" tabindex="-1">Saída esperada <a class="header-anchor" href="#saída-esperada" aria-hidden="true">#</a></h2>
+<p>Os passos 1, 2, 4, 5, 7, 8b e 8c saem com código 1 <strong>de propósito</strong>: é o vermelho que o capítulo
+descreve. O carimbo <code>sha256</code> é calculado sobre o modelo em forma canônica (chaves ordenadas), então
+não muda com a quebra de linha do sistema operacional.</p>
+<pre><code class="language-text">
+== 1. três sessões nomeiam a mesma tarefa: cada nome recebe REUSE, ALIAS, EXTEND ou CREATE
+tarefa: avisar o atendente quando um chamado estoura o prazo de resposta
+  ✓ sessão A  Ticket                 REUSE     já existe: Chamado (Ticket, atendimento)
+  ✓ sessão A  Request                ALIAS     apelido de Chamado (Ticket): use o termo do modelo
+  ✗ sessão A  Fila                   RECUSADO  termo nu — sempre qualificada: fila de atendimento ou fila de saída
+  ✓ sessão B  Chamado                REUSE     já existe: Chamado (Ticket, atendimento)
+  ✓ sessão B  Ocorrência             ALIAS     apelido de Chamado (Ticket): use o termo do modelo
+  ✓ sessão B  Prazo de resposta      REUSE     já existe: Prazo de resposta (responseDueAt, atendimento)
+  ✓ sessão B  Prazo de reabertura    EXTEND    nova forma qualificada da família 'prazo' em atendimento: entra no modelo antes do código
+  ✓ sessão C  Client                 ALIAS     apelido de Cliente (Customer): use o termo do modelo
+  ✓ sessão C  Alerta de estouro      CREATE    termo novo em atendimento, com definição: entra no modelo antes do código
+  ✗ sessão C  Status                 RECUSADO  termo novo sem definição nem contexto — nome que ninguém definiu é o sinônimo de amanhã
+resumo: REUSE 3 · ALIAS 3 · EXTEND 1 · CREATE 1 · RECUSADO 2
+  10 nomes propostos por 3 sessões → 5 identificadores (2 novos, com definição)
+  4 nomes para Ticket: Chamado, Ocorrência, Request, Ticket
+(exit 1)
+</code></pre>
+<p>A saída completa dos nove passos está em <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/08-ddd-para-agentes/exemplo/saida-esperada.txt"><code>saida-esperada.txt</code></a>. Os trechos
+mais importantes dos demais passos:</p>
+<pre><code class="language-text">== 2. o texto de tela que a sessão A escreveu sem o catálogo
+lint tela-ruim.md
+  ✗ linha 3: sigla nua na 1ª ocorrência: SLA — escreva 'Service Level Agreement (SLA)'
+  ✗ linha 3: apelido 'Request' — o termo do modelo é 'Chamado' (Ticket)
+  ✗ linha 4: termo nu: 'fila' — sempre qualificada: fila de atendimento ou fila de saída
+  ✗ linha 4: termo nu: 'prazo' — sempre qualificado: prazo de resposta ou prazo de pagamento
+  ✗ linha 5: sigla nua na 1ª ocorrência: API — escreva 'Application Programming Interface (API)'
+  ✗ linha 5: apelido 'Client' — o termo do modelo é 'Cliente' (Customer)
+✗ 6 achado(s).
+
+== 5. o plano que pôs uma regra na borda sem dizer por quê
+plano plan-edge-sem-motivo.md
+  ✗ invariants: 'alerta_sai_uma_vez=edge' é borda sem motivo — escreva alerta_sai_uma_vez=edge(por que não pode ser domínio)
+
+== 7. endereço: ambíguo ou morto é recusado, nunca adivinhado
+  ✗ 'Gerente' → RECUSADO: ambíguo (2 sessões vivas: [a1b2c3] · loja, [d4e5f6] · site); diga nome [ref] · projeto
+  ✓ 'Gerente · loja' → entrega a Gerente [a1b2c3] · loja
+  ✓ 'Revisor · loja' → entrega a Revisor [7f7f7f] · loja
+  ✗ 'Revisor [0a0a0a] · loja' → RECUSADO: ref morto ou inexistente; não cai para o nome
+
+== 8b. alguém 'corrige' o glossário à mão
+  ✗ linha 7 difere do que o modelo gera:
+      no arquivo: | Cliente | `Customer` | atendimento | Quem paga o contrato. |
+      do modelo : | Cliente | `Customer` | atendimento | Quem abre o chamado e recebe a resposta. |
+
+== 9. as réguas discriminam? (fixture boa limpa, fixture ruim pega)
+  lint   boa 0 achado(s) · ruim 6 achado(s) · discrimina: sim
+  plano  boa 0 achado(s) · ruim 3 achado(s) · discrimina: sim
+✓ as duas réguas discriminam.
+</code></pre>
+<h2 id="o-que-o-exemplo-não-faz" tabindex="-1">O que o exemplo não faz <a class="header-anchor" href="#o-que-o-exemplo-não-faz" aria-hidden="true">#</a></h2>
+<p>Não decide se um termo novo deveria mesmo ser novo, nem se o motivo de uma borda é bom: garante
+que a pergunta foi feita e que a resposta ficou escrita. A qualidade da resposta é do revisor. As
+heurísticas do classificador (casamento exato, apelido conhecido, primeira palavra de família) são
+deliberadamente simples; um catálogo real precisa de revisão humana para os casos de fronteira,
+como um apelido que, com o tempo, virou um conceito distinto.</p>
+</article>
+    <nav class="paginacao" aria-label="Anterior e próximo"><a class="pg-prev" href="08-ddd-para-agentes.html"><small>← anterior</small>08 — DDD para agentes</a><a class="pg-next" href="09-arquitetura-que-se-defende.html"><small>próximo →</small>09 — Arquitetura que se defende</a></nav>
+    <footer class="rodape">
+      <a href="https://github.com/GHDaru/agentic_software_engineering">github.com/GHDaru/agentic_software_engineering</a>
+       · <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/08-ddd-para-agentes/exemplo/README.md">fonte desta página</a>
+      · gerado de <code>livro/</code> por <code>publicar/build.mjs</code>
+    </footer>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body></html>

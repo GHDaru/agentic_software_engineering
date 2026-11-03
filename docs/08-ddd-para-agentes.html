@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>08 — DDD para agentes · Engenharia de Software Orientada por Agentes</title>
+<meta name="description" content="Governança operacional para um humano regendo muitos agentes">
+<script>try{var t=localStorage.getItem("tema");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="assets/estilo.css">
+</head><body>
+<header class="barra">
+  <button id="alt-menu" aria-label="Abrir o sumário" aria-expanded="false" aria-controls="sidebar">☰ <span>Sumário</span></button>
+  <a class="barra-titulo" href="index.html">Engenharia de Software Orientada por Agentes</a>
+  <button id="alt-tema" aria-label="Alternar tema claro/escuro">◐</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="marca" href="index.html">Engenharia de Software Orientada por Agentes<small>Agentic Software Engineering</small></a>
+    <div class="nav-parte">Abertura</div><ul><li><a href="00-prefacio.html">Prefácio</a></li></ul><div class="nav-parte">Parte I — Por que agentes mudam a engenharia</div><ul><li><a href="01-a-mudanca-de-unidade-de-trabalho.html">1. A mudança de unidade de trabalho</a></li><li class="filho"><a class="filho" href="01-a-mudanca-de-unidade-de-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="02-o-problema-da-confianca.html">2. O problema da confiança</a></li><li class="filho"><a class="filho" href="02-o-problema-da-confianca-exemplo.html">Exemplo executável</a></li><li><a href="03-um-humano-muitos-agentes.html">3. Um humano, muitos agentes</a></li><li class="filho"><a class="filho" href="03-um-humano-muitos-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte II — Especificar e dar contexto</div><ul><li><a href="04-a-spec-como-partitura.html">4. A spec como partitura</a></li><li class="filho"><a class="filho" href="04-a-spec-como-partitura-exemplo.html">Exemplo executável</a></li><li><a href="05-engenharia-de-contexto.html">5. Engenharia de contexto</a></li><li class="filho"><a class="filho" href="05-engenharia-de-contexto-exemplo.html">Exemplo executável</a></li><li><a href="06-como-dividir-o-trabalho.html">6. Como dividir o trabalho</a></li><li class="filho"><a class="filho" href="06-como-dividir-o-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="07-papeis-e-skills.html">7. Papéis e skills</a></li><li class="filho"><a class="filho" href="07-papeis-e-skills-exemplo.html">Exemplo executável</a></li><li><a class="ativo" aria-current="page" href="08-ddd-para-agentes.html">8. DDD para agentes</a></li><li class="filho"><a class="filho" href="08-ddd-para-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte III — Provar e conter</div><ul><li><a href="09-arquitetura-que-se-defende.html">9. Arquitetura que se defende</a></li><li class="filho"><a class="filho" href="09-arquitetura-que-se-defende-exemplo.html">Exemplo executável</a></li><li><a href="10-quality-gates-que-provam-fatos.html">10. Quality gates que provam fatos</a></li><li class="filho"><a class="filho" href="10-quality-gates-que-provam-fatos-exemplo.html">Exemplo executável</a></li><li><a href="11-risco-reversibilidade-e-autonomia.html">11. Risco, reversibilidade e autonomia</a></li><li class="filho"><a class="filho" href="11-risco-reversibilidade-e-autonomia-exemplo.html">Exemplo executável</a></li><li><a href="12-ferramentas-mcp-e-o-ecossistema.html">12. Ferramentas, MCP e o ecossistema</a></li><li class="filho"><a class="filho" href="12-ferramentas-mcp-e-o-ecossistema-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte IV — Medir e aprender</div><ul><li><a href="13-observabilidade-e-economia.html">13. Observabilidade e economia</a></li><li class="filho"><a class="filho" href="13-observabilidade-e-economia-exemplo.html">Exemplo executável</a></li><li><a href="14-a-organizacao-que-aprende.html">14. A organização que aprende</a></li><li class="filho"><a class="filho" href="14-a-organizacao-que-aprende-exemplo.html">Exemplo executável</a></li><li><a href="15-validando-o-maestro.html">15. Validando o Maestro</a></li><li class="filho"><a class="filho" href="15-validando-o-maestro-exemplo.html">Exemplo executável</a></li><li><a href="16-o-futuro-da-engenharia-agentica.html">16. O futuro da engenharia agêntica</a></li><li class="filho"><a class="filho" href="16-o-futuro-da-engenharia-agentica-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Apêndices</div><ul><li><a href="apendice-a-o-maestro-em-uma-pagina.html">A. O Maestro em uma página</a></li><li><a href="apendice-b-aseg-bench.html">B. ASEG-Bench — um benchmark de governança</a></li><li><a href="apendice-c-pacote-de-replicacao.html">C. Pacote de replicação</a></li><li><a href="apendice-d-estudos-de-campo.html">D. Estudos de campo do ecossistema</a></li></ul><div class="nav-parte">Consulta</div><ul><li><a href="glossario.html">Glossário</a></li><li><a href="evidencias.html">Evidências (claims)</a></li></ul>
+  </aside>
+  <main class="conteudo">
+    <article class="markdown"><h1 id="08--ddd-para-agentes" tabindex="-1">08 — DDD para agentes <a class="header-anchor" href="#08--ddd-para-agentes" aria-hidden="true">#</a></h1>
+<blockquote>
+<p><em>Um time humano converge para um vocabulário no corredor. Agentes não têm corredor.</em></p>
+</blockquote>
+<p>Quando cinco pessoas trabalham juntas por um mês, a palavra &quot;chamado&quot; passa a significar a
+mesma coisa para todas, sem que ninguém tenha decidido isso: a conversa do café resolve. Cinco
+sessões de agente de Inteligência Artificial (IA) não tomam café. Cada uma começa do zero, escolhe
+o nome que lhe parece mais plausível e entrega um código que compila. Uma semana depois você tem
+<code>Ticket</code>, <code>Request</code>, <code>Chamado</code> e <code>Ocorrência</code> no mesmo repositório, todos para a mesma coisa, e
+uma regra de negócio que ninguém decidiu morando numa rota <em>HyperText Transfer Protocol</em> (HTTP). Este capítulo mostra por que o
+<em>Domain-Driven Design</em> (DDD) deixa de ser uma escolha de arquitetura e vira infraestrutura de
+coordenação quando quem escreve o código é um agente, e mostra também o que dá para cobrar por
+máquina e o que fica com o revisor humano.</p>
+<h2 id="pergunta-central" tabindex="-1" class="callout c-obj" data-rotulo="Pergunta">Pergunta central <a class="header-anchor" href="#pergunta-central" aria-hidden="true">#</a></h2>
+<p>Como impedir que N agentes criem N nomes para a mesma coisa, e que a regra de negócio vá morar
+num lugar que ninguém escolheu?</p>
+<h2 id="resultado-de-aprendizagem" tabindex="-1">Resultado de aprendizagem <a class="header-anchor" href="#resultado-de-aprendizagem" aria-hidden="true">#</a></h2>
+<p>Ao final do capítulo, você consegue:</p>
+<ol>
+<li><strong>Derivar</strong> do axioma &quot;o que está escrito é o que sobrevive&quot; por que agentes multiplicam
+sinônimos, e por que um glossário que ninguém lê não impede a multiplicação.</li>
+<li><strong>Classificar</strong> cada nome que um agente propõe em REUSE, ALIAS, EXTEND ou CREATE, e
+<strong>recusar</strong> o termo novo que chega sem definição e sem contexto dono.</li>
+<li><strong>Escrever</strong> as quatro declarações de domínio de um plano (raiz de agregado, onde moram as
+invariantes, mudanças de linguagem ubíqua, portas) e distinguir a regra posta na borda por
+decisão da regra posta na borda por descuido.</li>
+<li><strong>Separar</strong> colisão de nomes (uma palavra com dois sentidos) de colisão de endereço (um
+identificador que aponta para duas coisas, ou para nenhuma), e aplicar a invariante &quot;endereço
+ambíguo é recusado, nunca resolvido&quot;.</li>
+<li><strong>Montar</strong> um modelo de domínio único do qual o glossário e a documentação são gerados, com
+uma integração contínua que regera do modelo e recusa a divergência, e <strong>dizer</strong> o que essa
+geração não garante.</li>
+</ol>
+<h2 id="a-falha-real" tabindex="-1" class="callout c-falha" data-rotulo="Caso real">A falha real <a class="header-anchor" href="#a-falha-real" aria-hidden="true">#</a></h2>
+<p>Na madrugada de 3 de outubro de 2026, a equipe do projeto Hindiana, que usa o Maestro, fechou
+uma rodada de trabalho de agentes, a rodada 095, e encontrou o defeito que dá nome a este
+capítulo. As regras de negócio de uma das tarefas tinham ido parar dentro das rotas HTTP.
+Ninguém discutiu linguagem ubíqua, raízes de agregado nem
+portas, porque o plano tinha sido pulado. O teste ficou verde pelo caminho errado, e o defeito,
+nas palavras do registro, &quot;só apareceu na barra&quot; [CLAIM-08-001].</p>
+<p>O que torna a falha instrutiva é o que <strong>não</strong> aconteceu. Nenhum portão reclamou. O verificador
+de conformidade do método, o <code>check-conformance.sh</code>, já cobrava naquela época que o plano
+declarasse os artefatos condicionais (modelo de dados, contratos, desenho de interface), cada um
+com um motivo. Nada cobrava o domínio. O plano é o único lugar do fluxo
+<code>spec → plano → tarefas → implementação</code> onde se decide qual agregado muda, onde a regra mora e
+que termo entra no vocabulário, e pular esse passo não produzia sintoma nenhum [CLAIM-08-002].
+O plano do Maestro, na época, dizia &quot;use DDD&quot; em prosa. Os agentes leram. Não mudou nada.</p>
+<p>A correção saiu na mesma noite, em dois commits do Hindiana. O primeiro, <code>14f77a5</code>, à 1h45,
+acrescentou ao modelo de plano uma seção com quatro declarações obrigatórias e ensinou o
+verificador a lê-las. O segundo, <code>a94574a</code>, meia hora depois, aceitou a forma em que o próprio
+plano da rodada 095 tinha sido escrito, uma invariante por regra, e foi testado contra ele: os
+três itens marcados como &quot;borda&quot; sem motivo reprovaram, e com motivo passaram [CLAIM-08-003].
+Pouco mais de duas semanas depois, o Maestro integrou o trabalho como o ciclo 067, com spec retroativa, e
+registrou a decisão no <em>Architecture Decision Record</em> (ADR) 0023. O ADR diz uma coisa que vale
+guardar: aquela era a <strong>segunda</strong> vez que regra de negócio nascia na borda sem decisão, e a
+terceira estava a caminho [CLAIM-08-004]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0023-modelo-de-dominio-declarado-no-plan.md">ADR 0023</a>;
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/067-trava-de-dominio-no-plan/spec.md">spec 067</a>).</p>
+<p>A segunda falha é o espelho da primeira, e é dois meses mais velha. Em 16 de agosto de 2026, a
+retrospectiva do ciclo 055 achou um agente obediente demais. O <code>plan-architect</code>, o agente que
+escreve planos, estava instruído a consumir &quot;a linguagem ubíqua&quot; do projeto. A documentação dos
+perfis repetia a instrução, e o diagrama de entradas e saídas do processo a listava como insumo.
+O artefato não existia em projeto nenhum [CLAIM-08-005]. O registro do achado nomeia o defeito
+com precisão: instrução sem artefato é o espelho da norma sem função de força, e o agente segue
+fielmente uma fonte que não existe. Havia duas saídas honestas: criar o artefato ou tirar a
+promessa da instrução.</p>
+<p>O achado fechou em 22 de agosto, na retrospectiva do ciclo 061, pela segunda saída. A instrução
+parou de mandar consumir um vocabulário que não existia e passou a dizer o que fazer quando ele
+falta: propor criá-lo no plano, dizendo onde vai morar. O detalhe que fecha a história é que a
+primeira tentativa de correção escreveu na instrução um caminho, <code>docs/governance/ubiquitous-language.md</code>,
+e o verificador da instalação reprovou, porque nomear o caminho <strong>era</strong> a promessa
+[CLAIM-08-006]. A decisão que ficou, e que este capítulo herda, é que o método não entrega
+vocabulário de domínio nenhum. O vocabulário pertence ao domínio.</p>
+<p>Duas falhas com a mesma raiz. Na primeira, o lugar de decidir o vocabulário existia, mas era
+pulável sem sintoma. Na segunda, a instrução apontava para um vocabulário que não estava escrito
+em lugar nenhum. Nos dois casos, o agente fez exatamente o que um agente faz quando o vocabulário
+não é um artefato lido por alguém: inventou, ou seguiu o vazio.</p>
+<h2 id="teoria" tabindex="-1">Teoria <a class="header-anchor" href="#teoria" aria-hidden="true">#</a></h2>
+<h3 id="por-que-agentes-multiplicam-nomes" tabindex="-1">Por que agentes multiplicam nomes <a class="header-anchor" href="#por-que-agentes-multiplicam-nomes" aria-hidden="true">#</a></h3>
+<p>Um engenheiro novo no time chega sem vocabulário e o absorve em semanas, por exposição: lê o
+código, ouve a reunião, é corrigido no <em>code review</em>. A convergência é um efeito colateral de
+gente que convive. O agente não convive. Cada sessão começa com a janela vazia, enche-a com o que
+você mandou ler e, para o resto, recorre ao que é estatisticamente plausível. &quot;Request&quot; é tão
+plausível quanto &quot;Ticket&quot; para um pedido de suporte, e &quot;Chamado&quot; é plausível para quem leu a tela
+em português. Três sessões, três escolhas razoáveis, três nomes para a mesma coisa.</p>
+<p>Esta é a consequência direta do axioma A4 do Maestro: <strong>o que está escrito é o que sobrevive</strong>.
+Um agente começa cada sessão do zero, e o que não está num artefato não existe para a próxima
+execução, inclusive o motivo de uma decisão [CLAIM-08-007]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/axioms.md">axiomas</a>). No time
+humano, o vocabulário pode morar na cabeça das pessoas, porque as cabeças persistem. No time de
+agentes não há cabeça que persista. Ou o vocabulário está escrito, ou ele não existe, e cada
+sessão o reinventa.</p>
+<p>Escrever não basta. O teorema T5 diz que um artefato só sobrevive se algo a jusante o <strong>consome</strong>
+e falha alto quando ele fica velho, ou se ele é imutável [CLAIM-08-008]. Um glossário numa wiki é
+escrito e não é consumido: ninguém quebra quando ele está errado, então ele fica errado. O
+glossário que segura o vocabulário de um time de agentes é o que alguma máquina lê antes de
+aceitar código ou texto. Essa é a diferença entre o DDD de um time humano e o DDD para agentes:
+a linguagem ubíqua deixa de ser um acordo social e passa a ser uma entrada de um portão.</p>
+<h3 id="o-que-o-ddd-já-sabia" tabindex="-1">O que o DDD já sabia <a class="header-anchor" href="#o-que-o-ddd-já-sabia" aria-hidden="true">#</a></h3>
+<p>Nada do que este capítulo recomenda foi inventado para agentes. Eric Evans descreveu em 2003 o
+conjunto de ideias que resolvem o problema; o que muda é o peso de cada uma quando o executor não
+tem memória.</p>
+<p><strong>Linguagem ubíqua.</strong> Um vocabulário único, acordado entre quem pede e quem constrói, usado
+literalmente no código, nos testes e na conversa. Para Evans, o valor é que a tradução mental
+entre &quot;o que o negócio diz&quot; e &quot;o que o código diz&quot; desaparece, e com ela uma classe inteira de
+mal-entendidos. Para agentes, o valor é mais direto: um nome que existe no vocabulário é um nome
+que o agente <strong>não</strong> precisa inventar.</p>
+<p><strong>Contexto delimitado</strong> (<em>bounded context</em>). A fronteira dentro da qual uma palavra tem um sentido
+só. &quot;Fila&quot; pode significar duas coisas no mesmo sistema, desde que cada sentido more num contexto
+e a fronteira esteja escrita. O contexto delimitado é também a costura por onde o trabalho se
+corta para rodar em paralelo: duas sessões em contextos diferentes não disputam o mesmo
+vocabulário nem os mesmos arquivos. O <a href="06-como-dividir-o-trabalho.html">capítulo 6</a>
+trata do corte. Aqui interessa o vocabulário: o contexto é o que permite que a mesma palavra
+tenha dois donos sem que isso seja uma colisão.</p>
+<p><strong>Raiz de agregado e invariante.</strong> A invariante é uma regra de negócio que precisa valer sempre
+(&quot;chamado fechado não recebe resposta&quot;). A raiz de agregado é a entidade que guarda a consistência
+de um grupo de objetos: toda mudança entra por ela, e é ela quem garante as invariantes. A falha
+do Hindiana é a violação literal dessa ideia: a regra foi morar na rota, que é borda, e ninguém
+decidiu isso.</p>
+<p><strong>Portas, adaptadores e camada anticorrupção.</strong> A porta é a interface que o domínio expõe ou
+exige; o adaptador a implementa com tecnologia (Alistair Cockburn chamou o arranjo de arquitetura
+hexagonal). A camada anticorrupção é o adaptador que traduz o vocabulário de outro sistema para o
+seu, para que o termo estrangeiro não entre no domínio. Quando o sentido do termo externo é igual
+ao seu, a tradução é identidade. Quando não é, o mapa precisa estar escrito, ou o termo de fora
+contamina o modelo.</p>
+<h3 id="colisão-de-nomes-e-colisão-de-endereço" tabindex="-1">Colisão de nomes e colisão de endereço <a class="header-anchor" href="#colisão-de-nomes-e-colisão-de-endereço" aria-hidden="true">#</a></h3>
+<p>Há duas famílias de confusão de vocabulário, e elas pedem remédios diferentes.</p>
+<p>A <strong>colisão de nomes</strong> é uma palavra com dois sentidos. Quando o Maestro desenhou a área
+administrativa do seu painel, no ciclo 073, o mapa de contextos achou cinco colisões vivas, todas
+com evidência no repositório: &quot;fila&quot; (a fila de decisões do regente e a fila de mensagens de
+saída), &quot;caixa de entrada&quot; (a tela de decisões e a entrada de mensagens entre sessões), &quot;livro de
+ponto&quot; (o registro de custo por tarefa e o registro de mensagens), &quot;sessão&quot; e &quot;agente&quot; usados como
+sinônimos, e &quot;portão&quot; (o portão do chamado e o portão que só o humano registra) [CLAIM-08-009]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/073-area-administrativa/confronto/mapa-de-contextos.md">mapa de contextos, §7</a>).
+O remédio de colisão de nomes é qualificar. O glossário do Maestro transformou isso numa regra
+operativa curta: &quot;fila&quot; e &quot;portão&quot; nunca são escritos nus [CLAIM-08-010].</p>
+<p>A <strong>colisão de endereço</strong> é outra coisa, e é pior. O mesmo identificador aponta para duas coisas,
+ou para nenhuma: o mesmo nome curto de sessão vivo em três referências, o mesmo nome em dois
+projetos, uma referência de sessão que mudou quando a sessão reiniciou. Colisão de nomes confunde
+quem lê. Colisão de endereço entrega na caixa errada. O Maestro registra a invariante assim:
+<strong>endereço ambíguo é recusado, nunca resolvido</strong>, porque uma entrega ao par errado não se desfaz
+[CLAIM-08-011]. Não se escolhe &quot;o mais provável&quot;. Quem endereça escreve <code>nome · ref · projeto</code>, e
+uma referência morta é recusada em vez de cair para o nome nu.</p>
+<p>A distinção importa para o tech lead porque os dois problemas parecem o mesmo na conversa (&quot;os
+agentes estão confundindo os nomes&quot;) e têm consertos opostos. Colisão de nomes se resolve com
+vocabulário: qualificar a palavra, separar os contextos. Colisão de endereço se resolve com
+identidade: um identificador que não depende de um nome, e uma regra que prefere falhar a
+adivinhar. Aplicar o remédio de um ao outro não funciona. Qualificar melhor o nome &quot;Gerente&quot; não
+impede que duas sessões chamadas &quot;Gerente&quot; existam em dois projetos.</p>
+<h3 id="o-catálogo-semântico-reuse-extend-alias-create" tabindex="-1">O catálogo semântico: REUSE, EXTEND, ALIAS, CREATE <a class="header-anchor" href="#o-catálogo-semântico-reuse-extend-alias-create" aria-hidden="true">#</a></h3>
+<p>Se o vocabulário é uma entrada de portão, cada nome novo que um agente propõe precisa passar por
+uma decisão antes de virar código. A base de pesquisa deste livro chama de <strong>catálogo semântico</strong>
+a linguagem ubíqua operacional, e propõe que essa decisão tenha quatro saídas [CLAIM-08-012]:</p>
+<ul>
+<li><strong>REUSE</strong>: o termo já existe no modelo. Use o nome e o identificador que estão lá.</li>
+<li><strong>ALIAS</strong>: o nome proposto é um apelido conhecido de um termo existente (&quot;Request&quot; para
+<code>Ticket</code>). Não nasce identificador novo; o apelido é registrado para que a próxima sessão que o
+propuser seja redirecionada.</li>
+<li><strong>EXTEND</strong>: o nome qualifica um termo ou uma família que já existe (&quot;prazo de reabertura&quot; numa
+família em que já há &quot;prazo de resposta&quot;). Entra no modelo, com definição e contexto, antes do
+código.</li>
+<li><strong>CREATE</strong>: o termo é novo de fato. Entra no modelo com definição e contexto dono antes do
+código. Termo novo sem definição é recusado, porque nome que ninguém definiu é o sinônimo de
+amanhã.</li>
+</ul>
+<p>A ideia tem um parente direto no Maestro, só que aplicado a componentes de tela em vez de termos.
+O agente <code>ux-semantics</code> tem como lei que nenhuma tela nasce sem papel semântico declarado: se o
+papel já existe no catálogo, consome-se o componente catalogado, e reimplementar localmente um
+papel catalogado é violação de revisão; papel novo entra no catálogo <strong>primeiro</strong>, com sua
+anatomia, um componente compartilhado e um teste, e só então é usado [CLAIM-08-013]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/.claude/agents/ux-semantics.md">ux-semantics</a>).
+É o REUSE e o CREATE aplicados a botões. O catálogo semântico estende a mesma disciplina aos
+nomes.</p>
+<p>Fique claro o estado disso. O Maestro não tem, na versão citada, uma ferramenta que classifique
+nomes em REUSE, EXTEND, ALIAS e CREATE. O que ele tem são as peças: um modelo de domínio do qual
+sai o vocabulário, um glossário com as colisões mapeadas, uma lista de palavras proibidas na tela
+e o catálogo de papéis. As duas hipóteses de que o catálogo reduz duplicação (H6) e de que o
+glossário reduz inconsistência (H7) estão na agenda de pesquisa e não foram medidas
+[CLAIM-08-014]. O exemplo deste capítulo implementa o classificador para você ver a forma; a
+evidência de que ele paga o custo ainda não existe.</p>
+<h3 id="duas-línguas-uma-fronteira" tabindex="-1">Duas línguas, uma fronteira <a class="header-anchor" href="#duas-línguas-uma-fronteira" aria-hidden="true">#</a></h3>
+<p>Há uma segunda razão para o vocabulário precisar de regra escrita, e ela aparece em qualquer time
+que não trabalha em inglês. O corolário C10 do Maestro diz que <strong>o que é instalado é lido por
+máquina; o que é publicado é lido por gente</strong> [CLAIM-08-015]. Ele deriva de A4 e tem uma
+consequência prática: a língua de cada artefato é decidida pelo seu leitor, não pelo humor de
+quem digita.</p>
+<p>O ADR 0014 aplicou isso ao próprio método: tudo que o instalador copia para outro repositório
+(agentes, <em>skills</em>, scripts, comandos, templates e a governança) é escrito em inglês, porque é
+lido por agentes de IA em qualquer projeto; o livro e as receitas seguem em português, porque têm
+um público definido [CLAIM-08-016]. O ADR 0029 emendou o 0014 quando o Maestro ganhou uma tela
+própria: a <strong>interface do produto é em português</strong>, os <strong>identificadores são em inglês</strong>, e um
+arquivo de modelo liga cada termo de tela ao identificador do código. Nome estrangeiro só entra
+onde o sentido é 1:1; onde não é, vale o termo próprio, com uma camada anticorrupção e um mapa
+versionado e testado. O contexto do ADR é a falha que motivou a regra: sem ela, os ciclos 073 e
+074 já tinham produzido quatro vocabulários para o mesmo estado [CLAIM-08-017]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0029-tela-em-portugues-codigo-em-ingles.md">ADR 0029</a>).</p>
+<p>Para o tech lead brasileiro, essa é a situação do dia a dia: a tela fala português, o código fala
+inglês, e o agente traduz como quiser se ninguém escrever a tradução. &quot;Chamado&quot; vira <code>Call</code> numa
+sessão e <code>Ticket</code> em outra. A regra do 0029 não é sobre idioma; é sobre dizer, num arquivo que a
+máquina lê, qual identificador corresponde a qual palavra.</p>
+<h3 id="a-sigla-é-o-menor-termo" tabindex="-1">A sigla é o menor termo <a class="header-anchor" href="#a-sigla-é-o-menor-termo" aria-hidden="true">#</a></h3>
+<p>O problema dos N nomes tem uma forma mínima que todo time conhece: a sigla sem expansão. Uma
+sigla nua é um termo cuja definição ficou na cabeça de quem escreveu. Cada leitor, humano ou
+agente, reconstrói a expansão como pode, e reconstrói diferente.</p>
+<p>O Maestro começou por aí. O primeiro ciclo do método, o 001, de julho de 2026, nasceu de uma
+queixa do mantenedor sobre a governança: &quot;pesada, um amontoado de siglas sem dicionário e sem
+storytelling&quot;. A resposta foi uma porta de entrada narrativa e um glossário que define todas as
+siglas usadas nos documentos de governança [CLAIM-08-018]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/001-governanca-didatica/spec.md">spec 001</a>).
+Quatro dias depois, o ADR 0010 subiu a regra à constituição como Princípio VIII: em cada
+resposta, documento ou artefato, a primeira ocorrência de uma sigla vem por extenso, e a contagem
+recomeça a cada documento, porque o leitor não tem obrigação de ter lido o anterior
+[CLAIM-08-019]. O ADR fecha explicitamente as desculpas de sempre: &quot;todo mundo conhece&quot;, &quot;já
+expliquei antes&quot;, &quot;é jargão do domínio&quot;. Termo novo entra no glossário.</p>
+<p>A ligação com o resto do capítulo é que o glossário do Maestro é, na prática, a linguagem ubíqua
+do próprio método. Cada verbete traz a expansão, o significado no Maestro e onde o termo aparece,
+e é ali que moram as colisões mapeadas e as regras de qualificação [CLAIM-08-020]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/glossary.md">glossário</a>). A
+regra da sigla e a regra do agregado são a mesma regra em escalas diferentes: nenhum termo sem
+definição escrita num lugar que alguém consome.</p>
+<h2 id="alternativas" tabindex="-1">Alternativas <a class="header-anchor" href="#alternativas" aria-hidden="true">#</a></h2>
+<p>Há várias maneiras de tentar manter um vocabulário consistente num time que mistura
+pessoas e agentes. Elas não são excludentes, mas custam e entregam coisas diferentes.</p>
+<table>
+<thead>
+<tr>
+<th>Alternativa</th>
+<th>O que resolve</th>
+<th>O que não resolve</th>
+<th>Veredito</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Instrução no prompt (&quot;use DDD&quot;, &quot;use nomes consistentes&quot;)</td>
+<td>Nada que se meça</td>
+<td>O agente obedece em espírito e inventa nos detalhes</td>
+<td>Necessária, nunca suficiente</td>
+</tr>
+<tr>
+<td>Glossário descritivo em wiki</td>
+<td>Consulta humana</td>
+<td>Fica velho sem que nada quebre</td>
+<td>Não adote sozinho</td>
+</tr>
+<tr>
+<td>Contrato por esquema (OpenAPI, <em>JavaScript Object Notation</em> (JSON) Schema, Protocol Buffers)</td>
+<td>Identificadores nas bordas</td>
+<td>O sentido do termo e o vocabulário da tela</td>
+<td>Use nas portas</td>
+</tr>
+<tr>
+<td>Oficinas de descoberta (Event Storming, Impact Mapping, Story Mapping)</td>
+<td>Fronteiras e vocabulário do negócio</td>
+<td>Consistência depois da oficina</td>
+<td>Quando quem usa não é quem decide</td>
+</tr>
+<tr>
+<td>Modelo de domínio como código, com geração e portão</td>
+<td>Consistência verificável entre modelo, tela e documentação</td>
+<td>Se o texto gerado é útil a quem lê</td>
+<td>Adote quando há tela e mais de um contexto</td>
+</tr>
+<tr>
+<td>Reconciliar depois, na revisão</td>
+<td>Sinônimos que o revisor reconhece</td>
+<td>Sinônimos que o revisor não tem como reconhecer</td>
+<td>Só com o catálogo na mão do revisor</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Instrução no prompt.</strong> É o que todo mundo faz primeiro, e foi o que o Maestro tinha antes do
+ciclo 067: o plano pedia DDD em prosa [CLAIM-08-004]. A instrução muda a probabilidade de o agente
+fazer a coisa certa. Ela não deixa rastro, não falha quando é ignorada, e não diz qual nome usar,
+porque o nome certo não está nela. Mantenha a instrução, mas não conte com ela como controle.</p>
+<p><strong>Glossário em wiki.</strong> Resolve a pergunta do humano que quer saber o que um termo significa. Pelo
+teorema T5, morre: nada a jusante o consome, e ele diverge do código sem que ninguém perceba.
+Tem pior custo-benefício quando o leitor principal é um agente, porque o agente só lê o que você
+manda ler, e o que você manda ler precisa estar certo.</p>
+<p><strong>Contrato por esquema.</strong> Um OpenAPI ou um esquema de mensagens fixa os nomes nas bordas do
+sistema e pode ser verificado pela integração contínua (<em>continuous integration</em>, CI). É a
+ferramenta certa para portas. Não diz o que um termo significa, não governa o texto da tela e não
+impede que o mesmo conceito ganhe dois nomes em dois esquemas. Trate-o como uma das saídas do
+modelo, não como o modelo.</p>
+<p><strong>Oficinas de descoberta.</strong> <em>Event Storming</em>, de Alberto Brandolini, e as técnicas irmãs são boas
+para descobrir fronteiras e vocabulário quando há distância entre quem decide e quem usa. O
+Maestro avaliou as quatro técnicas em agosto de 2026 e deixou o veredito em &quot;observar&quot;: todas
+pressupõem essa distância, e no Maestro ela era zero, porque o mantenedor era o próprio usuário;
+o gatilho para reavaliar é existir produto com usuários externos [CLAIM-08-021]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/ecosystem/ideias/038-tecnicas-de-descoberta.md">cartão 038</a>).
+A oficina produz o vocabulário. Não o mantém. O que sai dela precisa ir para um artefato
+consumido, ou será reinventado na primeira sessão de agente.</p>
+<p><strong>Modelo de domínio como código.</strong> Um arquivo único, lido por máquina, com os contextos, os
+termos (palavra de tela e identificador), os agregados, as invariantes, os mapas das bordas e as
+palavras proibidas; do arquivo saem o glossário e a documentação, e a integração contínua regera
+e compara. É o que o Maestro fez no ciclo 076 e o que a seção seguinte descreve. Custa uma linha
+de modelo por termo e um gerador para manter [CLAIM-08-017]. Entrega consistência verificável. Não entrega
+clareza, como o contraexemplo vai mostrar.</p>
+<p><strong>Reconciliar na revisão.</strong> Um revisor em contexto fresco pode achar <code>Request</code> ao lado de
+<code>Ticket</code> e pedir a unificação. Só acha se souber que os dois são o mesmo conceito, e só sabe se
+tiver o catálogo. Sem catálogo, a revisão de vocabulário é leitura atenta, e leitura atenta não é
+critério. Com catálogo, metade do que o revisor faria vira um <em>lint</em>, e o revisor fica com o que
+o <em>lint</em> não decide: se um termo novo deveria mesmo ser novo.</p>
+<h2 id="o-padrão-maestro" tabindex="-1">O padrão Maestro <a class="header-anchor" href="#o-padrão-maestro" aria-hidden="true">#</a></h2>
+<p>O Maestro resolve o problema em camadas, e vale separar o que é regra escrita, o que é script
+que falha e o que é hook. Todas as citações são da versão <code>19823c2</code>.</p>
+<h3 id="regra-o-vocabulário-pertence-ao-domínio-e-o-plano-o-declara" tabindex="-1">Regra: o vocabulário pertence ao domínio, e o plano o declara <a class="header-anchor" href="#regra-o-vocabulário-pertence-ao-domínio-e-o-plano-o-declara" aria-hidden="true">#</a></h3>
+<p>A regra central é o ADR 0023: o plano de todo ciclo declara o modelo de domínio em quatro linhas,
+cada uma com um valor e um motivo [CLAIM-08-022]:</p>
+<ul>
+<li><code>DOM:aggregate=</code>: a raiz de agregado que o ciclo toca ou cria, ou <code>none</code> e por quê.</li>
+<li><code>DOM:invariants=</code>: onde moram as regras de negócio, <code>domain</code> ou <code>edge</code>; <code>edge</code> exige o
+motivo de não poder ser domínio. Aceita também uma regra por item:
+<code>regra_a=domain | regra_b=edge(porquê)</code>.</li>
+<li><code>DOM:glossary=</code>: <code>changed</code>, com os termos que entram ou mudam na linguagem ubíqua, ou <code>none</code> e
+por quê.</li>
+<li><code>DOM:ports=</code>: <code>changed</code>, com as portas e adaptadores que mudam, ou <code>none</code> e por quê.</li>
+</ul>
+<p>O título da seção no modelo de plano resume a filosofia: declare as quatro, porque silêncio não é
+decisão [CLAIM-08-023]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/.specify/templates/plan-template.md">plan-template</a>).
+O ponto fino está na borda. A regra <strong>não</strong> proíbe pôr uma invariante numa rota ou num adaptador;
+ela proíbe pôr ali <strong>sem dizer por quê</strong>. O que se recusa é a borda por descuido, não a borda
+decidida.</p>
+<p>O primeiro plano a obedecer à regra foi o do próprio ciclo 067, e ele mostra a borda decidida.
+Ele declara <code>DOM:aggregate=none</code>, porque o ciclo muda um template e um script, e o método não tem
+raiz de agregado, tem artefatos lidos por portões. E declara as invariantes como borda, com o
+motivo: as invariantes do método moram em scripts de portão porque não existe camada de domínio
+onde pudessem morar [CLAIM-08-024]. O ciclo que cria o portão é o primeiro a não poder
+dispensá-lo. Os planos seguintes mostram a outra ponta: o do ciclo 075 declara a forma itemizada
+com quinze invariantes, catorze no domínio e uma na borda, com o motivo de que ler o ambiente do
+processo é entrada e saída, e o domínio não faz entrada e saída [CLAIM-08-025].</p>
+<p>A segunda regra é a da língua (ADR 0014 e ADR 0029, na seção anterior), e a terceira é a da
+sigla (Princípio VIII). A quarta é o glossário com as colisões e a regra de qualificação. A
+quinta é a decisão que fechou o achado 055 e que o diagrama do processo registra: o método
+recebe a linguagem ubíqua como insumo <strong>se o projeto mantiver uma</strong>, e não entrega nenhuma
+[CLAIM-08-026]. O Maestro instalado num projeto seu não traz um vocabulário de domínio pronto;
+traz o lugar onde o seu vocabulário é declarado e o portão que cobra a declaração.</p>
+<h3 id="script-o-que-falha-quando-a-regra-é-ignorada" tabindex="-1">Script: o que falha quando a regra é ignorada <a class="header-anchor" href="#script-o-que-falha-quando-a-regra-é-ignorada" aria-hidden="true">#</a></h3>
+<p>Pelo corolário C7, norma sem executável é norma sem efeito, e cada regra acima tem um script.</p>
+<p><strong>O bloco de domínio do <code>check-conformance.sh</code>.</strong> Lê as quatro declarações de todo plano a partir
+do ciclo 067. Declaração ausente, sem valor ou sem motivo é falha; borda sem motivo é recusada e
+o item é nomeado. O piso é um botão que <strong>só aperta</strong>: a variável que o controla aceita apenas
+número, e um valor acima de 67 faz o script sair com código 2 em vez de afrouxar a regra
+[CLAIM-08-027]. A falha é suave durante o trabalho em andamento e bloqueia na promoção para a
+linha principal, pela lição de que um portão sempre vermelho no meio do trabalho é um portão que
+as pessoas aprendem a ignorar [CLAIM-08-022]. O resultado é medível: todos os planos dos ciclos
+067 a 076 têm as quatro declarações, nove de nove; a única pasta da faixa sem as quatro é um
+chamado importado que não tem plano [CLAIM-08-028].</p>
+<p><strong>O <code>check-language.sh</code>.</strong> Guarda a fronteira de língua do ADR 0014. O cabeçalho dele diz o que
+mede com uma honestidade que vale copiar: <strong>resíduo de português</strong> na superfície instalável, e
+não &quot;é inglês&quot;. Um texto em espanhol, ou em inglês ruim, passa. A linha que precisa carregar
+português de propósito (um padrão casado contra o livro, um rótulo de tela) declara o marcador
+<code>PT-DATA</code> na própria linha, para a exceção ficar visível onde se aplica, nunca numa lista
+escondida [CLAIM-08-029]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/check-language.sh">check-language.sh</a>).</p>
+<p><strong>O <code>check-docs-generated.sh</code>.</strong> É a peça mais recente e a que mais se aproxima do &quot;modelo como
+código&quot;. No ciclo 076, o painel do Maestro ganhou um modelo de domínio único,
+<code>painel/servidor/dominio/model.yaml</code>, com nove contextos delimitados (três núcleos, três de apoio,
+três genéricos), os termos de tela ligados aos identificadores, as invariantes, as máquinas de
+estado, os mapas das bordas, as portas e uma lista de dez palavras proibidas na tela
+[CLAIM-08-030]. A seção de documentação do aplicativo e o glossário são <strong>gerados</strong> desse modelo.
+O portão grava o resumo <code>sha256</code> (do <em>Secure Hash Algorithm</em>) do modelo na seção gerada; depois
+regera da fonte todos os textos que a tela mostra e compara byte a byte, nomeando a linha que
+diverge [CLAIM-08-031]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/check-docs-generated.sh">check-docs-generated.sh</a>).</p>
+<p>O detalhe de &quot;da fonte&quot; custou uma reprovação. Na primeira versão, o portão regerava os textos a
+partir de uma projeção intermediária do modelo, não do modelo. Um juiz em contexto fresco editou
+a própria projeção, regerou a seção e a fixture a partir dela, deixou o modelo intacto, e o
+portão ficou verde com a tela afirmando o <strong>contrário</strong> do modelo [CLAIM-08-032]. A correção foi
+o passo que reconstrói os artefatos a partir do modelo e compara: o modelo é a fonte da verdade,
+a projeção é só um passo. A lição vale para qualquer pipeline de geração: confira contra a fonte,
+não contra o intermediário que a própria cadeia produziu.</p>
+<p><strong>A lista de proibidos e o mapa das bordas.</strong> O <code>model.yaml</code> traz a camada anticorrupção como
+dado. Cada borda (o protocolo <em>Agent2Agent</em> (A2A), o <em>Agent Client Protocol</em> (ACP), os
+<em>hooks</em> do harness, a ferramenta do painel) tem um mapa termo externo → termo interno, com a
+marca <code>um_para_um</code>. Das 31 linhas de mapa, 15 não são 1:1 [CLAIM-08-033]. Um exemplo: o
+<code>contextId</code> do A2A não é o chamado do Maestro, e a tradução <code>ticketId → contextId</code> fica na
+borda, sem que o <code>contextId</code> entre no envelope interno. A lista de palavras proibidas, ao lado,
+faz o mesmo pela tela: &quot;agente&quot; nu colide (use &quot;Responsabilidade&quot; para o perfil, &quot;Sessão&quot; para a
+execução); &quot;prazo&quot; é sempre qualificado. A lista mora no modelo, que a integração contínua lê,
+e não num guia de estilo [CLAIM-08-034].</p>
+<h3 id="o-ramo-de-interface-o-papel-antes-do-componente" tabindex="-1">O ramo de interface: o papel antes do componente <a class="header-anchor" href="#o-ramo-de-interface-o-papel-antes-do-componente" aria-hidden="true">#</a></h3>
+<p>Quando o ciclo tem tela, o processo do Maestro abre um ramo que não é opcional: o papel semântico
+de cada objeto é definido antes do componente (agente <code>ux-semantics</code>), num <code>ux-design.md</code>, que
+passa por um portão de <em>user experience</em> (UX) e termina numa jornada viva, com capturas geradas
+do build real por script versionado e uma avaliação heurística datada [CLAIM-08-035]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/diagramas/05-bpmn-processo.md">processo</a>).
+O modelo do <code>ux-design.md</code> pede, em tabelas separadas, os papéis <strong>consumidos</strong> (já catalogados,
+com o componente) e os papéis <strong>introduzidos</strong> (novos, com a anatomia obrigatória e a razão de
+não derivarem de um existente) [CLAIM-08-036]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/.specify/templates/ux-design-template.md">template</a>).
+É o catálogo semântico na tela: o desenho declara o que reaproveita e justifica o que cria.</p>
+<p>A jornada viva é onde o papel declarado encontra o build. No protótipo navegável do ciclo 074, a
+heurística H3 validou no build uma constante do desenho: com o ponto de quebra da navegação em
+768 <em>pixels</em>, o rótulo mais longo do menu cabia em uma linha a 360 <em>pixels</em>, então a constante
+ficou onde estava. A H4 registrou o oposto: a barra desenhada tinha ícone sobre o rótulo, a barra
+construída tinha só rótulo [CLAIM-08-037]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/jornada/074-prototipo-navegavel.md">jornada 074</a>).
+Ninguém achou isso lendo o desenho; a captura do build mostrou. O mesmo ciclo exigiu que toda
+tela do protótipo declarasse um contexto entre os cinco do mapa, e provou o verificador por
+mutação: zero achados na fixture boa e 24 na ruim, na primeira tabela do relatório; o corpus
+cresceu depois, e a última medição registrada dá 71 na ruim [CLAIM-08-038]. Vocabulário de contexto também se verifica.</p>
+<h3 id="hook-nenhum-e-por-quê" tabindex="-1">Hook: nenhum, e por quê <a class="header-anchor" href="#hook-nenhum-e-por-quê" aria-hidden="true">#</a></h3>
+<p>O Maestro não tem <em>hook</em> de vocabulário. O único guarda <code>PreToolUse</code> do repositório protege o
+histórico imutável (ADRs, índice de decisões), não os nomes. Há um <em>hook</em> <code>Stop</code> que roda o
+verificador de conformidade quando o agente diz que terminou, mas no modo que só olha caixas
+marcadas sem evidência, e nesse modo a declaração de domínio ausente é nota, não bloqueio
+[CLAIM-08-039]. Isso é coerente com o
+teorema T3: um <em>hook</em> bloqueia uma ação no instante em que ela acontece, e se justifica quando a
+ação é cara de desfazer. Um nome errado num arquivo é barato de desfazer até a integração; por
+isso o controle de vocabulário vive em scripts que rodam no plano, na integração contínua e na
+promoção, e não num guarda que interrompe o agente a cada escrita.</p>
+<h3 id="os-papéis-de-forma" tabindex="-1">Os papéis de forma <a class="header-anchor" href="#os-papéis-de-forma" aria-hidden="true">#</a></h3>
+<p>Dois papéis cuidam da forma do vocabulário sem decidir o conteúdo. O <code>didactics-editor</code> combate o
+amontoado: uma ideia por página, siglas expandidas, jargão órfão removido, e não muda a decisão
+técnica, só o modo de contá-la [CLAIM-08-040]. A <em>skill</em> <code>fight-the-pile-up</code> é a régua que ele
+aplica, com a lei &quot;nenhuma sigla nua&quot; e um checklist em que cada item é verificável
+[CLAIM-08-041]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/skills/fight-the-pile-up/SKILL.md">fight-the-pile-up</a>).
+O guia editorial do livro do Maestro herdou a mesma regra: sigla nunca nasce nua, evidência por
+caminho, tabela só para fato enumerável, uma ideia por seção [CLAIM-08-042]. Este livro herdou o
+guia.</p>
+<h2 id="exemplo-executável" tabindex="-1" class="callout c-prat" data-rotulo="Mão na massa">Exemplo executável <a class="header-anchor" href="#exemplo-executável" aria-hidden="true">#</a></h2>
+<p>O exemplo está em <a href="08-ddd-para-agentes-exemplo.html"><code>exemplo/</code></a>. Ele roda com Python 3 e bash, sem rede e sem
+dependência paga, sobre um domínio que todo tech lead conhece: uma central de atendimento com
+três contextos (atendimento, mensageria, faturamento). Rode:</p>
+<pre><code class="language-bash">cd livro/08-ddd-para-agentes/exemplo
+bash rodar.sh | diff - saida-esperada.txt   # nenhuma linha de diferença
+</code></pre>
+<p>O arquivo <code>modelo.json</code> é o modelo único: cada termo tem a palavra de tela, o identificador, o
+contexto dono, a definição e os apelidos conhecidos; as famílias que nunca se escrevem nuas
+(&quot;fila&quot;, &quot;prazo&quot;) e as siglas com expansão. Tudo o mais lê dele. São nove passos
+[CLAIM-08-043]:</p>
+<ol>
+<li>
+<p><strong>Três sessões nomeiam a mesma tarefa.</strong> As sessões propõem dez nomes para &quot;avisar o atendente
+quando um chamado estoura o prazo de resposta&quot;. O classificador decide: três REUSE, três ALIAS,
+um EXTEND, um CREATE e duas recusas (&quot;Fila&quot;, nu; &quot;Status&quot;, sem definição). Dez nomes viram
+cinco identificadores, dois deles novos e com definição. A linha que importa é esta:</p>
+<pre><code class="language-text">  4 nomes para Ticket: Chamado, Ocorrência, Request, Ticket
+</code></pre>
+<p>Sem o catálogo, eram quatro tipos no código.</p>
+</li>
+<li>
+<p><strong>O texto de tela escrito sem catálogo</strong> tem seis achados: duas siglas nuas, dois apelidos no
+lugar do termo do modelo e duas palavras de família escritas nuas.</p>
+</li>
+<li>
+<p><strong>O mesmo texto depois do catálogo</strong> passa sem achado.</p>
+</li>
+<li>
+<p><strong>O plano que só diz &quot;usar DDD&quot;</strong> reprova: modelo de domínio nunca declarado.</p>
+</li>
+<li>
+<p><strong>O plano que pôs uma regra na borda sem motivo</strong> reprova, nomeando o item:</p>
+<pre><code class="language-text">  ✗ invariants: 'alerta_sai_uma_vez=edge' é borda sem motivo — escreva alerta_sai_uma_vez=edge(por que não pode ser domínio)
+</code></pre>
+</li>
+<li>
+<p><strong>O plano com as quatro declarações e o motivo da borda</strong> passa.</p>
+</li>
+<li>
+<p><strong>Endereço</strong>: &quot;Gerente&quot;, vivo em dois projetos, é recusado como ambíguo; &quot;Gerente · loja&quot;
+entrega; uma referência morta é recusada em vez de cair para o nome.</p>
+</li>
+<li>
+<p><strong>Glossário gerado</strong>: confere com o modelo; uma &quot;correção&quot; feita à mão no glossário reprova
+apontando a linha; uma mudança no modelo sem regerar reprova pelo carimbo e pela linha.</p>
+</li>
+<li>
+<p><strong>Mutação</strong>: as duas réguas (texto e plano) dão zero achados na fixture boa e achados na ruim.
+Régua que não discrimina não é régua.</p>
+</li>
+</ol>
+<p>Repare no que o exemplo <strong>não</strong> faz. Ele não decide se &quot;Alerta de estouro&quot; deveria mesmo ser um
+termo novo, nem se o motivo da borda é bom. O classificador garante que a pergunta foi feita e que
+a resposta ficou escrita. A qualidade da resposta é do revisor. É a mesma divisão de trabalho do
+portão do Maestro, que o ADR 0023 aceita como risco declarado: um motivo vazio de conteúdo passa,
+porque o portão mede a existência da decisão, não a qualidade dela [CLAIM-08-044].</p>
+<p>Há uma segunda coisa para notar, e ela só aparece no código. O modelo do exemplo tinha, no
+rascunho, o apelido &quot;Conta&quot; para Fatura. O <em>lint</em> acusaria toda frase com &quot;a conta do cliente&quot;,
+e o apelido saiu antes da primeira rodada. Apelido que é palavra comum produz falso positivo, e régua que grita
+à toa é ignorada. Escolher apelidos é trabalho de domínio, não de ferramenta.</p>
+<h2 id="contraexemplo" tabindex="-1" class="callout c-contra" data-rotulo="Limite">Contraexemplo <a class="header-anchor" href="#contraexemplo" aria-hidden="true">#</a></h2>
+<p><strong>Projeto pequeno, um contexto, um operador.</strong> O modelo de domínio como código custa uma linha
+por termo, um gerador e um portão. Num protótipo de uma semana, com um contexto e uma pessoa,
+esse custo não se paga: o vocabulário cabe na spec, e a spec é lida. As quatro declarações do
+plano continuam baratas (o plano do 067 declara <code>DOM:aggregate=none</code> com uma frase), mas o
+<code>model.yaml</code> com gerador é exagero. Pelo princípio <em>You Aren't Gonna Need It</em> (YAGNI), adote o
+modelo gerado quando houver tela e mais de um contexto, ou quando a primeira colisão aparecer.</p>
+<p><strong>O catálogo que congela a língua.</strong> O domínio muda, e um catálogo rígido pode esconder uma
+distinção que nasceu. Se &quot;Ocorrência&quot; começou a significar um chamado aberto pelo próprio sistema,
+e não pelo cliente, registrá-la como ALIAS de <code>Ticket</code> apaga a diferença em vez de nomeá-la. O
+ALIAS é uma decisão de domínio com consequência; a ferramenta só a registra. Quem revisa precisa
+poder dizer &quot;isto não é apelido, é termo novo&quot;, e o catálogo precisa aceitar a mudança com o mesmo
+rito do CREATE.</p>
+<p><strong>O portão que mede a forma.</strong> O bloco de domínio do Maestro tem três limites declarados no
+próprio ADR. O motivo não é lido: <code>edge(porque sim)</code> passa. A forma itemizada divide os itens pelo
+caractere <code>|</code>, que é também o separador de tabela do Markdown, e numa linha de tabela com a coluna
+de motivo preenchida a célula vira item falso e reprova com mensagem confusa. E o script pega a
+primeira linha que contém a declaração, de modo que uma menção em prosa antes da tabela vence a
+linha real [CLAIM-08-045]. São defeitos com dono e registrados; o ponto é que um portão de
+vocabulário verifica que a decisão foi escrita, nunca que foi boa.</p>
+<p><strong>A documentação gerada que ninguém entende.</strong> O caso mais incômodo é do próprio Maestro. Em 1º
+de novembro de 2026, um juiz em contexto fresco reprovou a seção de documentação gerada do
+modelo. Além dos defeitos de mecânica, fez uma crítica às cegas: comparou o texto gerado com a
+descrição de domínio do repositório público <code>ddd-by-examples/library</code>, sem rótulo, e escolheu o
+outro. O texto de referência dizia em prosa quem age, sobre o quê e quando; o gerado abria
+explicando como tinha sido gerado e depois listava mapas de borda, com dezesseis de trinta valores
+externos que eram identidade sem conteúdo. E faltava o mapa de contextos, que o modelo tinha
+[CLAIM-08-046]. A entrega seguinte consertou a mecânica (o portão passou a regerar do modelo) e
+reprovou de novo na pergunta de quem opera [CLAIM-08-047]. Geração garante consistência entre o
+modelo e o texto. Não garante que o texto responda à pergunta de quem lê. Essa parte continua
+sendo escrita, e julgada, por gente.</p>
+<p><strong>Descoberta onde não há distância.</strong> Rodar <em>Event Storming</em> num projeto em que quem decide é quem
+usa é cerimônia: o Maestro avaliou e deixou em observação exatamente por isso [CLAIM-08-021]. O
+vocabulário sai da conversa que abre o ciclo e vai direto para a spec e o plano.</p>
+<p><strong>Prometer o vocabulário que não existe.</strong> O achado 055 é o contraexemplo da regra mal aplicada:
+instruir o agente a &quot;consumir a linguagem ubíqua&quot; num projeto que não tem uma é pior que não
+dizer nada, porque o agente segue a instrução e preenche o vazio com confiança. Se o seu projeto
+ainda não tem modelo de domínio, a instrução certa é &quot;proponha o vocabulário no plano e diga onde
+ele vai morar&quot;, não &quot;use o vocabulário&quot;.</p>
+<h2 id="evidência" tabindex="-1">Evidência <a class="header-anchor" href="#evidência" aria-hidden="true">#</a></h2>
+<p>O que sustenta o capítulo, separado pelo estado de cada afirmação. A tabela completa, com a
+evidência reproduzível de cada claim, está em <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/08-ddd-para-agentes/claims.md"><code>claims.md</code></a>; o script
+<code>exemplo/medir_maestro.sh</code> reproduz os números do Maestro num clone.</p>
+<p><strong>Medido</strong> (reproduzível por comando na versão citada): os nove planos de nove com as quatro
+declarações de domínio de 067 a 076 [CLAIM-08-028]; o piso do portão e a recusa do valor que
+afrouxa [CLAIM-08-027]; a composição do <code>model.yaml</code>, com nove contextos, dez palavras proibidas e
+quinze de 31 linhas de mapa que não são 1:1 [CLAIM-08-030, CLAIM-08-033, CLAIM-08-034]; a forma
+itemizada do plano do 075 [CLAIM-08-025]; a saída do exemplo executável [CLAIM-08-043].</p>
+<p><strong>Observado</strong> (registrado em commit, spec, ADR, relatório ou índice de decisões do Maestro): a
+falha do Hindiana e a correção da mesma noite [CLAIM-08-001 a CLAIM-08-004]; o achado 055 e seu
+fechamento [CLAIM-08-005, CLAIM-08-006]; as cinco colisões de nomes e a invariante de endereço
+[CLAIM-08-009 a CLAIM-08-011]; os quatro vocabulários para o mesmo estado que motivaram o ADR
+0029 [CLAIM-08-017]; a reprovação da documentação gerada, nas duas rodadas [CLAIM-08-032,
+CLAIM-08-046, CLAIM-08-047]; as medições da jornada do ciclo 074 [CLAIM-08-037, CLAIM-08-038].</p>
+<p><strong>Hipótese</strong> (não medida; agenda da pesquisa). As hipóteses H6, o catálogo semântico reduz
+duplicação, e H7, o glossário reduz inconsistência, são o que este capítulo mais gostaria de
+afirmar e o que menos pode [CLAIM-08-014]. Os casos acima mostram que, <strong>sem</strong> declaração cobrada,
+regra de negócio foi parar na borda duas vezes, e que <strong>com</strong> ela todos os planos seguintes
+declararam o domínio. Não mostram que o código ficou com menos sinônimos, porque ninguém contou
+sinônimos antes e depois. O desenho que testaria H6 e H7 está no <a href="15-validando-o-maestro.html">capítulo
+15</a>: a mesma tarefa, com e sem catálogo, em várias sessões
+independentes, contando identificadores distintos por conceito. O passo 1 do exemplo é o esboço
+dessa métrica: nomes propostos por conceito, antes e depois do catálogo. Duas métricas servem ao
+tech lead desde já, desde que não virem meta:</p>
+<ul>
+<li><strong>Identificadores por conceito</strong>: para os dez termos mais usados do seu domínio, quantos nomes
+diferentes existem no código. O alvo é um.</li>
+<li><strong>Planos sem declaração de domínio</strong>: quantos planos do último mês não dizem onde moram as
+invariantes. O alvo é zero, e o número mais interessante é quantos dizem <code>edge</code>, e por quê.</li>
+</ul>
+<h2 id="checklist" tabindex="-1" class="callout c-verif" data-rotulo="Aplique">Checklist <a class="header-anchor" href="#checklist" aria-hidden="true">#</a></h2>
+<p>Itens que você aplica no seu time na segunda-feira; cada um tem um jeito de verificar.</p>
+<ul>
+<li>[ ] Existe <strong>um</strong> arquivo de modelo de domínio lido por máquina, com termo de tela,
+identificador, contexto dono e definição. Verificação: <code>ls</code> acha um, não três.</li>
+<li>[ ] O glossário e a documentação de domínio são <strong>gerados</strong> desse arquivo, e a integração
+contínua regera <strong>do modelo</strong> e compara. Verificação: edite uma definição à mão e veja a CI
+ficar vermelha.</li>
+<li>[ ] Todo plano declara raiz de agregado, onde moram as invariantes, mudanças de vocabulário e
+portas, cada uma com motivo. Verificação: um script lê as quatro linhas e reprova a
+ausência.</li>
+<li>[ ] Regra de negócio na borda só com o motivo escrito. Verificação: <code>edge</code> sem motivo reprova
+no plano.</li>
+<li>[ ] Nome novo proposto por agente passa por REUSE / ALIAS / EXTEND / CREATE antes de virar
+código; CREATE sem definição é recusado. Verificação: a lista de termos novos do plano bate
+com o diff do modelo.</li>
+<li>[ ] As palavras com dois sentidos estão mapeadas, e as que nunca se escrevem nuas estão numa
+lista que um <em>lint</em> lê. Verificação: o <em>lint</em> acusa a palavra nua num texto de teste.</li>
+<li>[ ] Endereço ambíguo é recusado. Verificação: mande uma mensagem para um nome que existe em
+dois projetos e confira que nada foi entregue.</li>
+<li>[ ] Toda sigla nasce por extenso na primeira ocorrência de cada documento. Verificação: o
+<em>lint</em> de siglas roda nos documentos que vão para pessoas.</li>
+<li>[ ] A língua de cada artefato é decidida pelo leitor (tela, código, instrução de agente), e o
+mapa entre a palavra de tela e o identificador está escrito. Verificação: um check de
+resíduo de língua na superfície que outro repositório consome.</li>
+<li>[ ] Cada régua de vocabulário tem fixture boa e fixture ruim, e foi vista falhando.
+Verificação: rode a régua contra a fixture ruim antes de confiar no verde.</li>
+<li>[ ] A instrução dos agentes não promete um vocabulário que não existe. Verificação: todo
+caminho citado na instrução resolve.</li>
+</ul>
+<h2 id="referências" tabindex="-1">Referências <a class="header-anchor" href="#referências" aria-hidden="true">#</a></h2>
+<p>Fontes do Maestro, todas na versão <code>19823c2</code>:</p>
+<ul>
+<li>Axiomas, teoremas e corolários (A4, T3, T5, C7, C10):
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/axioms.md">https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/axioms.md</a></li>
+<li>Constituição, Princípio VIII:
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/principles.md">https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/principles.md</a></li>
+<li>Glossário (colisão de nomes, colisão de endereço, termos de DDD):
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/glossary.md">https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/glossary.md</a></li>
+<li>ADR 0010 (Princípio VIII):
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0010-principio-viii-comunicacao-inteligivel.md">https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0010-principio-viii-comunicacao-inteligivel.md</a></li>
+<li>ADR 0014 (inglês no instalável):
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0014-ingles-no-instalavel.md">https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0014-ingles-no-instalavel.md</a></li>
+<li>ADR 0023 (modelo de domínio declarado no plano):
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0023-modelo-de-dominio-declarado-no-plan.md">https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0023-modelo-de-dominio-declarado-no-plan.md</a></li>
+<li>ADR 0029 (tela em português, código em inglês):
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0029-tela-em-portugues-codigo-em-ingles.md">https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0029-tela-em-portugues-codigo-em-ingles.md</a></li>
+<li>Specs dos ciclos 001, 067, 074 e 075; mapa de contextos do 073; críticas das tarefas T035b e
+T035c/T036 do 076: <a href="https://github.com/GHDaru/maestro/tree/19823c2/specs">https://github.com/GHDaru/maestro/tree/19823c2/specs</a></li>
+<li>Índice de decisões (achado 055 e retro 061):
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/records/decisoes.jsonl">https://github.com/GHDaru/maestro/blob/19823c2/docs/records/decisoes.jsonl</a></li>
+<li>Cartão de ideia 038 (técnicas de descoberta):
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/ecosystem/ideias/038-tecnicas-de-descoberta.md">https://github.com/GHDaru/maestro/blob/19823c2/docs/ecosystem/ideias/038-tecnicas-de-descoberta.md</a></li>
+<li>Modelos de plano e de ux-design:
+<a href="https://github.com/GHDaru/maestro/tree/19823c2/.specify/templates">https://github.com/GHDaru/maestro/tree/19823c2/.specify/templates</a></li>
+<li>Scripts <code>check-conformance.sh</code>, <code>check-language.sh</code>, <code>check-docs-generated.sh</code>:
+<a href="https://github.com/GHDaru/maestro/tree/19823c2/scripts">https://github.com/GHDaru/maestro/tree/19823c2/scripts</a></li>
+<li>Modelo de domínio do painel:
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/painel/servidor/dominio/model.yaml">https://github.com/GHDaru/maestro/blob/19823c2/painel/servidor/dominio/model.yaml</a></li>
+<li>Agentes <code>ux-semantics</code> e <code>didactics-editor</code>:
+<a href="https://github.com/GHDaru/maestro/tree/19823c2/.claude/agents">https://github.com/GHDaru/maestro/tree/19823c2/.claude/agents</a></li>
+<li>Skill <code>fight-the-pile-up</code>:
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/skills/fight-the-pile-up/SKILL.md">https://github.com/GHDaru/maestro/blob/19823c2/skills/fight-the-pile-up/SKILL.md</a></li>
+<li>Jornada viva do protótipo navegável:
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/jornada/074-prototipo-navegavel.md">https://github.com/GHDaru/maestro/blob/19823c2/docs/jornada/074-prototipo-navegavel.md</a></li>
+<li>Diagramas do processo (<em>Suppliers, Inputs, Process, Outputs, Customers</em> (SIPOC) e
+<em>Business Process Model and Notation</em> (BPMN)):
+<a href="https://github.com/GHDaru/maestro/tree/19823c2/docs/diagramas">https://github.com/GHDaru/maestro/tree/19823c2/docs/diagramas</a></li>
+<li>Guia editorial do livro do Maestro:
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/livro/guia-editorial.md">https://github.com/GHDaru/maestro/blob/19823c2/docs/livro/guia-editorial.md</a></li>
+</ul>
+<p>Fontes externas (bibliografia; as páginas web não foram reacessadas na redação desta versão,
+o que fica como pendência da revisão):</p>
+<ul>
+<li>Evans, Eric. <em>Domain-Driven Design: Tackling Complexity in the Heart of Software</em>.
+Addison-Wesley, 2003.</li>
+<li>Vernon, Vaughn. <em>Implementing Domain-Driven Design</em>. Addison-Wesley, 2013.</li>
+<li>Fowler, Martin. &quot;UbiquitousLanguage&quot; e &quot;BoundedContext&quot;, bliki:
+<a href="https://martinfowler.com/bliki/UbiquitousLanguage.html">https://martinfowler.com/bliki/UbiquitousLanguage.html</a>,
+<a href="https://martinfowler.com/bliki/BoundedContext.html">https://martinfowler.com/bliki/BoundedContext.html</a></li>
+<li>Cockburn, Alistair. &quot;Hexagonal Architecture&quot; (portas e adaptadores), 2005.</li>
+<li>Brandolini, Alberto. <em>Introducing EventStorming</em>. Leanpub.</li>
+<li><code>ddd-by-examples/library</code> (exemplo público de DDD usado como comparação na crítica da T035b):
+<a href="https://github.com/ddd-by-examples/library">https://github.com/ddd-by-examples/library</a></li>
+</ul>
+</article>
+    <nav class="paginacao" aria-label="Anterior e próximo"><a class="pg-prev" href="07-papeis-e-skills-exemplo.html"><small>← anterior</small>Exemplo executável — 07 Papéis e skills</a><a class="pg-next" href="08-ddd-para-agentes-exemplo.html"><small>próximo →</small>Exemplo executável — 08 DDD para agentes</a></nav>
+    <footer class="rodape">
+      <a href="https://github.com/GHDaru/agentic_software_engineering">github.com/GHDaru/agentic_software_engineering</a>
+       · <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/08-ddd-para-agentes/capitulo.md">fonte desta página</a>
+      · gerado de <code>livro/</code> por <code>publicar/build.mjs</code>
+    </footer>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body></html>

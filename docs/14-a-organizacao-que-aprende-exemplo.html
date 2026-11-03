@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exemplo executável — 14 A organização que aprende · Engenharia de Software Orientada por Agentes</title>
+<meta name="description" content="Governança operacional para um humano regendo muitos agentes">
+<script>try{var t=localStorage.getItem("tema");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="assets/estilo.css">
+</head><body>
+<header class="barra">
+  <button id="alt-menu" aria-label="Abrir o sumário" aria-expanded="false" aria-controls="sidebar">☰ <span>Sumário</span></button>
+  <a class="barra-titulo" href="index.html">Engenharia de Software Orientada por Agentes</a>
+  <button id="alt-tema" aria-label="Alternar tema claro/escuro">◐</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="marca" href="index.html">Engenharia de Software Orientada por Agentes<small>Agentic Software Engineering</small></a>
+    <div class="nav-parte">Abertura</div><ul><li><a href="00-prefacio.html">Prefácio</a></li></ul><div class="nav-parte">Parte I — Por que agentes mudam a engenharia</div><ul><li><a href="01-a-mudanca-de-unidade-de-trabalho.html">1. A mudança de unidade de trabalho</a></li><li class="filho"><a class="filho" href="01-a-mudanca-de-unidade-de-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="02-o-problema-da-confianca.html">2. O problema da confiança</a></li><li class="filho"><a class="filho" href="02-o-problema-da-confianca-exemplo.html">Exemplo executável</a></li><li><a href="03-um-humano-muitos-agentes.html">3. Um humano, muitos agentes</a></li><li class="filho"><a class="filho" href="03-um-humano-muitos-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte II — Especificar e dar contexto</div><ul><li><a href="04-a-spec-como-partitura.html">4. A spec como partitura</a></li><li class="filho"><a class="filho" href="04-a-spec-como-partitura-exemplo.html">Exemplo executável</a></li><li><a href="05-engenharia-de-contexto.html">5. Engenharia de contexto</a></li><li class="filho"><a class="filho" href="05-engenharia-de-contexto-exemplo.html">Exemplo executável</a></li><li><a href="06-como-dividir-o-trabalho.html">6. Como dividir o trabalho</a></li><li class="filho"><a class="filho" href="06-como-dividir-o-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="07-papeis-e-skills.html">7. Papéis e skills</a></li><li class="filho"><a class="filho" href="07-papeis-e-skills-exemplo.html">Exemplo executável</a></li><li><a href="08-ddd-para-agentes.html">8. DDD para agentes</a></li><li class="filho"><a class="filho" href="08-ddd-para-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte III — Provar e conter</div><ul><li><a href="09-arquitetura-que-se-defende.html">9. Arquitetura que se defende</a></li><li class="filho"><a class="filho" href="09-arquitetura-que-se-defende-exemplo.html">Exemplo executável</a></li><li><a href="10-quality-gates-que-provam-fatos.html">10. Quality gates que provam fatos</a></li><li class="filho"><a class="filho" href="10-quality-gates-que-provam-fatos-exemplo.html">Exemplo executável</a></li><li><a href="11-risco-reversibilidade-e-autonomia.html">11. Risco, reversibilidade e autonomia</a></li><li class="filho"><a class="filho" href="11-risco-reversibilidade-e-autonomia-exemplo.html">Exemplo executável</a></li><li><a href="12-ferramentas-mcp-e-o-ecossistema.html">12. Ferramentas, MCP e o ecossistema</a></li><li class="filho"><a class="filho" href="12-ferramentas-mcp-e-o-ecossistema-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte IV — Medir e aprender</div><ul><li><a href="13-observabilidade-e-economia.html">13. Observabilidade e economia</a></li><li class="filho"><a class="filho" href="13-observabilidade-e-economia-exemplo.html">Exemplo executável</a></li><li><a href="14-a-organizacao-que-aprende.html">14. A organização que aprende</a></li><li class="filho"><a class="filho ativo" aria-current="page" href="14-a-organizacao-que-aprende-exemplo.html">Exemplo executável</a></li><li><a href="15-validando-o-maestro.html">15. Validando o Maestro</a></li><li class="filho"><a class="filho" href="15-validando-o-maestro-exemplo.html">Exemplo executável</a></li><li><a href="16-o-futuro-da-engenharia-agentica.html">16. O futuro da engenharia agêntica</a></li><li class="filho"><a class="filho" href="16-o-futuro-da-engenharia-agentica-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Apêndices</div><ul><li><a href="apendice-a-o-maestro-em-uma-pagina.html">A. O Maestro em uma página</a></li><li><a href="apendice-b-aseg-bench.html">B. ASEG-Bench — um benchmark de governança</a></li><li><a href="apendice-c-pacote-de-replicacao.html">C. Pacote de replicação</a></li><li><a href="apendice-d-estudos-de-campo.html">D. Estudos de campo do ecossistema</a></li></ul><div class="nav-parte">Consulta</div><ul><li><a href="glossario.html">Glossário</a></li><li><a href="evidencias.html">Evidências (claims)</a></li></ul>
+  </aside>
+  <main class="conteudo">
+    <article class="markdown"><h1 id="exemplo-do-capítulo-14--as-três-engrenagens-que-fazem-a-organização-aprender" tabindex="-1">Exemplo do capítulo 14 — as três engrenagens que fazem a organização aprender <a class="header-anchor" href="#exemplo-do-capítulo-14--as-três-engrenagens-que-fazem-a-organização-aprender" aria-hidden="true">#</a></h1>
+<p>Um script Python, sem dependência externa, com as três verificações que o capítulo defende. Cada
+uma reproduz a forma de um portão real do Maestro (<code>19823c2</code>), reduzida ao essencial:</p>
+<table>
+<thead>
+<tr>
+<th>Verificação</th>
+<th>O que prova</th>
+<th>Portão real de que deriva</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>gatilho</code></td>
+<td>a retrospectiva é cobrada pela <strong>dívida</strong> de achados abertos (≥ 4 abertos, ou um aberto há ≥ 6 ciclos), e fechar um achado é ligação <strong>estrutural</strong> (campo <code>fecha</code>), nunca prosa</td>
+<td><code>scripts/check-retro.sh</code></td>
+</tr>
+<tr>
+<td><code>anexar</code></td>
+<td>o índice de decisões só cresce: corrigir é acrescentar linha; reescrever linha antiga é recusado</td>
+<td><code>scripts/record-decision.sh</code> + <code>scripts/hooks/guard-immutables.py</code></td>
+</tr>
+<tr>
+<td><code>artefatos</code></td>
+<td>um artefato sobrevive por consumo (tem consumidor <strong>e</strong> falha alto quando velho) ou por imutabilidade; o resto apodrece ou deve ser podado</td>
+<td>teorema T5, corolário C9; <code>check-adr.sh</code>, gate de CHANGELOG</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Arquivo</th>
+<th>O que é</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>aprende.py</code></td>
+<td>as três verificações e o roteiro <code>demo</code></td>
+</tr>
+<tr>
+<td><code>dados/indice.jsonl</code></td>
+<td>os <strong>cinco achados reais</strong> que estavam abertos quando o ciclo 034 começou — linhas copiadas sem edição de <code>docs/records/decisoes.jsonl@19823c2</code></td>
+</tr>
+<tr>
+<td><code>dados/fechamento-estrutural.jsonl</code></td>
+<td>as <strong>cinco linhas reais</strong> <code>retro-034-fecha-*</code> que a retro do ciclo 034 anexou, cada uma com o campo <code>fecha</code></td>
+</tr>
+<tr>
+<td><code>dados/fechamento-em-prosa.jsonl</code></td>
+<td>a forma <strong>errada</strong> que o ciclo 034 escreveu primeiro (id novo, sem <code>fecha</code>) — reconstruída para o exemplo a partir do relato do <code>qa-report.md</code> do 034</td>
+</tr>
+<tr>
+<td><code>dados/artefatos.json</code></td>
+<td><strong>ilustrativo</strong>: sete artefatos com consumidor, cobrança e último ciclo; os casos do índice de ADRs e do roadmap imitam falhas reais (capítulo, seção &quot;Teoria&quot;), mas os números de ciclo deste arquivo não são medidos</td>
+</tr>
+</tbody>
+</table>
+<h2 id="como-rodar" tabindex="-1">Como rodar <a class="header-anchor" href="#como-rodar" aria-hidden="true">#</a></h2>
+<p>Requisito: Python 3.8 ou mais novo. No Git Bash do Windows, onde <code>python3</code> pode ser um atalho
+vazio, use <code>python</code>.</p>
+<pre><code class="language-bash">cd livro/14-a-organizacao-que-aprende/exemplo
+python3 aprende.py demo                                  # o roteiro do capítulo; sai 0
+python3 aprende.py gatilho dados/indice.jsonl 34         # só o gatilho; sai 1 (dívida)
+python3 aprende.py artefatos dados/artefatos.json 34     # só a auditoria; sai 1 (3 pedem decisão)
+python3 aprende.py anexar dados/indice.jsonl &lt;outro.jsonl&gt;   # compara duas versões do índice
+</code></pre>
+<h2 id="saída-esperada" tabindex="-1">Saída esperada <a class="header-anchor" href="#saída-esperada" aria-hidden="true">#</a></h2>
+<p><code>python3 aprende.py demo</code> — <strong>sai com código 0</strong> (os três vermelhos do roteiro são desejados; o
+roteiro só falha se algum deles não aparecer):</p>
+<pre><code class="language-text">1. Gatilho da retrospectiva (dívida, não calendário)
+  a) índice como está, ciclo corrente 034
+    abertos: 5  (achado-023-regua-de-raias, achado-027-retro-sem-gatilho, achado-029-skill-sem-capitulo, achado-031-elo-de-commit, achado-033-renome-em-massa)
+    VERMELHO: rode a retrospectiva — 5 achados abertos (limite 4); o mais velho tem 11 ciclos (limite 6)
+  b) + linha que 'fecha' em prosa (id novo, sem campo fecha)
+    abertos: 5  (achado-023-regua-de-raias, achado-027-retro-sem-gatilho, achado-029-skill-sem-capitulo, achado-031-elo-de-commit, achado-033-renome-em-massa)
+    VERMELHO: rode a retrospectiva — 5 achados abertos (limite 4); o mais velho tem 11 ciclos (limite 6)
+  c) + linhas com o campo fecha (retro executada)
+    abertos: 0
+    verde: dívida de retro sob controle
+
+2. Índice só-anexar (corrigir é acrescentar)
+  a) anexar uma linha de fechamento
+    aceito: 5 linha(s) nova(s), nenhuma antiga tocada
+  b) 'corrigir' editando a linha antiga
+    RECUSADO: linha 1 reescrita
+
+3. Artefatos: sobrevive o consumido ou o imutável (T5)
+    spec.md                 vivo (consumido)  consumidor: o agente que gera o código; quando velho: código errado; o revisor compara com a spec
+    CHANGELOG.md            vivo (consumido)  consumidor: quem lê a versão; quando velho: a CI reprova o pull request sem entrada
+    decisoes.jsonl          vivo (consumido)  consumidor: check-retro.sh e retro.sh; quando velho: o gatilho acusa dívida errada
+    adr/0017.md             vivo (imutável)   descreve um instante; pode ser superado, nunca fica velho
+    adr/README.md (índice)  APODRECENDO       consumidor sem cobrança; 17 ciclo(s) atrás do projeto
+    roadmap.md              APODRECENDO       consumidor sem cobrança; 25 ciclo(s) atrás do projeto
+    prd-avulso.md           PODAR             ninguém consome — candidato a poda (YAGNI)
+  resumo: 7 artefatos, 3 pedem decisão (podar, cobrar ou superar)
+
+vermelhos esperados no roteiro: 3 (1a, 1b, 2b) — todos desejados
+</code></pre>
+<p>Conferido em 02/11/2026 com Python 3.12.10 (Windows 11).</p>
+<h2 id="o-que-observar" tabindex="-1">O que observar <a class="header-anchor" href="#o-que-observar" aria-hidden="true">#</a></h2>
+<ol>
+<li><strong>1a reproduz o número real.</strong> Com os cinco achados de verdade e o ciclo corrente 034, o
+gatilho dá &quot;5 abertos, o mais velho com 11 ciclos&quot; — o mesmo que o <code>qa-report.md</code> do ciclo
+034 registrou para o <code>check-retro.sh</code> rodado <strong>antes</strong> da retro.</li>
+<li><strong>1b é a falha que o próprio ciclo 034 cometeu.</strong> Uma linha que diz &quot;fechados&quot; em prosa,
+com id novo, não fecha nada: o portão continua vendo cinco abertos. O fechamento existia no
+texto e não no dado.</li>
+<li><strong>2b é o atalho que o método proíbe.</strong> Trocar <code>aberta</code> por <code>fechada</code> na linha antiga parece
+mais limpo e destrói a memória de que o achado ficou aberto onze ciclos.</li>
+<li><strong>3 separa quatro destinos</strong> (as quatro classes da saída). O que é consumido e cobrado vive
+(&quot;vivo (consumido)&quot;); o imutável vive (&quot;vivo (imutável)&quot;); o que tem leitor mas não tem
+cobrança (o índice escrito à mão, o roadmap) apodrece em silêncio (&quot;APODRECENDO&quot;); o que não
+tem leitor nenhum se poda (&quot;PODAR&quot;).</li>
+</ol>
+<h2 id="exercício" tabindex="-1">Exercício <a class="header-anchor" href="#exercício" aria-hidden="true">#</a></h2>
+<p>Abra <code>dados/artefatos.json</code> e dê ao <code>roadmap.md</code> uma cobrança — por exemplo,
+<code>&quot;falha_quando_velho&quot;: &quot;portão compara o maior ciclo em specs/ com o maior citado no roadmap&quot;</code>
+(o candidato que o ciclo 017 escreveu e não implementou). Rode <code>python3 aprende.py artefatos dados/artefatos.json 34</code>: o roadmap passa a &quot;vivo (consumido)&quot; e o resumo cai para 2. Agora
+pergunte se o portão que você descreveu <strong>existe</strong>. Se não existe, você acabou de cometer o
+anti-padrão 13 no próprio arquivo de auditoria: o campo mede a frase, não o fato.</p>
+</article>
+    <nav class="paginacao" aria-label="Anterior e próximo"><a class="pg-prev" href="14-a-organizacao-que-aprende.html"><small>← anterior</small>14 — A organização que aprende</a><a class="pg-next" href="15-validando-o-maestro.html"><small>próximo →</small>15 — Validando o Maestro</a></nav>
+    <footer class="rodape">
+      <a href="https://github.com/GHDaru/agentic_software_engineering">github.com/GHDaru/agentic_software_engineering</a>
+       · <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/14-a-organizacao-que-aprende/exemplo/README.md">fonte desta página</a>
+      · gerado de <code>livro/</code> por <code>publicar/build.mjs</code>
+    </footer>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body></html>

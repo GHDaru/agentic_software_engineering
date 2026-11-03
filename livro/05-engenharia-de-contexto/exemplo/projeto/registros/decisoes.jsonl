@@ -1,0 +1,3 @@
+{"id": "adr-0003", "data": "2026-09-01", "titulo": "Cupom não se acumula com outro cupom", "status": "aceita", "registro": "docs/adr/0003-cupom-nao-acumula.md"}
+{"id": "achado-006-mensagem-sem-data", "data": "2026-09-03", "titulo": "Mensagem de erro do cupom sem a data de vencimento", "status": "aberta", "registro": "specs/007-cupom-de-desconto/spec.md", "ciclo": "006"}
+{"id": "gate-main-b7e41c2", "data": "2026-09-05", "titulo": "Gate de merge: feat(carrinho): cupom de desconto (ciclo 007)", "status": "aceita", "registro": "commit b7e41c2"}

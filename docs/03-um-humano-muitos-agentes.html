@@ -1,0 +1,775 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>03 — Um humano, muitos agentes · Engenharia de Software Orientada por Agentes</title>
+<meta name="description" content="Governança operacional para um humano regendo muitos agentes">
+<script>try{var t=localStorage.getItem("tema");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="assets/estilo.css">
+</head><body>
+<header class="barra">
+  <button id="alt-menu" aria-label="Abrir o sumário" aria-expanded="false" aria-controls="sidebar">☰ <span>Sumário</span></button>
+  <a class="barra-titulo" href="index.html">Engenharia de Software Orientada por Agentes</a>
+  <button id="alt-tema" aria-label="Alternar tema claro/escuro">◐</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="marca" href="index.html">Engenharia de Software Orientada por Agentes<small>Agentic Software Engineering</small></a>
+    <div class="nav-parte">Abertura</div><ul><li><a href="00-prefacio.html">Prefácio</a></li></ul><div class="nav-parte">Parte I — Por que agentes mudam a engenharia</div><ul><li><a href="01-a-mudanca-de-unidade-de-trabalho.html">1. A mudança de unidade de trabalho</a></li><li class="filho"><a class="filho" href="01-a-mudanca-de-unidade-de-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="02-o-problema-da-confianca.html">2. O problema da confiança</a></li><li class="filho"><a class="filho" href="02-o-problema-da-confianca-exemplo.html">Exemplo executável</a></li><li><a class="ativo" aria-current="page" href="03-um-humano-muitos-agentes.html">3. Um humano, muitos agentes</a></li><li class="filho"><a class="filho" href="03-um-humano-muitos-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte II — Especificar e dar contexto</div><ul><li><a href="04-a-spec-como-partitura.html">4. A spec como partitura</a></li><li class="filho"><a class="filho" href="04-a-spec-como-partitura-exemplo.html">Exemplo executável</a></li><li><a href="05-engenharia-de-contexto.html">5. Engenharia de contexto</a></li><li class="filho"><a class="filho" href="05-engenharia-de-contexto-exemplo.html">Exemplo executável</a></li><li><a href="06-como-dividir-o-trabalho.html">6. Como dividir o trabalho</a></li><li class="filho"><a class="filho" href="06-como-dividir-o-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="07-papeis-e-skills.html">7. Papéis e skills</a></li><li class="filho"><a class="filho" href="07-papeis-e-skills-exemplo.html">Exemplo executável</a></li><li><a href="08-ddd-para-agentes.html">8. DDD para agentes</a></li><li class="filho"><a class="filho" href="08-ddd-para-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte III — Provar e conter</div><ul><li><a href="09-arquitetura-que-se-defende.html">9. Arquitetura que se defende</a></li><li class="filho"><a class="filho" href="09-arquitetura-que-se-defende-exemplo.html">Exemplo executável</a></li><li><a href="10-quality-gates-que-provam-fatos.html">10. Quality gates que provam fatos</a></li><li class="filho"><a class="filho" href="10-quality-gates-que-provam-fatos-exemplo.html">Exemplo executável</a></li><li><a href="11-risco-reversibilidade-e-autonomia.html">11. Risco, reversibilidade e autonomia</a></li><li class="filho"><a class="filho" href="11-risco-reversibilidade-e-autonomia-exemplo.html">Exemplo executável</a></li><li><a href="12-ferramentas-mcp-e-o-ecossistema.html">12. Ferramentas, MCP e o ecossistema</a></li><li class="filho"><a class="filho" href="12-ferramentas-mcp-e-o-ecossistema-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte IV — Medir e aprender</div><ul><li><a href="13-observabilidade-e-economia.html">13. Observabilidade e economia</a></li><li class="filho"><a class="filho" href="13-observabilidade-e-economia-exemplo.html">Exemplo executável</a></li><li><a href="14-a-organizacao-que-aprende.html">14. A organização que aprende</a></li><li class="filho"><a class="filho" href="14-a-organizacao-que-aprende-exemplo.html">Exemplo executável</a></li><li><a href="15-validando-o-maestro.html">15. Validando o Maestro</a></li><li class="filho"><a class="filho" href="15-validando-o-maestro-exemplo.html">Exemplo executável</a></li><li><a href="16-o-futuro-da-engenharia-agentica.html">16. O futuro da engenharia agêntica</a></li><li class="filho"><a class="filho" href="16-o-futuro-da-engenharia-agentica-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Apêndices</div><ul><li><a href="apendice-a-o-maestro-em-uma-pagina.html">A. O Maestro em uma página</a></li><li><a href="apendice-b-aseg-bench.html">B. ASEG-Bench — um benchmark de governança</a></li><li><a href="apendice-c-pacote-de-replicacao.html">C. Pacote de replicação</a></li><li><a href="apendice-d-estudos-de-campo.html">D. Estudos de campo do ecossistema</a></li></ul><div class="nav-parte">Consulta</div><ul><li><a href="glossario.html">Glossário</a></li><li><a href="evidencias.html">Evidências (claims)</a></li></ul>
+  </aside>
+  <main class="conteudo">
+    <article class="markdown"><h1 id="03--um-humano-muitos-agentes" tabindex="-1">03 — Um humano, muitos agentes <a class="header-anchor" href="#03--um-humano-muitos-agentes" aria-hidden="true">#</a></h1>
+<blockquote>
+<p><em>Mais agentes não alargam o gargalo; alargam a fila na frente dele.</em></p>
+</blockquote>
+<p>Todo tech lead que experimenta agentes de Inteligência Artificial (IA) chega ao mesmo ponto:
+um agente rende bem, dois rendem o dobro, e a tentação é abrir o terceiro, o quarto, o
+décimo. Este capítulo é sobre o que acontece depois disso. Ele mostra, com registros datados
+de um método que passou de uma frente de trabalho para dezessete sessões simultâneas em
+poucas semanas [CLAIM-03-005], que o recurso que acaba primeiro não é a máquina, e sim a atenção da pessoa
+que responde pelo resultado. E mostra como se rege dentro desse limite: o que se corta, o
+que se mede, o que se torna visível e o que nunca se delega.</p>
+<h2 id="pergunta-central" tabindex="-1" class="callout c-obj" data-rotulo="Pergunta">Pergunta central <a class="header-anchor" href="#pergunta-central" aria-hidden="true">#</a></h2>
+<p>Quando a capacidade de executar deixa de ser o limite, qual passa a ser o gargalo de um time
+de agentes, e como um humano rege muitos agentes sem virar a fila do próprio sistema?</p>
+<h2 id="resultado-de-aprendizagem" tabindex="-1">Resultado de aprendizagem <a class="header-anchor" href="#resultado-de-aprendizagem" aria-hidden="true">#</a></h2>
+<p>Ao final deste capítulo, você consegue:</p>
+<ol>
+<li><strong>Derivar</strong>, a partir dos axiomas da intenção humana e do contexto finito, por que a vazão
+de um time de agentes satura na atenção de quem decide, e <strong>calcular</strong> essa saturação com
+uma fila simples.</li>
+<li><strong>Medir</strong> o trabalho em curso do seu time em decisões humanas pendentes, e não em tarefas
+abertas, e <strong>distinguir</strong> paralelismo que rende (dentro de uma feature decidida) de
+paralelismo que só multiplica gates (entre features ambíguas).</li>
+<li><strong>Escolher</strong> que cerimônias manter perguntando pela função de cada uma, e <strong>aplicar</strong>
+apetite (tempo fixo, escopo variável) no lugar de estimativa de prazo.</li>
+<li><strong>Desenhar</strong> uma fila de decisões com prazo, recomendação e destino, cujo estado é
+derivado de um registro só-acréscimo, e <strong>recusar</strong> endereço ambíguo de sessão em vez de
+adivinhá-lo.</li>
+<li><strong>Reconhecer</strong> no seu fluxo a armadilha do funil e as falhas típicas de escala (estado
+digitado que envelhece, mensagem no destinatário errado, sessão que renasce sem contexto) e
+<strong>escrever</strong> o controle que as torna visíveis.</li>
+</ol>
+<h2 id="a-falha-real" tabindex="-1" class="callout c-falha" data-rotulo="Caso real">A falha real <a class="header-anchor" href="#a-falha-real" aria-hidden="true">#</a></h2>
+<p>Em agosto de 2026, o Maestro (o método de governança que este livro usa como objeto de
+estudo) operava com uma regra simples de trabalho em curso (<em>work in progress</em>, WIP): uma
+feature de cada vez. O capítulo de cerimônias do handbook, revisto em 17 de agosto, mostrava
+a prova por comando: depois de vinte e seis ciclos, <code>git branch -a</code> devolvia duas branches,
+<code>dev</code> e <code>main</code>, e nenhuma frente paralela tinha sido aberta [CLAIM-03-001]. Duas decisões
+coerentes com essa escala estavam registradas. A primeira: a ideia de orquestrar uma frota de
+agentes, observada num projeto de código aberto, foi triada em 1º de agosto como &quot;por ora,
+não&quot;, e reclassificada em 10 de agosto para &quot;observar&quot; com um gatilho escrito: &quot;existir
+trabalho paralelo real que a atenção de <strong>um</strong> humano consiga governar&quot; [CLAIM-03-002]. A
+segunda: o catálogo de artefatos do modelo operacional listava um painel de métricas como
+&quot;Later / YAGNI&quot; (<em>you aren't gonna need it</em>, não vai precisar), com o argumento de que, sem
+a quem comparar, instrumentar era débito prematuro [CLAIM-03-003].</p>
+<p>Havia, já então, uma lacuna declarada. Em 14 de agosto, um diagrama que comparava o fluxo do
+Maestro com o de um arquiteto externo registrou que a fila de trabalho existia (o roadmap,
+ordenado por dependência, com gatilhos) mas não tinha <strong>dono por item nem critério de
+elegibilidade</strong>: &quot;por que este ciclo e não aquele&quot; continuava sendo julgamento não
+registrado [CLAIM-03-004]. Com uma frente só, isso custava pouco: a fila cabia na cabeça de
+uma pessoa.</p>
+<p>Seis semanas depois, a escala mudou. Entre 29 de setembro e 1º de outubro, o método foi
+usado num projeto de produto, o Hindiana, com dezessete sessões de agente simultâneas (duas
+de coordenação, dois gerentes e treze workers; a fonte escreve &quot;16 sessões&quot;, mas a lista que
+ela mesma dá soma dezessete, e é a lista que este livro segue), cerca de cento e sessenta <em>worktrees</em> do
+Git, cinquenta e dois desvios de método registrados em três dias e vinte e oito decisões
+tomadas numa única noite [CLAIM-03-005]. Nenhuma dessas sessões estava ociosa por falta de
+capacidade. O que falhou foi tudo o que passava pela pessoa que regia o time.</p>
+<p>O <strong>estado</strong> falhou primeiro. Cada sessão mantinha um &quot;Estado atual&quot; digitado pelo próprio
+agente, e ele envelhecia em horas; o controle se espalhou por dez arquivos e pelas mensagens
+entre sessões. O desvio mais perigoso daqueles dias, dez branches com <em>upstream</em> apontando
+para a linha de produção, só apareceu quando alguém procurou à mão, em 1º de outubro
+[CLAIM-03-005] [CLAIM-03-006]. O primeiro painel construído para isso, instalado no próprio
+projeto, mostrava em 19 de outubro tabelas derivadas com dez dias de defasagem: o status dos
+workers tinha parado de ser registrado em 6 de outubro [CLAIM-03-006].</p>
+<p>O <strong>endereço</strong> falhou em seguida. As sessões se acham pelo nome, e o nome não é identidade:
+havia uma sessão de coordenação registrada sob três referências, duas delas fora do ar. Em
+13 e 14 de outubro, mensagens de gerentes caíram em sessões de outro projeto; num desses
+dias, um gerente mandou dez mensagens a uma sessão que tratava de um assunto alheio
+[CLAIM-03-007].</p>
+<p>E a <strong>espera</strong> falhou por último, e foi a mais cara. Em 10 de outubro, uma pergunta feita às
+08:45 ficou vinte e quatro horas sem resposta. Em 16 de outubro, uma decisão escalada ao
+humano às 07:04 ficou sem resposta até a tarde e estourou dois prazos; no mesmo dia, uma
+sessão de coordenação caiu duas vezes [CLAIM-03-008]. Ninguém estava parado por falta de
+agente. Os agentes estavam parados esperando a única pessoa que podia responder, e essa
+pessoa não tinha um lugar onde ver o que esperava por ela.</p>
+<p>A resposta do Maestro veio em 20 de outubro: integrar a linha paralela que o projeto tinha
+produzido (quarenta e duas branches) em ciclos numerados a partir do 066, o primeiro deles um
+painel de coordenação que deriva o estado dos arquivos, e superar em parte o &quot;YAGNI&quot; do
+painel com um registro de decisão de arquitetura (<em>Architecture Decision Record</em>, ADR), o ADR
+0022 [CLAIM-03-009]. A falha não terminou aí, e é isso que a torna instrutiva. O painel de
+regência do ciclo 072, que devia dizer ao regente &quot;o que me espera&quot; em cinco segundos, tinha
+dois defeitos registrados na própria jornada de uso em 24 e 25 de outubro. Aberto com o
+servidor frio, ele mostrava uma lista vazia enquanto calculava, e vazio &quot;que não é o estado
+do projeto&quot; é a pior leitura possível às sete da manhã; o script de captura contornava o
+problema esperando a derivação estabilizar, a tela não [CLAIM-03-010]. E o quadro por gate,
+que devia mostrar dez colunas lado a lado, empilhava todas numa faixa de 232 pixels numa
+janela de 1440 × 900 [CLAIM-03-011].</p>
+<p>Em 29 de outubro o time inteiro caiu. Cada painel do lançador de sessões reabriu uma sessão
+<strong>nova</strong>, e o contexto vivo de cada agente se perdeu; a regente retomou as sessões à mão. No
+dia seguinte, o lançador ganhou uma opção para retomar cada sessão pelo nome, mantendo o
+mesmo endereço, porque uma sessão renascida com outro nome é uma sessão que os pares não
+acham [CLAIM-03-012]. Em 31 de outubro, a retomada pelo nome abriu o seletor com nomes
+duplicados e o time ficou parado dez horas; a correção passou a retomar pelo identificador
+da sessão [CLAIM-03-013]. Este episódio é o único do capítulo que vem de depois da versão de
+referência do Maestro (<code>19823c2</code>): está na mensagem do commit <code>8c79331</code>, de 1º de novembro,
+e por isso não tem link fixado como os demais.</p>
+<p>Nenhuma dessas falhas foi de capacidade de modelo. Todas aconteceram na interface entre
+muitos agentes e um humano: o estado que ele lê, o endereço pelo qual ele fala, a fila em
+que ele decide. O resto deste capítulo explica por que é ali que a coisa quebra, e o que se
+põe no lugar.</p>
+<h2 id="teoria" tabindex="-1">Teoria <a class="header-anchor" href="#teoria" aria-hidden="true">#</a></h2>
+<h3 id="a-fonte-da-intenção-não-se-paraleliza-axioma-a1" tabindex="-1">A fonte da intenção não se paraleliza (axioma A1) <a class="header-anchor" href="#a-fonte-da-intenção-não-se-paraleliza-axioma-a1" aria-hidden="true">#</a></h3>
+<p>O primeiro axioma do Maestro diz que a <strong>intenção é humana</strong>: um agente propõe, escreve e
+verifica, mas não <em>quer</em>; o que construir e por que vale a pena não tem outra fonte além de
+uma pessoa (<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/axioms.md">axioms.md, A1</a>).
+Lido como engenharia de capacidade, o axioma tem uma consequência direta. Todo trabalho de um
+time de agentes começa numa intenção e termina num aceite, e as duas pontas passam pela
+mesma fonte. Dá para multiplicar quem executa; não dá para multiplicar quem quer.</p>
+<p>Isso transforma o time num sistema com um recurso compartilhado. Cada agente que se
+acrescenta produz mais itens que precisam de uma decisão humana: aprovar uma spec, escolher
+entre duas opções, aceitar um merge, responder &quot;por item ou por pedido?&quot;. Enquanto o humano
+tem folga, mais agentes significam mais vazão. Quando a folga acaba, mais agentes significam
+<strong>mais fila</strong>, e a vazão do sistema inteiro fica presa ao ritmo de quem decide. O
+<a href="01-a-mudanca-de-unidade-de-trabalho.html">capítulo 1</a> chegou a esse limite pelo
+lado da economia (a mudança aceita é escassa porque consome atenção); este capítulo chega
+pelo lado do fluxo.</p>
+<p>O <a href="02-o-problema-da-confianca.html">capítulo 2</a> somou um segundo motivo: a
+consequência precisa de dono (axioma A2). A1 devolve ao humano a decisão de <em>o quê</em>; A2
+devolve a resposta <em>por isso</em>. Tirar o humano das duas pontas não deixa o sistema mais
+rápido: deixa-o sem objetivo e sem responsável.</p>
+<h3 id="o-contexto-finito-obriga-a-fatiar-e-cada-fatia-cria-uma-junção-axioma-a3" tabindex="-1">O contexto finito obriga a fatiar, e cada fatia cria uma junção (axioma A3) <a class="header-anchor" href="#o-contexto-finito-obriga-a-fatiar-e-cada-fatia-cria-uma-junção-axioma-a3" aria-hidden="true">#</a></h3>
+<p>O terceiro axioma diz que <strong>o contexto é finito e degrada quando enche</strong>: a janela que um
+agente lê é limitada e o desempenho cai com o ruído (<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/axioms.md">axioms.md, A3</a>).
+Por causa dele, o trabalho grande não vai inteiro para um agente: ele é cortado em fatias
+estreitas, cada uma com o contexto que lhe basta. É isso que torna possível ter muitos
+agentes, e é também o que gera o custo de coordenação. Cada corte cria uma junção: alguém
+precisa saber que a fatia terminou, que ela encaixa nas outras, que a pergunta que ela
+levantou foi respondida. O <a href="05-engenharia-de-contexto.html">capítulo 5</a> trata do
+que vai em cada janela; o <a href="06-como-dividir-o-trabalho.html">capítulo 6</a>, de onde
+cortar. Aqui interessa a soma: N fatias produzem N pontos em que o trabalho volta a quem
+integra.</p>
+<p>O axioma fala da janela do agente, mas a mesma física vale, por analogia, para quem rege:
+a atenção do humano também é finita e também degrada com ruído. Essa extensão é uma hipótese
+deste livro, não um axioma do método, e o argumento não depende dela. Basta A1 para que as
+decisões convirjam numa pessoa, e basta A3 para que o número de junções cresça com o número
+de fatias. Juntos, eles dizem que o custo de coordenação cresce com o time e que esse custo
+cai sempre no mesmo lugar.</p>
+<h3 id="o-gargalo-é-uma-fila-e-fila-tem-matemática" tabindex="-1">O gargalo é uma fila, e fila tem matemática <a class="header-anchor" href="#o-gargalo-é-uma-fila-e-fila-tem-matemática" aria-hidden="true">#</a></h3>
+<p>Um humano que decide itens que chegam de vários agentes é, para efeito de cálculo, uma fila
+com um servidor só. Três resultados clássicos de teoria das filas e de fluxo bastam para o
+tech lead.</p>
+<p>O primeiro é a <strong>Lei de Little</strong> (Little, 1961) [CLAIM-03-032]: num sistema estável, o número médio de itens
+em curso é igual à taxa de chegada vezes o tempo médio que cada item passa no sistema. Lida
+ao contrário, ela diz que, para a mesma vazão, mais itens em curso significam mais tempo de
+espera de cada um. Abrir frentes não acelera nada que passe pelo mesmo servidor: só aumenta o
+estoque na frente dele.</p>
+<p>O segundo é a relação entre ocupação e espera. Em filas com variabilidade, a espera cresce
+de forma não linear quando a ocupação do servidor se aproxima de cem por cento: a aproximação
+de Kingman (1961) põe a espera proporcional a ocupação ÷ (1 − ocupação). Um humano ocupado em
+oitenta por cento ainda responde a tempo; ocupado em cem, não responde mais nada a tempo,
+mesmo trabalhando o dia inteiro. Reinertsen (2009) lembra por que isso passa despercebido: o
+estoque do desenvolvimento é informação, não caixas no chão.</p>
+<p>O terceiro é a <strong>Teoria das Restrições</strong> (<em>Theory of Constraints</em>, TOC) de Goldratt (1984):
+a vazão de um sistema é a vazão da sua restrição, e otimizar fora dela não muda o resultado.
+Num time de agentes, a restrição é a decisão humana. Toda melhoria que acelera os agentes sem
+tocar nela é, para a vazão, irrelevante; toda melhoria que barateia a decisão, ou que tira da
+fila o que não precisava estar lá, é a que conta.</p>
+<p>O exemplo executável calcula isso num caso simples: com oito horas de atenção e doze minutos
+por decisão, o teto é de quarenta decisões por dia. Quatro agentes ocupam o humano em oitenta
+por cento e ninguém espera; oito dobram a produção, mas as decisões param em quarenta e vinte e
+quatro fatias dormem na fila [CLAIM-03-026]. Com dezesseis, continuam sendo quarenta.</p>
+<h3 id="o-trabalho-em-curso-se-mede-em-decisões-não-em-tarefas" tabindex="-1">O trabalho em curso se mede em decisões, não em tarefas <a class="header-anchor" href="#o-trabalho-em-curso-se-mede-em-decisões-não-em-tarefas" aria-hidden="true">#</a></h3>
+<p>Daí a primeira regra prática: o limite de trabalho em curso de um time de agentes não é a
+capacidade dos agentes, é a <strong>atenção humana</strong>. O handbook do método formula isso dizendo que
+cinco features sem dependência entre si ainda funilam pelos mesmos gates humanos (aprovar
+spec, aprovar plano, aprovar merge); abrir frentes multiplica gates, e o humano vira a fila
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/handbook/07-cerimonias-cadencia.md">handbook 07 §5.3</a>). A unidade
+certa para medir o trabalho em curso é, portanto, o número de <strong>decisões que o humano segura
+com qualidade</strong>, e não o número de tarefas abertas ou de agentes ativos.</p>
+<p>Duas consequências seguem. A primeira é onde paralelizar: <strong>dentro</strong> de uma feature já
+decidida, e não <strong>entre</strong> features ambíguas. Dentro da feature, a intenção já foi fixada na
+spec e o plano já foi aprovado; as fatias paralelas não pedem gate novo, só a integração no
+fim. Entre features ambíguas, cada frente traz suas próprias perguntas, sua spec, seu plano e
+seu merge, e cada uma dessas coisas passa pela mesma pessoa. O exemplo mostra o efeito: os
+mesmos oito agentes, se as fatias de quatro deles fecham uma decisão só sobre o lote, liberam
+todas as sessenta e quatro fatias do dia com o humano ocupado em dois terços do tempo
+[CLAIM-03-026].</p>
+<p>A segunda consequência é como escalar: <strong>barateando o gate</strong>, e não abrindo frentes. Um gate
+fica barato quando o critério é verificável por máquina (o humano lê uma evidência, não
+refaz o raciocínio; ver o <a href="10-quality-gates-que-provam-fatos.html">capítulo 10</a>) e
+quando a ação é reversível (errar custa um <em>revert</em>, e o gate pode ser mais leve; ver o
+<a href="11-risco-reversibilidade-e-autonomia.html">capítulo 11</a>). No exemplo, baixar o
+custo de cada decisão de doze para seis minutos tira as vinte e quatro fatias da fila sem
+mexer em agente nenhum [CLAIM-03-026].</p>
+<h3 id="a-armadilha-do-funil" tabindex="-1">A armadilha do funil <a class="header-anchor" href="#a-armadilha-do-funil" aria-hidden="true">#</a></h3>
+<p>Existe uma forma de &quot;baratear o gate&quot; que piora tudo: o humano decide continuar responsável
+por cada item e, para dar conta, passa a ler cada saída na diagonal. O handbook chama isso de
+<strong>armadilha do funil</strong>: se o humano é o Accountable da matriz Responsible, Accountable,
+Consulted, Informed (RACI) <strong>e</strong> confere à mão cada saída de agente, ele recriou &quot;fazer tudo
+sozinho&quot;, com uma etapa a mais de leitura; o ganho evapora e ele vira o gargalo do próprio
+sistema (<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/handbook/06-papeis-raci.md">handbook 06 §5.2</a>).</p>
+<p>A saída não é confiar mais no agente, é <strong>mudar o objeto da responsabilidade</strong>. Ser
+Accountable pela política significa decidir uma vez por <em>classe</em> de ação (&quot;toda mudança na
+raia leve com testes verdes entra sem mim&quot;; &quot;toda migração de dados passa por mim&quot;) e
+responder por essa decisão. Ser Accountable por item significa decidir N vezes e não
+responder direito por nenhuma. Na linguagem da fila: a política tira itens da fila; a
+leitura na diagonal só reduz o tempo por item, à custa da qualidade da decisão, que era a
+única razão de o item estar ali. O <a href="02-o-problema-da-confianca.html">capítulo 2</a>
+mostra como essa responsabilidade pela política se torna verificável; aqui o que importa é o
+efeito no fluxo.</p>
+<h3 id="cerimônia-é-função-não-reunião" tabindex="-1">Cerimônia é função, não reunião <a class="header-anchor" href="#cerimônia-é-função-não-reunião" aria-hidden="true">#</a></h3>
+<p>As cerimônias que um tech lead herdou do Scrum resolvem problemas de coordenação entre
+pessoas. Quando o time é uma pessoa e N agentes, metade dessas funções deixa de existir. A
+regra que o método adotou é perguntar pela função, não pelo evento: &quot;essa função ainda
+existe no meu contexto?&quot;. O planejamento continua, mas vira <strong>dar forma e especificar</strong>: a
+spec é o planejamento real. A revisão vira <strong>checkpoint de ciclo</strong>. A reunião diária é
+cortada, porque não há entre quem sincronizar, e o refinamento de backlog também, porque não
+há backlog formal (<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/handbook/07-cerimonias-cadencia.md">handbook 07 §5.1</a>).
+A retrospectiva, ao contrário, ganha valor: com agentes, a correção que sai dela vira
+instrução versionada e é aplicada no ciclo seguinte por quem não estava lá (o
+<a href="14-a-organizacao-que-aprende.html">capítulo 14</a> trata disso).</p>
+<p>Na leitura de fila, toda cerimônia consome a mesma atenção que os gates: uma reunião diária
+com agentes não sincroniza ninguém, só ocupa a restrição.</p>
+<h3 id="apetite-o-tempo-é-fixo-o-escopo-é-a-variável" tabindex="-1">Apetite: o tempo é fixo, o escopo é a variável <a class="header-anchor" href="#apetite-o-tempo-é-fixo-o-escopo-é-a-variável" aria-hidden="true">#</a></h3>
+<p>A segunda ferramenta de cadência vem do Shape Up (Singer, 2019): o <strong>apetite</strong>. Em vez de
+estimar quanto uma feature vai levar, decide-se quanto tempo ela merece, e o escopo se ajusta
+dentro desse tempo. Quando o apetite acaba, corta-se escopo; o prazo não se estende. Com
+agentes, a regra ganha um motivo: o que o tech lead controla não é a velocidade do agente,
+é quanto da própria atenção a aposta vai consumir. O exemplo mais visível no
+histórico do método é a migração dos capítulos do handbook: um capítulo por ciclo, treze
+ciclos, em vez de um mutirão de documentação que nunca termina [CLAIM-03-015].</p>
+<h3 id="não-pergunte-continuo-gaste-atenção-em-gates-não-em-progresso" tabindex="-1">Não pergunte &quot;continuo?&quot;: gaste atenção em gates, não em progresso <a class="header-anchor" href="#não-pergunte-continuo-gaste-atenção-em-gates-não-em-progresso" aria-hidden="true">#</a></h3>
+<p>Há um último desperdício de atenção que é fácil de não ver: o agente que interrompe o humano
+para perguntar se pode seguir. O método avaliou essa prática num estudo do Superpowers (um
+conjunto de skills de código aberto) e registrou validação mútua com a regra de execução
+contínua: o agente executa o plano até um bloqueio, uma ambiguidade real ou o fim, sem pedir
+licença a cada passo (<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/handbook/apendice-b-superpowers.md">handbook, apêndice B §6</a>).
+Um &quot;posso continuar?&quot; é um item na fila que não carrega decisão nenhuma.</p>
+<p>O par dessa regra é a <strong>fila de decisões</strong>: se o agente não pergunta à toa, a pergunta que
+ele faz merece um lugar próprio, com prazo, opções, recomendação e destino da resposta.
+Pergunta jogada no meio de uma conversa, como as de 10 e 16 de outubro, não tem idade visível
+e não tem quem a cobre.</p>
+<h3 id="espera-humana-a-métrica-que-falta" tabindex="-1">Espera humana: a métrica que falta <a class="header-anchor" href="#espera-humana-a-métrica-que-falta" aria-hidden="true">#</a></h3>
+<p>Se o gargalo é a decisão humana, a métrica que importa é quanto tempo o trabalho espera por
+ela. A agenda de pesquisa do livro lista a <strong>espera humana</strong> entre as métricas a medir, ao
+lado do tempo de ciclo e do overhead de coordenação (<a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/pesquisa/base-de-pesquisa.md">base de pesquisa</a>).
+É o intervalo entre um pedido de decisão ficar pronto e a decisão ser registrada. Sem um
+registro em que pedido e resposta tenham carimbo de tempo, a espera não existe como dado, só
+como irritação; por isso o padrão deste capítulo começa por um registro, e não por um painel.</p>
+<h2 id="alternativas" tabindex="-1">Alternativas <a class="header-anchor" href="#alternativas" aria-hidden="true">#</a></h2>
+<p>O tech lead tem à mão dois tipos de alternativa: cadências de trabalho herdadas de times
+humanos, e arquiteturas de coordenação vindas dos frameworks de agentes. A tabela compara as
+duas famílias pelo critério deste capítulo: o que cada uma faz com a fila na frente do humano.</p>
+<table>
+<thead>
+<tr>
+<th>Alternativa</th>
+<th>O que traz</th>
+<th>O que faz com a fila humana</th>
+<th>Veredito</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scrum</strong></td>
+<td>papéis, sprint, cinco eventos</td>
+<td>mantém eventos de sincronização entre pessoas que não existem; acrescenta cerimônia à restrição</td>
+<td><strong>Parcial</strong>: sobrevivem o planejamento (como spec) e a retrospectiva</td>
+</tr>
+<tr>
+<td><strong>Kanban</strong> (Anderson, 2010)</td>
+<td>fluxo contínuo, limite explícito de trabalho em curso</td>
+<td>dá o instrumento certo, desde que o limite seja medido em decisões humanas</td>
+<td><strong>Adotado</strong></td>
+</tr>
+<tr>
+<td><strong>Shape Up</strong> (Singer, 2019)</td>
+<td>apetite, ciclo com folga, sem backlog</td>
+<td>fixa o tempo de atenção por aposta; corta escopo em vez de estender</td>
+<td><strong>Adotado como esqueleto</strong></td>
+</tr>
+<tr>
+<td><strong>Scrumban</strong></td>
+<td>híbrido de Scrum e Kanban</td>
+<td>herda o overhead de eventos do Scrum</td>
+<td><strong>Observado</strong></td>
+</tr>
+<tr>
+<td><strong>Frota de agentes</strong> (enxames com topologia, filas e supervisão automática)</td>
+<td>dezenas de agentes coordenados por máquina</td>
+<td>produz mais trabalho do que um humano consegue julgar; trabalho não julgado é dívida com cara de velocidade</td>
+<td><strong>Observar</strong>, com gatilho: trabalho paralelo que a atenção de um humano consiga governar</td>
+</tr>
+<tr>
+<td><strong>Supervisor hierárquico</strong> (um agente gerente que distribui e recolhe, como o padrão <em>supervisor</em> do LangGraph ou o processo hierárquico do CrewAI)</td>
+<td>roteamento e consolidação por modelo</td>
+<td>tira da fila o trabalho de despacho, mas não o de decidir; quando o supervisor &quot;aprova&quot;, a pergunta de quem responde fica sem resposta</td>
+<td><strong>Útil como camada de despacho</strong>, nunca como dono do gate</td>
+</tr>
+<tr>
+<td><strong>&quot;Aprovo tudo&quot; / &quot;aprovo nada&quot;</strong></td>
+<td>a escolha binária de confiar ou conferir</td>
+<td>o primeiro esvazia a fila e o gate; o segundo é a armadilha do funil</td>
+<td><strong>Rejeitado</strong> em favor de responsabilidade pela política</td>
+</tr>
+<tr>
+<td><strong>Painel de métricas clássico</strong></td>
+<td>números de produtividade sobre código e produção</td>
+<td>instrumenta antes de saber a quem comparar; frequentemente mede o proxy</td>
+<td><strong>Recusado em escala pequena</strong>; substituído por painel que projeta os arquivos quando a escala chegou</td>
+</tr>
+</tbody>
+</table>
+<p>A linha da frota merece um comentário, porque é a alternativa mais sedutora e a mais
+diretamente oposta ao argumento deste capítulo. A ficha que o Maestro escreveu sobre ela não
+diz &quot;é cedo demais&quot;; diz que a escolha é de fundo: a frota alarga a capacidade de execução, e
+o gargalo é o julgamento humano, que ela não alarga (<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/ecosystem/ideias/018-frota-de-agentes.md">ideia 018</a>).
+O gatilho que reabre a questão não fala da máquina; fala do humano. É a forma certa de
+registrar uma recusa: dizer o que teria de mudar para ela deixar de valer.</p>
+<p>O supervisor hierárquico está do lado oposto: ele é útil. O próprio Maestro usa uma sessão
+gerente que despacha tarefas a workers (ver o padrão adiante). O erro não é ter um agente
+coordenador; é deixar que ele ocupe a posição de quem aceita. O despacho é responsabilidade
+delegável; o aceite, pelos axiomas A1 e A2, não é.</p>
+<p>Por fim, uma alternativa de interface observada em outubro: um diagrama vivo do time, em que
+cada agente é um nó e o clique mostra o que ele faz (<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/ecosystem/ideias/041-diagrama-vivo-do-time.md">ideia 041</a>).
+Veredito: &quot;observar&quot;, como linguagem visual, desde que seja projeção do estado e não decida
+nada. É a condição que separa uma boa visualização de um segundo lugar onde o estado é
+digitado.</p>
+<h2 id="o-padrão-maestro" tabindex="-1">O padrão Maestro <a class="header-anchor" href="#o-padrão-maestro" aria-hidden="true">#</a></h2>
+<p>O Maestro responde à pergunta deste capítulo em quatro camadas: uma regra de cadência, um
+protocolo de coordenação entre sessões, uma identidade de sessão que não se adivinha e um
+painel que projeta o estado sem decidir. Em cada uma, vale separar o que é <strong>regra</strong> (texto
+que o agente lê), o que é <strong>script</strong> (executável que alguém roda) e o que é <strong>hook</strong>
+(executável que o <em>harness</em> dispara sozinho).</p>
+<h3 id="cadência-uma-feature-apetite-fixo-cerimônias-por-função-regra" tabindex="-1">Cadência: uma feature, apetite fixo, cerimônias por função (regra) <a class="header-anchor" href="#cadência-uma-feature-apetite-fixo-cerimônias-por-função-regra" aria-hidden="true">#</a></h3>
+<p>O modelo operacional adota um esqueleto de Shape Up com Kanban, sem Scrum: reunião diária e
+planejamento de sprint cortados, trabalho em curso limitado a uma feature ou spec por vez,
+ciclos com apetite fixo, e cinco cerimônias com função declarada (dar forma e especificar,
+execução, checkpoint de ciclo, período de folga, retrospectiva)
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/operating-model.md">operating-model.md §5</a>)
+[CLAIM-03-014]. A retrospectiva é a única com saída obrigatória: erro recorrente vira regra
+versionada. O princípio que sustenta a camada é o II da constituição: o Accountable é sempre
+humano e responde pela política, pelos gates e pelos critérios, não por cada item
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/principles.md">principles.md</a>).</p>
+<p>Essa camada é <strong>regra</strong>, a mais frágil das quatro: nada a executa. O WIP de um sobreviveu
+vinte e seis ciclos porque a escala não o testou [CLAIM-03-001]; diante de dezessete sessões
+em paralelo [CLAIM-03-005], não tinha como recusar nada. As outras três camadas nasceram daí.</p>
+<h3 id="coordenação-o-protocolo-de-tarefas-entre-gerente-e-workers-regra--script--hook" tabindex="-1">Coordenação: o protocolo de tarefas entre gerente e workers (regra + script + hook) <a class="header-anchor" href="#coordenação-o-protocolo-de-tarefas-entre-gerente-e-workers-regra--script--hook" aria-hidden="true">#</a></h3>
+<p>Quando há uma sessão gerente e várias sessões worker, o contrato entre elas é um protocolo
+de duas <em>tags</em> textuais (<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/task-ledger.md">task-ledger.md</a>).
+Quem despacha começa a mensagem com uma tag <code>[[TASK ...]]</code> sozinha na linha, com
+identificador, tipo, tentativa e ciclo; quem entrega termina com <code>[[DONE ...]]</code>, com o
+desfecho. Uma auditoria nomeia a tarefa julgada (<code>target</code>) e o veredito (<code>verdict</code>). Contam a
+<strong>primeira</strong> <code>[[TASK]]</code> e a <strong>última</strong> <code>[[DONE]]</code> da mensagem, para que um exemplo do
+protocolo citado no meio do texto não seja confundido com despacho real.</p>
+<p>A regra vira dado por um <strong>script</strong> (<code>scripts/record-task.py</code>, que valida cada linha contra
+vocabulários fechados e a acrescenta a <code>docs/records/tarefas.jsonl</code>) e por um <strong>mod</strong> do
+harness que lê as tags no momento em que acontecem. O livro de ponto resultante é
+só-acréscimo e guarda tentativa, retrabalho, desfecho, tokens e custo por tarefa; em
+<code>19823c2</code> ele tinha cinquenta e duas linhas [CLAIM-03-017]. O que importa aqui não é o
+custo (tema do <a href="13-observabilidade-e-economia.html">capítulo 13</a>), mas o contrato:
+&quot;quem está fazendo o quê&quot; deixa de ser pergunta feita no chat. O relato
+do projeto Hindiana registra que esse protocolo <strong>não</strong> era usado lá [CLAIM-03-017], e o
+estado do time vivia em texto digitado por cada agente.</p>
+<h3 id="identidade-nome--ref--projeto-e-o-lançador-que-preserva-o-endereço-regra--script" tabindex="-1">Identidade: nome · ref · projeto, e o lançador que preserva o endereço (regra + script) <a class="header-anchor" href="#identidade-nome--ref--projeto-e-o-lançador-que-preserva-o-endereço-regra--script" aria-hidden="true">#</a></h3>
+<p>A falha de roteamento de outubro virou regra de glossário. Uma sessão é identificada por
+três partes, <code>nome · ref · projeto</code>, porque o nome se repete e a referência (o <code>[xxxxxx]</code> que
+o harness mostra ao lado do nome) é o único campo que distingue duas sessões homônimas, e
+também o único que <strong>expira</strong>: muda quando a sessão reinicia
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/glossary.md">glossary.md, &quot;Ref de sessão&quot; e &quot;Endereçar por ref&quot;</a>).
+Daí a invariante: endereço ambíguo é <strong>recusado</strong>, nunca resolvido pelo &quot;mais provável&quot;,
+porque uma entrega no par errado não se desfaz.</p>
+<p>O <strong>script</strong> que monta o time é o lançador multissessão
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/multi-session.py">scripts/multi-session.py</a>),
+adaptado do projeto Hindiana no ciclo 066. Ele abre um gerente e seis workers num terminal,
+cada sessão com o seu modelo (o gerente num, os workers noutro), e dá a cada worker uma
+<em>worktree</em> própria do Git, para que as edições e os commits de um não toquem os arquivos de
+outro; nenhum segredo fica no repositório [CLAIM-03-016]. A opção de retomar o time caído
+nasceu da queda de 29 de outubro e tem um teste que a mede rodando o lançador em modo de
+ensaio, nunca lendo o código
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/test_multi_session_retomar.py">scripts/test_multi_session_retomar.py</a>)
+[CLAIM-03-012]. A evolução posterior, de retomar pelo nome para retomar pelo identificador
+da sessão, é a mesma regra do glossário aplicada ao próprio lançador: o nome não é
+identidade [CLAIM-03-013].</p>
+<h3 id="estado-o-painel-que-projeta-os-arquivos-e-nunca-promove-script--hook" tabindex="-1">Estado: o painel que projeta os arquivos e nunca promove (script + hook) <a class="header-anchor" href="#estado-o-painel-que-projeta-os-arquivos-e-nunca-promove-script--hook" aria-hidden="true">#</a></h3>
+<p>O ADR 0022 decidiu que o Maestro passa a ter um <strong>painel de coordenação</strong>, com Python da
+biblioteca padrão e uma página HTML (<em>HyperText Markup Language</em>), servido só em localhost
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0022-painel-de-coordenacao-como-projecao-dos-arquivos.md">ADR 0022</a>).
+Três decisões dele são o coração do padrão:</p>
+<ol>
+<li><strong>O banco local é projeção, nunca fonte.</strong> O painel guarda o que lê num SQLite, mas toda
+tabela derivada é apagada e reconstruída a cada ingestão a partir dos arquivos que o método
+já obriga a escrever (specs, ADRs, vereditos, Git). É a separação entre escrita e leitura
+(<em>Command Query Responsibility Segregation</em>, CQRS) aplicada ao controle de um time.</li>
+<li><strong>A única escrita direta é uma tabela de eventos só-acréscimo</strong>, para fatos que não existem
+em arquivo nenhum (status de sessão, transição de peça, deploy, incidente); gatilhos no
+banco recusam alteração e remoção [CLAIM-03-020].</li>
+<li><strong>O painel nunca promove nada sozinho.</strong> Todo evento tem autor humano ou de sessão
+identificada, e transição de estado sem evidência parseável é recusada.</li>
+</ol>
+<p>O ADR explica por que isso não é o débito que o YAGNI temia: o painel não instrumenta código
+nem produção, e descartá-lo custa apagar um diretório. Em <code>19823c2</code>, o catálogo de artefatos do modelo operacional já trazia o painel como essencial
+desde o ciclo 066, no lugar da linha &quot;Later / YAGNI&quot; [CLAIM-03-003]. Detalhe honesto: o
+índice de decisões tem linhas para os ADRs vizinhos, mas não para o 0022, registrado só sob o
+id do ciclo [CLAIM-03-025].</p>
+<p>O ciclo 068 levou o princípio um passo adiante com o padrão &quot;um chamado, uma pasta; cada
+gate, um entregável&quot;: cada gate de uma unidade de trabalho deixa um arquivo com cabeçalho
+(gate, objeto, veredito, quem julgou, data), e o estado <strong>é</strong> a leitura desses arquivos sob
+regras fixas (<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/068-chamados-gate-a-gate/spec.md">spec 068</a>).
+A motivação está escrita na spec: o estado digitado mente; o estado calculado não. O mesmo
+ciclo pôs o custo em tokens de cada sessão ao lado de cada passo, rotulado como estimativa.
+O <strong>hook</strong> que sustenta essa camada é de pre-commit: ele recusa o commit de um arquivo de
+veredito sem carimbo de tempo verificável, para que a data que o painel lê não seja digitada.</p>
+<h3 id="regência-a-fila-de-decisões-e-o-portão-que-só-o-humano-registra-script" tabindex="-1">Regência: a fila de decisões e o portão que só o humano registra (script) <a class="header-anchor" href="#regência-a-fila-de-decisões-e-o-portão-que-só-o-humano-registra-script" aria-hidden="true">#</a></h3>
+<p>O ciclo 072 construiu sobre isso o <strong>painel de regência</strong>, rodada 1: um quadro por gate e uma
+fila de decisões (<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/072-painel-de-regencia/spec.md">spec 072</a>).
+O quadro tem dez colunas, de G0 a G9, derivadas dos arquivos de veredito; o cartão de cada
+chamado mora no último gate aprovado e mostra o dono do gate atual, a idade no gate, o
+veredito normalizado <strong>ao lado</strong> do original e um marcador de independência entre quem fez e
+quem julgou [CLAIM-03-018]. A fila tem uma fonte nova, um registro só-acréscimo de pedidos e
+respostas. O glossário do método fixa os termos
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/glossary.md">glossary.md</a>):</p>
+<ul>
+<li><strong>pedido de decisão</strong>: pergunta escalada ao humano com id, quem pediu, opções,
+recomendação, prazo, o que destrava e destino da resposta;</li>
+<li><strong>ruling</strong>: a resposta registrada, com autor humano, data, destinatário e ligação ao merge
+ou ADR que a cita; ruling sem autor ou sem destinatário é recusado;</li>
+<li><strong>portão do regente</strong>: os gates que só o humano registra (o aceite G7, a ordem de produção
+G8 e o fechamento <code>TAIL:gate</code>); para um agente, eles aparecem como item da fila em modo
+somente leitura.</li>
+</ul>
+<p>O objetivo da tela foi escrito como frase de usuário: &quot;em 5 segundos, saber o que me espera e
+quem morreu; em 5 minutos, decidir&quot; [CLAIM-03-019]. E a tela foi desenhada com anti-regras
+verificáveis, que são a parte mais transferível do padrão
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/jornada/072-painel-de-regencia.md">jornada 072</a>;
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/066-painel-de-regencia/ux-design.md">desenho de interface do ciclo 066, §4</a>):</p>
+<ul>
+<li><strong>vazio é informação</strong>: &quot;fila vazia — nenhuma decisão registrada&quot;, com contador zero, e não
+uma tela que some;</li>
+<li><strong>&quot;—&quot; com motivo, nunca valor padrão</strong>: fonte ausente aparece como travessão acompanhado do
+motivo, e não como <code>0</code> ou <code>n/a</code>;</li>
+<li><strong>nada é marcado &quot;conferido&quot; se foi calculado à mão</strong>: sem o script que confere, o marcador
+diz &quot;não conferido&quot;, nunca verde;</li>
+<li><strong>o veredito original fica ao lado do normalizado</strong>: normalizar é traduzir, não apagar a
+palavra do arquivo;</li>
+<li><strong>não há &quot;dispensar&quot;</strong>: pergunta sem ruling fica na fila até ser respondida ou devolvida.</li>
+</ul>
+<p>O mesmo ciclo mostrou a política de gates em funcionamento: o gate de pronto para executar
+(<em>Definition of Ready</em>, DoR) da spec do 072 foi decidido pela sessão regente com parecer de
+um crítico em contexto fresco, sob a delegação escrita que o humano deu em 24 de outubro e que
+o ADR 0026 formalizou (<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/records/decisoes.jsonl">decisoes.jsonl, <code>decisao-072-gates-delegados</code></a>)
+[CLAIM-03-021]. É a armadilha do funil resolvida na prática: o humano respondeu pela
+política, uma vez, e não por cada spec.</p>
+<p>O roadmap registra o estado honesto dessa camada em <code>19823c2</code>: o workflow do ciclo em SQLite
+(fase F34) está <strong>parcial</strong>, com requisitos ausentes ou invertidos que passaram ao escopo do
+072, e o painel de regência (F35) está na rodada 1, com a rodada 2 declarada como raia de
+infraestrutura [CLAIM-03-024].</p>
+<h3 id="a-tela-que-o-regente-lê-frase-chave-e-navegação-curta" tabindex="-1">A tela que o regente lê: frase-chave e navegação curta <a class="header-anchor" href="#a-tela-que-o-regente-lê-frase-chave-e-navegação-curta" aria-hidden="true">#</a></h3>
+<p>Os ciclos seguintes trataram a atenção do regente como requisito de interface. O ciclo 074
+abriu em 26 de outubro um protótipo navegável do painel, organizado por contexto delimitado,
+com um contrato para as ações simuladas (cada botão declara o que faria, quem autoriza e o
+efeito) e uma definição de pronto executável, um verificador de navegação que anda pelo
+protótipo (<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/records/decisoes.jsonl">decisoes.jsonl, <code>decisao-074-prototipo-navegavel</code></a>)
+[CLAIM-03-022]. Dele saíram dois termos que o glossário guarda. A <strong>frase-chave</strong> é a frase
+de abertura da tela inicial (&quot;você tem 3 decisões esperando, a mais antiga há 7 h&quot;) e é
+<strong>derivada</strong> da fila, nunca digitada; <strong>registrar ruling</strong> é a ação humana que tira o pedido
+da fila e faz o contador baixar. A frase traduz a fila numa leitura de cinco segundos e põe
+a espera humana na primeira linha da tela.</p>
+<p>O ciclo 076 reduziu a navegação: o ADR 0031 registra que a regra de uma trilha de contexto
+no rodapé tinha nascido com vinte telas e, com a navegação reduzida a sete itens e um botão
+global, as vistas irmãs viraram abas no topo e a regra antiga deixou de valer, com a dívida
+das telas antigas declarada (<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0031-abas-de-contexto-no-topo.md">ADR 0031</a>)
+[CLAIM-03-023]. Menos tela é menos atenção gasta em achar onde se está.</p>
+<h3 id="o-que-fica-com-o-humano-e-o-que-o-script-faz" tabindex="-1">O que fica com o humano, e o que o script faz <a class="header-anchor" href="#o-que-fica-com-o-humano-e-o-que-o-script-faz" aria-hidden="true">#</a></h3>
+<p>A tabela resume o padrão; em nenhuma linha o executável decide. O índice de scripts do método
+formula isso como princípio: os scripts tiram o passo mecânico da atenção do orquestrador, que é o gargalo, sem tirar dele
+a decisão; cada um nasceu de dor real numa retrospectiva
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/README.md">scripts/README.md</a>).</p>
+<table>
+<thead>
+<tr>
+<th>Peça</th>
+<th>Tipo</th>
+<th>O que faz</th>
+<th>O que não decide</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WIP de uma feature, apetite, cerimônias por função</td>
+<td>regra</td>
+<td>limita a fila na origem</td>
+<td>nada é recusado por máquina</td>
+</tr>
+<tr>
+<td><code>[[TASK]]</code> / <code>[[DONE]]</code></td>
+<td>regra + script + mod</td>
+<td>registra despacho, entrega e veredito</td>
+<td>se a tarefa foi bem feita</td>
+</tr>
+<tr>
+<td><code>nome · ref · projeto</code></td>
+<td>regra</td>
+<td>define endereço; ambíguo é recusado</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>multi-session.py</code></td>
+<td>script</td>
+<td>sobe o time com modelo por sessão e worktree por worker; retoma o time caído</td>
+<td>quem trabalha em quê</td>
+</tr>
+<tr>
+<td>painel de coordenação</td>
+<td>script (servidor local)</td>
+<td>projeta os arquivos; eventos só-acréscimo</td>
+<td>nunca promove</td>
+</tr>
+<tr>
+<td>hook de veredito</td>
+<td>hook (pre-commit)</td>
+<td>recusa veredito sem carimbo verificável</td>
+<td>o mérito do veredito</td>
+</tr>
+<tr>
+<td>painel de regência</td>
+<td>script (servidor local)</td>
+<td>kanban por gate, fila de decisões, frase-chave</td>
+<td>ruling, G7, G8 e <code>TAIL:gate</code> são do humano</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exemplo-executável" tabindex="-1" class="callout c-prat" data-rotulo="Mão na massa">Exemplo executável <a class="header-anchor" href="#exemplo-executável" aria-hidden="true">#</a></h2>
+<p>A pasta <a href="03-um-humano-muitos-agentes-exemplo.html"><code>exemplo/</code></a> tem dois scripts, só com a biblioteca padrão do
+Python 3.8 ou superior. Nenhum chama modelo de IA: o primeiro mede a fila que se forma na
+frente do humano; o segundo constrói a fila de decisões a partir de um registro, do jeito que
+o padrão descreve.</p>
+<pre><code class="language-bash">cd livro/03-um-humano-muitos-agentes/exemplo
+python gargalo.py
+python fila.py
+</code></pre>
+<p><strong><code>gargalo.py</code></strong> simula, sem sorteio, um dia de oito horas de um humano que decide as fatias
+entregues por N agentes (uma por agente por hora, doze minutos por decisão). Três blocos: mais
+agentes com o mesmo gate (a vazão para em quarenta a partir de cinco agentes; com dezesseis,
+oitenta e oito fatias dormem e a espera máxima chega a 330 minutos); o gate mais barato (com
+seis minutos, a fila de oito agentes zera); e paralelizar dentro da feature (uma decisão de
+vinte minutos por lote de quatro fatias libera as sessenta e quatro do dia, com o humano
+ocupado em 67% do tempo) [CLAIM-03-026].</p>
+<pre><code class="language-text">A  mais agentes, mesmo gate
+  cenário                      prod decid  fila  esp.méd  esp.máx   ocup
+   4 agente(s)                   32    32     0      0.0      0.0    80%
+   5 agente(s)                   40    40     0      0.0      0.0   100%
+   8 agente(s)                   64    40    24     87.8    180.0   100%
+  16 agente(s)                  128    40    88    160.9    330.0   100%
+</code></pre>
+<p><strong><code>fila.py</code></strong> lê um roster de sessões e um registro só-acréscimo de eventos e aplica as
+regras do padrão: endereço <code>nome · ref · projeto</code> resolvido para uma sessão viva; pedido sem
+prazo, opções ou recomendação recusado; ruling só com autor humano e destino; nada de
+&quot;dispensar&quot;. Deriva a frase-chave em três instantes, mede a espera humana (média de 4 h 34
+min, máxima de 8 h 16 min, dois de quatro pedidos respondidos depois do prazo) e prova, por
+mutação, que reescrever uma linha do registro é acusado. Sai com código 0 quando os dezesseis
+eventos têm o veredito esperado e a mutação é acusada [CLAIM-03-027].</p>
+<pre><code class="language-text">== frase-chave (derivada da fila, nunca digitada)
+  14:00  você tem 3 decisões esperando; a mais antiga (D-01) há 6 h 56 min
+  14:35  você tem 2 decisões esperando; a mais antiga (D-01) há 7 h 31 min
+  16:00  você tem 1 decisão esperando; a mais antiga (D-08) há 55 min
+</code></pre>
+<p>Os dados são fictícios, mas imitam os casos de outubro: um pedido às 07:04 com prazo às
+09:00, respondido às 15:20; uma sessão homônima em outro projeto; uma sessão caída. O
+exercício útil é pôr no <code>gargalo.py</code> os números do seu time e descobrir a partir de quantos
+agentes você vira a fila. As saídas de referência estão em <code>saida-esperada-*.txt</code>.</p>
+<h2 id="contraexemplo" tabindex="-1" class="callout c-contra" data-rotulo="Limite">Contraexemplo <a class="header-anchor" href="#contraexemplo" aria-hidden="true">#</a></h2>
+<p><strong>Quando o WIP de um é conservador demais.</strong> O limite de uma feature de cada vez é uma
+consequência da restrição, não um valor em si. Se as decisões que um trabalho exige são
+poucas e baratas (correções na raia leve, com testes verdes e reversão trivial), a fila não
+se forma, e manter uma frente só deixa o humano ocioso enquanto os agentes esperam a próxima
+aposta. No exemplo, com quatro agentes e doze minutos por decisão, o humano está ocupado em
+oitenta por cento e ninguém espera [CLAIM-03-026]: ainda cabe trabalho. A regra correta não é
+&quot;uma frente&quot;, é &quot;não passe da capacidade de decisão&quot;, e uma frente é só o jeito mais simples de
+garantir isso quando ninguém mede.</p>
+<p><strong>Quando o painel é débito.</strong> O argumento do YAGNI contra o painel era bom enquanto a escala
+era pequena, e o próprio ADR 0022 diz que ele valia sem escala. Um humano com um ou dois
+agentes lê o estado nos arquivos e no Git sem esforço; construir servidor, ingestão e tela
+para isso é instrumentar antes de ter a quem comparar. Ele também cobra disciplina (sem
+registrar status e deploy, o quadro mostra &quot;—&quot;, risco que o ADR aceita por escrito). E pode
+mentir, como mostrou a tela fria do 072
+[CLAIM-03-010]: uma projeção que exibe &quot;vazio&quot; enquanto calcula é pior que nenhuma, porque
+tem crédito. Painel só vale quando a dor de coordenação é medida, e só se ele declarar os
+próprios estados (carregando, defasado, erro de fonte).</p>
+<p><strong>Quando a fila de decisões vira depósito.</strong> Uma fila com prazo e recomendação convida os
+agentes a escalarem tudo, e uma fila em que tudo é escalado é a armadilha do funil com outra
+roupa. A regra &quot;não existe dispensar&quot; agrava o risco, porque nada sai da fila sem ruling ou
+devolução. A fila só funciona se a política tirar dela as classes de decisão que não precisam
+do humano; caso contrário, a frase-chave vira um contador que só cresce e o humano aprende a
+não olhar.</p>
+<p><strong>Quando a execução contínua passa do ponto.</strong> &quot;Não pergunte se pode continuar&quot; pressupõe que
+o agente reconhece uma ambiguidade real. Quando ele não reconhece, a regra transforma uma
+pergunta barata numa correção cara depois. O antídoto não é voltar a pedir licença a cada
+passo; é a spec fixar a intenção antes (o <a href="04-a-spec-como-partitura.html">capítulo 4</a>)
+e o agente tratar silêncio da spec como bloqueio.</p>
+<p><strong>Quando a delegação de gate é o atalho.</strong> A delegação por política com crítico independente
+resolveu o funil no 072, mas ela tem custo: o humano deixa de ver os itens. Três dias depois
+dessa delegação, o gate humano de usabilidade reprovou um protótipo que verificadores e a
+regente tinham aprovado (o <a href="02-o-problema-da-confianca.html">capítulo 2</a> conta o
+caso) [CLAIM-03-031]. Baratear o gate não é eliminá-lo: há perguntas, como &quot;isto tem uma história clara
+para quem usa?&quot;, que ainda não têm crítico que as substitua.</p>
+<p><strong>Quando o caso de origem não generaliza.</strong> As falhas de outubro vêm de um projeto, um
+harness e um humano. A saturação na decisão humana é matemática de fila e vale em geral; os
+números (dezessete sessões [CLAIM-03-005], dez horas paradas [CLAIM-03-013]) não. Meça o
+próprio limite antes de adotar o de outro.</p>
+<h2 id="evidência" tabindex="-1">Evidência <a class="header-anchor" href="#evidência" aria-hidden="true">#</a></h2>
+<p>O que sustenta o capítulo, separado pelo grau de confiança. Todos os claims estão em
+<a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/03-um-humano-muitos-agentes/claims.md"><code>claims.md</code></a>, com a evidência reproduzível.</p>
+<p><strong>Medido (um comando reproduz):</strong> a saturação da vazão na capacidade de decisão e o efeito
+de baratear o gate e de paralelizar dentro da feature, no modelo determinístico do exemplo
+[CLAIM-03-026]; as regras da fila e a frase-chave derivada [CLAIM-03-027]; o tamanho do livro
+de ponto de tarefas [CLAIM-03-017]; a ausência de linha para o ADR 0022 no índice de decisões
+[CLAIM-03-025]; os sete nomes de sessão do lançador [CLAIM-03-016].</p>
+<p><strong>Observado (lido no artefato citado, com data):</strong> o WIP de um em agosto [CLAIM-03-001]; a
+ficha da frota e o painel recusado por YAGNI [CLAIM-03-002] [CLAIM-03-003]; a lacuna da fila
+sem dono [CLAIM-03-004]; a escala do projeto Hindiana e as falhas de estado, endereço e espera
+[CLAIM-03-005] a [CLAIM-03-008]; a integração da linha paralela e o ADR 0022 [CLAIM-03-009];
+os dois defeitos do painel de regência, achados R1 e R7 da jornada de uso [CLAIM-03-010] [CLAIM-03-011]; a queda do time e as
+duas correções do lançador [CLAIM-03-012] [CLAIM-03-013]; o padrão de cadência, de painel e
+de fila [CLAIM-03-014] a [CLAIM-03-024].</p>
+<p><strong>Hipótese (plausível, não testada aqui):</strong></p>
+<ul>
+<li>A extensão do axioma A3 à atenção de quem rege (a atenção humana degrada com ruído como a
+janela do agente) é um argumento por analogia [CLAIM-03-028].</li>
+<li>A hipótese H4 da agenda de pesquisa, &quot;multiagente só ajuda com cortes independentes&quot;, é
+compatível com o que este capítulo mostra, mas o histórico do Maestro não a testa: não há
+grupo de controle, e o caso Hindiana mistura escala com mudança de projeto [CLAIM-03-029].</li>
+<li>A <strong>espera humana</strong> não é medida de forma sistemática no Maestro em <code>19823c2</code>: os casos de
+sete e vinte e quatro horas [CLAIM-03-008] vêm de relato escrito, não de registro com carimbo; a fila do
+072 cria a fonte, mas não há série histórica [CLAIM-03-030]. O
+<a href="15-validando-o-maestro.html">capítulo 15</a> descreve como medi-la.</li>
+</ul>
+<p>O que a recomendação deste capítulo deve a essas hipóteses fica dito. A regra central (medir o
+trabalho em curso em decisões humanas e escalar barateando o gate) se apoia na matemática de
+fila, medida no exemplo [CLAIM-03-026], e não nelas. O que depende delas é a <strong>calibragem</strong>:
+quanto custa uma decisão, a partir de que ocupação a atenção de quem rege começa a errar,
+que espera é tolerável. Como o Maestro ainda não tem série histórica de espera
+[CLAIM-03-030], nenhum desses números é transferível; o primeiro passo de segunda-feira é
+registrar a própria fila (o <code>fila.py</code> do exemplo basta) por duas semanas antes de fixar
+limite algum. Se a analogia do A3 [CLAIM-03-028] estiver errada, o limite de decisões por dia
+fica mais alto, mas continua existindo.</p>
+<p>Dois limites do argumento ficam registrados. Primeiro, o modelo de fila do exemplo é
+determinístico; filas reais têm variabilidade, e com ela a espera começa a crescer <strong>antes</strong>
+de cem por cento de ocupação, o que torna o argumento mais forte, não mais fraco. Segundo, os
+números de outubro são de um relato da sessão de coordenação do projeto, preservado como
+insumo do ciclo 066; eles são consistentes com o ADR 0022, que os cita, mas não foram
+recontados a partir das fontes primárias, que estão fora do repositório do método. E a própria
+fonte tem uma inconsistência aritmética: o ADR 0022 e a spec 066 falam em &quot;16 sessões&quot;, mas a
+lista do ADR (duas de coordenação, dois gerentes, treze workers) soma dezessete, e o banco do
+painel do projeto, no mesmo insumo, registra dezessete sessões. Este capítulo usa dezessete e
+trata o número como observado com discrepância declarada [CLAIM-03-005]. Terceiro, a parada
+de dez horas [CLAIM-03-013] é o único fato posterior à versão de referência <code>19823c2</code>: vem
+da mensagem do commit <code>8c79331</code>, de 1º de novembro.</p>
+<h2 id="checklist" tabindex="-1" class="callout c-verif" data-rotulo="Aplique">Checklist <a class="header-anchor" href="#checklist" aria-hidden="true">#</a></h2>
+<p>Itens que você aplica no próprio time, cada um com uma verificação.</p>
+<ul>
+<li>[ ] <strong>Capacidade de decisão medida.</strong> Você sabe quantas decisões por dia consegue tomar com
+qualidade e quanto custa cada uma. Verificação: rode <code>gargalo.py</code> com os seus números e
+anote a partir de quantos agentes a fila aparece.</li>
+<li>[ ] <strong>WIP medido em decisões.</strong> O quadro do time mostra quantas decisões humanas estão
+pendentes, e não só quantas tarefas estão abertas. Verificação: a resposta a &quot;o que espera
+por mim agora?&quot; sai de um comando ou de uma tela, não da memória.</li>
+<li>[ ] <strong>Paralelismo dentro, não entre.</strong> Toda frente paralela aberta neste mês tem spec e
+plano aprovados antes de os agentes começarem. Verificação: liste as branches ativas e
+confira, para cada uma, a data do aceite da spec.</li>
+<li>[ ] <strong>Responsabilidade pela política.</strong> Existe uma lista escrita de classes de decisão que
+<strong>não</strong> passam por você, e uma das que sempre passam. Verificação: a lista está num arquivo
+versionado e tem data.</li>
+<li>[ ] <strong>Cerimônias com função nomeada.</strong> Cada cerimônia que o time mantém tem a função escrita
+ao lado. Verificação: nenhuma linha diz &quot;porque sempre fizemos&quot;.</li>
+<li>[ ] <strong>Apetite no lugar de prazo.</strong> Cada aposta tem o tempo que merece, e o que não coube foi
+cortado em escopo, não estendido. Verificação: o último ciclo que estourou tem um registro
+do que foi cortado.</li>
+<li>[ ] <strong>Pedido de decisão estruturado.</strong> Toda pergunta ao humano tem id, quem pediu, opções,
+recomendação, prazo, o que destrava e destino da resposta. Verificação: um pedido sem prazo
+é recusado por script, como no <code>fila.py</code>.</li>
+<li>[ ] <strong>Estado derivado, não digitado.</strong> O &quot;onde está cada coisa&quot; é calculado de arquivos ou
+de eventos com carimbo, e nenhum agente escreve o próprio status à mão. Verificação: apague
+o painel e reconstrua; a projeção sai igual.</li>
+<li>[ ] <strong>Endereço não se adivinha.</strong> Mensagens entre sessões usam um identificador que
+distingue homônimos, e endereço ambíguo é recusado. Verificação: crie duas sessões com o
+mesmo nome e confira que a entrega falha em vez de escolher uma.</li>
+<li>[ ] <strong>Queda prevista.</strong> Existe um jeito testado de retomar o time inteiro com o contexto de
+cada sessão. Verificação: o teste roda em modo de ensaio, sem abrir sessão real.</li>
+<li>[ ] <strong>O painel declara os próprios estados.</strong> Vazio, carregando, defasado e erro de fonte têm
+cara própria, e fonte ausente aparece como &quot;—&quot; com motivo. Verificação: abra a tela com o
+servidor frio e veja o que ela diz.</li>
+<li>[ ] <strong>Espera humana medida.</strong> Você sabe a espera média e a máxima da última semana, e
+quantos pedidos estouraram o prazo. Verificação: o número sai do registro, como no
+<code>fila.py</code>.</li>
+</ul>
+<h2 id="referências" tabindex="-1">Referências <a class="header-anchor" href="#referências" aria-hidden="true">#</a></h2>
+<ul>
+<li>Axiomas, teoremas e corolários do Maestro (A1, A2, A3).
+https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/axioms.md</li>
+<li>Constituição do Maestro, Princípio II.
+https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/principles.md</li>
+<li>Modelo operacional do Maestro, §5 (cerimônias e cadência) e §6 (catálogo de artefatos).
+https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/operating-model.md</li>
+<li>Glossário do Maestro (&quot;Ref de sessão&quot;, &quot;Endereçar por ref&quot;, &quot;Painel de regência&quot;, &quot;Pedido de
+decisão&quot;, &quot;Ruling&quot;, &quot;Portão do regente&quot;, &quot;Frase-chave&quot;, &quot;Registrar ruling&quot;).
+https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/glossary.md</li>
+<li>Protocolo de tags e livro de ponto de tarefas.
+https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/task-ledger.md</li>
+<li>Índice de scripts do Maestro.
+https://github.com/GHDaru/maestro/blob/19823c2/scripts/README.md</li>
+<li>Lançador multissessão e o teste da retomada.
+https://github.com/GHDaru/maestro/blob/19823c2/scripts/multi-session.py ·
+https://github.com/GHDaru/maestro/blob/19823c2/scripts/test_multi_session_retomar.py</li>
+<li>ADR 0022 — Painel de coordenação como projeção dos arquivos.
+https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0022-painel-de-coordenacao-como-projecao-dos-arquivos.md</li>
+<li>ADR 0031 — Abas de contexto no topo.
+https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0031-abas-de-contexto-no-topo.md</li>
+<li>Specs dos ciclos 066 (painel v0), 068 (chamados gate a gate) e 072 (painel de regência), e o
+insumo do ciclo 066.
+https://github.com/GHDaru/maestro/blob/19823c2/specs/066-painel-de-coordenacao-v0/spec.md ·
+https://github.com/GHDaru/maestro/blob/19823c2/specs/068-chamados-gate-a-gate/spec.md ·
+https://github.com/GHDaru/maestro/blob/19823c2/specs/072-painel-de-regencia/spec.md ·
+https://github.com/GHDaru/maestro/blob/19823c2/specs/066-painel-de-regencia/insumo-hindiana.md</li>
+<li>Desenho de interface do painel de regência (jornada às 07:00, anti-regras).
+https://github.com/GHDaru/maestro/blob/19823c2/specs/066-painel-de-regencia/ux-design.md</li>
+<li>Jornada viva do painel de regência, com a heurística datada (R1–R8).
+https://github.com/GHDaru/maestro/blob/19823c2/docs/jornada/072-painel-de-regencia.md</li>
+<li>Índice de decisões (<code>ciclo-066-integra-painel-controle</code>, <code>decisao-072-gates-delegados</code>,
+<code>decisao-074-prototipo-navegavel</code>).
+https://github.com/GHDaru/maestro/blob/19823c2/docs/records/decisoes.jsonl</li>
+<li>Roadmap do Maestro, fases F34 e F35.
+https://github.com/GHDaru/maestro/blob/19823c2/docs/roadmap.md</li>
+<li>Catálogo do ecossistema: ideias 018 (frota de agentes) e 041 (diagrama vivo do time).
+https://github.com/GHDaru/maestro/blob/19823c2/docs/ecosystem/ideias/018-frota-de-agentes.md ·
+https://github.com/GHDaru/maestro/blob/19823c2/docs/ecosystem/ideias/041-diagrama-vivo-do-time.md</li>
+<li>Handbook do Maestro, capítulos 06 (papéis e RACI, §5.2) e 07 (cerimônias e cadência), apêndice
+B (Superpowers, §6) e diagrama 06 (fluxo v5, lacuna 1), na cópia congelada em
+<code>maestro-handbook/</code> deste repositório.</li>
+<li>Base de pesquisa do livro (agenda de métricas e hipóteses H1–H10), em
+<code>pesquisa/base-de-pesquisa.md</code> deste repositório.</li>
+<li>J. D. C. Little. <em>A Proof for the Queuing Formula: L = λW</em>. Operations Research, 9(3), 1961.</li>
+<li>J. F. C. Kingman. <em>The single server queue in heavy traffic</em>. Mathematical Proceedings of the
+Cambridge Philosophical Society, 57(4), 1961.</li>
+<li>E. M. Goldratt e J. Cox. <em>The Goal: A Process of Ongoing Improvement</em>. North River Press, 1984.</li>
+<li>D. G. Reinertsen. <em>The Principles of Product Development Flow</em>. Celeritas Publishing, 2009.</li>
+<li>D. J. Anderson. <em>Kanban: Successful Evolutionary Change for Your Technology Business</em>. Blue Hole
+Press, 2010.</li>
+<li>Commit <code>8c79331</code> do Maestro (01/11/2026, ciclo 075, descendente de <code>19823c2</code>), cuja
+mensagem registra a parada de dez horas de 31/10; integrado como <code>3c94811</code> na linha da v1.
+Reproduzir num clone do Maestro: <code>git log -1 8c79331</code>.</li>
+<li>R. Singer. <em>Shape Up: Stop Running in Circles and Ship Work that Matters</em>. Basecamp, 2019.
+https://basecamp.com/shapeup (acesso em 02/11/2026).</li>
+</ul>
+</article>
+    <nav class="paginacao" aria-label="Anterior e próximo"><a class="pg-prev" href="02-o-problema-da-confianca-exemplo.html"><small>← anterior</small>Exemplo executável — 02 O problema da confiança</a><a class="pg-next" href="03-um-humano-muitos-agentes-exemplo.html"><small>próximo →</small>Exemplo executável — 03 Um humano, muitos agentes</a></nav>
+    <footer class="rodape">
+      <a href="https://github.com/GHDaru/agentic_software_engineering">github.com/GHDaru/agentic_software_engineering</a>
+       · <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/03-um-humano-muitos-agentes/capitulo.md">fonte desta página</a>
+      · gerado de <code>livro/</code> por <code>publicar/build.mjs</code>
+    </footer>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body></html>

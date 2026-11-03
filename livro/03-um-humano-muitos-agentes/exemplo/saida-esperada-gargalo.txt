@@ -1,0 +1,27 @@
+== um humano, 480 min de atenção, 12 min por decisão (capacidade: 40 decisões/dia)
+   cada agente entrega 1 fatia por hora; colunas em fatias; espera em minutos
+
+A  mais agentes, mesmo gate
+  cenário                      prod decid  fila  esp.méd  esp.máx   ocup
+   1 agente(s)                    8     8     0      0.0      0.0    20%
+   2 agente(s)                   16    16     0      0.0      0.0    40%
+   4 agente(s)                   32    32     0      0.0      0.0    80%
+   5 agente(s)                   40    40     0      0.0      0.0   100%
+   8 agente(s)                   64    40    24     87.8    180.0   100%
+  16 agente(s)                  128    40    88    160.9    330.0   100%
+
+B  8 agentes, gate mais barato (critério verificável, ação reversível)
+  cenário                      prod decid  fila  esp.méd  esp.máx   ocup
+  gate de 12 min                 64    40    24     87.8    180.0   100%
+  gate de  8 min                 64    60     4     14.8     30.0   100%
+  gate de  6 min                 64    64     0      0.0      0.0    80%
+
+C  8 agentes, paralelizar DENTRO da feature (uma decisão por lote de fatias)
+  cenário                      prod decid  fila  esp.méd  esp.máx   ocup
+  1 decisão por fatia (12)       64    40    24     87.8    180.0   100%
+  1 decisão por 4 fatias (20)    64    64     0      0.0      0.0    67%
+  (no lote: 16 decisões de 20 min liberam 64 fatias)
+
+== leitura
+  de 4 para 8 agentes a produção dobra (32 → 64), as liberadas vão de 32 a 40 e 24 fatias dormem na fila
+  o teto é o humano: 40 decisões/dia, com 4, 8 ou 16 agentes

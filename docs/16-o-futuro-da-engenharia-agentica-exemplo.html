@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exemplo executável — 16 O futuro da engenharia agêntica · Engenharia de Software Orientada por Agentes</title>
+<meta name="description" content="Governança operacional para um humano regendo muitos agentes">
+<script>try{var t=localStorage.getItem("tema");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="assets/estilo.css">
+</head><body>
+<header class="barra">
+  <button id="alt-menu" aria-label="Abrir o sumário" aria-expanded="false" aria-controls="sidebar">☰ <span>Sumário</span></button>
+  <a class="barra-titulo" href="index.html">Engenharia de Software Orientada por Agentes</a>
+  <button id="alt-tema" aria-label="Alternar tema claro/escuro">◐</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="marca" href="index.html">Engenharia de Software Orientada por Agentes<small>Agentic Software Engineering</small></a>
+    <div class="nav-parte">Abertura</div><ul><li><a href="00-prefacio.html">Prefácio</a></li></ul><div class="nav-parte">Parte I — Por que agentes mudam a engenharia</div><ul><li><a href="01-a-mudanca-de-unidade-de-trabalho.html">1. A mudança de unidade de trabalho</a></li><li class="filho"><a class="filho" href="01-a-mudanca-de-unidade-de-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="02-o-problema-da-confianca.html">2. O problema da confiança</a></li><li class="filho"><a class="filho" href="02-o-problema-da-confianca-exemplo.html">Exemplo executável</a></li><li><a href="03-um-humano-muitos-agentes.html">3. Um humano, muitos agentes</a></li><li class="filho"><a class="filho" href="03-um-humano-muitos-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte II — Especificar e dar contexto</div><ul><li><a href="04-a-spec-como-partitura.html">4. A spec como partitura</a></li><li class="filho"><a class="filho" href="04-a-spec-como-partitura-exemplo.html">Exemplo executável</a></li><li><a href="05-engenharia-de-contexto.html">5. Engenharia de contexto</a></li><li class="filho"><a class="filho" href="05-engenharia-de-contexto-exemplo.html">Exemplo executável</a></li><li><a href="06-como-dividir-o-trabalho.html">6. Como dividir o trabalho</a></li><li class="filho"><a class="filho" href="06-como-dividir-o-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="07-papeis-e-skills.html">7. Papéis e skills</a></li><li class="filho"><a class="filho" href="07-papeis-e-skills-exemplo.html">Exemplo executável</a></li><li><a href="08-ddd-para-agentes.html">8. DDD para agentes</a></li><li class="filho"><a class="filho" href="08-ddd-para-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte III — Provar e conter</div><ul><li><a href="09-arquitetura-que-se-defende.html">9. Arquitetura que se defende</a></li><li class="filho"><a class="filho" href="09-arquitetura-que-se-defende-exemplo.html">Exemplo executável</a></li><li><a href="10-quality-gates-que-provam-fatos.html">10. Quality gates que provam fatos</a></li><li class="filho"><a class="filho" href="10-quality-gates-que-provam-fatos-exemplo.html">Exemplo executável</a></li><li><a href="11-risco-reversibilidade-e-autonomia.html">11. Risco, reversibilidade e autonomia</a></li><li class="filho"><a class="filho" href="11-risco-reversibilidade-e-autonomia-exemplo.html">Exemplo executável</a></li><li><a href="12-ferramentas-mcp-e-o-ecossistema.html">12. Ferramentas, MCP e o ecossistema</a></li><li class="filho"><a class="filho" href="12-ferramentas-mcp-e-o-ecossistema-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte IV — Medir e aprender</div><ul><li><a href="13-observabilidade-e-economia.html">13. Observabilidade e economia</a></li><li class="filho"><a class="filho" href="13-observabilidade-e-economia-exemplo.html">Exemplo executável</a></li><li><a href="14-a-organizacao-que-aprende.html">14. A organização que aprende</a></li><li class="filho"><a class="filho" href="14-a-organizacao-que-aprende-exemplo.html">Exemplo executável</a></li><li><a href="15-validando-o-maestro.html">15. Validando o Maestro</a></li><li class="filho"><a class="filho" href="15-validando-o-maestro-exemplo.html">Exemplo executável</a></li><li><a href="16-o-futuro-da-engenharia-agentica.html">16. O futuro da engenharia agêntica</a></li><li class="filho"><a class="filho ativo" aria-current="page" href="16-o-futuro-da-engenharia-agentica-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Apêndices</div><ul><li><a href="apendice-a-o-maestro-em-uma-pagina.html">A. O Maestro em uma página</a></li><li><a href="apendice-b-aseg-bench.html">B. ASEG-Bench — um benchmark de governança</a></li><li><a href="apendice-c-pacote-de-replicacao.html">C. Pacote de replicação</a></li><li><a href="apendice-d-estudos-de-campo.html">D. Estudos de campo do ecossistema</a></li></ul><div class="nav-parte">Consulta</div><ul><li><a href="glossario.html">Glossário</a></li><li><a href="evidencias.html">Evidências (claims)</a></li></ul>
+  </aside>
+  <main class="conteudo">
+    <article class="markdown"><h1 id="exemplo-do-capítulo-16--sensibilidade-gatilhos-e-calendário" tabindex="-1">Exemplo do capítulo 16 — sensibilidade, gatilhos e calendário <a class="header-anchor" href="#exemplo-do-capítulo-16--sensibilidade-gatilhos-e-calendário" aria-hidden="true">#</a></h1>
+<p>Um script, <code>futuro.py</code>, em Python 3 (3.8 ou mais novo), sem dependência externa. Os dados estão
+em <code>dados/</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Arquivo</th>
+<th>O que é</th>
+<th>Fonte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>axiomas.json</code></td>
+<td>de quais axiomas cada teorema deriva, e de quais teoremas/axiomas cada corolário</td>
+<td><code>maestro@19823c2:docs/governance/axioms.md</code></td>
+</tr>
+<tr>
+<td><code>estado.jsonl</code></td>
+<td>o índice do catálogo do ecossistema, como está</td>
+<td><code>maestro@19823c2:docs/ecosystem/estado.jsonl</code></td>
+</tr>
+<tr>
+<td><code>eventos.jsonl</code></td>
+<td>eventos que tocaram gatilhos, cada um com prova (proposta do livro)</td>
+<td>spec do ciclo 065; commits <code>d5feef2</code> e <code>d71cee6</code></td>
+</tr>
+<tr>
+<td><code>ai-act.json</code></td>
+<td>marcos do <em>AI Act</em>, data original e data alterada, com data da última conferência (<code>conferido_em</code>) e validade</td>
+<td>Regulamento (UE) 2024/1689, art. 113, alterado pelo Regulamento (UE) 2026/1744 — conferido em eur-lex.europa.eu em 02/11/2026; material didático, não parecer jurídico</td>
+</tr>
+</tbody>
+</table>
+<h2 id="como-rodar" tabindex="-1">Como rodar <a class="header-anchor" href="#como-rodar" aria-hidden="true">#</a></h2>
+<p>Da raiz do livro:</p>
+<pre><code class="language-bash">python livro/16-o-futuro-da-engenharia-agentica/exemplo/futuro.py demo
+</code></pre>
+<p>Outros comandos:</p>
+<pre><code class="language-bash">python futuro.py sensibilidade A3 A4                      # cenário: quais regras perdem apoio
+python futuro.py gatilhos ESTADO.jsonl EVENTOS.jsonl      # sai 1 se algum gatilho disparou sem reavaliação
+python futuro.py calendario 2027-12-02                    # o que do AI Act vale nessa data (sai 1 se o dado venceu)
+</code></pre>
+<p>Códigos de saída: 0 = conforme · 1 = achado · 2 = erro de uso.</p>
+<h2 id="saída-esperada-demo-código-0" tabindex="-1">Saída esperada (<code>demo</code>, código 0) <a class="header-anchor" href="#saída-esperada-demo-código-0" aria-hidden="true">#</a></h2>
+<pre><code class="language-text">1. Sensibilidade do método à próxima geração de modelos
+ a) cenário 'janela maior e que não degrada' (A3 enfraquece)
+  axiomas enfraquecidos: A3
+  teoremas expostos   3/7: T2 T5 T6
+  teoremas sem apoio  0/7: -
+  teoremas intactos   4/7: T1 T3 T4 T7
+  corolários expostos 7/13; sem apoio 0/13: -
+ b) cenário 'janela maior e memória persistente do fornecedor' (A3 e A4 enfraquecem)
+  axiomas enfraquecidos: A3, A4
+  teoremas expostos   6/7: T1 T2 T4 T5 T6 T7
+  teoremas sem apoio  2/7: T5 T6
+  teoremas intactos   1/7: T3
+  corolários expostos 12/13; sem apoio 4/13: C1 C9 C10 C12
+ c) cenário de controle: o que nenhum modelo muda (A1, A2, A5) segue de pé
+  axiomas enfraquecidos: (nenhum)
+  teoremas expostos   0/7: -
+  teoremas sem apoio  0/7: -
+  teoremas intactos   7/7: T1 T2 T3 T4 T5 T6 T7
+  corolários expostos 0/13; sem apoio 0/13: -
+
+2. Gatilhos de reavaliação: escritos × vigiados (índice real, maestro@19823c2)
+ a) o índice como está
+  ideias em 'observar': 16
+  portão antigo (todo 'observar' tem gatilho?): VERDE
+  portão novo (algum gatilho disparou sem reavaliação?): VERMELHO — 2
+    ✗ trilha-com-custo: estado 'observar' desde 2026-07-31; gatilho: &quot;alguem precisar responder quanto custou este ciclo com numero, e nao com estimativa&quot;
+        disparado em 2026-10-12: o humano pede o custo com número ('Quero ver quanto estou gastando') e o ciclo 065 constrói o livro de ponto [maestro@19823c2:specs/065-o-metodo-se-cobra-e-bate-o-ponto/spec.md; ADR 0021]
+    ✗ worktree-por-task: estado 'observar' desde 2026-08-10; gatilho: &quot;dois ou mais agentes escrevendo no mesmo repositorio ao mesmo tempo, com conflito observado&quot;
+        disparado em 2026-10-20: ciclo 066 entrega lançador de sessões por modelo e worktree (agentes em paralelo no mesmo repositório) [maestro commit d5feef2]
+        disparado em 2026-10-25: ciclo 072 integra a worktree de um trabalhador com 'conflitos resolvidos' na mensagem do commit [maestro commit d71cee6]
+ b) depois de anexar uma linha de reavaliação para cada ideia disparada
+  ideias em 'observar': 15
+  portão antigo (todo 'observar' tem gatilho?): VERDE
+  portão novo (algum gatilho disparou sem reavaliação?): VERDE — nenhum
+
+3. O relógio regulatório: AI Act
+ a) em 2026-11-02
+  data consultada: 2026-11-02
+  frescor do dado: OK — conferido em 2026-11-02, válido até 2027-01-31
+    proibições originais (art. 5) e letramento em IA (art. 4)
+      original 2025-02-02 (aplica) · alterado 2025-02-02 (aplica) · conteúdo mudou? sim no art. 4: o 2026/1744 o reescreve como 'tomar medidas que apoiem' o letramento, sem exigir nível garantido
+  ↻ proibições novas: imagem íntima sem consentimento e abuso sexual infantil (art. 5(1)(ba)(bb), 5(1a), 5(1b))
+      original não existia · alterado 2026-12-02 (ainda não) · conteúdo mudou? sim: proibição nova, criada pelo 2026/1744
+    modelos de IA de uso geral (cap. V), governança e penalidades (art. 113, alínea b)
+      original 2025-08-02 (aplica) · alterado 2025-08-02 (aplica) · conteúdo mudou? pouco: arts. 51–55 intactos; mudam o art. 56(6) (códigos de prática) e o art. 99 (penalidades)
+    transparência do art. 50 (avisar que se fala com IA; marcar conteúdo sintético)
+      original 2026-08-02 (aplica) · alterado 2026-08-02 (aplica) · conteúdo mudou? pouco: só o art. 50(7) (códigos de prática) é reescrito
+  ↻ marcação de conteúdo sintético (art. 50(2)) para sistema generativo no mercado antes de 2026-08-02
+      original 2026-08-02 (aplica) · alterado 2026-12-02 (ainda não) · conteúdo mudou? não: o 2026/1744 dá prazo de transição (art. 111(4))
+  ↻ alto risco do Anexo III (emprego, crédito, educação...): cap. III, seções 1 a 3
+      original 2026-08-02 (aplica) · alterado 2027-12-02 (ainda não) · conteúdo mudou? sim, em parte: arts. 9, 12, 13, 14 e 15 intactos; arts. 6, 10 e 11 alterados; legado só entra se mudar de forma significativa (art. 111(2))
+  ↻ alto risco embutido em produto regulado (art. 6(1), Anexo I)
+      original 2027-08-02 (ainda não) · alterado 2028-08-02 (ainda não) · conteúdo mudou? sim, em parte: o mesmo das linhas acima, mais mudanças no Anexo I
+  marcos com data alterada ou criados: 4 de 7
+ b) o mesmo dado consultado em 2027-03-01, sem nova conferência
+  frescor do dado: VENCIDO — conferido em 2026-11-02, vencido desde 2027-01-31: reconfira no Jornal Oficial
+
+roteiro: OK — os resultados esperados apareceram
+</code></pre>
+<h2 id="o-que-o-ok-prova-e-o-que-não-prova" tabindex="-1">O que o &quot;OK&quot; prova, e o que não prova <a class="header-anchor" href="#o-que-o-ok-prova-e-o-que-não-prova" aria-hidden="true">#</a></h2>
+<p>As partes 1 e 3 conferem a <strong>coerência do script com os próprios dados</strong>: <code>axiomas.json</code> foi
+copiado à mão de <code>axioms.md</code>, e <code>ai-act.json</code> foi digitado a partir do Jornal Oficial. Um erro
+de cópia passa verde. A parte 2 é a única independente, porque lê o índice real do catálogo.
+O que a parte 3 acrescenta de não circular é o <strong>frescor</strong>: o dado carrega <code>conferido_em</code> e
+<code>validade_dias</code>, e o script recusa responder (sai 1) quando a data consultada passou da
+validade. Isso não prova que as datas estão certas; obriga alguém a reconferi-las.</p>
+</article>
+    <nav class="paginacao" aria-label="Anterior e próximo"><a class="pg-prev" href="16-o-futuro-da-engenharia-agentica.html"><small>← anterior</small>16 — O futuro da engenharia agêntica</a><a class="pg-next" href="apendice-a-o-maestro-em-uma-pagina.html"><small>próximo →</small>Apêndice A — O Maestro em uma página</a></nav>
+    <footer class="rodape">
+      <a href="https://github.com/GHDaru/agentic_software_engineering">github.com/GHDaru/agentic_software_engineering</a>
+       · <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/16-o-futuro-da-engenharia-agentica/exemplo/README.md">fonte desta página</a>
+      · gerado de <code>livro/</code> por <code>publicar/build.mjs</code>
+    </footer>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body></html>

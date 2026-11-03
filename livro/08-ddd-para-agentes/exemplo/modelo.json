@@ -1,0 +1,43 @@
+{
+  "dominio": "central de atendimento",
+  "idioma": {"tela": "pt-BR", "codigo": "en"},
+  "contextos": {
+    "atendimento": {"tipo": "nucleo", "dono": "src/atendimento/"},
+    "mensageria": {"tipo": "apoio", "dono": "src/mensageria/"},
+    "faturamento": {"tipo": "generico", "dono": "src/faturamento/"}
+  },
+  "termos": [
+    {"tela": "Chamado", "codigo": "Ticket", "contexto": "atendimento",
+     "definicao": "Pedido de ajuda de um cliente; a raiz do agregado de atendimento.",
+     "apelidos": ["Request", "Solicitação", "Ocorrência", "Issue"]},
+    {"tela": "Cliente", "codigo": "Customer", "contexto": "atendimento",
+     "definicao": "Quem abre o chamado e recebe a resposta.",
+     "apelidos": ["Client", "Usuário final", "Consumidor"]},
+    {"tela": "Fila de atendimento", "codigo": "ServiceQueue", "contexto": "atendimento",
+     "definicao": "Chamados à espera de um atendente, em ordem de prazo de resposta.",
+     "apelidos": []},
+    {"tela": "Prazo de resposta", "codigo": "responseDueAt", "contexto": "atendimento",
+     "definicao": "Quando o chamado precisa da primeira resposta, pelo SLA contratado.",
+     "apelidos": ["Deadline"]},
+    {"tela": "Mensagem", "codigo": "Message", "contexto": "mensageria",
+     "definicao": "Texto enviado ao cliente por um canal; imutável depois de enviado.",
+     "apelidos": ["Msg", "Comunicado"]},
+    {"tela": "Fila de saída", "codigo": "Outbox", "contexto": "mensageria",
+     "definicao": "Mensagens gravadas e ainda não entregues ao canal.",
+     "apelidos": []},
+    {"tela": "Fatura", "codigo": "Invoice", "contexto": "faturamento",
+     "definicao": "Cobrança mensal do contrato do cliente.",
+     "apelidos": ["Bill"]},
+    {"tela": "Prazo de pagamento", "codigo": "paymentDueAt", "contexto": "faturamento",
+     "definicao": "Data limite para pagar a fatura sem multa.",
+     "apelidos": []}
+  ],
+  "familias": {
+    "fila": "sempre qualificada: fila de atendimento ou fila de saída",
+    "prazo": "sempre qualificado: prazo de resposta ou prazo de pagamento"
+  },
+  "siglas": {
+    "SLA": "Service Level Agreement",
+    "API": "Application Programming Interface"
+  }
+}

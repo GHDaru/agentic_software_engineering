@@ -1,0 +1,10 @@
+{
+  "leitor": {
+    "ler_doc": "allow"
+  },
+  "construtor": {
+    "ler_doc": "allow",
+    "registrar_status": "allow",
+    "apagar_registro": "ask"
+  }
+}

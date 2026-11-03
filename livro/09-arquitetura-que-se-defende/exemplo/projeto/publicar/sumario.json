@@ -1,0 +1,11 @@
+{
+  "partes": [
+    {"titulo": "Parte I", "itens": [
+      {"arquivo": "docs/livro/capitulo-1.md"},
+      {"arquivo": "docs/governanca/principios.md"}
+    ]}
+  ],
+  "materiais": [
+    {"arquivo": "docs/livro/apresentacao.html", "titulo": "Apresentação"}
+  ]
+}

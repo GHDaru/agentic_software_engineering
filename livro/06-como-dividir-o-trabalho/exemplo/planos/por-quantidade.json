@@ -1,0 +1,11 @@
+{
+  "nome": "o mesmo trabalho, cortado por QUANTIDADE",
+  "criterio": "seis mudanças, duas para cada agente, na ordem da lista",
+  "custo_handoff": 1,
+  "contratos_existentes": ["fixtures/sessao.json"],
+  "fatias": [
+    {"id": "A", "escreve": ["dominio.js", "casca.js"],  "define": ["quemPrecisaDeVoce"], "consome": ["fixtures/sessao.json"], "custo": 3},
+    {"id": "B", "escreve": ["casca.js", "entrada.js"],  "define": ["api.contarMenu"],    "consome": ["quemPrecisaDeVoce"], "custo": 3},
+    {"id": "C", "escreve": ["andares.js", "sonda.py"],  "define": [],                    "consome": ["quemPrecisaDeVoce", "api.contarMenu", "contagem-dos-andares"], "custo": 3}
+  ]
+}

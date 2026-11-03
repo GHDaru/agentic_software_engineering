@@ -1,0 +1,83 @@
+
+== 1. três sessões nomeiam a mesma tarefa: cada nome recebe REUSE, ALIAS, EXTEND ou CREATE
+tarefa: avisar o atendente quando um chamado estoura o prazo de resposta
+  ✓ sessão A  Ticket                 REUSE     já existe: Chamado (Ticket, atendimento)
+  ✓ sessão A  Request                ALIAS     apelido de Chamado (Ticket): use o termo do modelo
+  ✗ sessão A  Fila                   RECUSADO  termo nu — sempre qualificada: fila de atendimento ou fila de saída
+  ✓ sessão B  Chamado                REUSE     já existe: Chamado (Ticket, atendimento)
+  ✓ sessão B  Ocorrência             ALIAS     apelido de Chamado (Ticket): use o termo do modelo
+  ✓ sessão B  Prazo de resposta      REUSE     já existe: Prazo de resposta (responseDueAt, atendimento)
+  ✓ sessão B  Prazo de reabertura    EXTEND    nova forma qualificada da família 'prazo' em atendimento: entra no modelo antes do código
+  ✓ sessão C  Client                 ALIAS     apelido de Cliente (Customer): use o termo do modelo
+  ✓ sessão C  Alerta de estouro      CREATE    termo novo em atendimento, com definição: entra no modelo antes do código
+  ✗ sessão C  Status                 RECUSADO  termo novo sem definição nem contexto — nome que ninguém definiu é o sinônimo de amanhã
+resumo: REUSE 3 · ALIAS 3 · EXTEND 1 · CREATE 1 · RECUSADO 2
+  10 nomes propostos por 3 sessões → 5 identificadores (2 novos, com definição)
+  4 nomes para Ticket: Chamado, Ocorrência, Request, Ticket
+(exit 1)
+
+== 2. o texto de tela que a sessão A escreveu sem o catálogo
+lint tela-ruim.md
+  ✗ linha 3: sigla nua na 1ª ocorrência: SLA — escreva 'Service Level Agreement (SLA)'
+  ✗ linha 3: apelido 'Request' — o termo do modelo é 'Chamado' (Ticket)
+  ✗ linha 4: termo nu: 'fila' — sempre qualificada: fila de atendimento ou fila de saída
+  ✗ linha 4: termo nu: 'prazo' — sempre qualificado: prazo de resposta ou prazo de pagamento
+  ✗ linha 5: sigla nua na 1ª ocorrência: API — escreva 'Application Programming Interface (API)'
+  ✗ linha 5: apelido 'Client' — o termo do modelo é 'Cliente' (Customer)
+✗ 6 achado(s).
+(exit 1)
+
+== 3. o mesmo texto depois do catálogo
+lint tela-boa.md
+✓ nenhum achado: siglas expandidas, nenhum termo nu, nenhum apelido.
+(exit 0)
+
+== 4. o plano que pulou o domínio (só diz 'usar DDD')
+plano plan-sem-dom.md
+  ✗ modelo de domínio nunca declarado: aggregate invariants glossary ports
+✗ 1 achado(s).
+(exit 1)
+
+== 5. o plano que pôs uma regra na borda sem dizer por quê
+plano plan-edge-sem-motivo.md
+  ✗ invariants: 'alerta_sai_uma_vez=edge' é borda sem motivo — escreva alerta_sai_uma_vez=edge(por que não pode ser domínio)
+✗ 1 achado(s).
+(exit 1)
+
+== 6. o plano com as quatro declarações e o motivo da borda
+plano plan-ok.md
+✓ modelo de domínio declarado (aggregate, invariants, glossary, ports), cada um com motivo.
+(exit 0)
+
+== 7. endereço: ambíguo ou morto é recusado, nunca adivinhado
+  ✗ 'Gerente' → RECUSADO: ambíguo (2 sessões vivas: [a1b2c3] · loja, [d4e5f6] · site); diga nome [ref] · projeto
+  ✓ 'Gerente · loja' → entrega a Gerente [a1b2c3] · loja
+  ✓ 'Revisor · loja' → entrega a Revisor [7f7f7f] · loja
+  ✗ 'Revisor [0a0a0a] · loja' → RECUSADO: ref morto ou inexistente; não cai para o nome
+(exit 1)
+
+== 8a. o glossário gerado confere com o modelo
+conferir glossario-gerado.md contra modelo.json
+  ✓ carimbo bate e o texto regerado do modelo é idêntico, byte a byte
+(exit 0)
+
+== 8b. alguém 'corrige' o glossário à mão
+conferir glossario-gerado.md contra modelo.json
+  ✗ linha 7 difere do que o modelo gera:
+      no arquivo: | Cliente | `Customer` | atendimento | Quem paga o contrato. |
+      do modelo : | Cliente | `Customer` | atendimento | Quem abre o chamado e recebe a resposta. |
+(exit 1)
+
+== 8c. alguém muda o modelo e não regera o glossário
+conferir glossario-gerado.md contra modelo.json
+  ✗ o modelo mudou depois da geração (gravado 4c82337ada86…, atual 63a1e405b037…)
+  ✗ linha 11 difere do que o modelo gera:
+      no arquivo: | Prazo de pagamento | `paymentDueAt` | faturamento | Data limite para pagar a fatura sem multa. |
+      do modelo : | Prazo de pagamento | `paymentDueAt` | faturamento | Data limite para pagar sem juros. |
+(exit 1)
+
+== 9. as réguas discriminam? (fixture boa limpa, fixture ruim pega)
+  lint   boa 0 achado(s) · ruim 6 achado(s) · discrimina: sim
+  plano  boa 0 achado(s) · ruim 3 achado(s) · discrimina: sim
+✓ as duas réguas discriminam.
+(exit 0)

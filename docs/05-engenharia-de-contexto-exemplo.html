@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exemplo executável — 05 Engenharia de contexto · Engenharia de Software Orientada por Agentes</title>
+<meta name="description" content="Governança operacional para um humano regendo muitos agentes">
+<script>try{var t=localStorage.getItem("tema");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="assets/estilo.css">
+</head><body>
+<header class="barra">
+  <button id="alt-menu" aria-label="Abrir o sumário" aria-expanded="false" aria-controls="sidebar">☰ <span>Sumário</span></button>
+  <a class="barra-titulo" href="index.html">Engenharia de Software Orientada por Agentes</a>
+  <button id="alt-tema" aria-label="Alternar tema claro/escuro">◐</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="marca" href="index.html">Engenharia de Software Orientada por Agentes<small>Agentic Software Engineering</small></a>
+    <div class="nav-parte">Abertura</div><ul><li><a href="00-prefacio.html">Prefácio</a></li></ul><div class="nav-parte">Parte I — Por que agentes mudam a engenharia</div><ul><li><a href="01-a-mudanca-de-unidade-de-trabalho.html">1. A mudança de unidade de trabalho</a></li><li class="filho"><a class="filho" href="01-a-mudanca-de-unidade-de-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="02-o-problema-da-confianca.html">2. O problema da confiança</a></li><li class="filho"><a class="filho" href="02-o-problema-da-confianca-exemplo.html">Exemplo executável</a></li><li><a href="03-um-humano-muitos-agentes.html">3. Um humano, muitos agentes</a></li><li class="filho"><a class="filho" href="03-um-humano-muitos-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte II — Especificar e dar contexto</div><ul><li><a href="04-a-spec-como-partitura.html">4. A spec como partitura</a></li><li class="filho"><a class="filho" href="04-a-spec-como-partitura-exemplo.html">Exemplo executável</a></li><li><a href="05-engenharia-de-contexto.html">5. Engenharia de contexto</a></li><li class="filho"><a class="filho ativo" aria-current="page" href="05-engenharia-de-contexto-exemplo.html">Exemplo executável</a></li><li><a href="06-como-dividir-o-trabalho.html">6. Como dividir o trabalho</a></li><li class="filho"><a class="filho" href="06-como-dividir-o-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="07-papeis-e-skills.html">7. Papéis e skills</a></li><li class="filho"><a class="filho" href="07-papeis-e-skills-exemplo.html">Exemplo executável</a></li><li><a href="08-ddd-para-agentes.html">8. DDD para agentes</a></li><li class="filho"><a class="filho" href="08-ddd-para-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte III — Provar e conter</div><ul><li><a href="09-arquitetura-que-se-defende.html">9. Arquitetura que se defende</a></li><li class="filho"><a class="filho" href="09-arquitetura-que-se-defende-exemplo.html">Exemplo executável</a></li><li><a href="10-quality-gates-que-provam-fatos.html">10. Quality gates que provam fatos</a></li><li class="filho"><a class="filho" href="10-quality-gates-que-provam-fatos-exemplo.html">Exemplo executável</a></li><li><a href="11-risco-reversibilidade-e-autonomia.html">11. Risco, reversibilidade e autonomia</a></li><li class="filho"><a class="filho" href="11-risco-reversibilidade-e-autonomia-exemplo.html">Exemplo executável</a></li><li><a href="12-ferramentas-mcp-e-o-ecossistema.html">12. Ferramentas, MCP e o ecossistema</a></li><li class="filho"><a class="filho" href="12-ferramentas-mcp-e-o-ecossistema-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte IV — Medir e aprender</div><ul><li><a href="13-observabilidade-e-economia.html">13. Observabilidade e economia</a></li><li class="filho"><a class="filho" href="13-observabilidade-e-economia-exemplo.html">Exemplo executável</a></li><li><a href="14-a-organizacao-que-aprende.html">14. A organização que aprende</a></li><li class="filho"><a class="filho" href="14-a-organizacao-que-aprende-exemplo.html">Exemplo executável</a></li><li><a href="15-validando-o-maestro.html">15. Validando o Maestro</a></li><li class="filho"><a class="filho" href="15-validando-o-maestro-exemplo.html">Exemplo executável</a></li><li><a href="16-o-futuro-da-engenharia-agentica.html">16. O futuro da engenharia agêntica</a></li><li class="filho"><a class="filho" href="16-o-futuro-da-engenharia-agentica-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Apêndices</div><ul><li><a href="apendice-a-o-maestro-em-uma-pagina.html">A. O Maestro em uma página</a></li><li><a href="apendice-b-aseg-bench.html">B. ASEG-Bench — um benchmark de governança</a></li><li><a href="apendice-c-pacote-de-replicacao.html">C. Pacote de replicação</a></li><li><a href="apendice-d-estudos-de-campo.html">D. Estudos de campo do ecossistema</a></li></ul><div class="nav-parte">Consulta</div><ul><li><a href="glossario.html">Glossário</a></li><li><a href="evidencias.html">Evidências (claims)</a></li></ul>
+  </aside>
+  <main class="conteudo">
+    <article class="markdown"><h1 id="exemplo-do-capítulo-5--as-quatro-operações-do-contexto-medidas" tabindex="-1">Exemplo do capítulo 5 — as quatro operações do contexto, medidas <a class="header-anchor" href="#exemplo-do-capítulo-5--as-quatro-operações-do-contexto-medidas" aria-hidden="true">#</a></h1>
+<p>O que este exemplo prova, em doze passos, num projeto de brinquedo (uma loja que ganha cupom
+de desconto no ciclo 007):</p>
+<ul>
+<li><strong>Seleção</strong> — uma tarefa cortada pela fronteira carrega 10% do repositório; a tarefa que
+atravessa o código inteiro carrega 82%, e essa economia baixa é sinal de <strong>corte errado</strong>,
+não de janela pequena. A tarefa que não cita nada manda o executor procurar o contexto
+sozinho.</li>
+<li><strong>Compressão</strong> — quando a janela compacta e só fica o <code>tasks.md</code> que o executor segue, o
+que morava na spec e na conversa (revisão independente, segurança, gate humano) é
+<strong>apagado, não degradado</strong>. Escritos como <em>token</em> no <code>tasks.md</code>, os mesmos fatos sobrevivem.</li>
+<li><strong>Persistência</strong> — um índice de decisões só-acréscimo: o script recusa id repetido e
+registro que aponta para um marcador, e um comparador acusa a linha reescrita.</li>
+<li><strong>Transferência</strong> — <code>CLAUDE.md</code> e <code>AGENTS.md</code> escritos à mão divergem do disco (uma skill
+invisível nas duas, a regra &quot;skills primeiro&quot; ausente numa). Com fonte única e o bloco de
+skills <strong>gerado do disco</strong>, a deriva fica impossível.</li>
+<li><strong>Rastreabilidade</strong> — do gate até o porquê em quatro saltos (índice → commit → ciclo →
+ADR), e o commit sem citação que só a memória de alguém explica.</li>
+<li><strong>O quadro</strong> — as quatro operações do ciclo numa tela: o que um comando de inspeção de
+contexto mostraria.</li>
+</ul>
+<p>Requisito: Python 3.8+ (só biblioteca padrão) e bash. Nada pago, nada de rede.</p>
+<h2 id="como-rodar" tabindex="-1">Como rodar <a class="header-anchor" href="#como-rodar" aria-hidden="true">#</a></h2>
+<pre><code class="language-bash">cd livro/05-engenharia-de-contexto/exemplo
+bash rodar.sh                               # imprime a saída
+bash rodar.sh | diff - saida-esperada.txt   # confere: nenhuma linha de diferença
+</code></pre>
+<p>No Windows, rode no Git Bash. O script procura <code>python3</code>, <code>python</code> e <code>py</code>, nessa ordem, e usa
+o primeiro que for Python 3.8+. Para forçar: <code>PYTHON=... bash rodar.sh</code>. Nada em <code>projeto/</code> é
+alterado: o registro de decisão (passos 6–8) roda numa cópia do índice, e a correção da
+instrução (passo 10) roda numa cópia temporária do projeto. Na correção, <code>AGENTS.md</code> vira link
+simbólico para <code>CLAUDE.md</code>; sem permissão de link simbólico (Windows comum), vira cópia gerada
+do mesmo conteúdo, e a conferência é a mesma: igualdade de conteúdo.</p>
+<p>Cada subcomando também roda sozinho; <code>python contexto.py</code> sem argumento imprime a ajuda.</p>
+<h2 id="os-arquivos" tabindex="-1">Os arquivos <a class="header-anchor" href="#os-arquivos" aria-hidden="true">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Arquivo</th>
+<th>Papel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>contexto.py</code></td>
+<td>os subcomandos <code>selecionar</code>, <code>compactar</code>, <code>registrar</code>, <code>historico</code>, <code>transferir</code>, <code>rastrear</code>, <code>inspecionar</code></td>
+</tr>
+<tr>
+<td><code>rodar.sh</code></td>
+<td>os doze passos, em ordem</td>
+</tr>
+<tr>
+<td><code>saida-esperada.txt</code></td>
+<td>a saída de <code>bash rodar.sh</code>, conferida em 02/11/2026</td>
+</tr>
+<tr>
+<td><code>projeto/CLAUDE.md</code>, <code>projeto/AGENTS.md</code></td>
+<td>a instrução para a IA, em duas cópias escritas à mão que já divergiram</td>
+</tr>
+<tr>
+<td><code>projeto/skills/*/SKILL.md</code></td>
+<td>três skills no disco; uma (<code>jornada-viva</code>) não aparece em instrução nenhuma</td>
+</tr>
+<tr>
+<td><code>projeto/specs/007-cupom-de-desconto/</code></td>
+<td>spec (com invariantes e o fechamento do ciclo), plano, tarefas e relatório</td>
+</tr>
+<tr>
+<td><code>projeto/src/*.py</code></td>
+<td>o código: seis módulos de tamanhos diferentes, gerados para o exemplo</td>
+</tr>
+<tr>
+<td><code>projeto/registros/decisoes.jsonl</code></td>
+<td>o índice de decisões só-acréscimo (três linhas)</td>
+</tr>
+<tr>
+<td><code>projeto/registros/commits.txt</code></td>
+<td>o assunto de quatro commits, no formato <code>git log --format='%h %s'</code></td>
+</tr>
+<tr>
+<td><code>projeto/docs/adr/0003-cupom-nao-acumula.md</code></td>
+<td>o porquê de uma regra de negócio</td>
+</tr>
+<tr>
+<td><code>casos/conversa.md</code></td>
+<td>o que existiu só na janela de contexto, e não em artefato</td>
+</tr>
+<tr>
+<td><code>casos/tasks-com-cauda.md</code></td>
+<td>o <code>tasks.md</code> reescrito: T3 autossuficiente, T4 fora (vira outro ciclo), cauda como token <code>TAIL:</code></td>
+</tr>
+<tr>
+<td><code>casos/decisoes-reescrito.jsonl</code></td>
+<td>o índice com a linha 2 editada (de &quot;aberta&quot; para &quot;fechada&quot;)</td>
+</tr>
+</tbody>
+</table>
+<p>A régua de tokens é <strong>estimada</strong> (caracteres ÷ 4, arredondado para cima) e está declarada no
+código. Serve para a razão selecionado ÷ total, não para prever a fatura de um modelo.</p>
+<h2 id="saída-esperada" tabindex="-1">Saída esperada <a class="header-anchor" href="#saída-esperada" aria-hidden="true">#</a></h2>
+<p>Os passos 2, 3, 4, 7 (duas vezes), 8 (a segunda chamada), 9, 11 e 12 saem com código 1 <strong>de
+propósito</strong>: são as falhas que o capítulo descreve.</p>
+<pre><code class="language-text">
+== 1. seleção: uma tarefa cortada pela fronteira carrega pouco do repositório
+seleção 007/T2
+  + spec.md (contexto integrador)        230 tokens
+  + T2 (a linha da tarefa)                30 tokens
+  + src/cupom.py                          99 tokens
+  + src/carrinho.py                      105 tokens
+  selecionado 464 de 4777 tokens do repositório inteiro → economia 90%
+✓ corte por fronteira: a tarefa cabe no que ela mesma declara.
+(exit 0)
+
+== 2. seleção: a tarefa que atravessa o código inteiro — economia baixa é sinal de corte errado
+seleção 007/T4
+  + spec.md (contexto integrador)        230 tokens
+  + T4 (a linha da tarefa)                57 tokens
+  + src/cupom.py                          99 tokens
+  + src/carrinho.py                      105 tokens
+  + src/pagamento.py                     703 tokens
+  + src/frete.py                         212 tokens
+  + src/relatorios.py                   2152 tokens
+  + src/usuarios.py                      337 tokens
+  selecionado 3895 de 4777 tokens do repositório inteiro → economia 18%
+✗ economia baixa: a tarefa atravessa fronteiras. Reveja o corte; não aumente a janela.
+(exit 1)
+
+== 3. seleção: a tarefa que não cita nada manda o executor procurar sozinho
+seleção 007/T3
+  + spec.md (contexto integrador)        230 tokens
+  + T3 (a linha da tarefa)                18 tokens
+  selecionado 248 de 4777 tokens do repositório inteiro → economia 94%
+✗ a tarefa não cita arquivo: quem a executa vai procurar o contexto sozinho (ou na conversa).
+(exit 1)
+
+== 4. compressão: a janela compacta e só o tasks.md fica — a cauda morava na spec e na conversa
+compactação 007: janela com spec.md, plan.md, tasks.md, conversa (573 tokens)
+  → depois: só o que o executor segue, tasks.md (162 tokens)
+  ✗ revisão em contexto fresco     APAGADO (estava em: spec.md, conversa)
+  ✗ revisão de segurança           APAGADO (estava em: spec.md, conversa)
+  ✗ gate humano antes do merge     APAGADO (estava em: spec.md, conversa)
+  ✗ data dd/mm/aaaa na mensagem    APAGADO (estava em: conversa)
+  ✗ T3 não se executa com contexto zero (sem arquivo/comando e critério →)
+✗ 4 fato(s) apagado(s), 1 tarefa(s) presa(s) à conversa. O executor vai obedecer, com fidelidade, a versão truncada.
+(exit 1)
+
+== 5. compressão: a mesma janela, com a cauda como token no tasks.md
+compactação 007: janela com spec.md, plan.md, tasks-com-cauda.md, conversa (607 tokens)
+  → depois: só o que o executor segue, tasks-com-cauda.md (196 tokens)
+  ✓ revisão em contexto fresco     sobrevive (está em tasks-com-cauda.md)
+  ✓ revisão de segurança           sobrevive (está em tasks-com-cauda.md)
+  ✓ gate humano antes do merge     sobrevive (está em tasks-com-cauda.md)
+  ✓ data dd/mm/aaaa na mensagem    sobrevive (está em tasks-com-cauda.md)
+✓ tudo o que importa está no artefato consumido: a compactação não apaga nada que conte.
+(exit 0)
+
+== 6. persistência: acrescentar uma decisão (numa cópia do índice)
+✓ acrescentada como linha 4: achado-007-fecha-006
+(exit 0)
+
+== 7. persistência: o mesmo id de novo, e um registro que aponta para um marcador
+✗ recusado: o id achado-006-mensagem-sem-data já existe. Corrigir é acrescentar uma linha nova com outro id (e o campo &quot;fecha&quot;), nunca reescrever.
+(exit 1)
+✗ recusado: o registro aponta um marcador (&lt;pendente&gt;), não uma evidência.
+(exit 1)
+
+== 8. persistência: o índice com uma linha acrescentada × o índice com uma linha reescrita
+histórico: decisoes.jsonl (3 linhas) → decisoes.jsonl (4 linhas)
+✓ só acréscimo: 1 linha(s) nova(s), nenhuma antiga tocada.
+(exit 0)
+histórico: decisoes.jsonl (3 linhas) → decisoes-reescrito.jsonl (3 linhas)
+✗ linha 2 foi reescrita ou apagada: achado-006-mensagem-sem-data
+  o que se pensava antes deixou de existir; a próxima sessão lê a versão nova como se sempre tivesse sido assim.
+(exit 1)
+
+== 9. transferência: CLAUDE.md e AGENTS.md escritos à mão, contra as skills do disco
+transferência: a instrução que a IA lê × o disco (projeto)
+  skills no disco: dod-verificavel, jornada-viva, revisar-diff
+  ✗ CLAUDE.md  não cita jornada-viva
+  ✗ AGENTS.md  não cita dod-verificavel, jornada-viva; sem a regra 'skills primeiro'
+  ✗ CLAUDE.md e AGENTS.md divergem: duas cópias escritas à mão
+✗ 4 deriva(s): a IA segue menos método do que o repositório declara.
+(exit 1)
+
+== 10. transferência: fonte única e bloco gerado do disco (numa cópia temporária)
+transferência corrigida (numa cópia temporária do projeto):
+  bloco de skills GERADO do disco:
+    - `dod-verificavel` — Transforma critério vago em comando que passa ou falha.
+    - `jornada-viva` — Documenta a jornada de tela com captura do build real e heurística datada.
+    - `revisar-diff` — Revisão do diff em contexto fresco, só lacunas de correção.
+  AGENTS.md passa a ter o conteúdo de CLAUDE.md
+  skills no disco: dod-verificavel, jornada-viva, revisar-diff
+  ✓ CLAUDE.md  cita toda skill e manda consultá-las
+  ✓ AGENTS.md  cita toda skill e manda consultá-las
+  ✓ CLAUDE.md e AGENTS.md: mesmo conteúdo (fonte única)
+✓ instrução coerente: skill nova sem entrada na instrução passa a ser impossível.
+(exit 0)
+
+== 11. rastreabilidade: do gate ao porquê, de trás para frente
+rastreio, de trás para frente, a partir de gate-main-b7e41c2
+  1. índice     gate-main-b7e41c2 (2026-09-05) → commit b7e41c2
+  2. commit     b7e41c2 feat(carrinho): cupom de desconto substitui, nunca soma (ciclo 007, ADR 0003)
+  3. ciclo      specs/007-cupom-de-desconto/ (spec.md · plan.md · tasks.md · qa-report.md)
+  4. porquê     docs/adr/0003-cupom-nao-acumula.md
+  elos: 3 de 4 commits citam ciclo ou ADR
+  ✗ sem citação: 41c88e0 fix: ajusta mensagem  (de onde veio? só a memória de alguém sabe)
+(exit 1)
+
+== 12. o quadro: as quatro operações do ciclo 007 numa tela
+inspeção de contexto do ciclo 007-cupom-de-desconto
+  seleção       T1:   263/4777 tokens, economia 94%  ok
+  seleção       T2:   464/4777 tokens, economia 90%  ok
+  seleção       T3:   248/4777 tokens, economia 94%  presa à conversa
+  seleção       T4:  3895/4777 tokens, economia 18%  corte errado?
+  seleção       T5:   246/4777 tokens, economia 94%  ok
+  compressão    4 fato(s) apagado(s) se a janela compactar agora  ✗
+  persistência  3 decisão(ões) no índice; a última: gate-main-b7e41c2
+  transferência deriva na instrução  ✗
+  rastreio      há commit sem citação  ✗
+(exit 1)
+</code></pre>
+</article>
+    <nav class="paginacao" aria-label="Anterior e próximo"><a class="pg-prev" href="05-engenharia-de-contexto.html"><small>← anterior</small>05 — Engenharia de contexto</a><a class="pg-next" href="06-como-dividir-o-trabalho.html"><small>próximo →</small>06 — Como dividir o trabalho</a></nav>
+    <footer class="rodape">
+      <a href="https://github.com/GHDaru/agentic_software_engineering">github.com/GHDaru/agentic_software_engineering</a>
+       · <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/05-engenharia-de-contexto/exemplo/README.md">fonte desta página</a>
+      · gerado de <code>livro/</code> por <code>publicar/build.mjs</code>
+    </footer>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body></html>

@@ -1,0 +1,14 @@
+{
+  "_": "Fronteira interna de um repositório com dois leitores. Fonte única: os portões leem daqui, nenhum carrega lista própria.",
+  "dominios": {
+    "toolkit": {
+      "leitor": "máquina",
+      "possui": ["servidor/", "scripts/", "docs/governanca/", "fronteira.json", "README.md"]
+    },
+    "guia": {
+      "leitor": "pessoa",
+      "possui": ["docs/livro/", "publicar/"]
+    }
+  },
+  "compartilhado": ["docs/governanca/"]
+}

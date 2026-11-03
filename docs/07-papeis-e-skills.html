@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>07 — Papéis e skills · Engenharia de Software Orientada por Agentes</title>
+<meta name="description" content="Governança operacional para um humano regendo muitos agentes">
+<script>try{var t=localStorage.getItem("tema");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="assets/estilo.css">
+</head><body>
+<header class="barra">
+  <button id="alt-menu" aria-label="Abrir o sumário" aria-expanded="false" aria-controls="sidebar">☰ <span>Sumário</span></button>
+  <a class="barra-titulo" href="index.html">Engenharia de Software Orientada por Agentes</a>
+  <button id="alt-tema" aria-label="Alternar tema claro/escuro">◐</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="marca" href="index.html">Engenharia de Software Orientada por Agentes<small>Agentic Software Engineering</small></a>
+    <div class="nav-parte">Abertura</div><ul><li><a href="00-prefacio.html">Prefácio</a></li></ul><div class="nav-parte">Parte I — Por que agentes mudam a engenharia</div><ul><li><a href="01-a-mudanca-de-unidade-de-trabalho.html">1. A mudança de unidade de trabalho</a></li><li class="filho"><a class="filho" href="01-a-mudanca-de-unidade-de-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="02-o-problema-da-confianca.html">2. O problema da confiança</a></li><li class="filho"><a class="filho" href="02-o-problema-da-confianca-exemplo.html">Exemplo executável</a></li><li><a href="03-um-humano-muitos-agentes.html">3. Um humano, muitos agentes</a></li><li class="filho"><a class="filho" href="03-um-humano-muitos-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte II — Especificar e dar contexto</div><ul><li><a href="04-a-spec-como-partitura.html">4. A spec como partitura</a></li><li class="filho"><a class="filho" href="04-a-spec-como-partitura-exemplo.html">Exemplo executável</a></li><li><a href="05-engenharia-de-contexto.html">5. Engenharia de contexto</a></li><li class="filho"><a class="filho" href="05-engenharia-de-contexto-exemplo.html">Exemplo executável</a></li><li><a href="06-como-dividir-o-trabalho.html">6. Como dividir o trabalho</a></li><li class="filho"><a class="filho" href="06-como-dividir-o-trabalho-exemplo.html">Exemplo executável</a></li><li><a class="ativo" aria-current="page" href="07-papeis-e-skills.html">7. Papéis e skills</a></li><li class="filho"><a class="filho" href="07-papeis-e-skills-exemplo.html">Exemplo executável</a></li><li><a href="08-ddd-para-agentes.html">8. DDD para agentes</a></li><li class="filho"><a class="filho" href="08-ddd-para-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte III — Provar e conter</div><ul><li><a href="09-arquitetura-que-se-defende.html">9. Arquitetura que se defende</a></li><li class="filho"><a class="filho" href="09-arquitetura-que-se-defende-exemplo.html">Exemplo executável</a></li><li><a href="10-quality-gates-que-provam-fatos.html">10. Quality gates que provam fatos</a></li><li class="filho"><a class="filho" href="10-quality-gates-que-provam-fatos-exemplo.html">Exemplo executável</a></li><li><a href="11-risco-reversibilidade-e-autonomia.html">11. Risco, reversibilidade e autonomia</a></li><li class="filho"><a class="filho" href="11-risco-reversibilidade-e-autonomia-exemplo.html">Exemplo executável</a></li><li><a href="12-ferramentas-mcp-e-o-ecossistema.html">12. Ferramentas, MCP e o ecossistema</a></li><li class="filho"><a class="filho" href="12-ferramentas-mcp-e-o-ecossistema-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte IV — Medir e aprender</div><ul><li><a href="13-observabilidade-e-economia.html">13. Observabilidade e economia</a></li><li class="filho"><a class="filho" href="13-observabilidade-e-economia-exemplo.html">Exemplo executável</a></li><li><a href="14-a-organizacao-que-aprende.html">14. A organização que aprende</a></li><li class="filho"><a class="filho" href="14-a-organizacao-que-aprende-exemplo.html">Exemplo executável</a></li><li><a href="15-validando-o-maestro.html">15. Validando o Maestro</a></li><li class="filho"><a class="filho" href="15-validando-o-maestro-exemplo.html">Exemplo executável</a></li><li><a href="16-o-futuro-da-engenharia-agentica.html">16. O futuro da engenharia agêntica</a></li><li class="filho"><a class="filho" href="16-o-futuro-da-engenharia-agentica-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Apêndices</div><ul><li><a href="apendice-a-o-maestro-em-uma-pagina.html">A. O Maestro em uma página</a></li><li><a href="apendice-b-aseg-bench.html">B. ASEG-Bench — um benchmark de governança</a></li><li><a href="apendice-c-pacote-de-replicacao.html">C. Pacote de replicação</a></li><li><a href="apendice-d-estudos-de-campo.html">D. Estudos de campo do ecossistema</a></li></ul><div class="nav-parte">Consulta</div><ul><li><a href="glossario.html">Glossário</a></li><li><a href="evidencias.html">Evidências (claims)</a></li></ul>
+  </aside>
+  <main class="conteudo">
+    <article class="markdown"><h1 id="07--papéis-e-skills" tabindex="-1">07 — Papéis e skills <a class="header-anchor" href="#07--papéis-e-skills" aria-hidden="true">#</a></h1>
+<blockquote>
+<p><em>Um papel que só existe no documento é um papel que ninguém exerce, e o documento continua
+parecendo correto.</em></p>
+</blockquote>
+<p>Todo tech lead que começa a usar agentes escreve, cedo ou tarde, um prompt que começa com
+&quot;você é um engenheiro sênior&quot;. Funciona por uma tarde. Este capítulo é sobre o que vem
+depois: como transformar uma frase de identidade num <strong>modo de trabalho</strong>, com escopo, contrato,
+permissões, faixa de modelo e um portão que diz quando ele deixou de existir; e como empacotar
+os procedimentos que o seu time repete numa <strong>skill</strong> que o agente segue sem que você precise
+lembrá-lo. A tese é simples e custou ao Maestro três falhas para aprender: papel e skill não são
+texto, são <strong>pares</strong> (a norma que os prescreve e o executável que os entrega), e a distância entre
+os dois lados só fica pequena se uma máquina a medir.</p>
+<h2 id="pergunta-central" tabindex="-1" class="callout c-obj" data-rotulo="Pergunta">Pergunta central <a class="header-anchor" href="#pergunta-central" aria-hidden="true">#</a></h2>
+<p>Como dar a um agente um modo de trabalho, e não só um prompt, e como saber, por máquina, que
+esse modo de trabalho existe de fato?</p>
+<h2 id="resultado-de-aprendizagem" tabindex="-1">Resultado de aprendizagem <a class="header-anchor" href="#resultado-de-aprendizagem" aria-hidden="true">#</a></h2>
+<p>Ao final deste capítulo, você consegue:</p>
+<ol>
+<li><strong>Derivar</strong> do teorema &quot;quem executa não verifica&quot; (T2) por que os papéis de um time de
+agentes são estreitos, separados por janela de contexto e diferenciados por permissão de
+ferramenta.</li>
+<li><strong>Escrever</strong> o perfil de um papel com os sete campos que o distinguem de um prompt (escopo,
+faz e não faz, consome e produz, entrega a, ferramentas, gate e faixa de modelo) e
+<strong>distinguir</strong> perfil de sessão, e skill de comando e de agente.</li>
+<li><strong>Redigir</strong> uma skill com gatilho, lei de ferro e desculpas fechadas, e <strong>testá-la</strong> contra
+uma linha de base em que o agente falha sem ela.</li>
+<li><strong>Montar</strong> um portão que compara, nos dois sentidos, os papéis que a sua norma prescreve com
+os executáveis que o seu repositório tem, e <strong>provar</strong> por mutação que ele acusa.</li>
+<li><strong>Decidir</strong> a faixa de modelo de cada papel como uma escolha registrada, com custo e gatilho
+de revisão, em vez de deixá-la implícita.</li>
+</ol>
+<h2 id="a-falha-real" tabindex="-1" class="callout c-falha" data-rotulo="Caso real">A falha real <a class="header-anchor" href="#a-falha-real" aria-hidden="true">#</a></h2>
+<p>Em 1º de agosto de 2026, o Steward do Maestro (o humano que decide o quê e o porquê) trouxe dois
+relatos sem relação aparente. No primeiro, outra Inteligência Artificial (IA) tinha tentado
+instalar o método num projeto e respondido que &quot;não tinha&quot; instalador. No segundo, o diagrama do
+processo, desenhado em <em>Business Process Model and Notation</em> (BPMN), não mostrava nada sobre
+experiência de usuário (<em>user experience</em>, UX) nem sobre jornadas. O ciclo 018 abriu para
+investigar os dois e achou duas lacunas de naturezas diferentes [CLAIM-07-001].</p>
+<p>A primeira era de visibilidade: o instalador existia desde o ciclo 013, mas o <code>README.md</code>, o
+único arquivo que uma IA lê primeiro, não o citava. A segunda é a que interessa a este capítulo.
+O modelo operacional do método prescrevia um <strong>UX-agent</strong> na tabela de papéis, declarava
+<code>ux-design.md</code> como artefato essencial sempre que houvesse interface, citava um documento de
+jornada e exigia o <code>ux-design.md</code> na definição de pronto para iniciar. Não havia agente, skill nem
+template para nenhum dos quatro. A prescrição estava ali <strong>havia catorze ciclos</strong> [CLAIM-07-001].
+Nenhum relatório de qualidade pegou, e o relatório do 018 diz por quê: os checks olhavam sempre
+para dentro do ciclo, nunca para a distância entre o que o modelo manda e o que o toolkit tem.</p>
+<p>A correção não foi só criar o agente. Foi criar o agente (<code>ux-semantica</code>, hoje <code>ux-semantics</code>),
+a skill de jornada viva, os dois templates <strong>e</strong> um script, <code>verificar-papeis.sh</code> (hoje
+<code>check-roles.sh</code>), que falha quando um papel prescrito não tem agente. O script foi aceito só
+depois de ser visto falhando: com o agente removido, saiu com código 1 nomeando o papel ausente.
+E houve um efeito colateral que o relatório registra com gosto: ao subir de doze para treze
+agentes, o portão anterior, <code>verificar-agentes.sh</code>, que esperava doze, falhou sozinho
+[CLAIM-07-002]. O portão de contagem tinha feito o trabalho dele.</p>
+<p>O 018 seria uma anedota se a mesma família de defeito não tivesse voltado duas vezes no mesmo
+mês, por outras portas.</p>
+<p>Em 16 de agosto, a retrospectiva do ciclo 055 achou que o <code>plan-architect</code>, o agente que escreve
+o plano, era instruído a consumir &quot;a linguagem ubíqua&quot; do projeto como fonte obrigatória. O
+artefato não existia em projeto nenhum. O registro de decisões resume o defeito numa frase: o
+agente segue fielmente uma fonte que não existe. O ciclo 061 fechou o achado tirando a promessa da
+instrução; no dia seguinte, a revisão independente dos ciclos 061 e 062, registrada no 063,
+mostrou que o fechamento era falso: a promessa tinha saído do arquivo que o portão de instalação
+lê e continuado em outros que ele não lê [CLAIM-07-005].</p>
+<p>Em 23 de agosto, o mesmo ciclo 063 registrou o terceiro caso, agora do lado das skills: <strong>quatro
+das seis skills</strong> do método não eram citadas por nenhum capítulo numerado do livro que as ensina,
+e o portão que existia para isso pulava o pior caso em silêncio [CLAIM-07-004].</p>
+<p>Três falhas, uma forma. No 018, a <strong>norma</strong> prescrevia um papel que nenhum <strong>executável</strong>
+entregava. No 055, o executável mandava consumir algo que nenhuma norma produzia. No 063, a skill
+existia sem que nada de fora a consumisse. Em todos, o documento parecia certo, e o defeito só
+existia na <strong>diferença</strong> entre dois lugares que ninguém comparava. É desse defeito que este
+capítulo parte.</p>
+<h2 id="teoria" tabindex="-1">Teoria <a class="header-anchor" href="#teoria" aria-hidden="true">#</a></h2>
+<h3 id="papel-é-modo-de-trabalho-não-cargo" tabindex="-1">Papel é modo de trabalho, não cargo <a class="header-anchor" href="#papel-é-modo-de-trabalho-não-cargo" aria-hidden="true">#</a></h3>
+<p>Num time humano, decidir, executar e verificar são, em geral, pessoas diferentes, e é essa
+separação que cria o contrapeso: quem escreveu não aprova, quem aprova não confere sozinho.
+Quando uma pessoa opera muitos agentes, os três papéis colapsam naturalmente na mesma cabeça. O
+contrapeso some sem que ninguém decida acabar com ele, e some com a sensação de estar indo mais
+rápido, porque de fato está, até o primeiro erro caro.</p>
+<p>A resposta do Maestro é tratar papel como <strong>modo de trabalho</strong>, e não como cargo. Um papel é
+exercido por um humano, por um agente ou pelos dois com um gate entre eles. O vocabulário mínimo
+para separar os modos é a matriz <em>Responsible, Accountable, Consulted, Informed</em> (RACI): quem
+executa (R), quem responde (A), quem é consultado (C) e quem é informado (I). A adaptação que
+importa é uma só: <strong>o A não migra</strong>. Executar (R) e verificar (C) vão para agentes; informar (I)
+vai para o registro (o changelog, o índice de decisões); responder pelas consequências fica com
+um humano, exatamente um por tarefa. O <a href="02-o-problema-da-confianca.html">capítulo 2</a>
+trata do porquê (o axioma A2, &quot;a consequência precisa de dono&quot;) e da armadilha do funil, em que o
+humano responde por cada item e vira o gargalo do próprio sistema. Aqui interessa a outra metade:
+como os R e os C, que são agentes, ganham forma.</p>
+<h3 id="de-t2-ao-papel-estreito" tabindex="-1">De T2 ao papel estreito <a class="header-anchor" href="#de-t2-ao-papel-estreito" aria-hidden="true">#</a></h3>
+<p>O teorema T2 do Maestro diz que <strong>quem executa não verifica</strong>, e o deriva de dois axiomas. De A2:
+alguém precisa responder pelo resultado, então alguém que não o produziu precisa olhá-lo. De A3,
+&quot;o contexto é finito e se degrada conforme enche&quot;: o agente que escreveu carrega na janela os becos
+sem saída que explorou, e o único jeito de olhar o diff sem essa carga é um <strong>contexto fresco</strong>
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/axioms.md">axioms.md</a>).</p>
+<p>Leia o teorema do lado de quem desenha os papéis e saem três consequências.</p>
+<p>A primeira: papéis distintos são <strong>janelas distintas</strong>. Um &quot;agente que escreve e depois revisa&quot;
+não satisfaz T2 por mais que o prompt peça imparcialidade, porque a janela é a mesma. Separar
+papéis é, antes de tudo, separar sessões. O handbook do Maestro registra a consequência prática
+como duas decisões gêmeas: o agente generalista gigante foi <strong>rejeitado</strong> (a janela cheia degrada e
+o prompt cresce sem limite) e a <strong>revisão adversarial do diff</strong>, um modelo fresco tentando refutar o
+&quot;pronto&quot;, foi adotada como gate antes do merge.</p>
+<p>A segunda: a independência do verificador é <strong>configuração, não promessa</strong>. Pedir ao revisor que
+não conserte é intenção; tirar dele a ferramenta de edição é estrutura. O corolário C3 diz isso em
+uma linha (&quot;o papel que julga não recebe permissão de escrita&quot;), e o Maestro o cumpre na lista de
+ferramentas de cada agente. O capítulo 2 mostra o mecanismo e o seu limite (o <code>Bash</code> também
+escreve); este capítulo o toma como dado.</p>
+<p>A terceira consequência é o corolário C8, que o Maestro deriva de T2 e do teorema T5 (um artefato
+sobrevive por ser consumido ou por ser imutável): <strong>um agente estreito é mais barato que um agente
+capaz</strong>. O perfil é consumido a cada invocação, e por isso custa a cada invocação: o próprio texto
+e as skills que ele carrega. O que o papel não vai usar é ruído pago em contexto, e o ruído degrada
+o que vem depois (A3). Daí o formato: um papel do Maestro cabe em vinte e poucas linhas. Os treze perfis
+executáveis do método somam 285 linhas na versão citada por este livro, com média de 21,9 e o
+maior com 36 [CLAIM-07-006]. É pouco porque o papel não é um manual; é um contrato.</p>
+<h3 id="anatomia-de-um-papel-os-sete-campos" tabindex="-1">Anatomia de um papel: os sete campos <a class="header-anchor" href="#anatomia-de-um-papel-os-sete-campos" aria-hidden="true">#</a></h3>
+<p>O que distingue um papel de um prompt não é o tamanho nem o tom; é o que ele <strong>declara</strong>. Lendo os
+treze perfis do Maestro, a estrutura é sempre a mesma, e um oitavo campo, que o Maestro não tem,
+este livro propõe acrescentar.</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Pergunta que responde</th>
+<th>Exemplo no Maestro</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Escopo</td>
+<td>o que este papel é, numa frase</td>
+<td>&quot;julgar, não consertar&quot; (<code>review</code>)</td>
+</tr>
+<tr>
+<td>Faz / não faz</td>
+<td>o que nunca é deste papel</td>
+<td>o <code>spec-agent</code> não decide arquitetura; o <code>plan-architect</code> não escreve código de produção</td>
+</tr>
+<tr>
+<td>Consome / produz</td>
+<td>que artefato entra, que artefato sai</td>
+<td>o <code>qa</code> consome o build e a spec, produz testes e o <code>qa-report.md</code></td>
+</tr>
+<tr>
+<td>Entrega a</td>
+<td>para quem vai o trabalho (o <em>handoff</em>)</td>
+<td>o <code>dev-implementer</code> entrega ao <code>review</code>, em contexto fresco</td>
+</tr>
+<tr>
+<td>Ferramentas</td>
+<td>o que o papel consegue fazer no mundo</td>
+<td><code>review</code>: <code>Read, Grep, Glob, Bash</code>, sem <code>Write</code> nem <code>Edit</code></td>
+</tr>
+<tr>
+<td>Gate</td>
+<td>o que precisa ser verdade para o trabalho avançar</td>
+<td>&quot;o humano aprova o plano&quot; (modelo operacional, §4)</td>
+</tr>
+<tr>
+<td>Faixa de modelo</td>
+<td>em que classe de modelo este papel roda, e por quê</td>
+<td><strong>ausente no Maestro</strong> — ver &quot;Papel × modelo × custo&quot;</td>
+</tr>
+</tbody>
+</table>
+<p>Dois campos merecem um comentário. O &quot;não faz&quot; parece redundante com o escopo, e não é: é ele que
+impede o papel de crescer por acréscimo. O <code>review</code> do Maestro diz que aponta <strong>só lacunas de
+correção ou de requisito, não preferências de estilo</strong>, porque um revisor que caça tudo induz
+<em>over-engineering</em> (<a href="https://github.com/GHDaru/maestro/blob/19823c2/.claude/agents/review.md">review.md</a>).
+Sem essa linha, o revisor faz o que um modelo prestativo faz por padrão: sugere. E o &quot;entrega a&quot;
+transforma uma coleção de agentes num fluxo: cada papel sabe quem vem depois, e o artefato que
+passa de um para o outro (a spec, o plano, o diff, o veredito) é a interface entre eles, não a
+conversa.</p>
+<h3 id="perfil-e-sessão" tabindex="-1">Perfil e sessão <a class="header-anchor" href="#perfil-e-sessão" aria-hidden="true">#</a></h3>
+<p>Uma distinção que o Maestro só tornou explícita no ciclo 073 evita muita confusão na prática. O
+<strong>perfil</strong> de um agente é o par arquivo descritivo e arquivo executável (no Maestro, o
+<code>.claude/agents/&lt;nome&gt;.md</code>), com papel, ferramentas e, segundo o glossário, modelo padrão; não
+tem identidade de execução. A <strong>sessão de agente</strong> é uma execução: o humano a sobe, a observa e a
+derruba, e ela é a unidade de administração [CLAIM-07-026]. Quando alguém diz &quot;o revisor errou&quot;, vale perguntar qual dos dois: se o
+perfil está errado, todas as sessões futuras errarão igual, e a correção é no arquivo; se a sessão
+errou com um perfil certo, a correção é de contexto, e o arquivo não deve mudar por causa dela.</p>
+<h3 id="skill-o-como-que-dispara-pelo-contexto" tabindex="-1">Skill: o como, que dispara pelo contexto <a class="header-anchor" href="#skill-o-como-que-dispara-pelo-contexto" aria-hidden="true">#</a></h3>
+<p>O papel diz <strong>quem</strong> faz. A skill diz <strong>como</strong> se faz um procedimento recorrente, e dispara pelo
+contexto, sem que alguém a chame. O formato que o ecossistema convergiu é um diretório com um
+arquivo <code>SKILL.md</code>: um cabeçalho com <code>name</code> e <code>description</code>, e um corpo com passos verificáveis. A
+<code>description</code> é a peça crítica, porque é ela que o harness lê para decidir se a skill se aplica; o
+agente que escreve skills no Maestro tem uma linha só para isso: a descrição é o que faz a skill
+<strong>disparar na hora certa</strong>, então os gatilhos (&quot;Use quando…&quot;) se escrevem com cuidado
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/.claude/agents/skill-author.md">skill-author.md</a>).</p>
+<p>Três peças costumam ser confundidas, e o Maestro as separa assim
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/skills/README.md">skills/README.md</a>):</p>
+<ul>
+<li><strong>Skill</strong>: <em>como fazer</em>; dispara pelo contexto.</li>
+<li><strong>Comando</strong>: invocação explícita (<code>/dod</code>, <code>/eval</code>); alguém o chama.</li>
+<li><strong>Agente</strong>: <em>quem faz</em>; consome skills e comandos.</li>
+</ul>
+<p>O exemplo do próprio README é bom: a skill <code>verifiable-dod</code> ajuda a <strong>escrever</strong> as verificações
+de um critério de aceite; o comando <code>/dod</code> as <strong>roda</strong>. Uma é conhecimento que entra na janela quando
+o contexto pede; o outro é uma ação com hora marcada.</p>
+<p>A regra de nascimento de uma skill é a parte que mais falta nos times que adotam o formato:
+<strong>skill só nasce de dor recorrente provada</strong>, nunca de especulação, e, desde o ciclo 011, uma skill
+original nova só é publicada com uma <strong>linha de base testada</strong> (o cenário de pressão em que o agente
+falha sem ela e cumpre com ela). Skill especulativa é contexto pago para ensinar algo que ninguém
+mostrou ser necessário, e pior: ensina sem que ninguém saiba se ensina a coisa certa.</p>
+<h3 id="lei-de-ferro-engenharia-de-prompt-como-engenharia-de-processo" tabindex="-1">Lei de ferro: engenharia de prompt como engenharia de processo <a class="header-anchor" href="#lei-de-ferro-engenharia-de-prompt-como-engenharia-de-processo" aria-hidden="true">#</a></h3>
+<p>Uma skill que descreve é racionalizável. &quot;Considere investigar a causa antes de consertar&quot; é uma
+frase que o modelo pondera contra a pressa do pedido e, sob pressão, descarta. O padrão que o
+Maestro absorveu do projeto Superpowers em julho de 2026 resolve isso com engenharia de linguagem:
+cada skill abre com uma <strong>lei de ferro</strong> (<em>Iron Law</em>), uma regra em imperativo absoluto num bloco
+de código, seguida da fórmula &quot;violar a letra é violar o espírito&quot; e de duas ou três desculpas
+<strong>explicitamente fechadas</strong> (&quot;isto NÃO é desculpa: …&quot;).</p>
+<p>A skill de diagnóstico do Maestro mostra o formato inteiro:</p>
+<pre><code class="language-text">NO FIX WITHOUT A ROOT-CAUSE INVESTIGATION FIRST
+</code></pre>
+<p>Seguem as desculpas que não valem: &quot;está óbvio o que quebrou&quot; (se estivesse, o bug não existiria),
+&quot;o conserto é pequeno, testo depois&quot; (conserto sem causa confirmada é aposta), &quot;já vi esse erro
+antes&quot; (padrão parecido não é a mesma causa)
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/skills/diagnose-before-fix/SKILL.md">diagnose-before-fix/SKILL.md</a>).
+Depois vêm seis fases em ordem (ler o erro inteiro, reproduzir com um teste que falha, isolar,
+formular <strong>uma</strong> hipótese, prová-la, só então consertar) e os sinais de que uma foi pulada: a
+segunda tentativa &quot;tenta isto&quot; seguida, o conserto que funcionou sem que se saiba explicar por quê,
+o conserto que alargou o escopo. A skill nasceu de uma lacuna real: o Maestro já exigia um teste que
+reproduzisse o bug, mas não tinha nenhuma disciplina de diagnóstico antes do conserto.</p>
+<p>Por que funciona: a lei fecha a racionalização <strong>antes</strong> de ela aparecer. O modelo que lê
+&quot;considere&quot; negocia; o que lê a lei com a desculpa dele já listada e recusada tem menos por onde
+escapar. Por que tem limite: a lei continua sendo instrução. Ela muda a probabilidade, não a
+possibilidade. O que torna uma regra impossível de violar é um portão ou uma permissão, e é por
+isso que o Maestro põe a independência do revisor na lista de ferramentas, e não numa lei de
+ferro. A lei é para o que não se consegue impedir por configuração: a disciplina de raciocínio.</p>
+<p>A forma não é exclusiva de skills. O guia editorial do livro do Maestro tem a sua própria lei de
+ferro (nenhum capítulo publica sem objetivos, exemplo real e verificação), cobrada pelo
+<code>check-chapters.sh</code>, e o guia deste livro a herdou na anatomia de onze seções. Sempre que uma regra
+é violada por racionalização (&quot;o tema é abstrato&quot;, &quot;verifico depois&quot;), e não por incapacidade, a
+lei de ferro é a forma certa.</p>
+<p>Duas restrições acompanham a lei para que ela não vire tirania. Ela é <strong>estreita</strong>, uma regra por
+skill, não um código de conduta. E a exceção existe, mas é <strong>decisão humana registrada</strong>, nunca
+interpretação do agente.</p>
+<h3 id="linha-de-base-para-skills-ablação-para-papéis" tabindex="-1">Linha de base para skills, ablação para papéis <a class="header-anchor" href="#linha-de-base-para-skills-ablação-para-papéis" aria-hidden="true">#</a></h3>
+<p>A segunda ideia absorvida do Superpowers é tratar a skill como código: <em>test-driven development</em>
+(TDD) aplicado a prosa. Escreve-se o cenário de pressão; roda-se um subagente <strong>sem</strong> a skill e
+registra-se a falha (vermelho); escreve-se a skill; roda-se de novo <strong>com</strong> ela (verde); fecham-se
+as brechas que o teste expôs (refatoração). A frase que justifica o protocolo vale para qualquer
+time: se você não viu um agente falhar sem a skill, não sabe se ela ensina a coisa certa.</p>
+<p>O mesmo raciocínio vale para cada linha de um papel, e o Maestro o aplicou aos agentes a partir do
+ciclo 037 com uma técnica que vale roubar: a <strong>ablação</strong>. Roda-se o caso contra o agente real e contra o mesmo
+agente <strong>menos uma instrução</strong>. Se o ablado falha onde o real passa, a linha paga o contexto que
+custa; se os dois passam, a linha talvez não sirva. No caso 001, o <code>review</code> sem a instrução de
+comparar o diff com o plano fez uma ótima revisão de código, achou cinco defeitos reais e <strong>reprovou
+o caso</strong>, porque tratou como bug de código o que era um requisito não implementado. No caso 002, o
+<code>process-guardian</code> sem a instrução de conferir a raia declarada chegou à mesma conclusão que o
+real, duas vezes, pelo Princípio III sozinho [CLAIM-07-013]. A primeira linha provou que paga; a
+segunda ficou sob suspeita de redundância.</p>
+<h3 id="papel--modelo--custo" tabindex="-1">Papel × modelo × custo <a class="header-anchor" href="#papel--modelo--custo" aria-hidden="true">#</a></h3>
+<p>Um papel tem três custos, e só um deles costuma ser medido.</p>
+<p>O <strong>custo fixo de contexto</strong> é o que o papel carrega para a janela a cada invocação: o próprio
+perfil, as skills que ele consome e o que a instrução do projeto importa por padrão. No Maestro,
+os treze perfis somam cerca de 3,7 mil <em>tokens</em> estimados [CLAIM-07-006], e a constituição
+importada em toda sessão custa, medido no ciclo 056, 6.072 bytes, cerca de 1.518 tokens
+[CLAIM-07-017]. Esse custo é a razão do corolário C8, e o Maestro o mede.</p>
+<p>O <strong>custo de modelo</strong> é o preço por token da classe de modelo em que o papel roda, multiplicado
+pelo volume que ele lê e escreve. Aqui o Maestro tem uma lacuna que ele mesmo documenta sem querer:
+a spec do ciclo 003, que criou os subagentes, previa o campo <code>model</code> no cabeçalho de cada um, e o
+glossário define o perfil como portador de um &quot;modelo padrão&quot;; mas <strong>nenhum</strong> dos treze arquivos
+declara modelo [CLAIM-07-008]. Todos rodam no modelo da sessão que os chama. O revisor que julga um
+diff de infraestrutura e o escritor técnico que atualiza o changelog custam o mesmo por token.</p>
+<p>O <strong>custo de coordenação</strong> é o das passagens de bastão: cada papel a mais é um <em>handoff</em> a mais, um
+artefato intermediário a mais e uma chance a mais de um papel consumir algo que o anterior não
+produziu (a falha do 055).</p>
+<p>A proposta deste livro para a lacuna do meio é modesta: <strong>declare a faixa de modelo por papel</strong>,
+como decisão registrada, com o motivo e o gatilho de revisão. A intuição é que papéis mecânicos e
+bem especificados (atualizar changelog, aplicar um template, rodar uma verificação) toleram um
+modelo menor, e papéis que julgam (revisão, segurança, arquitetura) são onde um erro escapa para
+mais longe e, portanto, onde o modelo maior se paga. É uma intuição, não um resultado: a hipótese
+H9 da agenda de pesquisa (&quot;um modelo menor basta em tarefa estruturada&quot;) ainda não foi testada
+[CLAIM-07-024]. O que já se sabe é que, sem o campo declarado, a escolha existe do mesmo jeito,
+só que implícita, e escolha implícita não se revisa.</p>
+<h2 id="alternativas" tabindex="-1">Alternativas <a class="header-anchor" href="#alternativas" aria-hidden="true">#</a></h2>
+<p>A pergunta &quot;como dar papéis a agentes&quot; tem pelo menos sete respostas no mercado e na literatura. O
+quadro abaixo as compara pelo que importa a quem responde pelo resultado: a independência do
+verificador, a separação de janelas e a existência de um portão que mede a distância entre a
+norma e o executável.</p>
+<table>
+<thead>
+<tr>
+<th>Abordagem</th>
+<th>O que oferece</th>
+<th>O que falta</th>
+<th>Veredito</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Um agente generalista grande</strong></td>
+<td>simplicidade aparente; nenhum <em>handoff</em></td>
+<td>a janela enche e degrada; o prompt cresce sem limite; quem escreve é quem revisa</td>
+<td><strong>rejeitado</strong> — viola T2 e C8 de uma vez</td>
+</tr>
+<tr>
+<td><strong>Persona no prompt</strong> (&quot;você é um engenheiro sênior&quot;)</td>
+<td>tom e foco por uma sessão</td>
+<td>escopo, contrato, permissões e gate; nada que um portão confira</td>
+<td><strong>insuficiente</strong> — é o ponto de partida, não o papel</td>
+</tr>
+<tr>
+<td><strong>Papel como identidade narrativa</strong> (o padrão <em>role, goal, backstory</em> do CrewAI)</td>
+<td>vocabulário claro para declarar papéis e ferramentas por agente</td>
+<td>o invariante de que quem julga não escreve não é cobrado; a norma e o executável são o mesmo arquivo, sem nada que os compare</td>
+<td><strong>aproveitar o vocabulário</strong>, acrescentar o portão</td>
+</tr>
+<tr>
+<td><strong>Procedimentos operacionais codificados em papéis</strong> (o MetaGPT, de Hong e coautores)</td>
+<td>papéis de uma empresa de software (gerente de produto, arquiteto, engenheiro, engenheiro de testes) que trocam <strong>documentos estruturados</strong>, não conversa</td>
+<td>o humano como Accountable em gates por classe de risco; a verificação em contexto fresco como regra</td>
+<td><strong>o mais próximo do Maestro</strong> — adotar a troca por artefato</td>
+</tr>
+<tr>
+<td><strong>Metáfora de empresa</strong> (o ChatDev, de Qian e coautores: diretor executivo, diretor de tecnologia, programador, revisor)</td>
+<td>um enredo fácil de explicar</td>
+<td>o enredo vira requisito: &quot;contratar&quot;, &quot;board&quot;, hierarquia que não corresponde a nenhuma decisão real</td>
+<td><strong>recusado</strong> — o ciclo 076 recusou explicitamente a metáfora de empresa [CLAIM-07-020]</td>
+</tr>
+<tr>
+<td><strong>Metodologia agêntica inteira</strong> (o BMAD-METHOD, um time ágil com cerca de doze agentes e artefatos próprios)</td>
+<td>um pacote completo, pronto</td>
+<td>é concorrente integral: adotá-lo cria uma segunda fonte de verdade de processo</td>
+<td><strong>descartado</strong> pelo Maestro [CLAIM-07-016]</td>
+</tr>
+<tr>
+<td><strong>Skills sem papéis</strong> (o Superpowers: catorze skills compostas e um gancho que as injeta em toda sessão)</td>
+<td>execução disciplinada por skill, com lei de ferro e skills testadas</td>
+<td>papéis, matriz RACI, classes de risco e registro de decisão; é método de execução, não de governança</td>
+<td><strong>absorver as ideias, não o método</strong> [CLAIM-07-015]</td>
+</tr>
+</tbody>
+</table>
+<p>Dois vereditos do handbook do Maestro sobre papéis humanos completam o quadro. Os papéis do Scrum
+foram adotados <strong>em parte</strong>: o <em>Product Owner</em> virou o Steward, e o resto (Scrum Master, time
+cross-funcional) é cerimônia de papel para quem opera sozinho. E o time em forma de T foi
+<strong>reinterpretado</strong>: o agente cobre a largura de habilidades, o humano guarda a profundidade da
+decisão. Fica de fora, como rejeitado, o par &quot;aprovo tudo / aprovo nada&quot;: o primeiro vira o funil,
+o segundo descobre o erro quando ele já é irreversível.</p>
+<p>A orientação mais citada da indústria, o texto <em>Building effective agents</em> da Anthropic, chega ao
+mesmo lugar por outro caminho: comece pela solução mais simples e só acrescente agentes e
+autonomia quando a mais simples não bastar. O Princípio V do Maestro diz o mesmo (&quot;use a menor
+autonomia que resolve o problema&quot;), e o anti-padrão 4 da skill <code>anti-patterns</code> dá nome ao desvio:
+<strong>multiagente para um problema de agente único</strong>.</p>
+<p>O veredito do capítulo: papéis estreitos com artefato como interface (a ideia do MetaGPT),
+vocabulário declarativo (a ideia do CrewAI) e skills com lei de ferro e linha de base (as ideias do
+Superpowers), <strong>mais</strong> duas coisas que nenhum dos três traz: o humano como Accountable que não
+migra, e um portão que mede a distância entre a norma e o executável.</p>
+<h2 id="o-padrão-maestro" tabindex="-1">O padrão Maestro <a class="header-anchor" href="#o-padrão-maestro" aria-hidden="true">#</a></h2>
+<p>O que segue é citado por versão (<code>maestro@19823c2</code>), não copiado. Em cada parte, o texto diz o que
+é <strong>regra</strong> (escrita para ser lida), o que é <strong>script</strong> (que falha) e o que é <strong>hook</strong> (que impede).</p>
+<h3 id="a-norma-a-tabela-de-papéis-e-a-matriz-raci" tabindex="-1">A norma: a tabela de papéis e a matriz RACI <a class="header-anchor" href="#a-norma-a-tabela-de-papéis-e-a-matriz-raci" aria-hidden="true">#</a></h3>
+<p>A seção 4 do modelo operacional
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/operating-model.md">operating-model.md</a>)
+lista onze papéis como modos de trabalho. Dois são só humanos: o <strong>Product Steward</strong>, que decide o
+quê e o porquê e aprova specs e releases, e o <strong>Orchestrator</strong>, que sequencia os agentes, limpa o
+contexto entre tarefas e para quando algo é caro de desfazer. Um é misto: <strong>Architect / Tech
+Lead</strong>, humano com o <code>plan-architect</code>. Os oito restantes são agentes: Spec, Plan, UX, Dev, QA/SDET (<em>quality assurance</em> e
+<em>Software Development Engineer in Test</em>, garantia de qualidade e engenheiro de testes), Review,
+Security e Tech Writer, cada um com o seu gate. A tabela RACI por etapa do ciclo de vida fecha a norma com uma frase que vale copiar: o
+humano é o Accountable fixo em toda linha que carrega risco, e nenhum agente decide sozinho algo
+nas classes de alteração, exclusão, ação externa ou irreversível [CLAIM-07-023]. Isso é <strong>regra</strong>.</p>
+<p>A regra deixa rastro. Quando o capítulo de papéis do handbook foi reescrito no ciclo 026, em 2 de
+agosto, a tese dele era justamente essa: a independência do verificador é uma linha de
+configuração, e o Accountable humano já tinha deixado 21 gates de promoção registrados, cada um com
+nome e data; na versão citada por este livro, são 50 [CLAIM-07-019]. O Accountable não é uma
+caixa no organograma: é uma linha por decisão num arquivo que só cresce.</p>
+<h3 id="os-executáveis-treze-perfis-estreitos" tabindex="-1">Os executáveis: treze perfis estreitos <a class="header-anchor" href="#os-executáveis-treze-perfis-estreitos" aria-hidden="true">#</a></h3>
+<p>Os papéis viraram arquivo em três ciclos de julho de 2026. O ciclo 003 transformou os perfis
+descritivos em oito subagentes executáveis, os do fluxo principal, com uma lista de ferramentas
+estreita por papel; o 004 acrescentou os quatro meta-agentes de toolkit e fechou a primeira versão
+com doze de doze; e o 018, como contou a falha real, acrescentou o décimo terceiro, o de semântica
+de interface [CLAIM-07-009]. O roteiro do método registra essas etapas como fases: depois da F0 (a fundação), vieram a F1
+(os doze agentes), a F2 (a primeira leva de skills) e a F3 (os scripts do ritual, como a promoção
+com registro do gate); a F8 tornou o método instalável, com o agente de semântica de interface, a
+skill de jornada viva e o <code>check-roles.sh</code>, e a F9 pôs o ramo de interface no diagrama do processo
+[CLAIM-07-022].</p>
+<p>Os perfis do fluxo principal são o que se espera: o <code>spec-agent</code> escreve a spec (o quê e o porquê,
+com critérios testáveis) e levanta ambiguidades, sem decidir arquitetura; o <code>plan-architect</code>
+escreve o plano com a conferência contra a constituição e os registros de decisão, sem
+implementar; o <code>dev-implementer</code> implementa uma tarefa por vez, com testes, e não revisa o próprio
+trabalho; o <code>qa</code> garante caminho feliz e caminho de falha por caso de uso e produz o relatório de
+qualidade; o <code>review</code> e o <code>security</code> julgam o diff, somente leitura; o <code>process-guardian</code> confere a
+conformidade com o processo e devolve CONFORME ou NÃO CONFORME, só com <code>Read, Grep, Glob</code>; o
+<code>tech-writer</code> atualiza a documentação viva <strong>no mesmo pull request</strong>. Os três que não têm
+permissão de escrita são exatamente os três que julgam [CLAIM-07-007].</p>
+<p>Os meta-agentes são a parte menos óbvia e talvez a mais útil para um tech lead: são os papéis que
+<strong>constroem e evoluem o próprio método</strong>. O <code>agent-designer</code> mantém em sincronia o catálogo de
+perfis e os executáveis, e só aceita papel novo nascido de dor real. O <code>skill-author</code> empacota um
+procedimento recorrente como skill, com lei de ferro e linha de base. O <code>research-curator</code> traz
+evidência externa com fonte citada e é o <strong>único</strong> dos treze com acesso a busca na web. O
+<code>didactics-editor</code> combate o &quot;amontoado&quot; (o documento denso, de sigla nua) sem mudar a decisão
+técnica. Alguém sempre faz esse trabalho; a questão é se com escopo e &quot;não faz&quot;.</p>
+<p>E o décimo terceiro, <code>ux-semantics</code>, é o único perfil com lei de ferro própria: <strong>nenhuma tela
+nasce sem um papel semântico declarado</strong>. É por isso, e pela lista de passos, que ele é o maior dos
+treze, com 36 linhas [CLAIM-07-006].</p>
+<h3 id="os-portões-o-que-é-script" tabindex="-1">Os portões: o que é script <a class="header-anchor" href="#os-portões-o-que-é-script" aria-hidden="true">#</a></h3>
+<p>Dois scripts guardam os papéis, e um terceiro, as skills.</p>
+<p>O <code>check-agents.sh</code> confere invariantes estruturais: a contagem esperada de agentes (treze), o
+campo <code>name</code> no cabeçalho de cada um e o invariante de segurança, que falha se <code>review</code>,
+<code>security</code> ou <code>process-guardian</code> ganharem <code>Write</code> ou <code>Edit</code>
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/check-agents.sh">check-agents.sh</a>).</p>
+<p>O <code>check-roles.sh</code>, nascido da falha do 018, compara quatro pares e falha em qualquer divergência:
+cada papel que o modelo operacional prescreve contra o arquivo de agente que o entrega (oito
+mapeamentos); cada artefato essencial contra o seu template; o número de princípios da constituição
+contra o número de linhas da tabela de conferência do template de plano; e, desde o ciclo 039, o
+índice de perfis contra os agentes em disco, <strong>nos dois sentidos</strong>, incluindo a coluna de
+ferramentas e o total declarado em prosa [CLAIM-07-003]. Este último existe porque o índice era
+uma tabela escrita à mão que nada comparava com o disco, e o comentário no script diz por que isso
+é perigoso: a lista bater hoje é exatamente o que a torna perigosa, porque parece saudável e a
+saúde depende de memória. O roteiro registra o passo como a fase F15, &quot;o último lugar do
+repositório que dependia de memória&quot; [CLAIM-07-022].</p>
+<p>Do lado das skills, o <code>check-install.sh</code> falha quando a instrução que a IA lê não cita uma skill que
+existe em disco (a deriva que o ciclo 021 achou), e o <code>check-chapters.sh</code> compara a data de uma
+skill com a revisão do capítulo que a cita, depois que uma regra nascida numa skill passou dez ciclos
+fora do livro [CLAIM-07-027]. É esse mesmo portão que, no 063, passou a <strong>nomear</strong> as quatro skills
+que nenhum capítulo ensina, sem reprovar: cobrir uma skill é decisão editorial, não de máquina
+[CLAIM-07-004].</p>
+<h3 id="as-skills-seis-cada-uma-com-a-sua-lei" tabindex="-1">As skills: seis, cada uma com a sua lei <a class="header-anchor" href="#as-skills-seis-cada-uma-com-a-sua-lei" aria-hidden="true">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Skill</th>
+<th>Lei de ferro (tradução)</th>
+<th>Nasceu de</th>
+<th>Consumida por</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>constitution-check</code></td>
+<td>nenhum plano sem as oito linhas, uma por princípio, nenhuma vazia</td>
+<td>a tabela refeita à mão nos ciclos 003 e 004</td>
+<td><code>plan-architect</code>, <code>process-guardian</code></td>
+</tr>
+<tr>
+<td><code>verifiable-dod</code></td>
+<td>nenhum critério de aceite sem o comando que o prova</td>
+<td>verificações reescritas iguais a cada ciclo</td>
+<td><code>spec-agent</code>, <code>qa</code>, comando <code>/dod</code></td>
+</tr>
+<tr>
+<td><code>fight-the-pile-up</code></td>
+<td>nenhuma sigla nua</td>
+<td>o retorno do Steward sobre documentos densos</td>
+<td><code>didactics-editor</code>, <code>tech-writer</code></td>
+</tr>
+<tr>
+<td><code>anti-patterns</code></td>
+<td>nomeie o anti-padrão antes de corrigi-lo</td>
+<td>retrospectivas dos ciclos 001–008 e 017–020</td>
+<td>todos; <code>review</code>, <code>process-guardian</code></td>
+</tr>
+<tr>
+<td><code>diagnose-before-fix</code></td>
+<td>nenhum conserto sem investigação de causa raiz antes</td>
+<td>lacuna real de disciplina de depuração (ciclo 011)</td>
+<td><code>dev-implementer</code>, <code>qa</code></td>
+</tr>
+<tr>
+<td><code>living-journey</code></td>
+<td>jornada sem captura do build real é ficção; heurística sem data é ficção vencida</td>
+<td>a lacuna do ciclo 018</td>
+<td><code>qa</code>, <code>tech-writer</code>, <code>ux-semantics</code></td>
+</tr>
+</tbody>
+</table>
+<p>A <code>constitution-check</code> ilustra o que uma skill acrescenta além da lei: ela <strong>decide</strong> quando um
+princípio conta como violado (quando o plano só funciona quebrando-o; desconforto não é violação) e
+dá duas saídas, nunca &quot;ignorar&quot;: refazer o plano ou registrar a violação numa seção de complexidade
+justificada, com o motivo e o que a torna reversível, para o gate humano decidir.</p>
+<p>As seis carregam lei de ferro, e a coluna &quot;nasceu de&quot; não é decoração: é a regra de nascimento
+cumprida. As três primeiras vieram do ciclo 005, todas de dor observada nos ciclos 003 e 004, como
+a tabela de conferência que todo plano refazia à mão [CLAIM-07-010]. A <code>anti-patterns</code> veio do
+estudo de outro repositório do mesmo autor (<code>maestro-02</code>) e cresceu por retrospectiva até 23 itens,
+em cinco grupos (contexto, orquestração, qualidade, processo e verificação), cada item com o ciclo
+de origem; o histórico do arquivo mostra mudanças em nove ciclos, do 008 ao 055 [CLAIM-07-014]. A lei dela é a mais curta e talvez a mais útil fora do Maestro: <strong>nomeie antes de
+corrigir</strong>. Corrigir sem nomear conserta o sintoma uma vez; nomear (&quot;este é o número 4&quot;) liga o
+erro ao catálogo, encurta a conversa e alimenta a retrospectiva que decide se ele vira regra.</p>
+<p>O ciclo 011, de 31 de julho, é onde as skills deixaram de <strong>sugerir</strong> e passaram a <strong>comandar</strong>. Os
+vereditos do estudo do Superpowers, aprovados integralmente pelo Steward, viraram seis requisitos:
+lei de ferro nas quatro skills que existiam, o protocolo de linha de base no <code>skill-author</code>, a skill
+nova de diagnóstico, um checkpoint leve por tarefa na raia plena com mais de três tarefas, a regra
+de escrever cada tarefa para quem tem zero contexto e um parágrafo de &quot;skills primeiro&quot; na instrução
+do projeto [CLAIM-07-011]. Os cartões datados do catálogo do ecossistema registram cada ideia com o
+seu veredito: absorver a lei de ferro, o catálogo de anti-padrões, a causa raiz antes do conserto, o
+teste de skills e o <em>bootstrap</em> da instrução; descartar a adoção integral de uma metodologia
+[CLAIM-07-016].</p>
+<h3 id="skills-primeiro-regra-não-hook" tabindex="-1">&quot;Skills primeiro&quot;: regra, não hook <a class="header-anchor" href="#skills-primeiro-regra-não-hook" aria-hidden="true">#</a></h3>
+<p>O Superpowers garante que o agente consulte as skills com um <strong>hook</strong> de início de sessão, que
+injeta a meta-skill em toda conversa. O Maestro escolheu outro mecanismo, e vale ser preciso sobre
+qual. O &quot;skills primeiro&quot; é um <strong>parágrafo</strong> da instrução do projeto: antes de agir, verifique se uma
+skill se aplica; havendo chance razoável, siga-a. O que o torna mais que um conselho é que o bloco
+é <strong>gerado do disco</strong> pelo instalador, e não escrito à mão, e que o <code>check-install.sh</code> falha se a
+instrução não apontar para o método [CLAIM-07-017]. É regra com forcing function, não hook: nada
+impede um agente de ignorar o parágrafo. O hook que o Maestro tem (um guarda <code>PreToolUse</code>) protege
+outra coisa, o histórico que não se reescreve. Para um time que adote o formato, a escolha é real:
+o hook impede, mas é específico do harness; a instrução gerada sobrevive à troca de ferramenta, mas
+só orienta.</p>
+<h3 id="ordem-entre-papéis-e-papéis-de-ocasião" tabindex="-1">Ordem entre papéis e papéis de ocasião <a class="header-anchor" href="#ordem-entre-papéis-e-papéis-de-ocasião" aria-hidden="true">#</a></h3>
+<p>Dois episódios do ciclo 076, já no fim de outubro de 2026, mostram o padrão em uso.</p>
+<p>O primeiro é uma regra de <strong>ordem</strong>. O Steward fixou que o agente de semântica de interface declara o
+papel de um objeto de tela <strong>antes</strong> de o construtor deixar o teste verde. No commit <code>103604f</code>, de 2
+de novembro, o <code>ux-semantics</code> escreveu o papel semântico de &quot;derrubar sessão&quot; no <code>ux-design.md</code>
+antes do verde da tarefa que o implementaria: derrubar vira um <strong>pedido de decisão</strong> com prazo, a
+confirmação irreversível diz o que se perde (a tentativa em curso) e o que se reverte (a retomada), e
+o estado da sessão só muda quando o desfecho do pedido chega, nunca no clique. A mensagem do commit
+registra também que dois toques fora do escopo foram revertidos pelo agente que coordenava
+[CLAIM-07-021]. O papel não só existia; ele vinha na ordem certa, e o seu &quot;não faz&quot; foi cobrado.</p>
+<p>O segundo é o uso de papéis <strong>de ocasião</strong>. Para decidir a arquitetura e a interface do painel do
+método, o 076 convocou duas bancas de três especialistas cada (jornada, catálogo e linguagem do
+lado de UX; um arquiteto orientado a <em>Domain-Driven Design</em>, um pragmático e um de integração do
+outro lado), todos em contexto fresco, e os arquitetos leram os votos uns dos outros e responderam
+ponto a ponto. A síntese emenda o briefing do ciclo anterior, registra treze decisões de
+arquitetura com voto e gatilho de revisão e, numa seção de versão 2 escrita depois de um estudo de
+plataformas de controle de agentes, diz o que muda e o que entra, chegando a quinze [CLAIM-07-020]. Esses
+especialistas não viraram perfis permanentes, e não deveriam: são papéis C (consultados) de uma
+decisão, com escopo de uma pergunta. Nem todo papel merece um arquivo em <code>.claude/agents/</code>; merece
+um arquivo o papel que se repete.</p>
+<h2 id="exemplo-executável" tabindex="-1" class="callout c-prat" data-rotulo="Mão na massa">Exemplo executável <a class="header-anchor" href="#exemplo-executável" aria-hidden="true">#</a></h2>
+<p>O exemplo em <a href="07-papeis-e-skills-exemplo.html"><code>exemplo/</code></a> é um portão de papéis e skills que você pode apontar
+para o seu próprio repositório. Ele lê um time fictício descrito em arquivos (uma tabela de papéis,
+que é a norma; seis perfis, que são os executáveis; duas skills com linha de base) e aplica dez
+regras, seis de papel e quatro de skill.</p>
+<p>As regras de papel são a anatomia deste capítulo virada em verificação: todo papel prescrito tem um
+perfil (P1) e todo perfil entrega um papel prescrito (P2), que é o <code>check-roles.sh</code> nos dois
+sentidos; quem julga não tem caneta (P3); o contrato tem Faz, Não faz, Consome, Produz e Entrega a
+(P4); o perfil cabe num teto de 40 linhas (P5); e o papel <strong>declara a faixa de modelo</strong> (P6). A P6
+não existe no Maestro: é a recomendação deste capítulo para a lacuna papel × modelo × custo. As
+regras de skill são o nascimento e a forma: gatilho na descrição (S1), lei de ferro com as desculpas
+fechadas (S2), dor de origem e linha de base com o &quot;sem&quot; e o &quot;com&quot; (S3), e consumo nos dois sentidos,
+nenhuma skill órfã e nenhum papel citando skill inexistente (S4).</p>
+<p>Para não ser um portão que nunca reclamou, o script aplica dez mutações numa cópia do time, uma por
+regra, e exige que cada uma seja acusada <strong>pela regra certa</strong>: o papel de interface perde o agente
+(a falha do 018), o revisor ganha permissão de edição, a lei de ferro vira sugestão, a skill nasce
+sem linha de base, ninguém consome a skill (a família do 063). Rodando:</p>
+<pre><code class="language-text">$ python confere.py
+...
+== o time como está
+  ✓ dez regras conformes
+
+== mutações (cada uma deve ser acusada pela SUA regra)
+  ✓ M1 o papel de interface perde o agente: P1 acusou — 'Semântica de interface' é prescrito pelo modelo e nenhum perfil o entrega
+  ✓ M3 o revisor ganha caneta: P3 acusou — 'revisor' julga e tem Edit
+  ...
+resultado: time conforme · mutações acusadas: 10/10
+</code></pre>
+<p>O segundo script, <code>mede.py</code>, mede qualquer pasta de perfis: linhas, bytes, tokens estimados,
+ferramentas, se escreve e se declara modelo. Apontado para os agentes do Maestro na versão citada,
+ele produz os números que este capítulo usa: treze perfis, 285 linhas, três sem escrita e <strong>zero</strong>
+com modelo declarado [CLAIM-07-006, CLAIM-07-007, CLAIM-07-008]. O que o exemplo <strong>não</strong> prova está no
+README [CLAIM-07-025].</p>
+<h2 id="contraexemplo" tabindex="-1" class="callout c-contra" data-rotulo="Limite">Contraexemplo <a class="header-anchor" href="#contraexemplo" aria-hidden="true">#</a></h2>
+<p>A regra deste capítulo tem custo, e há situações em que ela atrapalha.</p>
+<p><strong>O problema é de um agente só.</strong> Se a tarefa cabe numa janela e não tem nada de irreversível,
+dividir em papéis compra <em>handoffs</em>, artefatos intermediários e a chance de um papel esperar algo
+que o anterior não produziu, e não compra nada em troca. É o anti-padrão 4. Mesmo no Maestro, nem
+todo papel trabalha em todo ciclo: numa varredura dos registros dos primeiros 23 ciclos, o <code>qa</code>
+aparecia citado em quinze arquivos, o <code>dev-implementer</code> e o <code>review</code> em seis, o <code>tech-writer</code> e o
+<code>agent-designer</code> em três [CLAIM-07-018]. O toolkit oferece treze janelas; o trabalho usa as que a
+raia pede, e isso é a regra funcionando, não desperdício.</p>
+<p><strong>O papel vira cerimônia.</strong> Importar papéis de um time grande para quem opera sozinho (um &quot;Scrum
+Master&quot; de agentes, uma <em>daily</em> de uma pessoa) é o anti-padrão 11, o teatro de cerimônia. O teste
+é o mesmo do capítulo 14: se o papel nunca muda uma decisão, ele é enfeite. A metáfora de empresa
+que o 076 recusou é a versão narrativa do mesmo erro.</p>
+<p><strong>A lei de ferro universal.</strong> A skill de <em>brainstorming</em> do Superpowers exige design aprovado antes
+de <strong>qualquer</strong> código e nomeia como anti-padrão o &quot;isto é simples demais para precisar de design&quot;.
+O Maestro recusou essa posição: o valor da spec escala com ambiguidade × raio × irreversibilidade,
+e para um erro de digitação a spec é cerimônia de papel. Uma lei de ferro aplicada a tudo vira
+burocracia; a lei precisa ser estreita, e a exceção, uma decisão humana registrada. O que o Maestro
+absorveu da posição oposta foi só o aviso: na dúvida entre a raia leve e a plena, é plena.</p>
+<p><strong>A linha que não paga.</strong> Cada instrução de um papel custa contexto em toda invocação. A ablação
+do caso 002 sugeriu que a linha &quot;confira a raia declarada&quot; do <code>process-guardian</code> era redundante: o
+agente sem ela chegou à mesma conclusão duas vezes. A tentação é apagar a linha. A retrospectiva
+do ciclo 041 (a fase F16 do roteiro, a mesma que descobriu que o próprio script de retrospectiva
+reportava um gate pendente falso desde o ciclo 011 [CLAIM-07-022]) fez o oposto, e com razão: duas amostras não bastam para tirar instrução de um agente;
+o achado virou <strong>gatilho</strong> (reavaliar com o terceiro dado), não regra [CLAIM-07-013]. Cortar papel
+por ablação tem o mesmo rigor que criar papel por dor: exige evidência, não impressão.</p>
+<p><strong>O protocolo que ninguém rodou.</strong> O Maestro exige linha de base para skill original nova desde o
+ciclo 011. Na versão citada, nenhuma das seis skills tem um arquivo de linha de base no
+repositório, e os dois casos de avaliação existentes miram agentes, não skills [CLAIM-07-012,
+CLAIM-07-013]. Há explicação honesta para parte disso: o relatório do 011 registra que a skill de
+diagnóstico nasceu adaptada de uma fonte já testada em produção e que o protocolo passaria a valer
+para as próximas originais [CLAIM-07-011]; a única skill nascida depois disso, a de jornada viva,
+veio no ciclo 018. Mas a lição para o tech lead é direta: o protocolo custa uma rodada de subagente
+por skill e por brecha, e é exatamente o tipo de passo que o time pula quando a skill &quot;obviamente&quot;
+funciona. Se for pular, registre que pulou.</p>
+<p><strong>O número que envelheceu.</strong> O corolário C8 cita como evidência &quot;13 agentes em 267 linhas&quot;, e o
+capítulo do handbook que o ensina diz &quot;média de vinte, o menor com dezessete&quot;. Na versão citada, são
+285 linhas, média de 21,9, o menor com dezoito [CLAIM-07-006]. Nada quebrou: o <code>ux-semantics</code> ganhou
+a sua lei de ferro, o <code>skill-author</code>, o protocolo de teste, e os papéis continuam estreitos. Mas é o
+teorema T5 (sobrevive o que é consumido ou imutável) aplicado ao próprio método: o número escrito em prosa não é consumido por nada, então
+envelhece calado. Se o tamanho dos papéis é uma propriedade que importa, ele deve ser medido por
+script (como o <code>mede.py</code> deste capítulo), e não citado.</p>
+<p><strong>O portão mede a forma.</strong> O <code>check-roles.sh</code> confere que o nome do papel aparece no modelo e que
+o arquivo existe; o <code>confere.py</code> deste capítulo confere seções, campos e tamanhos. Nenhum dos dois
+sabe se o agente se comporta como o papel diz. Um perfil conforme pode ser ignorado; uma lei de
+ferro pode ser racionalizada. É o anti-padrão 13 (o check que mede o <em>proxy</em>, não o fato), e o
+<a href="10-quality-gates-que-provam-fatos.html">capítulo 10</a> é inteiro sobre ele. O
+comportamento só se prova com avaliação contra linha de base, o assunto do
+<a href="15-validando-o-maestro.html">capítulo 15</a>.</p>
+<h2 id="evidência" tabindex="-1">Evidência <a class="header-anchor" href="#evidência" aria-hidden="true">#</a></h2>
+<p>A tese central (a distância entre a norma e o executável produz defeitos silenciosos, e só um
+portão a fecha) se apoia em três falhas datadas: o papel prescrito sem agente por catorze ciclos
+[CLAIM-07-001, CLAIM-07-002], a instrução que mandava consumir um artefato inexistente, com
+fechamento afirmado falso [CLAIM-07-005], e as quatro skills sem capítulo [CLAIM-07-004]. O
+<code>check-roles.sh</code> é observável no script e foi visto falhando antes de ser aceito [CLAIM-07-002,
+CLAIM-07-003].</p>
+<p><strong>Medido</strong>: treze perfis em 285 linhas, os três sem escrita sendo os três que julgam, nenhum com
+modelo declarado [CLAIM-07-006, CLAIM-07-007, CLAIM-07-008]; seis skills com lei de ferro e sem linha
+de base registrada; 23 anti-padrões com a história no Git [CLAIM-07-012, CLAIM-07-014]; o exemplo,
+dez regras e dez mutações [CLAIM-07-025]. <strong>Observado</strong> nos artefatos: o nascimento dos papéis e das
+skills nos ciclos 003, 004, 005, 011 e 018 [CLAIM-07-009, CLAIM-07-010, CLAIM-07-011]; os vereditos
+sobre o ecossistema [CLAIM-07-015, CLAIM-07-016]; o roteiro [CLAIM-07-022]; a ablação [CLAIM-07-013];
+os gates registrados [CLAIM-07-019]; perfil e sessão [CLAIM-07-026]. O uso dos papéis em 23 ciclos
+[CLAIM-07-018] é contagem do handbook, não refeita aqui.</p>
+<p><strong>Hipóteses</strong>: que declarar a faixa de modelo por papel reduz custo sem perder qualidade nos papéis
+mecânicos é a H9 da agenda de pesquisa, não testada [CLAIM-07-024]; que a revisão fresca acha mais
+defeito que a autorrevisão é a H2, tratada no capítulo 2; que a lei de ferro aumenta a obediência é
+plausível pelo mecanismo e pelo relato do catálogo (a tentativa cega teria sumido das
+retrospectivas depois da skill de diagnóstico) [CLAIM-07-016], mas não tem linha de base com e sem a
+lei. O desenho para medi-la é o do caso 001: o mesmo agente, com e sem a lei, no mesmo cenário de
+pressão.</p>
+<h2 id="checklist" tabindex="-1" class="callout c-verif" data-rotulo="Aplique">Checklist <a class="header-anchor" href="#checklist" aria-hidden="true">#</a></h2>
+<ul>
+<li>[ ] Cada papel de agente que a sua norma (modelo operacional, wiki, README) prescreve tem <strong>um
+arquivo executável</strong> que o entrega, e um script falha quando um lado existe sem o outro, nos
+dois sentidos.</li>
+<li>[ ] Cada perfil declara escopo, <strong>o que não faz</strong>, o que consome, o que produz e a quem entrega.</li>
+<li>[ ] Os papéis que julgam (revisão, segurança, conformidade) <strong>não têm</strong> ferramenta de escrita, e
+um script falha se ganharem; o <code>Bash</code> deles está anotado como risco conhecido.</li>
+<li>[ ] Revisor e implementador rodam em <strong>sessões diferentes</strong>; o revisor recebe o diff, a spec e o
+plano, não a conversa.</li>
+<li>[ ] Cada perfil cabe em uma tela (algo como 40 linhas), e o tamanho é <strong>medido por script</strong>, não
+citado em prosa.</li>
+<li>[ ] Cada papel declara a <strong>faixa de modelo</strong> em que roda, com o motivo e o gatilho de revisão.</li>
+<li>[ ] Cada skill tem <code>description</code> com gatilho (&quot;Use quando…&quot;), lei de ferro em bloco e pelo menos
+duas desculpas fechadas.</li>
+<li>[ ] Nenhuma skill nasce sem a dor que a originou escrita e sem uma <strong>linha de base</strong> (o agente
+falhando sem ela, cumprindo com ela); se pular o protocolo, registre que pulou.</li>
+<li>[ ] Toda skill tem pelo menos um papel que a consome, e a instrução que o agente lê primeiro
+lista as skills <strong>geradas do disco</strong>, não de memória.</li>
+<li>[ ] Antes de apagar uma instrução de um papel por parecer redundante, existe uma <strong>ablação</strong> com
+mais de duas amostras.</li>
+<li>[ ] Um papel novo só entra com uma dor nomeada (retrospectiva ou roteiro); um especialista de
+ocasião fica como papel consultado da decisão, sem arquivo permanente.</li>
+</ul>
+<h2 id="referências" tabindex="-1">Referências <a class="header-anchor" href="#referências" aria-hidden="true">#</a></h2>
+<p><strong>Maestro</strong> (<code>https://github.com/GHDaru/maestro</code>, versão <code>19823c2</code>):</p>
+<ul>
+<li>Axiomas, teoremas e corolários (A2, A3, T2, T5, C3, C8):
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/axioms.md">docs/governance/axioms.md</a></li>
+<li>Modelo operacional, §4 (papéis e RACI):
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/operating-model.md">docs/governance/operating-model.md</a></li>
+<li>Glossário (agente-perfil e sessão de agente):
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/glossary.md">docs/governance/glossary.md</a></li>
+<li>Os treze perfis: <a href="https://github.com/GHDaru/maestro/tree/19823c2/.claude/agents">.claude/agents/</a></li>
+<li>Catálogo de skills e regra de nascimento:
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/skills/README.md">skills/README.md</a>; as seis
+skills em <a href="https://github.com/GHDaru/maestro/tree/19823c2/skills">skills/</a></li>
+<li>Portões: <a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/check-agents.sh">scripts/check-agents.sh</a>,
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/check-roles.sh">scripts/check-roles.sh</a></li>
+<li>Ciclos: <a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/003-perfis-agentes-executaveis/spec.md">specs/003</a>,
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/004-agentes-toolkit-executaveis/spec.md">specs/004</a>,
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/005-skills-v0/spec.md">specs/005</a>,
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/011-absorcoes-superpowers/spec.md">specs/011</a>,
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/018-instalacao-e-ux-jornadas/qa-report.md">specs/018</a>,
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/063-pendente-nao-e-evidencia/qa-report.md">specs/063</a>,
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/076-padroes-de-engenharia-e-react/sintese-das-bancas.md">specs/076 — síntese das bancas</a></li>
+<li>Avaliações: <a href="https://github.com/GHDaru/maestro/tree/19823c2/evals">evals/</a></li>
+<li>Catálogo do ecossistema, cartões 002, 008, 010, 013, 023 e 028:
+<a href="https://github.com/GHDaru/maestro/tree/19823c2/docs/ecosystem/ideias">docs/ecosystem/ideias/</a></li>
+<li>Índice de decisões: <a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/records/decisoes.jsonl">docs/records/decisoes.jsonl</a>;
+roteiro: <a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/roadmap.md">docs/roadmap.md</a></li>
+<li>Commit posterior citado: <a href="https://github.com/GHDaru/maestro/commit/103604f">103604f</a> (ciclo 076,
+§F4 do <code>ux-design.md</code>)</li>
+<li>Handbook do método (cópia congelada em <code>maestro-handbook/</code>): capítulos 04 (§5.4, §6), 06 (papéis e
+RACI), 13 (§5.14, Iron Laws) e apêndice B (estudo do Superpowers)</li>
+</ul>
+<p><strong>Externas</strong> (referências bibliográficas; não reacessadas nesta versão, escrita sem acesso à web):</p>
+<ul>
+<li>Hong, S. et al. <em>MetaGPT: Meta Programming for a Multi-Agent Collaborative Framework</em>.
+International Conference on Learning Representations (ICLR), 2024. arXiv:2308.00352.</li>
+<li>Qian, C. et al. <em>ChatDev: Communicative Agents for Software Development</em>. arXiv:2307.07924.</li>
+<li>Anthropic. <em>Building effective agents</em>, dez. 2024.
+https://www.anthropic.com/engineering/building-effective-agents</li>
+<li>Vincent, J. <em>Superpowers</em> (<code>obra/superpowers</code>), licença de código aberto do Massachusetts
+Institute of Technology (MIT); estudado pelo Maestro no fork
+<code>GHDaru/superpowers</code>, commit <code>44c9b2d</code> (v6.2.0), em 31/07/2026.</li>
+<li><em>BMAD-METHOD</em> (<code>bmad-code-org/BMAD-METHOD</code>), lido pelo Maestro em 30/07/2026 (cartão 010).</li>
+<li>CrewAI, documentação de agentes (atributos <em>role</em>, <em>goal</em>, <em>backstory</em> e <em>tools</em>).</li>
+<li>O formato aberto de skills <code>SKILL.md</code> (agentskills.io), adotado pelo Maestro no ciclo 005.</li>
+</ul>
+</article>
+    <nav class="paginacao" aria-label="Anterior e próximo"><a class="pg-prev" href="06-como-dividir-o-trabalho-exemplo.html"><small>← anterior</small>Exemplo executável — 06 Como dividir o trabalho</a><a class="pg-next" href="07-papeis-e-skills-exemplo.html"><small>próximo →</small>Exemplo executável — 07 Papéis e skills</a></nav>
+    <footer class="rodape">
+      <a href="https://github.com/GHDaru/agentic_software_engineering">github.com/GHDaru/agentic_software_engineering</a>
+       · <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/07-papeis-e-skills/capitulo.md">fonte desta página</a>
+      · gerado de <code>livro/</code> por <code>publicar/build.mjs</code>
+    </footer>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body></html>

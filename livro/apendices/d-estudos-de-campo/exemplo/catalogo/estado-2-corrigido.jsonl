@@ -1,0 +1,8 @@
+{"ideia": "ears", "estado": "absorver", "data": "2026-07-30", "destino": "skills/verifiable-dod/SKILL.md", "gatilho": "", "ciclo": "007", "prova": "EARS"}
+{"ideia": "worktree-por-task", "estado": "absorver", "data": "2026-07-30", "destino": "scripts/", "gatilho": "", "ciclo": "007"}
+{"ideia": "standards-por-camada", "estado": "absorver", "data": "2026-07-30", "destino": "docs/standards/", "gatilho": "", "ciclo": "007"}
+{"ideia": "root-cause-antes-do-fix", "estado": "absorver", "data": "2026-07-31", "destino": "skills/diagnose-before-fix/SKILL.md", "gatilho": "", "ciclo": "011", "prova": "no fixes without root cause"}
+{"ideia": "skills-de-gestao-de-produto", "estado": "observar", "data": "2026-08-06", "destino": "", "gatilho": "", "ciclo": "036"}
+{"ideia": "worktree-por-task", "estado": "observar", "data": "2026-08-10", "destino": "", "gatilho": "dois ou mais agentes escrevendo no mesmo repositorio ao mesmo tempo, com conflito observado", "ciclo": "047"}
+{"ideia": "standards-por-camada", "estado": "observar", "data": "2026-08-10", "destino": "", "gatilho": "primeiro onboarding do metodo em codebase legado grande, com deriva de padrao observada", "ciclo": "047"}
+{"ideia": "skills-de-gestao-de-produto", "estado": "descartar", "data": "2026-08-10", "destino": "", "gatilho": "", "ciclo": "047"}

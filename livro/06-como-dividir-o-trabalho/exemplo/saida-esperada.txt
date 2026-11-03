@@ -1,0 +1,93 @@
+
+== 1. corte por tela: o mesmo conceito ganha três donos
+plano: um número só para «precisa de mim», cortado por TELA  (critério do corte: cada agente fica com uma tela e resolve tudo o que ela mostra)
+  ✗ conceito com mais de um dono: contagem-precisa-de-mim  ← W01, W04, W05
+✗ 1 colisão(ões): a reconciliação vai custar o que o paralelo economizou.
+(exit 1)
+
+== 2. corte por quantidade: dois agentes no mesmo arquivo, e um contrato que ninguém escreve
+plano: o mesmo trabalho, cortado por QUANTIDADE  (critério do corte: seis mudanças, duas para cada agente, na ordem da lista)
+  ✗ arquivo com dois escritores: casca.js  ← A, B
+  ✗ contrato consumido sem dono: contagem-dos-andares  ← C
+✗ 2 colisão(ões): a reconciliação vai custar o que o paralelo economizou.
+(exit 1)
+
+== 3. corte por fronteira: cada arquivo e cada conceito com um dono
+plano: o mesmo trabalho, cortado por FRONTEIRA (um dono por conceito)  (critério do corte: o conceito tem um dono; quem consome espera o contrato; a casca expõe uma porta inerte)
+✓ 4 fatias, cada arquivo e cada conceito com um dono só.
+(exit 0)
+
+== 4. a ordem sai dos contratos: o dono antes de quem consome
+  onda 1: W01 · W02 · W03
+  onda 2: W05 (espera W01, W02)
+✓ 2 onda(s); dentro de uma onda as fatias correm em paralelo.
+(exit 0)
+
+== 5. quanto custa: o corte por tela e o por quantidade não pagam a coordenação
+plano: um número só para «precisa de mim», cortado por TELA
+  um agente, em sequência ......... 9
+  caminho crítico das ondas ....... 3
+  passagens entre fatias .......... 0 × 1 = 0
+  colisões → retrabalho ........... 1 colisão(ões) = 9
+  paralelo (caminho + coordenação)  12
+  overhead de coordenação ......... 9/12 = 75% do tempo paralelo
+✗ paralelizar NÃO compensa: 12 ≥ 9. Um agente só, ou um corte melhor.
+(exit 1)
+plano: o mesmo trabalho, cortado por QUANTIDADE
+  um agente, em sequência ......... 9
+  caminho crítico das ondas ....... 9
+  passagens entre fatias .......... 3 × 1 = 3
+  colisões → retrabalho ........... 2 colisão(ões) = 9
+  paralelo (caminho + coordenação)  21
+  overhead de coordenação ......... 12/21 = 57% do tempo paralelo
+✗ paralelizar NÃO compensa: 21 ≥ 9. Um agente só, ou um corte melhor.
+(exit 1)
+
+== 6. o corte por fronteira paga ... enquanto a passagem for barata
+plano: o mesmo trabalho, cortado por FRONTEIRA (um dono por conceito)
+  um agente, em sequência ......... 14
+  caminho crítico das ondas ....... 7
+  passagens entre fatias .......... 2 × 1 = 2
+  colisões → retrabalho ........... 0 colisão(ões) = 0
+  paralelo (caminho + coordenação)  9
+  overhead de coordenação ......... 2/9 = 22% do tempo paralelo
+✓ paralelizar compensa: 14 → 9
+(exit 0)
+plano: o mesmo trabalho, cortado por FRONTEIRA (um dono por conceito)
+  um agente, em sequência ......... 14
+  caminho crítico das ondas ....... 7
+  passagens entre fatias .......... 2 × 4 = 8
+  colisões → retrabalho ........... 0 colisão(ões) = 0
+  paralelo (caminho + coordenação)  15
+  overhead de coordenação ......... 8/15 = 53% do tempo paralelo
+✗ paralelizar NÃO compensa: 15 ≥ 14. Um agente só, ou um corte melhor.
+(exit 1)
+
+== 7. a menor autonomia que resolve, caso a caso
+  1. Conduzir um ciclo: spec → plano → tarefas → implementar → DoD
+    → encadeamento + avaliador-otimizador  (passos conhecidos: fluxo fixo, barato e depurável; o laço para quando o critério passa)
+  2. Triar o que chega: correção de texto, funcionalidade nova, migração de banco
+    → roteamento  (classificar a entrada e escolher o caminho fixo)
+  3. Número único: domínio, casca e entrada, com o contrato escrito antes
+    → paralelização + avaliador-otimizador  (fatias por fronteira, cada uma com dono e contrato; o laço para quando o critério passa)
+  4. Metade dos arquivos para cada agente, 'porque são independentes'
+    → encadeamento  (partes 'independentes' sem fronteira declarada: corte antes de paralelizar)
+  5. Integrar 42 branches de outra linha: o corte só aparece lendo o histórico
+    → orquestrador-trabalhadores  (as fatias só se conhecem lendo o problema; o reduce é humano)
+  6. Um agente que 'descobre sozinho' o que refatorar no repositório
+    → encadeamento  (autônomo pedido sem evidência de que o simples falhou: recusado)
+(exit 0)
+
+== 8. numerar em duas linhas paralelas: colisão de endereço e recusa
+  ✗ número 064 alocado 2 vezes: dev:064-capa-para-a-ia-que-instala × paralela:064-workflow-painel
+  ✗ número 065 alocado 2 vezes: dev:065-o-metodo-se-cobra × paralela:065-board
+  ✗ 'ciclo 064' → recusado: 2 destinos (endereço ambíguo não se resolve, se recusa)
+  ✓ 'ciclo 066' → paralela:066-custeio
+  ✗ 'ciclo 068' → recusado: nenhum destino
+  renumeração (a linha 'dev' fica; a outra ganha o próximo livre):
+    064-workflow-painel      → 066-workflow-painel
+    065-board                → 067-board
+    066-custeio              → 068-custeio
+    067-painel-chamados      → 069-painel-chamados
+    070-conferidor           → 070-conferidor
+(exit 1)

@@ -1,0 +1,685 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>09 — Arquitetura que se defende · Engenharia de Software Orientada por Agentes</title>
+<meta name="description" content="Governança operacional para um humano regendo muitos agentes">
+<script>try{var t=localStorage.getItem("tema");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="assets/estilo.css">
+</head><body>
+<header class="barra">
+  <button id="alt-menu" aria-label="Abrir o sumário" aria-expanded="false" aria-controls="sidebar">☰ <span>Sumário</span></button>
+  <a class="barra-titulo" href="index.html">Engenharia de Software Orientada por Agentes</a>
+  <button id="alt-tema" aria-label="Alternar tema claro/escuro">◐</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="marca" href="index.html">Engenharia de Software Orientada por Agentes<small>Agentic Software Engineering</small></a>
+    <div class="nav-parte">Abertura</div><ul><li><a href="00-prefacio.html">Prefácio</a></li></ul><div class="nav-parte">Parte I — Por que agentes mudam a engenharia</div><ul><li><a href="01-a-mudanca-de-unidade-de-trabalho.html">1. A mudança de unidade de trabalho</a></li><li class="filho"><a class="filho" href="01-a-mudanca-de-unidade-de-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="02-o-problema-da-confianca.html">2. O problema da confiança</a></li><li class="filho"><a class="filho" href="02-o-problema-da-confianca-exemplo.html">Exemplo executável</a></li><li><a href="03-um-humano-muitos-agentes.html">3. Um humano, muitos agentes</a></li><li class="filho"><a class="filho" href="03-um-humano-muitos-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte II — Especificar e dar contexto</div><ul><li><a href="04-a-spec-como-partitura.html">4. A spec como partitura</a></li><li class="filho"><a class="filho" href="04-a-spec-como-partitura-exemplo.html">Exemplo executável</a></li><li><a href="05-engenharia-de-contexto.html">5. Engenharia de contexto</a></li><li class="filho"><a class="filho" href="05-engenharia-de-contexto-exemplo.html">Exemplo executável</a></li><li><a href="06-como-dividir-o-trabalho.html">6. Como dividir o trabalho</a></li><li class="filho"><a class="filho" href="06-como-dividir-o-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="07-papeis-e-skills.html">7. Papéis e skills</a></li><li class="filho"><a class="filho" href="07-papeis-e-skills-exemplo.html">Exemplo executável</a></li><li><a href="08-ddd-para-agentes.html">8. DDD para agentes</a></li><li class="filho"><a class="filho" href="08-ddd-para-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte III — Provar e conter</div><ul><li><a class="ativo" aria-current="page" href="09-arquitetura-que-se-defende.html">9. Arquitetura que se defende</a></li><li class="filho"><a class="filho" href="09-arquitetura-que-se-defende-exemplo.html">Exemplo executável</a></li><li><a href="10-quality-gates-que-provam-fatos.html">10. Quality gates que provam fatos</a></li><li class="filho"><a class="filho" href="10-quality-gates-que-provam-fatos-exemplo.html">Exemplo executável</a></li><li><a href="11-risco-reversibilidade-e-autonomia.html">11. Risco, reversibilidade e autonomia</a></li><li class="filho"><a class="filho" href="11-risco-reversibilidade-e-autonomia-exemplo.html">Exemplo executável</a></li><li><a href="12-ferramentas-mcp-e-o-ecossistema.html">12. Ferramentas, MCP e o ecossistema</a></li><li class="filho"><a class="filho" href="12-ferramentas-mcp-e-o-ecossistema-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte IV — Medir e aprender</div><ul><li><a href="13-observabilidade-e-economia.html">13. Observabilidade e economia</a></li><li class="filho"><a class="filho" href="13-observabilidade-e-economia-exemplo.html">Exemplo executável</a></li><li><a href="14-a-organizacao-que-aprende.html">14. A organização que aprende</a></li><li class="filho"><a class="filho" href="14-a-organizacao-que-aprende-exemplo.html">Exemplo executável</a></li><li><a href="15-validando-o-maestro.html">15. Validando o Maestro</a></li><li class="filho"><a class="filho" href="15-validando-o-maestro-exemplo.html">Exemplo executável</a></li><li><a href="16-o-futuro-da-engenharia-agentica.html">16. O futuro da engenharia agêntica</a></li><li class="filho"><a class="filho" href="16-o-futuro-da-engenharia-agentica-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Apêndices</div><ul><li><a href="apendice-a-o-maestro-em-uma-pagina.html">A. O Maestro em uma página</a></li><li><a href="apendice-b-aseg-bench.html">B. ASEG-Bench — um benchmark de governança</a></li><li><a href="apendice-c-pacote-de-replicacao.html">C. Pacote de replicação</a></li><li><a href="apendice-d-estudos-de-campo.html">D. Estudos de campo do ecossistema</a></li></ul><div class="nav-parte">Consulta</div><ul><li><a href="glossario.html">Glossário</a></li><li><a href="evidencias.html">Evidências (claims)</a></li></ul>
+  </aside>
+  <main class="conteudo">
+    <article class="markdown"><h1 id="09--arquitetura-que-se-defende" tabindex="-1">09 — Arquitetura que se defende <a class="header-anchor" href="#09--arquitetura-que-se-defende" aria-hidden="true">#</a></h1>
+<blockquote>
+<p>&quot;Um portão que lê um de dois canais não distingue 'nada vazou' de 'não olhei'.&quot;
+— spec 054 do Maestro, sexto requisito funcional</p>
+</blockquote>
+<p>Com um time de pessoas, a arquitetura se defendia de um jeito caro e confiável: alguém sênior
+lia o pull request e dizia &quot;isso não vai no domínio&quot;. Com agentes, o volume de mudança cresce
+mais rápido do que qualquer revisor consegue ler, e cada agente começa a sessão sem lembrar o
+diagrama que você desenhou no mês passado. Este capítulo é sobre transformar as regras de
+arquitetura em coisas que <strong>recusam</strong> a mudança errada sozinhas: uma fronteira declarada num
+arquivo, uma seta de dependência medida pela árvore do código, um registro que não aceita ser
+reescrito. E sobre o defeito que sobra mesmo assim, que é o portão que não percebeu que o mundo
+dele cresceu.</p>
+<h2 id="pergunta-central" tabindex="-1" class="callout c-obj" data-rotulo="Pergunta">Pergunta central <a class="header-anchor" href="#pergunta-central" aria-hidden="true">#</a></h2>
+<p>Como a arquitetura recusa a mudança errada sem depender de um revisor que leia o diff, e como
+saber que ela continua recusando quando o sistema ganha uma porta nova?</p>
+<h2 id="resultado-de-aprendizagem" tabindex="-1">Resultado de aprendizagem <a class="header-anchor" href="#resultado-de-aprendizagem" aria-hidden="true">#</a></h2>
+<p>Ao final, você consegue:</p>
+<ol>
+<li><strong>Declarar</strong> uma fronteira interna como dado (um arquivo, uma fonte), com invariantes que uma
+máquina decide: cada arquivo tem exatamente um dono, todo caminho compartilhado tem dono, nada
+sai publicado por caminho que ninguém declarou.</li>
+<li><strong>Escrever</strong> uma <em>fitness function</em> que mede a direção das dependências pela árvore sintática
+do código, e não pelo texto, e <strong>provar</strong> que ela reprova as formas de violação que o texto
+esconde.</li>
+<li><strong>Tornar mecânica</strong> uma propriedade que hoje é convenção (só acrescentar, nunca reescrever;
+sessão que sobrevive à queda do servidor), escolhendo entre teste estático, gatilho no banco e
+prova destrutiva.</li>
+<li><strong>Perguntar</strong>, a cada ciclo que abre um canal ou um poder novo, quais portões guardavam a porta
+velha, e estendê-los no mesmo ciclo.</li>
+<li><strong>Decidir</strong> quando uma fronteira física (outro repositório, outro serviço) se paga, medindo o
+acoplamento antes de mover qualquer arquivo.</li>
+</ol>
+<h2 id="a-falha-real" tabindex="-1" class="callout c-falha" data-rotulo="Caso real">A falha real <a class="header-anchor" href="#a-falha-real" aria-hidden="true">#</a></h2>
+<p>Em 14 de agosto de 2026, o operador do Maestro pediu uma coisa pequena: &quot;coloque esta
+apresentação no livro, como material&quot; [CLAIM-09-004]. O livro do método é publicado por um
+motor próprio, que lê um sumário em JavaScript Object Notation (JSON), converte cada capítulo
+Markdown em página e reprova o build se um link interno não resolver. Uma apresentação é um
+arquivo HyperText Markup Language (HTML) de tela cheia; não cabia no molde. O ciclo 054 criou
+então um terceiro tipo de conteúdo, ao lado de &quot;parte&quot; e &quot;item&quot;: o <strong>material</strong>, uma página
+autocontida que o livro publica e indexa sem renderizar
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/054-material-de-apresentacao-no-livro/spec.md">spec 054</a>).</p>
+<p>O implementador escreveu o canal novo, provou que o build reprovava material ausente e material
+colidindo com página gerada, viu o build verde e entregou. A revisão independente, rodada em
+contexto fresco com a instrução de refutar, reprovou o ciclo com quatro achados numerados
+[CLAIM-09-001]. Dois deles são o assunto deste capítulo.</p>
+<p>O primeiro: um material chamado <code>index.html</code> <strong>substituía a capa do site</strong>, mantida à mão, e o
+build imprimia uma linha de sucesso com a contagem de páginas. O revisor provou comparando o
+<em>hash</em> do arquivo antes e depois [CLAIM-09-002]. O mapa de colisões do motor só conhecia itens e
+materiais; a capa e o sumário nunca tinham sido itens, então nunca estiveram no mapa. Antes do
+ciclo, o buraco não existia, porque nenhum arquivo que não fosse Markdown chegava à raiz do
+site. O canal novo abriu a porta.</p>
+<p>O segundo é pior, porque atinge um portão que existia exatamente para isso. O Maestro tem um
+script, <code>check-boundary.sh</code>, que garante que nenhum documento voltado para máquina saia no site
+voltado para gente sem que alguém o tenha declarado público. Ele lia as páginas publicadas da
+lista de partes do sumário. O material era um segundo canal. O revisor publicou
+<code>scripts/interno.html</code>, um arquivo do lado instalável do repositório, como material: o site
+recebeu o arquivo, e o portão disse que estava tudo certo [CLAIM-09-001]. Nas palavras do
+relatório, era a falha que aquele script existe para impedir, entrando pela porta que ele não
+vigiava
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/054-material-de-apresentacao-no-livro/qa-report.md">qa-report 054</a>).</p>
+<p>Nenhum dos dois portões estava errado no dia em que nasceu. O mapa de colisões cobria todas as
+páginas que o motor publicava; o portão de fronteira lia o único canal de publicação que existia.
+Os dois ficaram errados <strong>sem que ninguém mexesse neles</strong>: o mundo que eles guardavam cresceu e
+eles continuaram olhando para a metade antiga. O verde passou a significar &quot;não olhei para lá&quot;.</p>
+<p>A correção foi estrutural. O mapa de colisões passou a incluir tudo o que existe na raiz do site,
+inclusive a capa e o sumário. O portão de fronteira passou a ler os dois canais, com um
+comentário no código explicando por que, e seis mutações foram rodadas numa cópia do repositório
+e vistas reprovando, uma por modo de falha [CLAIM-09-003]. E o catálogo de anti-padrões do método
+ganhou o item 23, &quot;porta nova, guarda antiga não avisada&quot;, com um antídoto em forma de pergunta:
+<em>qual era o mundo deste portão, e ele acabou de crescer?</em>
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/skills/anti-patterns/SKILL.md">anti-patterns</a>).</p>
+<p>A falha tem um parente mais antigo, que mostra o mesmo defeito em escala de método. No ciclo 018,
+em 1º de agosto, o relatório de qualidade registrou que o modelo operacional do Maestro
+prescrevia um agente de experiência de uso (UX, de <em>user experience</em>), um artefato
+<code>ux-design.md</code> e um documento de jornada havia <strong>catorze ciclos</strong>, sem que nada no toolkit os
+entregasse [CLAIM-09-005]. Nenhum relatório tinha pegado, porque os checks olhavam sempre para
+dentro do ciclo, nunca para a distância entre o que a norma manda e o que o repositório tem. A
+arquitetura do método estava desenhada num documento. Não estava em lugar nenhum que recusasse
+alguma coisa.</p>
+<h2 id="teoria" tabindex="-1">Teoria <a class="header-anchor" href="#teoria" aria-hidden="true">#</a></h2>
+<h3 id="uma-regra-de-arquitetura-é-um-critério-e-critério-sem-comando-é-desejo" tabindex="-1">Uma regra de arquitetura é um critério, e critério sem comando é desejo <a class="header-anchor" href="#uma-regra-de-arquitetura-é-um-critério-e-critério-sem-comando-é-desejo" aria-hidden="true">#</a></h3>
+<p>O livro deriva este capítulo do teorema T4 do Maestro: <em>um critério sem comando não é um
+critério</em>. O teorema nasce de dois axiomas. A consequência precisa de dono (A2), e só o que está
+escrito sobrevive à sessão seguinte (A4). Logo, &quot;pronto&quot; precisa produzir uma evidência que uma
+máquina confirme, ou significa o que o leitor supôs
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/axioms.md">axioms.md</a>).</p>
+<p>Uma regra de arquitetura é um critério como outro qualquer. &quot;O domínio não fala com o banco&quot; é
+uma afirmação sobre todo commit futuro. Se ela vive num diagrama, num documento de arquitetura ou
+na cabeça do tech lead, vale enquanto alguém lembra de olhar. Com agentes, dois axiomas pioram a
+situação. O contexto é finito e se degrada conforme enche (A3): o documento de arquitetura pode
+simplesmente não estar na janela do agente que está escrevendo o código. E cada sessão começa do
+zero (A4): o que o agente &quot;entendeu&quot; na conversa de ontem não existe hoje. A regra que só existe
+como prosa depende de três coisas que o trabalho com agentes torna improváveis: o documento ser
+lido, ser lembrado e ser comparado com o diff por alguém com tempo.</p>
+<p>A literatura de arquitetura já tinha um nome para a alternativa. Neal Ford, Rebecca Parsons e
+Patrick Kua chamaram de <em>fitness function</em> a verificação objetiva de uma característica de
+arquitetura, executada de forma contínua, para que a arquitetura possa evoluir sem perder o que
+importa (<em>Building Evolutionary Architectures</em>, 2017). O handbook do Maestro resume o efeito em
+três linhas: regra de arquitetura que vive só em documento é violada em silêncio; transformada em
+teste executável na integração contínua (CI, de <em>continuous integration</em>), ela se defende
+sozinha; e o preço é um falso senso de segurança, porque a função testa o que foi codificado,
+não o que foi esquecido
+(<a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/maestro-handbook/handbook/13-decisoes-de-engenharia.md">handbook, cap. 13, §5.5</a>).
+Guarde a terceira linha. A falha do ciclo 054 é ela, com data.</p>
+<p>A evidência que o Maestro registra para T4 não é a de que portões pegam tudo. É o contrário:
+<strong>nove defeitos escaparam para a linha principal com o portão verde</strong>, e cada um foi achado
+depois por um check que alguém escreveu, nunca por leitura atenta [CLAIM-09-007]. A arquitetura
+que se defende não é a que nunca deixa passar nada. É a que transforma cada coisa que passou num
+check novo, e por isso não deixa passar a mesma coisa duas vezes.</p>
+<h3 id="fronteira-não-é-pasta-fronteira-é-decidível" tabindex="-1">Fronteira não é pasta: fronteira é decidível <a class="header-anchor" href="#fronteira-não-é-pasta-fronteira-é-decidível" aria-hidden="true">#</a></h3>
+<p>O primeiro tipo de regra de arquitetura é a fronteira: o que pertence a qual parte do sistema.
+A forma usual de declarar fronteira é a estrutura de pastas, e ela tem um defeito que só aparece
+com o tempo. Pasta descreve onde o arquivo está, não a quem ele pertence nem quem pode lê-lo.
+Quando um arquivo novo nasce num lugar que ninguém previu, a estrutura de pastas não reclama.</p>
+<p>O Maestro tratou o problema com uma palavra precisa: a fronteira tem de ser <strong>decidível</strong>. Para
+qualquer arquivo rastreado, uma máquina tem de responder, sem julgamento, a qual domínio ele
+pertence. O script que verifica isso diz no próprio cabeçalho o que ele não mede: não mede se os
+arquivos estão em pastas bonitas; mede que a fronteira é decidível, e lista as três maneiras pelas
+quais uma fronteira apodrece sem ninguém perceber
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/check-boundary.sh">check-boundary.sh</a>):</p>
+<ol>
+<li><strong>Arquivo órfão.</strong> Nenhum domínio o reivindica, então ele vai derivar para a metade errada.</li>
+<li><strong>Caminho compartilhado sem dono.</strong> Um caminho que dois leitores usam, e que ninguém possui,
+é uma bifurcação com outro nome: as duas cópias divergem.</li>
+<li><strong>Publicação sem origem declarada.</strong> Algo chega ao leitor por um caminho que ninguém declarou
+público.</li>
+</ol>
+<p>Duas decisões de desenho tornam isso decidível de verdade. A resolução de dono é por <strong>prefixo
+mais longo</strong>, o que permite exceções aninhadas sem lista de exceções. E o empate no mesmo
+comprimento não é resolvido por ordem de declaração: é marcado como ambíguo e <strong>falha</strong>, porque,
+nas palavras do registro de decisão que criou a regra, ambiguidade silenciosa é pior que erro.</p>
+<p>Há um efeito colateral que vale mais que o portão. Quando a fronteira é um arquivo que um script
+consome, toda pasta nova na raiz do repositório exige uma linha nesse arquivo, no mesmo commit.
+O arquivo de fronteira do Maestro mudou oito vezes entre agosto e outubro de 2026, e cada mudança
+é uma decisão de arquitetura pequena, registrada no lugar onde ela vale: o painel de coordenação
+entrou como domínio de máquina, o protótipo navegável também, a licença e as notas de terceiros
+ganharam dono [CLAIM-09-014]. Nenhuma dessas decisões precisou de reunião. Todas precisaram ser
+tomadas.</p>
+<h3 id="a-seta-aponta-para-dentro" tabindex="-1">A seta aponta para dentro <a class="header-anchor" href="#a-seta-aponta-para-dentro" aria-hidden="true">#</a></h3>
+<p>O segundo tipo de regra é a direção das dependências. Alistair Cockburn descreveu a arquitetura
+hexagonal, ou de portas e adaptadores, com uma ideia simples: o núcleo da aplicação fala com o
+mundo por portas (interfaces que ele define) e o mundo se conecta por adaptadores (implementações
+que dependem da porta, nunca o contrário). Robert C. Martin chamou a mesma ideia de regra da
+dependência: o código-fonte só aponta para dentro, em direção à política. O <em>Domain-Driven
+Design</em> (DDD) de Eric Evans acrescenta onde moram as invariantes: no domínio, dentro do agregado,
+não na tela, não na rota, não no gatilho.</p>
+<p>Para agentes, essa regra tem um valor que ela não tinha para times humanos. O agente escreve onde
+for mais curto escrever. Se a rota HTTP (<em>HyperText Transfer Protocol</em>) já tem a conexão com o
+banco aberta, a validação do pedido vai para a rota. O resultado compila, passa nos testes de
+comportamento e espalha a regra de negócio por um lugar onde o próximo agente não vai procurar.
+A direção da dependência é o que impede que &quot;mais curto&quot; vire &quot;certo&quot;.</p>
+<p>E a regra é inteiramente mecânica. Saber se <code>dominio/pedido.py</code> importa <code>sqlite3</code> não exige
+julgamento: exige ler a árvore sintática abstrata (AST, de <em>abstract syntax tree</em>) do arquivo.
+A versão ingênua, procurar a linha <code>import sqlite3</code> no texto, mede o proxy: deixa passar
+<code>from sqlite3 import connect</code>, deixa passar o import relativo do adaptador, deixa passar
+<code>__import__(&quot;sqlite3&quot;)</code>. O <a href="10-quality-gates-que-provam-fatos.html">capítulo 10</a> trata
+essa família de defeitos em detalhe; aqui basta a consequência prática. O teste de arquitetura
+tem de ler a estrutura do código, não a sua superfície.</p>
+<h3 id="mecanismo-em-vez-de-convenção" tabindex="-1">Mecanismo em vez de convenção <a class="header-anchor" href="#mecanismo-em-vez-de-convenção" aria-hidden="true">#</a></h3>
+<p>O terceiro tipo de regra é uma propriedade de comportamento que a arquitetura promete: um
+registro que só cresce, uma sessão que sobrevive à queda do servidor. Essas promessas costumam
+viver como convenção (&quot;ninguém faz <code>UPDATE</code> nessa tabela&quot;). A convenção é verdade até o dia em
+que o agente, com a melhor das intenções, corrige um registro errado editando-o.</p>
+<p>O Maestro registra a passagem de convenção para mecanismo com franqueza, em dois registros de
+decisão de arquitetura. O Architecture Decision Record (ADR) é o registro imutável de uma
+decisão, com contexto, opções e consequências. O ADR 0025, de 22 de outubro de 2026, aceitou que
+ganchos de terceiros gravassem tabelas de fluxo de trabalho com o append-only ainda garantido
+por convenção. Dois dias depois, o ADR 0027 tornou a mesma regra mecânica, com duas provas
+independentes [CLAIM-09-033]. É a esse tipo de troca que este capítulo chama de arquitetura que
+se defende.</p>
+<p>A escolha do mecanismo segue uma escada. O mais barato é o <strong>teste estático</strong>: ler o código e
+recusar a forma proibida (um <code>open</code> em modo de escrita). Depois vem o <strong>mecanismo no próprio
+substrato</strong>: um gatilho no banco que aborta o <code>UPDATE</code>, independente de quem escreveu o código. E
+há propriedades que só se provam por <strong>destruição deliberada</strong>: matar o processo e ver o que
+sobrevive. O ADR 0032 do Maestro é desse terceiro tipo, e diz a prova na própria decisão: matar o
+servidor e ver as sessões vivas [CLAIM-09-023].</p>
+<h3 id="boa-arquitetura-empurra-para-o-lado-barato" tabindex="-1">Boa arquitetura empurra para o lado barato <a class="header-anchor" href="#boa-arquitetura-empurra-para-o-lado-barato" aria-hidden="true">#</a></h3>
+<p>O handbook do Maestro tem uma observação sobre orquestração que muda o lugar da arquitetura num
+time com agentes. Há um espectro entre fluxo fixo (você decide o caminho, previsível, fácil de
+depurar) e agente autônomo (o modelo decide na hora, flexível e variável). Quanto melhores as
+fronteiras, mais trabalho cabe no lado previsível: investir em fronteira é comprar
+previsibilidade, porque o corte deixa de precisar de inteligência quando já está desenhado
+(<a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/maestro-handbook/handbook/05-orquestracao.md">handbook, cap. 05, §5.3</a>).</p>
+<p>A mesma lógica vale para a verificação. Uma fronteira declarada e uma seta de dependência medida
+por AST são verificações determinísticas, de custo quase zero, que rodam em cada commit. A
+alternativa, pedir a um modelo de linguagem que revise &quot;se a arquitetura foi respeitada&quot;, é cara,
+variável e, pelo teorema T7 do Maestro, nem chega a ser critério enquanto não tiver uma linha de
+base registrada. A arquitetura que se defende tira da revisão humana e da revisão por agente
+tudo o que pode ser decidido por máquina, e devolve a elas só o que é julgamento.</p>
+<h3 id="o-mundo-do-portão-cresce" tabindex="-1">O mundo do portão cresce <a class="header-anchor" href="#o-mundo-do-portão-cresce" aria-hidden="true">#</a></h3>
+<p>A teoria até aqui produz portões que funcionam no dia em que nascem. O que o ciclo 054 mostra é
+como eles deixam de funcionar sem que ninguém os toque. O corolário C5 do Maestro diz que um
+portão cobre a família inteira ou não cobre nada. O anti-padrão 23 acrescenta o tempo: a família
+cresce. Um ciclo concede um poder novo ou abre um canal novo, e o portão que vigiava o canal velho
+continua lendo metade do mundo.</p>
+<p>A pergunta prática é onde o portão obtém o seu mundo. O portão de fronteira do Maestro, depois da
+correção, enumera os canais de publicação <strong>pelo nome</strong>: lê as partes e lê os materiais. Isso
+fecha a porta do ciclo 054 e deixa a pergunta aberta para a próxima: se um terceiro canal nascer,
+o mesmo portão volta a dizer verde sem olhar. O <a href="#exemplo-execut%C3%A1vel">exemplo executável</a> deste
+capítulo mostra as três gerações lado a lado e uma quarta forma, que lê o mundo pelo fato (todo
+campo que aponta para um arquivo publicado, em qualquer canal) e não pelo nome do canal. Não é a
+forma do Maestro; é uma resposta possível à pergunta que o Maestro deixou escrita.</p>
+<h2 id="alternativas" tabindex="-1">Alternativas <a class="header-anchor" href="#alternativas" aria-hidden="true">#</a></h2>
+<p>Há várias maneiras de defender uma arquitetura. Elas não são excludentes, e o veredito abaixo é
+sobre o que cada uma resolve quando quem escreve o código é um agente.</p>
+<table>
+<thead>
+<tr>
+<th>Alternativa</th>
+<th>O que resolve</th>
+<th>O que não resolve</th>
+<th>Veredito</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Revisão humana de arquitetura (o sênior lê o diff, ou um comitê aprova)</td>
+<td>julgamento: se a fronteira está no lugar certo</td>
+<td>não escala com o volume de mudança dos agentes; não lembra o que viu no mês passado</td>
+<td>indispensável para desenhar a fronteira, péssima para guardá-la</td>
+</tr>
+<tr>
+<td>Documento de arquitetura e ADR (Michael Nygard, 2011)</td>
+<td>memória: por que a fronteira é assim</td>
+<td>não recusa nada; o agente pode não ter lido</td>
+<td>necessário; vira forte quando cada ADR aponta para o portão que o executa</td>
+</tr>
+<tr>
+<td>Instrução ao agente (arquivo de instruções do <em>harness</em>: &quot;não importe o banco no domínio&quot;)</td>
+<td>intenção dita onde o agente lê</td>
+<td>instrução não é <em>enforcement</em>; some na compactação do contexto</td>
+<td>útil como explicação, nunca como guarda</td>
+</tr>
+<tr>
+<td>Regras de dependência por linguagem: ArchUnit (Java), import-linter (Python), dependency-cruiser (JavaScript/TypeScript), a regra de fronteiras de módulo do Nx, pacotes <code>internal/</code> do Go, Packwerk (Ruby)</td>
+<td>direção de dependência entre módulos, com mensagens boas e manutenção de terceiros</td>
+<td>dono de arquivo, canal de publicação, propriedades de comportamento</td>
+<td>adote se a sua linguagem tem; não substitui a fronteira decidível</td>
+</tr>
+<tr>
+<td><code>CODEOWNERS</code> do GitHub</td>
+<td>quem revisa cada caminho</td>
+<td>não falha em arquivo órfão nem em dupla reivindicação; roteia revisão, não decide fronteira</td>
+<td>complementar; é fronteira de pessoas, não de artefatos</td>
+</tr>
+<tr>
+<td>Fronteira física (repositórios ou serviços separados)</td>
+<td>isolamento forte, ritmos independentes</td>
+<td>custa atomicidade, cobertura de link e evidência; só se paga com acoplamento baixo medido</td>
+<td>meça antes (ver o padrão Maestro); quase sempre comece pela fronteira interna</td>
+</tr>
+<tr>
+<td>Revisão de arquitetura por modelo de linguagem (<em>LLM-as-judge</em>, de <em>large language model</em>)</td>
+<td>casos que exigem leitura de intenção</td>
+<td>não é determinística; sem linha de base, não é critério</td>
+<td>use para o que é julgamento, depois de esgotar o que é mecânico</td>
+</tr>
+</tbody>
+</table>
+<p>Duas observações sobre a tabela. Primeiro, as ferramentas de regra de dependência são o caminho
+mais curto para a seta: se você tem Java, uma regra do ArchUnit substitui o portão de
+dependências do exemplo deste capítulo, com manutenção de terceiros. O que nenhuma delas faz é a fronteira decidível de arquivos e canais,
+que é uma propriedade do repositório, não do grafo de módulos. Segundo, a fronteira física é a
+alternativa que mais parece &quot;arquitetura séria&quot; e a que mais custa desfazer. A lei de Conway
+(1968) lembra que a estrutura do sistema tende a copiar a estrutura de comunicação de quem o
+constrói; num time de um humano regendo muitos agentes, essa estrutura raramente justifica dois
+repositórios. O Maestro mediu isso, e é a história mais instrutiva do capítulo.</p>
+<h2 id="o-padrão-maestro" tabindex="-1">O padrão Maestro <a class="header-anchor" href="#o-padrão-maestro" aria-hidden="true">#</a></h2>
+<p>O Maestro resolve a pergunta deste capítulo em camadas: <strong>regra</strong> (o que está escrito),
+<strong>script</strong> (o que a máquina roda), <strong>gancho</strong> (o que roda queira o agente ou não) e <strong>prova</strong> (a
+mutação ou a destruição que mostram que o portão acusa). Todas as citações são da versão
+<code>maestro@19823c2</code>.</p>
+<h3 id="regra-a-fronteira-deriva-do-leitor" tabindex="-1">Regra: a fronteira deriva do leitor <a class="header-anchor" href="#regra-a-fronteira-deriva-do-leitor" aria-hidden="true">#</a></h3>
+<p>A fronteira interna do Maestro deriva do corolário C10: <em>o que é instalado é lido por máquinas; o
+que é publicado é lido por pessoas</em>
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/axioms.md">axioms.md</a>). O
+repositório serve aos dois leitores desde a fundação: agentes leem o método instalável (agentes,
+skills, scripts, templates, governança) e pessoas leem o livro. Os dois domínios estão declarados
+num arquivo só,
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/boundary.json"><code>boundary.json</code></a>: <code>toolkit</code>
+(leitor: máquina) e <code>guide</code> (leitor: humano), mais uma lista de caminhos <strong>compartilhados</strong> que o
+toolkit possui e o site do livro publica. O próprio arquivo explica o que a declaração compra:
+quem edita esses caminhos sabe que a edição é pública.</p>
+<p>A regra de pilha e camadas está no
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0028-react-no-front-e-back-hexagonal.md">ADR 0028</a>,
+aceito em 29 de outubro: React com TypeScript no front, Python hexagonal no back (domínio,
+aplicação, portas, adaptadores), servidor HTTP da biblioteca padrão com tabela de rotas,
+invariantes no domínio e nunca na rota nem no gatilho, e <strong>nenhuma pasta nova de primeiro nível</strong>.
+O ADR escreve os gatilhos para rever a decisão, em vez de deixá-la eterna: mais de 30 rotas,
+validação repetida em três ou mais rotas, um segundo cliente da interface de programação (API, de
+<em>application programming interface</em>) ou uma <em>thread</em> presa no teste de caos levam ao FastAPI, e
+<strong>só no adaptador HTTP</strong>; mais de oito rotas consumidas pelo React levam a um gerador de contrato
+[CLAIM-09-016]. A regra do quando reabrir é parte da arquitetura.</p>
+<p>Essas decisões não saíram de uma pessoa. Em 28 de outubro, seis especialistas em contexto
+fresco, três de experiência de uso e três de arquitetura de backend, com réplica cruzada,
+fecharam a síntese do ciclo 076 [CLAIM-09-017]. Algumas linhas dessa síntese são regras de
+arquitetura que um tech lead pode copiar quase literalmente: porta só onde há dois adaptadores
+hoje, <strong>contando o falso de teste</strong>; cada porta com um teste de contrato que roda contra o falso e
+contra o real; relógio como argumento, nunca lido do ambiente; migrações numeradas com um único
+ponto de migração para servidor, ganchos e ferramentas
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/076-padroes-de-engenharia-e-react/sintese-das-bancas.md">síntese das bancas</a>).
+A primeira regra é You Aren't Gonna Need It (YAGNI) aplicado a portas: porta com um adaptador só
+é cerimônia, e a regra diz como contar.</p>
+<p>E por que o ciclo 076 precisou de padrões? Porque o protótipo do ciclo 074 provou o caminho em
+HTML e JavaScript soltos, e a banca mediu o resultado: vinte telas, três números diferentes para
+a mesma pergunta (&quot;o que precisa de mim&quot;: 3, 1 e 4) e nove desenhos diferentes de &quot;em que estado
+está&quot; [CLAIM-09-018]. Em 30 de outubro, o crítico que anda pelo build real reprovou o fecho do 074
+com seis jornadas falhando e uma causa única: telas e avisos afirmavam um efeito que o estado não
+tinha registrado, porque cada tela lia a sua fixture, e não um estado único [CLAIM-09-019]. É uma
+falha de arquitetura que aparece como falha de usabilidade. A decisão foi corrigir no protótipo só
+o que era local e <strong>transferir</strong> a coerência de estado entre telas para o 076, onde ela ganharia
+o lugar certo: o domínio, com o número nascendo uma vez
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/records/decisoes.jsonl">decisoes.jsonl</a>,
+<code>decisao-074-fecho-corte-e-transferencia</code>).</p>
+<p>O ciclo 076 respondeu em três frentes que a
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/076-padroes-de-engenharia-e-react/spec.md">spec</a>
+trata como uma só. Escrever <strong>como se constrói aqui</strong>, em documentos instaláveis de padrões de
+engenharia, de tipos de mudança e de carregamento de contexto para a inteligência artificial, para
+que nenhum agente precise deduzir a pilha lendo o código. Dar nome ao <strong>tipo de mudança</strong>, um eixo
+ortogonal à raia (que mede só o risco): tela, regra de domínio, adaptador, esquema de dados,
+infraestrutura, documentação, refatoração ou correção. O tipo decide o que o agente carrega: quem
+mexe em adaptador recebe o contrato da porta; quem mexe em domínio, o mapa do domínio. E passar a superfície para React, com <strong>um componente por papel semântico</strong> do catálogo
+em vez de N desenhos do mesmo cartão. O protótipo do 074 não é tocado: vira especificação visual.
+É a mesma lição da fronteira, aplicada à tela. O padrão que vive no olho de quem escreve volta a
+se espalhar no ciclo seguinte; o padrão que vive num componente único e num documento que o
+agente carrega não precisa ser lembrado.</p>
+<h3 id="script-o-que-a-máquina-roda" tabindex="-1">Script: o que a máquina roda <a class="header-anchor" href="#script-o-que-a-máquina-roda" aria-hidden="true">#</a></h3>
+<p><strong>A fronteira decidível.</strong>
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/check-boundary.sh"><code>check-boundary.sh</code></a>
+lê <code>boundary.json</code>, lista os arquivos rastreados pelo Git e verifica as três invariantes:
+todo arquivo com exatamente um domínio; todo caminho compartilhado possuído pelo toolkit; toda
+página publicada vinda do guia ou de um caminho compartilhado declarado. Na versão citada, o
+portão classifica 1.235 arquivos rastreados, 1.139 do toolkit e 96 do guia, com seis caminhos
+compartilhados e 39 páginas publicadas, 29 do guia e 10 compartilhadas [CLAIM-09-013]. Ele roda
+na CI no laço bloqueante de quinze scripts estruturais [CLAIM-09-015]. O comentário no meio do
+código conta a história do ciclo 054 para quem for mexer nele depois: o canal de materiais ficou
+invisível ao portão por exatamente um ciclo.</p>
+<p><strong>A seta de dependência.</strong> O teste
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/painel/tests/test_import_fronteira.py"><code>test_import_fronteira.py</code></a>
+nasceu na primeira tarefa do ciclo 075, em 29 de outubro, e se descreve como &quot;a fronteira medida
+por AST, não por leitura&quot;. Ele percorre todo módulo do domínio, recusa qualquer import de uma
+lista de doze módulos de entrada e saída (I/O) — sistema de arquivos, banco, rede, subprocesso — e
+recusa que os dois contextos delimitados do domínio, Comunicação e Coordenação, importem um ao
+outro [CLAIM-09-020]. Um segundo teste,
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/painel/tests/test_esqueleto.py"><code>test_esqueleto.py</code></a>,
+verifica a direção das camadas (o domínio não conhece o adaptador, a porta também não) e que
+nenhuma pasta nova nasceu na raiz, com a mensagem de erro dizendo o custo: pasta na raiz custa
+uma linha em <code>boundary.json</code>. Os dois portões se conhecem.</p>
+<p><strong>O contrato da porta.</strong> O teste da porta <code>Transporte</code> é uma única bateria de casos que roda
+<strong>contra os dois adaptadores</strong>, o SQLite real e o falso de teste. O cabeçalho do arquivo diz por
+quê: se o falso for mais frouxo que o real, o teste mente [CLAIM-09-021]. É a regra da síntese
+virando executável, e é a resposta a uma armadilha comum dos testes com dublês: o dublê aceita o
+que a produção recusa, e a suíte verde descreve um sistema que não existe.</p>
+<p><strong>O registro que só cresce.</strong> O
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0027-registro-da-fila-e-append-only-mecanico.md">ADR 0027</a>,
+de 24 de outubro, decidiu que o registro da fila de decisões do painel é append-only <strong>mecânico</strong>,
+com duas provas. No arquivo: o adaptador sempre abre em modo de acréscimo, sob uma trava, e um
+teste estático lê a AST do adaptador e recusa qualquer <code>open</code> que reescreva ou trunque. No banco:
+gatilhos em linguagem SQL (<em>Structured Query Language</em>) que abortam <code>UPDATE</code> e <code>DELETE</code> nas
+tabelas de fluxo, com uma exceção estreita (o fechamento de um passo só pode preencher as colunas
+de saída, e só quando estão vazias). A emenda do próprio ADR registra o que a implementação
+ensinou: eram oito gatilhos, não quatro, porque o banco exige um gatilho por evento por tabela, e
+a fila também precisava da exceção estreita para não quebrar três testes de um ciclo anterior
+[CLAIM-09-022]. A emenda foi acrescentada abaixo do texto original, que não foi reescrito.</p>
+<p><strong>Os papéis que julgam não escrevem.</strong>
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/check-agents.sh"><code>check-agents.sh</code></a>
+verifica invariantes estruturais dos subagentes: a contagem esperada, o campo de nome e, a parte
+de segurança, que os três agentes somente-leitura (revisão, segurança e guardião do processo) não
+tenham ferramentas de escrita [CLAIM-09-026]. É arquitetura no sentido mais literal: a separação
+entre quem executa e quem verifica é configuração, e a configuração é verificada. No ciclo 018,
+quando um papel novo elevou os agentes a treze, esse script falhou sozinho, porque esperava doze;
+o relatório chama isso de efeito colateral bem-vindo, a fitness function anterior funcionando como
+projetada [CLAIM-09-006]. Repare no tipo de alarme: não acusou um erro, acusou uma <strong>mudança de
+mundo</strong> que ninguém tinha anunciado ao portão. Foi o oposto do ciclo 054, e é o comportamento que
+se quer.</p>
+<p><strong>A norma comparada com o disco.</strong> A resposta do ciclo 018 à falha dos catorze ciclos foi um
+portão que compara a norma com o toolkit: todo papel prescrito tem agente, todo artefato essencial
+tem template. A do ciclo 021, em 2 de agosto, foi instalar o Maestro no próprio Maestro. Não
+passou: três derivas silenciosas da mesma família, listas escritas à mão que ninguém comparava com
+o disco, entre elas o princípio VIII da constituição sem onde ser marcado no plano havia oito
+ciclos; e, num repositório vazio, a instalação recém-copiada falhava o check com sete achados até
+receber o bloco de instruções gerado das skills do disco [CLAIM-09-024]. Nasceu ali um verificador de instalação e a fonte única das instruções:
+o arquivo lido por um <em>harness</em> e o lido pelos outros passaram a ser um só, com o segundo como
+link simbólico. Cópia escrita à mão diverge, diz o registro; a pergunta não é se, é quando.</p>
+<h3 id="gancho-o-que-roda-queira-o-agente-ou-não" tabindex="-1">Gancho: o que roda queira o agente ou não <a class="header-anchor" href="#gancho-o-que-roda-queira-o-agente-ou-não" aria-hidden="true">#</a></h3>
+<p>Scripts rodam quando alguém os chama, na CI ou à mão. A camada de ganchos do <em>harness</em> roda antes
+da ação. No Maestro, um gancho <code>PreToolUse</code> recusa a reescrita do que o método guarda como
+história (o corpo de um ADR, o índice de decisões, os cartões de ideia datados). É a forma mais
+forte de arquitetura que se defende, porque recusa <strong>antes do dano</strong>, e tem um limite declarado
+pelo próprio método: comandos de shell não são guardados para essas regras, e uma edição em massa
+por <code>sed</code> alcança o que a guarda não vê. O <a href="12-ferramentas-mcp-e-o-ecossistema.html">capítulo 12</a>
+trata a camada de ganchos; aqui basta a lição: diga o que o guarda não vê, para que ninguém
+confunda o silêncio dele com proteção.</p>
+<h3 id="prova-medir-antes-de-mover" tabindex="-1">Prova: medir antes de mover <a class="header-anchor" href="#prova-medir-antes-de-mover" aria-hidden="true">#</a></h3>
+<p>A história que mais ensina sobre fronteiras no Maestro é a de uma divisão que não aconteceu.</p>
+<p>Em 6 de agosto, o operador decidiu dividir o projeto em dois repositórios: o instalável e o livro.
+O corte tinha derivação pronta no corolário C10. O ciclo 038 foi declarado na raia de
+infraestrutura, a de irreversibilidade alta, e por isso <strong>não moveu nenhum arquivo</strong>
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/038-divisao-em-dois-repositorios/spec.md">spec 038</a>).
+Primeiro mediu: o site publicava 37 páginas, nove nascidas do lado instalável; o livro
+atravessava a fronteira em 35 links; e citava 22 caminhos de código como evidência
+[CLAIM-09-008]. O
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0017-divisao-em-dois-repositorios.md">ADR 0017</a>
+registrou o corte: 282 arquivos para o toolkit, 79 para o guia [CLAIM-09-009]. A fatia 1 entregou
+só o critério: <code>boundary.json</code> e <code>check-boundary.sh</code>, escrito <strong>antes</strong> da classificação e visto
+falhando em cada uma das três invariantes, com 361 arquivos classificados [CLAIM-09-012]. O
+custo de desfazer, registrado no relatório, era apagar dois arquivos [CLAIM-09-032].</p>
+<p>Antes do gate da fatia 2, o operador pediu a comparação com prós e contras, e a medição mudou a
+decisão. Só 18 de 86 commits, 20%, tocavam substância dos dois lados; o número bruto dava 40%, mas
+changelog, roadmap, registros e specs são tocados por toda entrega por obrigação, não por
+acoplamento. O instalador copiava zero arquivos do lado do livro. O histórico tinha zero versões
+fechadas e zero tags, ou seja, o argumento &quot;cada um libera no seu ritmo&quot; descrevia algo que nunca
+tinha acontecido [CLAIM-09-010]. Contra os ganhos reais (contexto do agente, peso de clone,
+dependências isoladas), quatro perdas mensuráveis: a atomicidade dos commits acoplados; 252 links
+relativos verificados caindo para 35 externos sem verificação; a evidência de código do livro
+ficando sem portão possível; e um mecanismo de espelho novo, com defasagem própria
+[CLAIM-09-011].</p>
+<p>O <a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0018-fronteira-interna-em-vez-de-divisao.md">ADR 0018</a>
+datado do mesmo 6 de agosto, superou o 0017 sem editar o corpo dele [CLAIM-09-010]: um repositório, com a fronteira
+<strong>interna</strong>. O arquivo de fronteira deixou de descrever dois repositórios e passou a declarar dois
+domínios. As três invariantes continuaram, e a terceira mudou de razão, não de valor: deixou de
+proteger contra perder páginas no dia da mudança e passou a proteger contra o site publicar um
+documento de máquina que ninguém declarou público. Foi exatamente essa invariante que o ciclo 054
+quebrou, oito dias depois, pelo canal novo [CLAIM-09-004]. E o ADR escreveu três gatilhos observáveis para
+reabrir a questão: o guia ganhar ciclo de vida próprio, aparecer quem contribua só com o livro,
+ou alguém reclamar do peso da instalação [CLAIM-09-031].</p>
+<p>Há três lições nesse par de ADRs. A fronteira valia <strong>independentemente</strong> da divisão: o ganho
+principal da fatia 1 não dependia da fatia 2. A medição que reverte uma decisão é o comportamento
+que se quer, e o par 0017 → 0018 fica no repositório para mostrar isso. E a ordem importa: quem
+move primeiro e conserta os links depois aposta numa operação de irreversibilidade alta sem
+reversibilidade engenheirada. O próprio ADR 0017 cita o precedente menor: no ciclo 033, uma troca
+de texto em massa para renomear um arquivo casou também dentro do nome de um registro de decisão
+que não foi renomeado e criou um caminho inexistente em catorze arquivos, achado pelo portão de
+links, não pela leitura [CLAIM-09-025]. Daí o anti-padrão 18 e a regra de checar links no
+repositório inteiro depois de qualquer renome, não só nas páginas publicadas.</p>
+<h3 id="prova-destrutiva-o-dono-do-processo" tabindex="-1">Prova destrutiva: o dono do processo <a class="header-anchor" href="#prova-destrutiva-o-dono-do-processo" aria-hidden="true">#</a></h3>
+<p>O
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0032-dono-do-processo-fora-do-servidor-web.md">ADR 0032</a>
+decide uma propriedade de arquitetura que nenhum teste estático pega: quem é o dono do processo
+das sessões de agente. Se o servidor web do painel for o dono, um <code>Ctrl+C</code> mata todas as sessões.
+O ADR rejeita o servidor como dono, rejeita um daemon próprio (um segundo produto para manter) e
+decide por um hospedeiro separado, destacado do grupo de processos, que conversa com o painel pelo
+banco. O mecanismo que mataria a sessão junto com o pai fica <strong>proibido</strong> no texto, e a primeira
+prova é escrita na decisão: matar o servidor e ver as sessões vivas [CLAIM-09-023]. Para o tech
+lead, a forma vale mais que o caso: quando a propriedade é de ciclo de vida, o portão é um teste de
+caos pequeno e explícito, não uma leitura de código.</p>
+<h2 id="exemplo-executável" tabindex="-1" class="callout c-prat" data-rotulo="Mão na massa">Exemplo executável <a class="header-anchor" href="#exemplo-executável" aria-hidden="true">#</a></h2>
+<p>A pasta <a href="09-arquitetura-que-se-defende-exemplo.html"><code>exemplo/</code></a> traz um projeto de brinquedo com dois leitores (um
+servidor em camadas e um livro publicado) e sete portões de arquitetura em Python 3, sem
+dependência externa. Um harness prova cada portão por mutação: roda no projeto como está (tem de
+ficar verde), em três fixtures legítimas (o mundo certo de um jeito incômodo, que nenhum portão
+pode reprovar) e em quinze mutações divididas por família (o mundo quebrado de propósito, que o
+portão da família tem de reprovar) [CLAIM-09-027]. Cada mutação roda numa cópia temporária; o projeto nunca é
+alterado.</p>
+<table>
+<thead>
+<tr>
+<th>Família</th>
+<th>Portões</th>
+<th>O que as mutações quebram</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fronteira</td>
+<td>um canal (a forma anterior ao ciclo 054), dois canais (a correção pelo nome), fato (todo campo <code>arquivo</code>, em qualquer canal)</td>
+<td>arquivo órfão, dupla reivindicação, compartilhado sem dono, arquivo do toolkit publicado pelo 1º, 2º e 3º canais</td>
+</tr>
+<tr>
+<td>dependências</td>
+<td>texto (procura <code>import &lt;módulo&gt;</code>), fato (lê a AST)</td>
+<td><code>import sqlite3</code>, <code>from sqlite3 import connect</code>, import relativo do adaptador, <code>__import__</code>, porta importando adaptador</td>
+</tr>
+<tr>
+<td>registro</td>
+<td>fato</td>
+<td>modo <code>&quot;w&quot;</code>, <code>mode=&quot;w&quot;</code> por palavra-chave, <code>truncate()</code></td>
+</tr>
+<tr>
+<td>portas</td>
+<td>fato</td>
+<td>a porta perde o adaptador falso</td>
+</tr>
+</tbody>
+</table>
+<p>Rode:</p>
+<pre><code class="language-bash">cd livro/09-arquitetura-que-se-defende/exemplo
+python3 provar.py     # no Git Bash do Windows, use python
+</code></pre>
+<p>O resultado [CLAIM-09-027]: sete portões provados, quatro portões e três decorações, e o script
+sai com código 0, porque é exatamente isso que o capítulo afirma. O que observar:</p>
+<ul>
+<li>No projeto como está, os sete ficam verdes. Rodados só no caminho feliz, o portão de um canal e
+o de dois canais são indistinguíveis do portão bom.</li>
+<li>O portão de um canal mata quatro de seis mutações e deixa viver o arquivo do toolkit publicado
+como material. É o ciclo 054, reproduzido.</li>
+<li>O portão de dois canais, a correção pontual, mata cinco de seis e deixa viver o terceiro canal.
+Corrigir a porta que foi arrombada não fecha a próxima.</li>
+<li>O portão de dependência por texto mata uma de cinco mutações: só a forma literal
+<code>import sqlite3</code>. O import relativo do adaptador e o import do adaptador pela porta passam.</li>
+<li>A fixture legítima <code>&quot;a+&quot;</code> (ler e acrescentar) fica verde no portão do registro. Um portão que a
+reprovasse seria mais estrito do que a regra, e portão de falso vermelho se aprende a ignorar.</li>
+</ul>
+<p>O exercício do <a href="09-arquitetura-que-se-defende-exemplo.html">README</a> pede para você acrescentar um canal novo ao sumário do
+projeto e rodar de novo, antes e depois de mudar o portão. É o anti-padrão 23 em cinco minutos.</p>
+<h2 id="contraexemplo" tabindex="-1" class="callout c-contra" data-rotulo="Limite">Contraexemplo <a class="header-anchor" href="#contraexemplo" aria-hidden="true">#</a></h2>
+<p>Arquitetura que se defende tem custo, e há lugares onde ela atrapalha.</p>
+<p><strong>A fronteira cobra pedágio em cada pasta nova.</strong> As oito mudanças de <code>boundary.json</code>
+[CLAIM-09-014] são oito momentos em que alguém criou uma pasta e o portão ficou vermelho até a
+declaração entrar. Num repositório de exploração, com pastas nascendo e morrendo toda semana, esse
+pedágio pode custar mais do que protege. Se o seu repositório tem um leitor só e nada é publicado
+a partir dele, a terceira invariante não tem o que guardar, e as outras duas são uma estrutura de
+pastas com burocracia.</p>
+<p><strong>A porta com um adaptador.</strong> A síntese do ciclo 076 é explícita: porta só onde há dois
+adaptadores hoje, contando o falso. O erro inverso, hexagonal como estética, produz interfaces com
+uma implementação, contêineres de injeção e classes de caso de uso que ninguém troca. É
+complexidade além do necessário, e o princípio VII do Maestro manda justificar por escrito ou
+remover.</p>
+<p><strong>O protótipo que tinha o direito de ser solto.</strong> O protótipo do ciclo 074 foi escrito em HTML e
+JavaScript soltos de propósito, para provar o caminho rápido, e provou. A falta de estado único
+virou falha só quando o protótipo foi julgado como produto [CLAIM-09-019]. Pôr hexagonal,
+contratos e teste de AST num protótipo de descarte seria pagar a defesa de algo que ninguém ia
+manter. A regra útil não é &quot;defenda sempre&quot;; é &quot;defenda a partir do momento em que o código vai
+sobreviver à semana&quot;, e transfira o que o protótipo aprendeu, como o 074 fez.</p>
+<p><strong>O falso senso de segurança.</strong> O portão testa o que foi codificado, não o que foi esquecido. O
+portão de dependência do exemplo pega <code>__import__(&quot;sqlite3&quot;)</code>, mas não pega
+<code>importlib.import_module(&quot;sqlite3&quot;)</code>, nem uma função do domínio que recebe uma conexão aberta por
+argumento e a usa. Fitness function verde não é arquitetura correta; é ausência das violações que
+alguém pensou em proibir. A única defesa contra isso é a que o capítulo inteiro descreve: cada
+escape vira mutação nova no portão.</p>
+<p><strong>O portão mais estrito que a regra.</strong> Se o portão do registro reprovasse <code>&quot;a+&quot;</code>, ele estaria
+certo pela letra (o <code>+</code> permite leitura e escrita) e errado pelo fato (em modo de acréscimo, toda
+escrita vai para o fim). O resultado seria um portão contornado por quem precisa ler e acrescentar
+no mesmo arquivo. O Maestro registrou a mesma lição no changelog do ciclo 074, sobre outra régua: régua mais
+estrita que o requisito acusa o produto
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/CHANGELOG.md">CHANGELOG.md</a>).</p>
+<p><strong>A cerimônia que a fronteira não eliminou.</strong> O ADR 0018 lista as perdas de não dividir e uma
+delas é honesta: o verificador de idioma continua existindo como fronteira interna, uma cerimônia
+que a separação teria eliminado. Escolher a fronteira interna não é de graça; é trocar uma perda
+maior por uma menor, com o gatilho para reabrir escrito.</p>
+<h2 id="evidência" tabindex="-1">Evidência <a class="header-anchor" href="#evidência" aria-hidden="true">#</a></h2>
+<p>O que sustenta o capítulo, separado pelo estado de cada afirmação. A tabela completa, com a
+evidência reproduzível de cada claim, está em <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/09-arquitetura-que-se-defende/claims.md"><code>claims.md</code></a>.</p>
+<p><strong>Medido</strong> (reproduzível por comando na versão citada): a classificação atual da fronteira, com
+1.235 arquivos e 39 páginas [CLAIM-09-013]; as oito mudanças do arquivo de fronteira, cada uma
+declarando um caminho novo [CLAIM-09-014]; o laço bloqueante de quinze scripts na CI
+[CLAIM-09-015]; a lista de doze módulos de I/O proibidos no domínio [CLAIM-09-020]; os três agentes
+somente-leitura e a contagem esperada de treze [CLAIM-09-026]; e a saída do exemplo executável
+[CLAIM-09-027].</p>
+<p><strong>Observado</strong> (registrado em relatório, spec, ADR ou índice de decisões do Maestro): a falha do
+ciclo 054 e a sua prova por mutação [CLAIM-09-001 a CLAIM-09-004]; a norma sem executor por
+catorze ciclos [CLAIM-09-005] e o alarme de contagem [CLAIM-09-006]; os nove escapes com verde
+[CLAIM-09-007]; a medição e a reversão da divisão [CLAIM-09-008 a CLAIM-09-012, CLAIM-09-031,
+CLAIM-09-032]; as decisões de arquitetura do 076 e a falha que as motivou [CLAIM-09-016 a
+CLAIM-09-019]; o teste de contrato contra dois adaptadores [CLAIM-09-021]; o append-only mecânico
+[CLAIM-09-022]; o dono do processo [CLAIM-09-023]; a auto-instalação [CLAIM-09-024]; e o renome em
+massa [CLAIM-09-025].</p>
+<p>Uma divergência de fonte, registrada para não se perder: o handbook do Maestro atribui ao ciclo
+019 o alarme do <code>check-agents.sh</code> quando os agentes passaram de doze para treze; o relatório de
+qualidade do ciclo 018 é quem registra o fato. O livro segue o relatório, que é a fonte primária
+[CLAIM-09-006].</p>
+<p><strong>Hipótese</strong> (não medida; agenda da pesquisa). Duas hipóteses da base de pesquisa do livro tocam
+este capítulo. A H4 diz que multiagente só ajuda com cortes independentes [CLAIM-09-028]; a
+fronteira decidível e a seta de dependência são o que torna um corte independente verificável, mas
+o Maestro não mediu o efeito delas sobre o retrabalho de agentes paralelos. E o benchmark de
+governança proposto na agenda (o ASEG-Bench) tem um caso exatamente deste capítulo, o GOV-003,
+&quot;dependência proibida&quot; [CLAIM-09-029]: dar ao agente uma tarefa cujo caminho mais curto viola a
+seta, com e sem o portão, e contar quantas vezes a violação chega ao merge. O desenho está no
+<a href="15-validando-o-maestro.html">capítulo 15</a>. Até lá, o que os casos acima mostram com
+segurança é qualitativo: portões de arquitetura que não foram provados por mutação, ou que não
+foram estendidos quando o mundo cresceu, deixaram passar exatamente o que existiam para barrar.</p>
+<p>O limite habitual vale aqui também. São casos de um repositório e de um operador, muitos achados
+por agentes que ele rege. Estão datados e com commit; servem como estudo de caso, não como
+estimativa de frequência.</p>
+<h2 id="checklist" tabindex="-1" class="callout c-verif" data-rotulo="Aplique">Checklist <a class="header-anchor" href="#checklist" aria-hidden="true">#</a></h2>
+<p>Aplique no seu repositório, portão por portão.</p>
+<ul>
+<li>[ ] A fronteira entre as partes do repositório está declarada num arquivo só, consumido por um
+script; nenhum script carrega lista própria de caminhos.</li>
+<li>[ ] Todo arquivo rastreado tem exatamente um dono; arquivo órfão e dupla reivindicação reprovam,
+e empate na resolução de dono é erro, não ordem de declaração.</li>
+<li>[ ] Todo caminho lido por dois públicos está declarado como compartilhado, com dono.</li>
+<li>[ ] Toda página publicada (site, pacote, imagem de contêiner) vem de um caminho declarado
+público, e o portão lê <strong>todos</strong> os canais de publicação, de preferência pelo fato e não
+pelo nome.</li>
+<li>[ ] A direção das dependências é verificada pela estrutura do código (AST ou ferramenta da sua
+linguagem), não por busca de texto, e o portão foi visto reprovando import relativo e
+import dinâmico.</li>
+<li>[ ] O domínio não importa I/O nem relógio; quem precisa de hora recebe a hora por argumento.</li>
+<li>[ ] Toda porta tem dois adaptadores hoje, contando o falso de teste, e um teste de contrato
+roda a mesma bateria contra os dois.</li>
+<li>[ ] Toda propriedade &quot;só acrescenta&quot; é mecânica (modo de abertura verificado, gatilho no banco),
+não convenção.</li>
+<li>[ ] Toda propriedade de ciclo de vida (sobrevive à queda, reinicia sem perder) tem uma prova
+destrutiva escrita na decisão e executada.</li>
+<li>[ ] Cada portão de arquitetura tem fixture legítima incômoda que ele deixa passar, e uma mutação
+por modo de falha que ele reprova.</li>
+<li>[ ] Quando um ciclo abre um canal, um formato ou um poder novo, a revisão pergunta em voz alta:
+quais portões guardavam a porta velha, e o mundo deles cresceu?</li>
+<li>[ ] Os portões que guardam o que não pode ser reescrito (ADR, índice de decisões) dizem o que
+não veem.</li>
+<li>[ ] Antes de dividir repositório ou serviço, alguém mediu o acoplamento substantivo e escreveu
+os gatilhos para reabrir a decisão.</li>
+<li>[ ] Cada ADR de arquitetura aponta para o portão que o executa, e cada portão cita o ADR de que
+deriva.</li>
+</ul>
+<h2 id="referências" tabindex="-1">Referências <a class="header-anchor" href="#referências" aria-hidden="true">#</a></h2>
+<p><strong>Maestro</strong> (versão <code>19823c2</code>, salvo indicação):</p>
+<ul>
+<li>Axiomas, teorema T4, corolários C5, C7 e C10 —
+https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/axioms.md</li>
+<li>Fronteira interna — https://github.com/GHDaru/maestro/blob/19823c2/boundary.json e
+https://github.com/GHDaru/maestro/blob/19823c2/scripts/check-boundary.sh</li>
+<li>ADR 0017 (superado) e ADR 0018 —
+https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0017-divisao-em-dois-repositorios.md e
+https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0018-fronteira-interna-em-vez-de-divisao.md</li>
+<li>ADR 0027, 0028 e 0032 — https://github.com/GHDaru/maestro/tree/19823c2/docs/adr</li>
+<li>Specs e relatórios dos ciclos 018, 021, 033, 038, 039, 054 e 076 —
+https://github.com/GHDaru/maestro/tree/19823c2/specs</li>
+<li>Síntese das bancas do ciclo 076 —
+https://github.com/GHDaru/maestro/blob/19823c2/specs/076-padroes-de-engenharia-e-react/sintese-das-bancas.md</li>
+<li>Crítica que anda do ciclo 074 —
+https://github.com/GHDaru/maestro/blob/19823c2/specs/074-prototipo-navegavel/critica-que-anda.md</li>
+<li>Índice de decisões (<code>decisao-074-fecho-corte-e-transferencia</code>,
+<code>decisao-076-bancas-e-decisoes-do-daru</code>) —
+https://github.com/GHDaru/maestro/blob/19823c2/docs/records/decisoes.jsonl</li>
+<li>Testes de arquitetura do painel —
+https://github.com/GHDaru/maestro/blob/19823c2/painel/tests/test_import_fronteira.py,
+https://github.com/GHDaru/maestro/blob/19823c2/painel/tests/test_esqueleto.py,
+https://github.com/GHDaru/maestro/blob/19823c2/painel/tests/test_transporte.py</li>
+<li>Gatilhos append-only — https://github.com/GHDaru/maestro/blob/19823c2/painel/schema_workflow.sql</li>
+<li><code>check-agents.sh</code> — https://github.com/GHDaru/maestro/blob/19823c2/scripts/check-agents.sh</li>
+<li>Catálogo de anti-padrões (itens 16, 18 e 23) —
+https://github.com/GHDaru/maestro/blob/19823c2/skills/anti-patterns/SKILL.md</li>
+<li>Workflow de CI — https://github.com/GHDaru/maestro/blob/19823c2/.github/workflows/ci.yml</li>
+<li>Handbook do método, cap. 05 §5.3 e cap. 13 §5.5–5.6 (cópia congelada em
+<code>maestro-handbook/</code>, versão <code>19823c2</code>).</li>
+</ul>
+<p><strong>Externas</strong>:</p>
+<ul>
+<li>N. Ford, R. Parsons e P. Kua, <em>Building Evolutionary Architectures</em>, O'Reilly, 2017 — o conceito
+de <em>fitness function</em> de arquitetura.</li>
+<li>A. Cockburn, &quot;Hexagonal Architecture&quot; (portas e adaptadores), 2005, alistair.cockburn.us.</li>
+<li>R. C. Martin, <em>Clean Architecture</em>, Prentice Hall, 2017 — a regra da dependência.</li>
+<li>E. Evans, <em>Domain-Driven Design</em>, Addison-Wesley, 2003 — agregados e invariantes no domínio.</li>
+<li>M. Nygard, &quot;Documenting Architecture Decisions&quot;, 2011, cognitect.com — o formato do ADR.</li>
+<li>M. E. Conway, &quot;How Do Committees Invent?&quot;, <em>Datamation</em>, 1968.</li>
+<li>D. L. Parnas, &quot;On the Criteria To Be Used in Decomposing Systems into Modules&quot;,
+<em>Communications of the Association for Computing Machinery</em>, 1972.</li>
+<li>Ferramentas de regra de dependência citadas como alternativa: ArchUnit (archunit.org),
+import-linter (pypi.org/project/import-linter), dependency-cruiser
+(github.com/sverweij/dependency-cruiser), Nx <code>enforce-module-boundaries</code> (nx.dev), Packwerk
+(github.com/Shopify/packwerk), pacotes <code>internal</code> do Go (go.dev). Acesso em 02/11/2026.</li>
+</ul>
+</article>
+    <nav class="paginacao" aria-label="Anterior e próximo"><a class="pg-prev" href="08-ddd-para-agentes-exemplo.html"><small>← anterior</small>Exemplo executável — 08 DDD para agentes</a><a class="pg-next" href="09-arquitetura-que-se-defende-exemplo.html"><small>próximo →</small>Exemplo executável — 09 Arquitetura que se defende</a></nav>
+    <footer class="rodape">
+      <a href="https://github.com/GHDaru/agentic_software_engineering">github.com/GHDaru/agentic_software_engineering</a>
+       · <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/09-arquitetura-que-se-defende/capitulo.md">fonte desta página</a>
+      · gerado de <code>livro/</code> por <code>publicar/build.mjs</code>
+    </footer>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body></html>

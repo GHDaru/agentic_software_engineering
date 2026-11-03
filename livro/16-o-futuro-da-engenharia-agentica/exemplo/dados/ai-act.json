@@ -1,0 +1,21 @@
+{
+  "_fonte": "Regulamento (UE) 2024/1689 (AI Act), art. 113, versão original, https://eur-lex.europa.eu/eli/reg/2024/1689/oj ; alterado pelo Regulamento (UE) 2026/1744, de 8/7/2026 ('Digital Omnibus on AI'), JO L de 24/07/2026, em vigor em 27/07/2026 (3.º dia após a publicação), https://eur-lex.europa.eu/eli/reg/2026/1744/oj — art. 1, pontos que alteram os arts. 4, 5, 6, 10, 11, 50(7), 56(6), 99, 111 e 113. Material didático, não parecer jurídico: confira o texto oficial antes de usar.",
+  "conferido_em": "2026-11-02",
+  "validade_dias": 90,
+  "marcos": [
+    {"o_que": "proibições originais (art. 5) e letramento em IA (art. 4)", "original": "2025-02-02", "alterado": "2025-02-02",
+     "conteudo_mudou": "sim no art. 4: o 2026/1744 o reescreve como 'tomar medidas que apoiem' o letramento, sem exigir nível garantido"},
+    {"o_que": "proibições novas: imagem íntima sem consentimento e abuso sexual infantil (art. 5(1)(ba)(bb), 5(1a), 5(1b))", "original": null, "alterado": "2026-12-02",
+     "conteudo_mudou": "sim: proibição nova, criada pelo 2026/1744"},
+    {"o_que": "modelos de IA de uso geral (cap. V), governança e penalidades (art. 113, alínea b)", "original": "2025-08-02", "alterado": "2025-08-02",
+     "conteudo_mudou": "pouco: arts. 51–55 intactos; mudam o art. 56(6) (códigos de prática) e o art. 99 (penalidades)"},
+    {"o_que": "transparência do art. 50 (avisar que se fala com IA; marcar conteúdo sintético)", "original": "2026-08-02", "alterado": "2026-08-02",
+     "conteudo_mudou": "pouco: só o art. 50(7) (códigos de prática) é reescrito"},
+    {"o_que": "marcação de conteúdo sintético (art. 50(2)) para sistema generativo no mercado antes de 2026-08-02", "original": "2026-08-02", "alterado": "2026-12-02",
+     "conteudo_mudou": "não: o 2026/1744 dá prazo de transição (art. 111(4))"},
+    {"o_que": "alto risco do Anexo III (emprego, crédito, educação...): cap. III, seções 1 a 3", "original": "2026-08-02", "alterado": "2027-12-02",
+     "conteudo_mudou": "sim, em parte: arts. 9, 12, 13, 14 e 15 intactos; arts. 6, 10 e 11 alterados; legado só entra se mudar de forma significativa (art. 111(2))"},
+    {"o_que": "alto risco embutido em produto regulado (art. 6(1), Anexo I)", "original": "2027-08-02", "alterado": "2028-08-02",
+     "conteudo_mudou": "sim, em parte: o mesmo das linhas acima, mais mudanças no Anexo I"}
+  ]
+}

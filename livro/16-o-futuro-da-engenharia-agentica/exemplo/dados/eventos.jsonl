@@ -1,0 +1,3 @@
+{"data": "2026-10-12", "ideia": "trilha-com-custo", "evento": "o humano pede o custo com número ('Quero ver quanto estou gastando') e o ciclo 065 constrói o livro de ponto", "prova": "maestro@19823c2:specs/065-o-metodo-se-cobra-e-bate-o-ponto/spec.md; ADR 0021"}
+{"data": "2026-10-20", "ideia": "worktree-por-task", "evento": "ciclo 066 entrega lançador de sessões por modelo e worktree (agentes em paralelo no mesmo repositório)", "prova": "maestro commit d5feef2"}
+{"data": "2026-10-25", "ideia": "worktree-por-task", "evento": "ciclo 072 integra a worktree de um trabalhador com 'conflitos resolvidos' na mensagem do commit", "prova": "maestro commit d71cee6"}

@@ -1,0 +1,5 @@
+{"id":"achado-023-regua-de-raias","data":"2026-08-02","titulo":"Regua de raias nao aplicada: 19 specs plena x 2 leve","status":"aberta","registro":"specs/023-capitulo-03-padrao-v2/qa-report.md","ciclo":"023"}
+{"id":"achado-027-retro-sem-gatilho","data":"2026-08-02","titulo":"A retrospectiva nao tem gatilho; acontece quando alguem percebe","status":"aberta","registro":"specs/027-capitulo-07-padrao-v2/qa-report.md","ciclo":"027"}
+{"id":"achado-029-skill-sem-capitulo","data":"2026-08-02","titulo":"Regra nova numa skill nao chega ao capitulo que a ensina (segunda lei ficou 10 ciclos fora do livro)","status":"aberta","registro":"specs/029-capitulo-09-padrao-v2/qa-report.md","ciclo":"029"}
+{"id":"achado-031-elo-de-commit","data":"2026-08-02","titulo":"A citacao spec NNN no assunto do commit e convencao: 28 commits, nenhum portao","status":"aberta","registro":"specs/031-capitulo-11-padrao-v2/qa-report.md","ciclo":"031"}
+{"id":"achado-033-renome-em-massa","data":"2026-08-03","titulo":"Renome em massa: link quebrado fora das paginas publicadas passa sem portao","status":"aberta","registro":"specs/033-ingles-no-instalavel/qa-report.md","ciclo":"033"}

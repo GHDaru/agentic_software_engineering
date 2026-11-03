@@ -1,0 +1,17 @@
+{
+  "tarefa": "avisar o atendente quando um chamado estoura o prazo de resposta",
+  "propostas": [
+    {"sessao": "A", "nome": "Ticket"},
+    {"sessao": "A", "nome": "Request"},
+    {"sessao": "A", "nome": "Fila"},
+    {"sessao": "B", "nome": "Chamado"},
+    {"sessao": "B", "nome": "Ocorrência"},
+    {"sessao": "B", "nome": "Prazo de resposta"},
+    {"sessao": "B", "nome": "Prazo de reabertura", "contexto": "atendimento",
+     "definicao": "Até quando um chamado fechado pode ser reaberto pelo cliente."},
+    {"sessao": "C", "nome": "Client"},
+    {"sessao": "C", "nome": "Alerta de estouro", "contexto": "atendimento",
+     "definicao": "Aviso ao atendente de que um chamado passou do prazo de resposta."},
+    {"sessao": "C", "nome": "Status"}
+  ]
+}

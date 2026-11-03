@@ -1,0 +1,702 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>12 — Ferramentas, MCP e o ecossistema · Engenharia de Software Orientada por Agentes</title>
+<meta name="description" content="Governança operacional para um humano regendo muitos agentes">
+<script>try{var t=localStorage.getItem("tema");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="assets/estilo.css">
+</head><body>
+<header class="barra">
+  <button id="alt-menu" aria-label="Abrir o sumário" aria-expanded="false" aria-controls="sidebar">☰ <span>Sumário</span></button>
+  <a class="barra-titulo" href="index.html">Engenharia de Software Orientada por Agentes</a>
+  <button id="alt-tema" aria-label="Alternar tema claro/escuro">◐</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="marca" href="index.html">Engenharia de Software Orientada por Agentes<small>Agentic Software Engineering</small></a>
+    <div class="nav-parte">Abertura</div><ul><li><a href="00-prefacio.html">Prefácio</a></li></ul><div class="nav-parte">Parte I — Por que agentes mudam a engenharia</div><ul><li><a href="01-a-mudanca-de-unidade-de-trabalho.html">1. A mudança de unidade de trabalho</a></li><li class="filho"><a class="filho" href="01-a-mudanca-de-unidade-de-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="02-o-problema-da-confianca.html">2. O problema da confiança</a></li><li class="filho"><a class="filho" href="02-o-problema-da-confianca-exemplo.html">Exemplo executável</a></li><li><a href="03-um-humano-muitos-agentes.html">3. Um humano, muitos agentes</a></li><li class="filho"><a class="filho" href="03-um-humano-muitos-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte II — Especificar e dar contexto</div><ul><li><a href="04-a-spec-como-partitura.html">4. A spec como partitura</a></li><li class="filho"><a class="filho" href="04-a-spec-como-partitura-exemplo.html">Exemplo executável</a></li><li><a href="05-engenharia-de-contexto.html">5. Engenharia de contexto</a></li><li class="filho"><a class="filho" href="05-engenharia-de-contexto-exemplo.html">Exemplo executável</a></li><li><a href="06-como-dividir-o-trabalho.html">6. Como dividir o trabalho</a></li><li class="filho"><a class="filho" href="06-como-dividir-o-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="07-papeis-e-skills.html">7. Papéis e skills</a></li><li class="filho"><a class="filho" href="07-papeis-e-skills-exemplo.html">Exemplo executável</a></li><li><a href="08-ddd-para-agentes.html">8. DDD para agentes</a></li><li class="filho"><a class="filho" href="08-ddd-para-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte III — Provar e conter</div><ul><li><a href="09-arquitetura-que-se-defende.html">9. Arquitetura que se defende</a></li><li class="filho"><a class="filho" href="09-arquitetura-que-se-defende-exemplo.html">Exemplo executável</a></li><li><a href="10-quality-gates-que-provam-fatos.html">10. Quality gates que provam fatos</a></li><li class="filho"><a class="filho" href="10-quality-gates-que-provam-fatos-exemplo.html">Exemplo executável</a></li><li><a href="11-risco-reversibilidade-e-autonomia.html">11. Risco, reversibilidade e autonomia</a></li><li class="filho"><a class="filho" href="11-risco-reversibilidade-e-autonomia-exemplo.html">Exemplo executável</a></li><li><a class="ativo" aria-current="page" href="12-ferramentas-mcp-e-o-ecossistema.html">12. Ferramentas, MCP e o ecossistema</a></li><li class="filho"><a class="filho" href="12-ferramentas-mcp-e-o-ecossistema-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte IV — Medir e aprender</div><ul><li><a href="13-observabilidade-e-economia.html">13. Observabilidade e economia</a></li><li class="filho"><a class="filho" href="13-observabilidade-e-economia-exemplo.html">Exemplo executável</a></li><li><a href="14-a-organizacao-que-aprende.html">14. A organização que aprende</a></li><li class="filho"><a class="filho" href="14-a-organizacao-que-aprende-exemplo.html">Exemplo executável</a></li><li><a href="15-validando-o-maestro.html">15. Validando o Maestro</a></li><li class="filho"><a class="filho" href="15-validando-o-maestro-exemplo.html">Exemplo executável</a></li><li><a href="16-o-futuro-da-engenharia-agentica.html">16. O futuro da engenharia agêntica</a></li><li class="filho"><a class="filho" href="16-o-futuro-da-engenharia-agentica-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Apêndices</div><ul><li><a href="apendice-a-o-maestro-em-uma-pagina.html">A. O Maestro em uma página</a></li><li><a href="apendice-b-aseg-bench.html">B. ASEG-Bench — um benchmark de governança</a></li><li><a href="apendice-c-pacote-de-replicacao.html">C. Pacote de replicação</a></li><li><a href="apendice-d-estudos-de-campo.html">D. Estudos de campo do ecossistema</a></li></ul><div class="nav-parte">Consulta</div><ul><li><a href="glossario.html">Glossário</a></li><li><a href="evidencias.html">Evidências (claims)</a></li></ul>
+  </aside>
+  <main class="conteudo">
+    <article class="markdown"><h1 id="12--ferramentas-mcp-e-o-ecossistema" tabindex="-1">12 — Ferramentas, MCP e o ecossistema <a class="header-anchor" href="#12--ferramentas-mcp-e-o-ecossistema" aria-hidden="true">#</a></h1>
+<blockquote>
+<p>&quot;Um guarda que ninguém chama passava no portão que existe para provar que ele é chamado.&quot;
+— revisão independente do ciclo 056, Maestro</p>
+</blockquote>
+<p>Enquanto o agente só escreve texto, o pior que ele faz é um diff ruim, e um diff ruim para no
+merge. No dia em que você liga uma ferramenta a ele (um terminal, um banco, uma interface de programação (API, <em>application programming
+interface</em>) de terceiros, um servidor do Model Context Protocol (MCP)), cada chamada passa a ser um <strong>efeito</strong> que
+acontece agora, longe do seu portão de merge. Este capítulo é sobre essa troca: o que muda no
+risco, quem decide quais ferramentas o agente vê, como tratar o que volta delas e como escolher
+o que adotar de um ecossistema que lança uma ferramenta nova por semana. Se o seu time vai ligar
+agentes a ferramentas reais, a pergunta deixa de ser &quot;o modelo é bom?&quot; e passa a ser &quot;o que ele
+pode tocar, e quem garante isso sem depender de ele ter lido a regra?&quot;.</p>
+<h2 id="pergunta-central" tabindex="-1" class="callout c-obj" data-rotulo="Pergunta">Pergunta central <a class="header-anchor" href="#pergunta-central" aria-hidden="true">#</a></h2>
+<p>O que muda quando o agente age no mundo por ferramentas, e como governar essa superfície (o que
+ele vê, o que ele pode chamar, o que volta para o contexto dele e de onde vêm as ferramentas)
+sem depender de o agente obedecer a uma instrução?</p>
+<h2 id="resultado-de-aprendizagem" tabindex="-1">Resultado de aprendizagem <a class="header-anchor" href="#resultado-de-aprendizagem" aria-hidden="true">#</a></h2>
+<p>Ao final, você consegue:</p>
+<ol>
+<li><strong>Classificar</strong> cada ferramenta ligada a um agente pela classe de risco da ação que ela
+executa, e atribuir a ela <code>allow</code>, <code>deny</code> ou <code>ask</code> numa política que vive fora do modelo.</li>
+<li><strong>Distinguir</strong> instrução de imposição (<em>enforcement</em>): apontar, num arquivo de instrução do
+seu repositório, cada regra que só vale enquanto for lida, e dizer qual mecanismo (hook,
+portão, permissão) a impõe ou declarar que nenhum impõe.</li>
+<li><strong>Sondar</strong> um servidor de ferramentas antes de ligá-lo, com casos que provam descoberta
+mínima, identidade fora do argumento, resultado cercado como dado e confinamento de caminho.</li>
+<li><strong>Julgar</strong> uma ferramenta ou framework do ecossistema por ideia, não por produto, com licença
+e reversibilidade como dimensões que reprovam sozinhas e um gatilho escrito para tudo que
+ficar em &quot;observar&quot;.</li>
+<li><strong>Distribuir</strong> o método do seu time para outro repositório sem mentir sobre o que foi
+instalado: escolha de agente declarada, atualização que não pisa no arquivo alheio, licença
+e atribuição que viajam com a cópia.</li>
+</ol>
+<h2 id="a-falha-real" tabindex="-1" class="callout c-falha" data-rotulo="Caso real">A falha real <a class="header-anchor" href="#a-falha-real" aria-hidden="true">#</a></h2>
+<p>Em 16 de agosto de 2026, o Maestro abriu o ciclo 056 com um diagnóstico incômodo. O método
+declarava três coisas imutáveis (o corpo de um registro de decisão de arquitetura (ADR,
+<em>Architecture Decision Record</em>) já commitado, as linhas passadas do índice de decisões e os
+cartões datados do catálogo do ecossistema) e <strong>nada</strong> impedia um agente de reescrevê-las.
+Nenhum dos portões que tocavam aqueles caminhos conferia imutabilidade; conferiam forma e
+índice. A regra existia como uma frase que o agente precisava ter lido e lembrado
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/056-instalar-o-harness/spec.md">spec 056</a>).</p>
+<p>A resposta foi instalar uma camada de <em>harness</em>: um hook <code>PreToolUse</code>, que o Claude Code chama
+<strong>antes</strong> de executar uma ferramenta de escrita e que pode recusar a chamada. Pela primeira vez
+o método recusaria antes de o dano existir, em vez de auditar depois. O instalador passaria a
+escrever o <code>.claude/settings.json</code> do repositório de destino, e o bloco de instrução gerado
+diria ao agente que aqueles artefatos estavam protegidos. O ciclo foi para a revisão
+independente, em contexto fresco, com a instrução de refutar e de executar os ataques.</p>
+<p>A revisão reprovou o ciclo com 24 achados, nove deles bloqueantes [CLAIM-12-001]. Os que mais
+ensinam não são bugs de lógica; são falhas da ferramenta <strong>como ferramenta</strong>:</p>
+<ul>
+<li><strong>Um espaço no caminho do projeto desligava o guarda em silêncio.</strong> O comando do hook não
+estava entre aspas. Num projeto em <code>~/My Projects/…</code>, o hook saía com código 127, que o
+<code>PreToolUse</code> trata como erro não bloqueante [CLAIM-12-002]. O guarda ficava inerte <strong>enquanto
+o <code>CLAUDE.md</code> instalado no mesmo repositório afirmava que ele protegia</strong>.</li>
+<li><strong>O portão provava o script, nunca a fiação.</strong> Apagar o <code>settings.json</code> deixava tudo verde:
+um guarda que ninguém chama passava no portão escrito para provar que ele é chamado.</li>
+<li><strong>Três desvios por link simbólico</strong> [CLAIM-12-003], todos executados pelo revisor. O guarda
+normalizava caminhos de forma léxica, sem resolver links. O instalador tinha aprendido essa
+lição quatro ciclos antes, no 052; o guarda novo, não.</li>
+<li><strong>O instalador podia morrer no meio e deixar a instalação órfã para sempre.</strong> Com o
+<code>settings.json</code> somente leitura, o script morria depois de escrever 78 arquivos e antes do
+manifesto; a execução seguinte gravava um manifesto vazio e passava a desconhecer 77 arquivos
+do método [CLAIM-12-004].</li>
+<li><strong>O bloco afirmava proteção mesmo quando ela não era instalada</strong> (com <code>--no-hooks</code>, em
+conflito, com link simbólico). E o trecho &quot;exato para colar&quot; que o instalador imprimia era
+JSON (<em>JavaScript Object Notation</em>) inválido: sete chaves abertas contra oito fechadas [CLAIM-12-005].</li>
+</ul>
+<p>Repare na forma do pior achado. O defeito que a spec existia para combater era &quot;norma sem
+função de força&quot;. A entrega o inverteu: <strong>função de força inexistente, afirmada</strong>. Um texto que
+diz &quot;este guarda protege você&quot; num repositório onde o guarda sai com 127 é pior que nenhum texto,
+porque desliga a desconfiança de quem lê, humano ou agente.</p>
+<p>O conserto foi na raiz: comando entre aspas, escrita atômica do <code>settings.json</code>, o guarda
+confinado ao repositório e resolvendo links, o bloco de instrução dizendo a verdade conforme o
+que foi de fato instalado, e asserções novas que provam a <strong>fiação</strong>, cada uma vista reprovando
+por mutação: guarda apagado, <code>settings.json</code> apagado, <code>settings.json</code> sem o <code>PreToolUse</code>, script
+de sessão apagado [CLAIM-12-006]. O commit da entrega é de 21 de agosto
+(<a href="https://github.com/GHDaru/maestro/commit/813a469"><code>813a469</code></a>).</p>
+<p>Duas semanas depois, a mesma lição apareceu do outro lado da mesa. O ciclo 064 reescreveu a
+capa do repositório para a inteligência artificial (IA) que vai instalar o método, e publicou um
+comando que clonava para <code>/tmp/maestro</code> em três linhas soltas. A nota de segurança do próprio
+ciclo examinou exatamente aquele caminho e concluiu &quot;nada a fazer&quot;, porque o <code>git clone</code> recusa
+destino existente. A recusa era verdadeira e irrelevante: as linhas não estavam encadeadas, e a
+seguinte executava <code>/tmp/maestro/bin/maestro</code> de qualquer jeito. A revisão independente provou
+com um executável plantado, que imprimiu &quot;código de terceiro executado&quot; com o bloco saindo 0
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/064-capa-para-a-ia-que-instala/qa-report.md">qa-report 064</a>;
+commit <a href="https://github.com/GHDaru/maestro/commit/00bea14"><code>00bea14</code></a>) [CLAIM-12-007]. Um
+comando publicado para um agente copiar e executar é uma ferramenta, e quem o publica responde
+pelo que ele faz na máquina de outro.</p>
+<h2 id="teoria" tabindex="-1">Teoria <a class="header-anchor" href="#teoria" aria-hidden="true">#</a></h2>
+<h3 id="do-texto-ao-efeito" tabindex="-1">Do texto ao efeito <a class="header-anchor" href="#do-texto-ao-efeito" aria-hidden="true">#</a></h3>
+<p>O capítulo 11 derivou do teorema T3 do Maestro que o portão escala com a irreversibilidade,
+nunca de modo uniforme: se o custo de desfazer é assimétrico (axioma A5) e a consequência
+precisa de dono (A2), um portão igual para tudo vira carimbo ou deixa passar o irreversível
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/axioms.md">axioms.md</a>;
+<a href="11-risco-reversibilidade-e-autonomia.html">capítulo 11</a>). Ferramenta é onde esse
+teorema deixa de ser teoria.</p>
+<p>Sem ferramenta, a saída do agente é um artefato que espera. O diff fica numa branch, o portão
+fica no merge, e entre um e outro cabem revisão, teste e humano. Com ferramenta, a saída é uma
+chamada que <strong>executa</strong>: apaga a linha, publica o pacote, manda a mensagem, roda o comando. A
+classe de risco não está mais no artefato final; está em cada chamada. Por isso a unidade de
+governança muda. Você não governa &quot;o agente&quot;; governa <strong>a superfície de ferramentas</strong> que ele
+alcança, uma ferramenta por vez, pela classe da ação que ela executa.</p>
+<p>A taxonomia do capítulo 11 se aplica direto, ferramenta a ferramenta: leitura (buscar, listar)
+pode rodar sozinha; leitura sensível (segredo, dado pessoal) pede política e máscara; criação
+reversível passa pelo merge; alteração, exclusão, efeito externo e o irreversível pedem humano,
+proporcional ao estrago. O que o mundo das ferramentas acrescenta são três modos de falha que o
+diff não tinha.</p>
+<h3 id="três-riscos-que-o-diff-não-tinha" tabindex="-1">Três riscos que o diff não tinha <a class="header-anchor" href="#três-riscos-que-o-diff-não-tinha" aria-hidden="true">#</a></h3>
+<p>O projeto OWASP (<em>Open Worldwide Application Security Project</em>) mantém um Top 10 de riscos para
+aplicações com modelos de linguagem grandes (LLM, <em>large language model</em>). Três itens da edição
+2025 descrevem quase tudo o que este capítulo trata.</p>
+<p><strong>Agência excessiva (LLM06).</strong> O agente tem funcionalidade demais (ferramentas de que a tarefa
+não precisa), permissão demais (a ferramenta de leitura conecta com credencial de escrita) ou
+autonomia demais (ação de alto impacto sem confirmação humana). Os três se resolvem fora do
+modelo: menos ferramentas visíveis, credencial do tamanho da tarefa e <code>ask</code> onde a ação não se
+desfaz.</p>
+<p><strong>Injeção de prompt (LLM01), sobretudo a indireta.</strong> O texto que volta de uma ferramenta (a
+issue, o e-mail, a página, o resultado da busca) entra no contexto com a mesma tinta das
+instruções do operador. Greshake e colegas mostraram em 2023 que aplicações reais podem ser
+comprometidas por instruções plantadas em conteúdo que o modelo apenas lê. A regra que o
+Maestro escreveu no agente de segurança é curta: dado que chega de fora é hostil por padrão
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/.claude/agents/security.md"><code>.claude/agents/security.md</code></a>).</p>
+<p><strong>Cadeia de suprimento (LLM03).</strong> O que você instala de terceiros (um servidor MCP, uma skill,
+um plugin, um template) entra no seu processo. Num sistema agêntico, boa parte dessa carga
+<strong>é prosa</strong>: instrução que o modelo lê e segue. O ciclo 046 do Maestro chamou de teatro a ideia
+de resolver isso com um inventário de dependências (SBOM, <em>Software Bill of Materials</em>): um
+arquivo todo em markdown, sob licença MIT (<em>Massachusetts Institute of Technology</em>), sem uma
+dependência sequer, ainda pode instruir dano
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/glossary.md">glossário</a>).
+O risco de um pacote de prompts não está no manifesto; está no texto.</p>
+<h3 id="instrução-não-é-imposição" tabindex="-1">Instrução não é imposição <a class="header-anchor" href="#instrução-não-é-imposição" aria-hidden="true">#</a></h3>
+<p>A tese que atravessa este livro tem aqui seu caso mais nítido: <strong>instrução não é
+<em>enforcement</em></strong>. O arquivo de instrução do agente (<code>CLAUDE.md</code>, <code>AGENTS.md</code>,
+<code>.github/copilot-instructions.md</code>, conforme a ferramenta) é um pedido. O agente o lê no começo
+da sessão, e a compactação de contexto, a pressa ou uma instrução injetada podem fazê-lo
+esquecer ou desobedecer. Uma regra que só existe ali vale enquanto for seguida.</p>
+<p>Imposição é outra coisa: um mecanismo que o agente não pode pular porque não passa por ele. A
+permissão que o harness aplica antes de chamar a ferramenta; o hook que recusa a escrita; o
+portão da integração contínua (CI, <em>continuous integration</em>) que reprova o pull request. A falha
+real deste capítulo mostra que o mecanismo também tem modos de falha (falhar aberto, não ser
+chamado, ser contornado por outra porta) e que <strong>afirmar</strong> uma imposição inexistente é o pior
+dos mundos. O corolário C7 do Maestro diz isso numa linha: norma sem executável é norma sem
+efeito.</p>
+<h3 id="autorização-fora-do-modelo" tabindex="-1">Autorização fora do modelo <a class="header-anchor" href="#autorização-fora-do-modelo" aria-hidden="true">#</a></h3>
+<p>Se o modelo pode ser convencido por um texto que leu, ele não pode ser quem decide o que tem
+permissão de fazer. O handbook do Maestro escreve a regra como dois princípios juntos:
+autorização fora do modelo (quem decide permissão é a política, não a IA) e menor privilégio
+(<a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/maestro-handbook/handbook/10-gates-classes-de-risco.md">handbook, cap. 10 §4</a>). Na
+prática, isso significa três escolhas de desenho:</p>
+<ol>
+<li><strong>A identidade de quem chama vem do processo, nunca do argumento.</strong> Se a ferramenta aceita
+<code>autor</code> no corpo da chamada, o modelo escreve o autor que quiser.</li>
+<li><strong>A política é por papel e por ferramenta</strong>, com três valores: <code>allow</code>, <code>deny</code>, <code>ask</code>. O que
+não está escrito é negado. E <code>ask</code> não é sugestão: a ação não executa até um humano dizer sim.</li>
+<li><strong>A ferramenta negada nem aparece.</strong> Menor privilégio vale também para a descoberta: um
+agente que vê <code>apagar_registro</code> na lista é um agente que pode ser convencido a pedi-la.</li>
+</ol>
+<h3 id="o-que-o-mcp-padroniza-e-o-que-não" tabindex="-1">O que o MCP padroniza, e o que não <a class="header-anchor" href="#o-que-o-mcp-padroniza-e-o-que-não" aria-hidden="true">#</a></h3>
+<p>O MCP, publicado pela Anthropic em novembro de 2024 e hoje mantido como
+especificação aberta, padroniza <strong>como</strong> um cliente (o harness do agente) descobre e chama
+capacidades expostas por um servidor. As mensagens são JSON-RPC 2.0 (<em>JSON Remote Procedure
+Call</em>), por dois transportes principais: a entrada e saída
+padrão de um subprocesso local (stdio) ou HTTP (<em>Hypertext Transfer Protocol</em>). Um servidor
+oferece três tipos de primitiva: <strong>ferramentas</strong> (funções que o modelo pode chamar, como
+<code>tools/list</code> e <code>tools/call</code>), <strong>recursos</strong> (dados que o cliente pode ler) e <strong>prompts</strong> (modelos
+de instrução reutilizáveis).</p>
+<p>O ganho é real: uma ferramenta escrita uma vez serve a qualquer harness que fale o protocolo, e o
+time deixa de escrever um adaptador por agente. O estudo de campo do Maestro sobre o projeto
+homônimo <code>maestro-02</code> mostra o padrão em escala: um servidor MCP com 25 prompts, 10 ferramentas
+e 8 recursos que transforma as skills do toolkit em serviço, distribuído a partir de uma fonte
+única para 10 provedores de agente [CLAIM-12-008]
+(<a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/maestro-handbook/handbook/apendice-a-maestro-02.md">apêndice A do handbook</a>).</p>
+<p>O que o protocolo <strong>não</strong> decide é exatamente o que importa para o seu risco: se aquela sessão
+deveria ver aquela ferramenta, se o argumento <code>autor</code> é verdade, se o texto que volta é dado ou
+ordem, se o arquivo pedido está dentro do diretório permitido. O MCP é o encanamento; a
+política é sua. Um servidor MCP que você instala é, do ponto de vista do risco, um pedaço de
+código de terceiro com acesso ao contexto do seu agente.</p>
+<h3 id="a-interface-também-é-desenho" tabindex="-1">A interface também é desenho <a class="header-anchor" href="#a-interface-também-é-desenho" aria-hidden="true">#</a></h3>
+<p>Há um argumento de qualidade, além do de segurança. O trabalho do SWE-agent (Yang e colegas,
+2024) mostrou que o desenho da interface entre agente e computador (que comandos existem, o que
+eles devolvem, quanto devolvem) muda de forma mensurável o desempenho do mesmo modelo em tarefas
+de engenharia. Uma ferramenta que devolve cinco mil linhas enche o contexto (o axioma A3: o
+contexto é finito e se degrada ao encher; ver o
+<a href="05-engenharia-de-contexto.html">capítulo 5</a>); uma que devolve um erro ambíguo
+induz tentativa cega. Teto de saída, marca de corte e erro que diz o que fazer são desenho de
+produto, e servem ao mesmo tempo à segurança e à qualidade.</p>
+<h3 id="o-ecossistema-como-fonte-de-ideias" tabindex="-1">O ecossistema como fonte de ideias <a class="header-anchor" href="#o-ecossistema-como-fonte-de-ideias" aria-hidden="true">#</a></h3>
+<p>A última peça da teoria é sobre escolher. O ecossistema de ferramentas para agentes muda mais
+rápido que qualquer avaliação. Adotar uma ferramenta inteira traz junto o processo, o
+vocabulário e o aprisionamento (<em>lock-in</em>) dela. A alternativa que o Maestro pratica é tratar o
+ecossistema como <strong>fonte de ideias</strong>: a unidade de julgamento é a ideia, não o produto; a ideia
+entra reimplementada num artefato seu, com destino verificável; licença e reversibilidade
+reprovam sozinhas; e o que fica em &quot;observar&quot; leva um gatilho escrito, senão é esquecimento com
+cerimônia. O axioma A4 (o que está escrito é o que sobrevive) explica por que o julgamento
+precisa morar num arquivo datado: a próxima sessão não lembra que aquilo já foi avaliado.</p>
+<h2 id="alternativas" tabindex="-1">Alternativas <a class="header-anchor" href="#alternativas" aria-hidden="true">#</a></h2>
+<p>Há quatro famílias de resposta à pergunta &quot;como dou ferramentas a um agente com segurança?&quot;. Elas
+não se excluem; o veredito é sobre onde cada uma resolve e onde para.</p>
+<p><strong>SDKs e frameworks de agente.</strong> O OpenAI Agents SDK (2025) organiza o agente em ferramentas,
+<em>handoffs</em> entre agentes e <em>guardrails</em> que validam entrada e saída, e aceita servidores MCP como
+fonte de ferramentas. O Google ADK (<em>Agent Development Kit</em>, 2025) e o Microsoft Agent Framework
+(anunciado em 2025 como sucessor do Semantic Kernel e do AutoGen) oferecem o mesmo tipo de
+peça, com integração forte às nuvens de cada empresa; LangGraph e CrewAI, tratados no
+<a href="06-como-dividir-o-trabalho.html">capítulo 6</a>, focam em orquestração. <strong>Veredito</strong>:
+bons para construir um agente de produto, com as ferramentas declaradas em código. Nenhum deles
+decide a sua política por você, e quase todos tornam fácil dar ferramentas demais. Use o
+<em>guardrail</em> como camada, não como política.</p>
+<p><strong>O harness de desenvolvimento como fronteira.</strong> Ferramentas como o Claude Code trazem
+permissões <code>allow / deny / ask</code> por ferramenta e padrão de comando, hooks (<code>PreToolUse</code>,
+<code>SessionStart</code>, <code>Stop</code>, entre outros) e configuração de servidores MCP por projeto. <strong>Veredito</strong>:
+é o lugar certo para a imposição, porque fica entre o modelo e a ação. O custo é o acoplamento:
+hook é mecanismo de um harness, e a regra imposta por ele não existe nos outros. O Maestro adota
+e declara esse limite (ver &quot;O padrão Maestro&quot;).</p>
+<p><strong>Plataformas gerenciadas e <em>control planes</em>.</strong> Plataformas de agentes em nuvem oferecem memória
+gerenciada, delegação entre agentes e fluxo determinístico; <em>control planes</em> de agentes prometem
+coordenar muitas sessões. O Maestro avaliou a plataforma do Google em agosto de 2026 e registrou
+&quot;observar&quot;, com gatilho: ir para nuvem gerenciada é decisão de infraestrutura, não de método
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/ecosystem/ideias/040-plataforma-gerenciada-de-agentes.md">ideia 040</a>).
+Em outubro de 2026, cinco análises na fonte (Paperclip, CompozyOS, AgentConnect, o Agent Client
+Protocol (ACP) e o protocolo Agent2Agent (A2A)) levaram a &quot;construir, com os padrões nas bordas&quot;:
+nenhum produto como base, os nomes do A2A no envelope de mensagem, e os três produtos viraram
+régua do crítico [CLAIM-12-009]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/records/decisoes.jsonl">decisões</a>,
+id <code>decisao-076-control-plane-v2</code>). <strong>Veredito</strong>: adote o protocolo nas bordas, onde ele
+garante interoperabilidade; não adote o produto como base enquanto ele exigir infraestrutura que
+você não tem ou sessões que morrem com um processo central.</p>
+<p><strong>Frameworks inteiros de processo.</strong> No espaço de desenvolvimento orientado por especificação
+(SDD, <em>Spec-Driven Development</em>), o Maestro avaliou em julho de 2026 sete ferramentas
+(Superpowers, BMAD, Kiro, Taskmaster, Agent OS, GSD e Tessl) [CLAIM-12-010] e decidiu: manter o
+Spec Kit como ferramenta única, descartar o BMAD (substituiria o modelo de governança com
+cerimônia já rejeitada), descartar o Kiro <strong>como ferramenta</strong> por aprisionamento de IDE
+(<em>integrated development environment</em>) e não adotar o Superpowers por atacado (seria uma segunda
+fonte de verdade de processo), absorvendo ideias com destino concreto
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0008-avaliacao-ecossistema-sdd.md">ADR 0008</a>).
+<strong>Veredito</strong>: framework inteiro de processo compete com o seu; absorva a ideia, não o pacote.</p>
+<table>
+<thead>
+<tr>
+<th>Família</th>
+<th>Resolve</th>
+<th>Para em</th>
+<th>Veredito</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SDK de agente (Agents SDK, ADK, Agent Framework)</td>
+<td>declarar ferramentas, <em>guardrails</em></td>
+<td>política e menor privilégio são seus</td>
+<td>adotar como peça, não como política</td>
+</tr>
+<tr>
+<td>Harness com permissões e hooks</td>
+<td>imposição antes da ação</td>
+<td>acoplado a um harness</td>
+<td>adotar, declarando o limite</td>
+</tr>
+<tr>
+<td>Plataforma gerenciada / <em>control plane</em></td>
+<td>coordenação e memória gerenciadas</td>
+<td>infraestrutura e aprisionamento</td>
+<td>observar com gatilho; protocolo nas bordas</td>
+</tr>
+<tr>
+<td>Framework inteiro de processo</td>
+<td>processo pronto</td>
+<td>segunda fonte de verdade</td>
+<td>absorver ideias</td>
+</tr>
+<tr>
+<td>MCP</td>
+<td>interoperabilidade da ferramenta</td>
+<td>não decide permissão nem confiança</td>
+<td>adotar como encanamento</td>
+</tr>
+</tbody>
+</table>
+<h2 id="o-padrão-maestro" tabindex="-1">O padrão Maestro <a class="header-anchor" href="#o-padrão-maestro" aria-hidden="true">#</a></h2>
+<p>O Maestro resolve a superfície de ferramentas em cinco camadas. Em cada uma, vale dizer o que é
+<strong>regra</strong> (texto que o agente lê), o que é <strong>script</strong> (portão que reprova) e o que é <strong>hook</strong>
+(mecanismo do harness que recusa antes). Tudo citado em <code>maestro@19823c2</code>.</p>
+<h3 id="1-a-camada-de-harness-o-que-recusa-antes" tabindex="-1">1. A camada de harness: o que recusa antes <a class="header-anchor" href="#1-a-camada-de-harness-o-que-recusa-antes" aria-hidden="true">#</a></h3>
+<p>Regra: nunca reescrever o que o método guarda como história; a via é sempre acrescentar (novo
+ADR que substitui, <code>scripts/record-decision.sh</code>, linha nova de estado)
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/CLAUDE.md"><code>CLAUDE.md</code></a>).</p>
+<p>Hook: o <code>.claude/settings.json</code> liga três ganchos
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/.claude/settings.json">settings.json</a>). O
+<code>PreToolUse</code> chama <code>guard-immutables.py</code> antes de ferramentas de escrita, de leitura e de shell;
+o <code>SessionStart</code> chama <code>session-state.sh</code>, que imprime o estado <strong>medido</strong> do método (ciclo em
+curso, conformidade, achados abertos) em vez de deixar o agente reconstruí-lo de memória; o
+<code>Stop</code>, acrescentado em outubro de 2026 (commit <code>cc4e95f</code>), roda a conformidade das caixas marcadas
+quando o agente vai parar e bloqueia a parada uma vez se uma caixa marcada não tem evidência
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/hooks/stop-conformance.py">stop-conformance.py</a>).
+Na entrega do ciclo 056 eram dois ganchos e o <em>matcher</em> cobria só as quatro ferramentas de
+escrita [CLAIM-12-011].</p>
+<p>O guarda tem uma definição precisa de imutável: <strong>já está no histórico do git</strong>. Escrever um ADR
+leva várias chamadas (esqueleto, consequências, correção de digitação), e recusar a segunda
+chamada bloquearia justamente o que o método pede; a primeira versão tratava &quot;o arquivo existe&quot;
+como imutável e a revisão independente pegou
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/hooks/guard-immutables.py">guard-immutables.py</a>).</p>
+<p>E o guarda <strong>declara os próprios limites</strong>, o que é a parte mais rara e mais útil do desenho.
+O shell não é guardado para as regras de histórico: para o índice de decisões há razão positiva
+(a via sancionada é um comando de shell), mas para corpo de ADR e cartões não há, e um <code>sed -i</code>
+os alcança. O docstring diz &quot;dito, não desculpado&quot;. A regra do banco do painel, acrescentada no
+ciclo 075, julga o shell, mas lê o <strong>texto</strong> do comando; um caminho montado em tempo de execução
+escapa, e isso fica como risco residual declarado, que vai ao portão humano. O
+<code>estado.jsonl</code> do catálogo é append-only por regra e não é guardado, porque não tem script de
+acréscimo e recusar a escrita deixaria o método sem via. E o guarda <strong>falha aberto</strong> de
+propósito: quem impede que um guarda quebrado passe despercebido é o portão, não ele.</p>
+<p>Script: <code>check-installed.sh</code> prova a fiação na cópia instalada, com os casos que o guarda deve
+bloquear e os que deve deixar passar; a revisão do 056 mostrou que provar o script sem provar
+que ele é chamado é decoração (o mesmo diagnóstico do
+<a href="10-quality-gates-que-provam-fatos.html">capítulo 10</a>).</p>
+<p>Duas lições de origem. A ideia de usar um hook de sessão para impor o &quot;consulte as skills
+antes de agir&quot; veio do estudo do Superpowers, cujo hook de início de sessão injeta a meta-skill
+em toda conversa; o Maestro absorveu como parágrafo de imposição no <code>CLAUDE.md</code>
+(<a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/maestro-handbook/handbook/apendice-b-superpowers.md">apêndice B do handbook, §8</a>).
+E hooks de terceiro também entram por decisão registrada: o ADR 0025 aceitou, com ressalva,
+que hooks <code>SessionStart</code>/<code>Stop</code> de uma ferramenta de workflow gravassem direto no SQLite do
+painel, com condições: tabelas próprias, nunca as derivadas; append-only ainda por convenção, sem
+gatilho no banco (dívida declarada); o arquivo do banco como fronteira de confiança, porque quem
+escreve nele põe texto no contexto do modelo; e a frase que resume a categoria: <strong>os hooks são
+ferramenta, não método</strong>, instalados por opção e nunca pelo instalador do método
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0025-hooks-de-terceiro-gravando-sqlite.md">ADR 0025</a>).</p>
+<h3 id="2-a-porta-de-ferramentas-identidade-política-e-cerca" tabindex="-1">2. A porta de ferramentas: identidade, política e cerca <a class="header-anchor" href="#2-a-porta-de-ferramentas-identidade-política-e-cerca" aria-hidden="true">#</a></h3>
+<p>O painel de regência do Maestro (a aplicação que acompanha as sessões de agentes em paralelo)
+expõe um servidor MCP próprio, em Python sem dependências, com quatro ferramentas:
+<code>estado_atual</code>, <code>registrar_status</code>, <code>registrar_peca</code> e <code>quem_sou_eu</code>
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/painel/mcp_painel.py">mcp_painel.py</a>)
+[CLAIM-12-012]. Três decisões de desenho, todas nascidas de achados de revisão de segurança no
+ciclo 075, valem para qualquer servidor que você escreva:</p>
+<ul>
+<li><strong>As ferramentas de escrita não têm argumento de identidade.</strong> O <code>inputSchema</code> não declara
+<code>autor</code> nem <code>sessao</code>. O autor vem do token do processo, resolvido pelo registro do host; um
+<code>autor</code> mandado por engano volta num campo <code>ignorado</code>. A identidade nunca é escrita pelo modelo.</li>
+<li><strong>O que volta ao modelo vem cercado como dado.</strong> O resultado entra entre duas marcas
+(<code>&lt;&lt;&lt;DADO-DE-TERCEIROS&gt;&gt;&gt;</code> e <code>&lt;&lt;&lt;FIM-DO-DADO&gt;&gt;&gt;</code>), com teto de 8 KB e marca explícita de corte
+[CLAIM-12-013]; uma marca de fechamento que venha <strong>dentro</strong> do conteúdo é neutralizada, senão
+bastaria ao texto injetado trazê-la para sair da cerca. E o código diz o limite em voz alta: a
+cerca não é uma sandbox; quem lê ainda pode obedecer ao que está dentro; o que ela faz é tornar
+a fronteira visível
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/painel/servidor/adaptadores/http.py">http.py</a>).</li>
+<li><strong>O token não anda na linha de comando.</strong> A revisão de segurança da tarefa T06 do ciclo 075
+mediu o token escrito no comando codificado de cada painel de terminal, o lugar mais público que
+um processo tem (título da janela, lista de processos, logs). Agora ele é sorteado por subida,
+gravado num arquivo fora do repositório, lido e apagado pelo próprio painel, e só o <strong>hash</strong> fica
+registrado; um teste roda as peças do lançador e confere
+(<a href="https://github.com/GHDaru/maestro/blob/28f495a/scripts/test_multi_session_token.py">test_multi_session_token.py @ 28f495a</a>).</li>
+</ul>
+<p>A política sobre quem chama qual ferramenta segue a mesma lógica: na pesquisa da área
+administrativa (ciclo 073), a decisão D2 fixou que <strong>a ferramenta MCP é escopo da política
+<code>allow / deny / ask</code> por agente</strong>, e não uma tela própria; cada ferramenta aponta para a regra
+que a governa (<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/glossary.md">glossário</a>).
+E a credencial do provedor de modelo também fica fora do repositório: quando o ciclo 066 passou
+a abrir sete sessões construtoras (um gerente e seis trabalhadores) por um <em>gateway</em> de modelos,
+três pareceres em contexto fresco chegaram ao mesmo desenho: o token fica na configuração de
+escopo do usuário, colocado pelo humano; o repositório declara só o endereço e os modelos; uma
+lista mínima de permissões com negação explícita para <code>git push</code>, <code>rm -rf</code>, <code>docs/adr</code>,
+<code>docs/records</code> e <code>.env</code>; e nada de copiar permissões e hooks de outro projeto por conveniência
+[CLAIM-12-014] (id <code>decisao-066-sessoes-via-gateway</code> no índice de decisões).</p>
+<p>Quem revisa essa superfície é um papel sem poder de escrita: o agente <code>security</code> tem só
+<code>Read, Grep, Glob, Bash</code>, avalia injeção, segredos e autorização e trata resultado de ferramenta
+como potencialmente hostil
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/.claude/agents/security.md">security.md</a>).</p>
+<h3 id="3-instalar-é-agir-no-repositório-de-outro" tabindex="-1">3. Instalar é agir no repositório de outro <a class="header-anchor" href="#3-instalar-é-agir-no-repositório-de-outro" aria-hidden="true">#</a></h3>
+<p>O método do Maestro chega a outros repositórios por três caminhos, decididos no ADR 0012 do
+ciclo 019 (<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0012-distribuicao-em-tres-camadas.md">ADR 0012</a>):</p>
+<ul>
+<li><strong>A — script</strong> <code>install-maestro.sh</code>, canônico, leva o método inteiro (agentes, skills,
+scripts, comandos, templates, governança);</li>
+<li><strong>B — plugin do Claude Code</strong>, gerado das fontes por <code>package-plugin.sh</code>, que leva agentes,
+skills e comandos com versão e atualização;</li>
+<li><strong>C — <code>npx skills add</code></strong>, que leva só as seis skills para qualquer agente compatível com o
+padrão da comunidade, e saiu de graça porque o layout do Maestro já era esse.</li>
+</ul>
+<p>Cada caminho declara o que <strong>não</strong> leva. O mesmo ADR decidiu <strong>não</strong> construir uma interface de
+linha de comando (CLI, <em>command-line interface</em>) própria no estilo do Spec Kit, com números: o
+Spec Kit tinha cerca de 6.900 linhas de Python e publicação em índice de pacotes, para entregar o
+que um script de 90 linhas já entregava [CLAIM-12-015]. Quando o ciclo 058 criou a porta da
+frente <code>bin/maestro init</code>, ela nasceu como <strong>despachante</strong> em bash: o arquivo diz que despacha e
+nunca implementa, e cada subcomando roda o script que já é dono do passo
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/bin/maestro">bin/maestro</a>).</p>
+<p>A ordem dos ciclos é uma lista de lições sobre agir em casa alheia:</p>
+<ul>
+<li><strong>Existir fora da porta é não existir (ciclo 018).</strong> O instalador existia desde o ciclo 013,
+mas não estava no README; outra IA concluiu que o Maestro &quot;não tinha&quot; instalador
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/018-instalacao-e-ux-jornadas/qa-report.md">qa-report 018</a>).</li>
+<li><strong>Instalar não é copiar.</strong> A receita diz: copiar é um passo; instalado é quando a IA sabe que
+deve seguir o método, e <code>check-install.sh</code> só fica verde com as duas metades
+(<a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/maestro-handbook/receitas/instalar-o-maestro.md">receita</a>).</li>
+<li><strong>Instalar é também atualizar (ciclo 051).</strong> Reinstalar não entregava nada (destino existente
+era pulado) e o <code>--force</code> recomendado pela nota da v0.2.0 aninhava diretórios. O instalador
+passou a gravar um manifesto com o hash de cada arquivo escrito: o que é nosso e está intacto
+é renovado; o que o projeto modificou fica, com a versão nova ao lado como <code>*.maestro-new</code>; o
+<code>manifest.tsv</code> distingue arquivo nosso de arquivo seu
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/051-instalador-que-atualiza/spec.md">spec 051</a>).</li>
+<li><strong>Link simbólico não é porta de saída (ciclo 052).</strong> Com o poder de remover, um link no alvo
+fazia o instalador escrever e podar fora do repositório; o conserto recusa, nomeia e conta a
+recusa, e o ataque virou asserção do portão.</li>
+<li><strong>Configuração de terceiro não se sobrescreve.</strong> <code>merge-settings.py</code> decide o destino do
+<code>settings.json</code> alheio em seis veredictos (WRITE, CURRENT, MERGED, UPGRADE, CONFLICT, ERROR) [CLAIM-12-029].
+O CURRENT nasceu porque o instalador conflitava <strong>consigo mesmo</strong>; o UPGRADE, porque um projeto
+instalado na v0.3.0 recebia CONFLICT ao atualizar, já que os hooks antigos do Maestro eram
+indistinguíveis dos de terceiro
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/hooks/merge-settings.py">merge-settings.py</a>).</li>
+<li><strong>O agente é escolha declarada (ciclo 057).</strong> Até ali o instalador copiava <code>.claude/*</code> fosse
+qual fosse a ferramenta. O modelo medido do Spec Kit grava a escolha em arquivo e mapeia 26
+agentes ao arquivo de instrução de cada um [CLAIM-12-016]. O Maestro adotou a forma com
+<strong>quatro</strong> (<code>claude</code>, <code>copilot</code>, <code>cursor-agent</code>, <code>codex</code>), nos ids do upstream, porque o custo
+de um agente não é a linha da tabela, é <strong>testar</strong> a instalação lá
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/install-agents.tsv">install-agents.tsv</a>).
+A tabela diz que &quot;a tabela é o suporte&quot;; <code>-</code> em comandos significa &quot;formato não verificado, nada
+instalado&quot;. E a primeira versão afirmava que as quatro instruções vinham do upstream quando
+duas não vinham, e foi a revisão independente que pegou. A escolha fica gravada em
+<code>.maestro/install-options.json</code>, com o campo <code>harness</code> registrando o <strong>fato</strong> desta instalação.</li>
+<li><strong>Hook é mecanismo de um harness.</strong> Para os agentes que não executam hooks do Claude Code, a
+camada não é instalada, o resumo diz por quê, e o bloco de instrução muda: diz que a regra
+vale <strong>enquanto for seguida</strong>, sem afirmar proteção inexistente. É a correção direta do pior
+achado do ciclo 056.</li>
+<li><strong>A porta da frente roda sem humano (ciclo 058).</strong> <code>maestro init</code> conduz agente, destino,
+instalação e verificação, e sai diferente de zero se a verificação falhar; toda pergunta tem
+forma de flag, e sem terminal e sem <code>--yes</code> ele <strong>recusa</strong> em vez de responder por você. O mesmo ciclo achou três mentiras na documentação da instalação (uma flag com o nome errado, a
+promessa de que o script não sobrescreve, um uso que não citava as flags novas) e criou o
+portão <code>check-flags</code>, que compara as flags que o parser aceita com as que a documentação
+promete [CLAIM-12-031].</li>
+<li><strong>A capa serve a quem instala (ciclo 064).</strong> A sessão de um agente não tem terminal; o README
+publicava só a forma interativa, e a IA que o seguisse saía com código 2 e zero arquivos
+escritos [CLAIM-12-017]. A capa passou a publicar primeiro <code>--ai &lt;id&gt; --yes</code>, e a falha do
+<code>/tmp/maestro</code> contada na falha real foi corrigida na raiz.</li>
+</ul>
+<p>Numa instalação real por <code>maestro init --ai claude</code>, o projeto recebe 81 arquivos; com
+<code>--ai codex</code>, 53 e nenhum <code>.claude/</code> [CLAIM-12-018]. O motor de especificação chega como 12
+comandos (<code>/speckit.specify</code>, <code>clarify</code>, <code>plan</code>, <code>tasks</code>, <code>implement</code>, <code>analyze</code>, <code>checklist</code>,
+<code>constitution</code>, <code>converge</code>, <code>taskstoissues</code>, mais <code>/dod</code> e <code>/eval</code>), ao lado de 13 subagentes e 6
+skills [CLAIM-12-019]. Tudo isso é escrito em inglês: a superfície instalável é lida por agentes
+em repositórios de terceiros, e o ciclo 033 fixou a fronteira (instalável em inglês, livro em
+português), guardada por <code>check-language.sh</code>
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/033-ingles-no-instalavel/spec.md">spec 033</a>).</p>
+<p>O que o instalador <strong>não</strong> faz também é decisão. O <code>maestro-ledger</code>, mod do Claude Code que
+transforma as etiquetas de tarefa em registro de tokens e tentativas, é instalado por
+<code>claude plugin install</code>, nunca pelo instalador do método, porque escreve nas configurações do
+usuário, fora do projeto; e a documentação manda instalá-lo só com escopo de projeto e só em
+repositórios confiáveis, porque ele executa o script do repositório aberto
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/task-ledger.md">task-ledger.md</a>).</p>
+<p>O caminho B tem seu portão: <code>package-plugin.sh --verify</code> reconstrói o plugin num diretório
+temporário e falha se ele diverge das fontes
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/package-plugin.sh">package-plugin.sh</a>).
+O ciclo 044 mostrou por quê: o plugin é build commitado; o autor editou a fonte de um comando
+vendorizado e não reconstruiu, e o plugin continuou entregando o texto que o ciclo existia para
+apagar. O <code>--verify</code> estava vermelho, era passo bloqueante da CI escrito uma hora antes, no
+ciclo 043, e o autor não o rodou porque a lista de verificação do próprio plano não o citava
+[CLAIM-12-020]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/044-speckit-plan-defere-a-declaracao/qa-report.md">qa-report 044</a>).</p>
+<h3 id="4-proveniência-e-licença-o-que-entra-e-o-que-viaja" tabindex="-1">4. Proveniência e licença: o que entra e o que viaja <a class="header-anchor" href="#4-proveniência-e-licença-o-que-entra-e-o-que-viaja" aria-hidden="true">#</a></h3>
+<p>O Spec Kit foi <strong>vendorizado</strong> no ciclo 009: os templates passaram a ser fonte do Maestro,
+adaptados (raias, critérios verificáveis, gate humano), e o upstream entra por decisão
+registrada, nunca por reinstalação automática. O custo declarado é assumir a manutenção
+(<a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/maestro-handbook/handbook/13-decisoes-de-engenharia.md">handbook, cap. 13 §5.13</a>). O
+<code>.specify/UPSTREAM.md</code> marca o estado de cada peça, e a segunda regra dele nasceu de um achado:
+o comando vendorizado <code>speckit.plan</code> mandava gerar quatro artefatos incondicionalmente,
+contradizendo a tabela de declaração do template de plano; mexer nele era questão de
+proveniência, logo decisão, e o ciclo 044 fechou com a regra &quot;divergência declarada, nunca
+silenciosa&quot; (ids <code>achado-042-speckit-plan-contraditorio</code> e <code>spec-044-fecha-042</code>).</p>
+<p>A licença virou portão depois de uma ironia. No ciclo 036, o catálogo mais útil encontrado, 70
+skills de gestão de produto, estava sob CC BY-NC-SA (Creative Commons
+Atribuição-NãoComercial-CompartilhaIgual), incompatível com a distribuição do Maestro; a
+regra passou a ser verificar licença <strong>antes</strong> de propor uso [CLAIM-12-021]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/036-pesquisa-upstream-decomposicao/qa-report.md">qa-report 036</a>;
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/ecosystem/ideias/015-skills-de-gestao-de-produto.md">ideia 015</a>).
+Dez ciclos depois, um painel de catorze especialistas convocado para outro assunto achou o
+espelho [CLAIM-12-022]: por 45 ciclos o Maestro recusara licença alheia sem ter <code>LICENSE</code>
+próprio, sem nota de terceiros, sem aviso de copyright nos arquivos vindos do Spec Kit, e com o
+manifesto do plugin declarando &quot;MIT&quot; sem o texto [CLAIM-12-023]. Repositório sem licença não é
+neutro; é &quot;todos os direitos reservados&quot;, pior que a licença recusada
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/046-licenca-e-atribuicao/spec.md">spec 046</a>).</p>
+<p>O ADR 0020 decidiu: MIT com titular; <code>THIRD-PARTY-NOTICES.md</code> separando o que é cópia literal do
+que foi modificado, com a linha de copyright de cada upstream; e a atribuição <strong>viajando pelos
+dois canais</strong>, renomeada no destino do instalador (<code>docs/governance/MAESTRO-LICENSE</code>), porque um
+<code>LICENSE</code> solto na raiz de um repositório alheio afirmaria que aquele projeto inteiro é MIT do
+Maestro (<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0020-licenca-mit-e-atribuicao-que-viaja.md">ADR 0020</a>).
+O <code>check-licensing.sh</code> mede a coerência dos artefatos, não a conformidade jurídica, e diz isso no
+cabeçalho; a primeira versão saía com código 0 se o instalador fosse apagado, e &quot;entrada ausente
+é falha, nunca aprovação&quot; virou regra
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/check-licensing.sh">check-licensing.sh</a>).</p>
+<p>A mesma honestidade vale para a versão. Ao fechar a v0.2.0, o ciclo 050 registrou que a tag
+<code>v0.1.0</code> nunca tinha chegado ao GitHub: o push de tag recebia 403 do proxy de saída enquanto o
+de branch passava, e a nota de release passou a declarar a meia versão
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/050-fechar-v0-2-0/spec.md">spec 050</a>)
+[CLAIM-12-024]. E a CI, com token só de leitura, referencia <em>actions</em> por tag maior; fixá-las
+pelo hash SHA (<em>Secure Hash Algorithm</em>) do commit está no roadmap com gatilho escrito: quando um
+segredo entrar no workflow ou o token deixar de ser só leitura
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/roadmap.md">roadmap</a>).</p>
+<h3 id="5-o-catálogo-do-ecossistema-a-ideia-como-unidade" tabindex="-1">5. O catálogo do ecossistema: a ideia como unidade <a class="header-anchor" href="#5-o-catálogo-do-ecossistema-a-ideia-como-unidade" aria-hidden="true">#</a></h3>
+<p>O ciclo 047 criou o catálogo em três peças: <code>fontes.md</code> (endereço, licença, data), um cartão
+datado e imutável por <strong>ideia</strong> em <code>ideias/</code>, e o veredito <strong>corrente</strong> num índice append-only,
+<code>estado.jsonl</code>. Momento e estado são artefatos diferentes: o cartão diz o que se julgou num dia;
+o veredito de hoje mora no índice. O vocabulário é fechado (<code>adotar</code>, <code>absorver</code>, <code>observar</code>,
+<code>descartar</code>); <code>adotar</code> e <code>absorver</code> exigem destino que é arquivo e um texto literal que tem de
+estar dentro dele; <code>observar</code> exige gatilho; e sete dimensões são avaliadas sempre, duas das quais
+reprovam sozinhas: conflito insanável com princípio e licença [CLAIM-12-025]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/ecosystem/README.md">README do catálogo</a>).
+O <code>check-ecosystem.sh</code> mede que todo julgamento está ancorado.</p>
+<p>O portão foi escrito antes do conteúdo e, na primeira execução, achou absorções fantasmas. Duas
+ideias que o ADR 0008 registrara como absorvidas (worktree isolado por tarefa e padrões por
+camada) nunca tinham chegado ao disco, e ficaram 39 ciclos registradas assim [CLAIM-12-026]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/check-ecosystem.sh">check-ecosystem.sh</a>).
+Ao todo, cinco ideias estavam como &quot;absorver&quot; com destino condicional e nenhuma tinha arquivo;
+voltaram para &quot;observar&quot; com gatilho, em linha nova datada (id
+<code>achado-047-cinco-absorcoes-sem-destino</code>).</p>
+<p>Três cartões mostram o julgamento em ação:</p>
+<ul>
+<li><strong>Kiro (ideia 009): descartar a ferramenta.</strong> A melhor parte dela, a sintaxe de requisitos
+EARS (<em>Easy Approach to Requirements Syntax</em>), atravessou sozinha; a IDE proprietária, não. A
+dimensão de reversibilidade reprova sozinha
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/ecosystem/ideias/009-ide-proprietaria-spec-first.md">ideia 009</a>).</li>
+<li><strong>Skills de gestão de produto (ideia 015): descartar pela licença.</strong> O cartão de 6 de agosto
+dizia &quot;observar e citar&quot;; o veredito corrente, em linha nova de 10 de agosto, é &quot;descartar&quot;. O
+cartão não foi reescrito: mudar de ideia é legítimo, apagar o registro de que se pensava
+diferente não é.</li>
+<li><strong>Plataforma gerenciada de agentes (ideia 040): observar</strong>, com o gatilho &quot;ida a nuvem
+gerenciada&quot;.</li>
+</ul>
+<p>Dois estudos de campo anteriores ao catálogo seguem a mesma régua. O do <code>maestro-02</code> absorveu
+cinco ideias (decisões em JSONL (<em>JSON Lines</em>) consultável, retrospectiva executável, catálogo de
+anti-padrões, entre outras), pôs uma em observação e descartou a adoção integral, que seria segunda fonte de verdade de processo [CLAIM-12-030]. E o
+companion, o tutor do livro do Maestro (ciclo 015), mostra o mesmo critério aplicado a um serviço
+próprio: busca lexical sem <em>embeddings</em> (YAGNI, <em>You Aren't Gonna Need It</em>), resposta obrigada a
+citar a página, adaptador de modelo compatível com a API
+da OpenAI, chave do próprio usuário (BYOK, <em>bring your own key</em>) usada só na requisição e nunca
+persistida, banco fora do ar sem derrubar o serviço, e <strong>sem ferramentas</strong>: o tutor só lê o livro
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/015-companion-tutor/spec.md">spec 015</a>).
+A ferramenta mais segura é a que o agente não tem.</p>
+<p>O resultado aparece no corte de versão: a v0.3.0, de 22 de agosto de 2026, foi &quot;a versão em que o
+método ganhou porta de entrada&quot;, com 17 portões executáveis, 14 bloqueando inteiros na CI e um
+bloqueando pela metade [CLAIM-12-027]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/CHANGELOG.md">CHANGELOG</a>).</p>
+<h2 id="exemplo-executável" tabindex="-1" class="callout c-prat" data-rotulo="Mão na massa">Exemplo executável <a class="header-anchor" href="#exemplo-executável" aria-hidden="true">#</a></h2>
+<p>O exemplo em <a href="12-ferramentas-mcp-e-o-ecossistema-exemplo.html"><code>exemplo/</code></a> é um servidor MCP mínimo, em Python sem
+dependências, com três ferramentas escolhidas porque cada uma carrega um risco diferente:
+<code>ler_doc</code> (o risco é o conteúdo que volta), <code>registrar_status</code> (o risco é quem assina) e
+<code>apagar_registro</code> (o risco é a ação). Ele existe em duas versões com a mesma interface: a
+ingênua, que faz o que o pedido manda, e a guardada, com as cinco regras deste capítulo fora do
+modelo: identidade pelo token do processo, política <code>allow / deny / ask</code> por papel, descoberta
+mínima, resultado cercado com teto e marca de corte, e confinamento de caminho.</p>
+<p>Um harness, <code>sondar.py</code>, sobe cada versão como subprocesso, passa o token por variável de
+ambiente, conversa em JSON-RPC pela entrada padrão (como um cliente MCP de verdade) e roda oito
+sondas. A S2 é a fixture legítima, um pedido certo que a versão guardada não pode recusar; as
+outras sete medem agência excessiva (descoberta, <code>deny</code>, <code>ask</code>), identidade forjada, injeção
+indireta com cerca falsa dentro do documento, teto de contexto e saída de diretório.</p>
+<pre><code class="language-bash">cd livro/12-ferramentas-mcp-e-o-ecossistema/exemplo
+python3 sondar.py                  # sai com código 1: a versão ingênua fica EXPOSTA
+python3 sondar.py --so guardado    # sai com código 0: 8/8
+</code></pre>
+<p>A saída esperada está no README: a versão ingênua passa só na S2 (<code>1/8 sondas → EXPOSTO</code>); a
+guardada passa nas oito [CLAIM-12-028]. O README traz também a mutação que prova que a sonda
+acusa: trocar <code>ask</code> por <code>allow</code> em <code>apagar_registro</code> derruba a S3 e a versão guardada vira
+<code>7/8 → EXPOSTO</code>. O ponto do exemplo não é o servidor, que é de brinquedo. É o hábito: <strong>sondar a
+ferramenta antes de ligá-la ao agente</strong>, com um caso legítimo ao lado dos ataques, e ver cada
+sonda reprovar ao menos uma vez.</p>
+<h2 id="contraexemplo" tabindex="-1" class="callout c-contra" data-rotulo="Limite">Contraexemplo <a class="header-anchor" href="#contraexemplo" aria-hidden="true">#</a></h2>
+<p><strong>Ferramenta só de leitura, em ambiente descartável.</strong> Um agente explorando um repositório
+clonado num contêiner que será jogado fora, com ferramentas de busca e leitura, não precisa de
+política por papel nem de <code>ask</code>. A classe de risco é leitura; o pior caso é gasto de contexto.
+Impor a mesma cerimônia de uma ferramenta de escrita em produção é o portão uniforme que o T3
+rejeita, na direção do excesso. O custo real ali é o teto de saída, não a política.</p>
+<p><strong>Hook como única linha de defesa.</strong> O hook é mecanismo de um harness; o mesmo repositório
+aberto em outra ferramenta não o executa, e o próprio Maestro declara que o guarda falha aberto,
+não cobre o shell para as regras de histórico e lê o texto do comando, não a intenção. Tratar o
+hook como garantia, em vez de primeira linha atrás da qual há portão e humano, repete o pior
+achado do ciclo 056 em escala maior.</p>
+<p><strong>A cerca vendida como defesa.</strong> Cercar o resultado de ferramenta torna a fronteira visível; não
+impede o modelo de obedecer ao que está dentro. Se a sua defesa contra injeção indireta é só a
+cerca, a ação perigosa continua disponível. O que segura é a política fora do modelo: no exemplo,
+é o <code>ask</code> que impede a S3, não a cerca da S6.</p>
+<p><strong>Catálogo como burocracia.</strong> Para um time pequeno avaliando uma biblioteca de uso pontual, sete
+dimensões e cartão datado custam mais que a decisão. O catálogo paga quando a pergunta &quot;isso já
+foi avaliado?&quot; se repete e quando o que entra é <strong>prosa que instrui agentes</strong>. Para uma
+dependência de build que não é redistribuída, a regra da licença basta, e o próprio ciclo 046
+deixou a auditoria das dependências de build fora de escopo, chamando-a de teatro.</p>
+<p><strong>Construir em vez de adotar, por princípio.</strong> A decisão de &quot;construir, com padrões nas bordas&quot;
+do painel do Maestro se apoiou em restrições concretas (Windows, sem Docker, sessões que não
+podem morrer com um processo central). Sem essas restrições, adotar um produto maduro pode ser a
+decisão certa; &quot;o ecossistema é fonte de ideias&quot; não é dogma contra dependências. O custo do
+caminho do Maestro é manutenção própria, e vendorizar o Spec Kit já mostrou o preço: o achado do
+<code>speckit.plan</code> contraditório e o plugin não reconstruído.</p>
+<h2 id="evidência" tabindex="-1">Evidência <a class="header-anchor" href="#evidência" aria-hidden="true">#</a></h2>
+<p>A falha real é observada e reproduzível no relatório do ciclo 056 (24 achados, nove bloqueantes;
+o hook que sai com 127; a fiação nunca provada) [CLAIM-12-001, CLAIM-12-002, CLAIM-12-006], e a
+do comando publicado em <code>/tmp/maestro</code>, no relatório do ciclo 064 [CLAIM-12-007]. As decisões de
+desenho da porta MCP (identidade pelo token, cerca de 8 KB com neutralização, token fora do argv)
+estão no código e nos testes em <code>19823c2</code> e <code>28f495a</code> [CLAIM-12-012, CLAIM-12-013]. A
+contagem de agentes do upstream (26) e a escolha de quatro estão na tabela de agentes e na spec
+057 [CLAIM-12-016].</p>
+<p>Há uma divergência medida que vale registrar: o roadmap do Maestro descreve a entrega do catálogo
+como &quot;30 cards imutáveis, 18 fontes&quot;, mas no commit do próprio ciclo 047 (<code>e73ee0d</code>) havia 40
+cartões, número que o README do catálogo confirma [CLAIM-12-025]. É um fato dito em dois lugares
+sem nada comparando, a família de defeito que este capítulo encontra em instaladores, licenças e
+versões; aqui, nos números do registro de um portão.</p>
+<p>O exemplo executável é medido: oito sondas, a versão ingênua passa em uma, a guardada em oito, e a
+mutação <code>ask → allow</code> derruba a guardada para sete [CLAIM-12-028].</p>
+<p>O que é <strong>hipótese</strong>, e como tal deve ser lido:</p>
+<ul>
+<li><strong>H8 (reversibilidade permite mais autonomia).</strong> O capítulo assume que tornar uma ferramenta
+reversível (escrita atômica, <code>*.maestro-new</code>, manifesto com hash) permite delegá-la com menos
+portão humano. O Maestro tem casos, não uma medida comparativa; a medida está na agenda do
+<a href="15-validando-o-maestro.html">capítulo 15</a>.</li>
+<li><strong>Ferramenta desnecessária (GOV-008) e injeção de prompt na documentação (GOV-010)</strong> são dois
+dos dez cenários do benchmark de governança proposto na base de pesquisa do livro
+(<a href="https://github.com/GHDaru/agentic_software_engineering/tree/main/livro/apendices/b-aseg-bench">apêndice B</a>). Que a política por papel e a cerca reduzam esses
+dois modos de falha em agentes reais é hipótese; o exemplo prova o comportamento do servidor,
+não o do modelo diante dele.</li>
+<li>Que o MCP vá se manter como encanamento dominante é aposta de mercado, não evidência. O
+argumento do capítulo (política fora do modelo, identidade fora do argumento, resultado como
+dado) não depende disso: sobrevive à troca do protocolo.</li>
+</ul>
+<h2 id="checklist" tabindex="-1" class="callout c-verif" data-rotulo="Aplique">Checklist <a class="header-anchor" href="#checklist" aria-hidden="true">#</a></h2>
+<ul>
+<li>[ ] Existe uma tabela, versionada, de <strong>toda</strong> ferramenta que cada papel de agente alcança,
+com a classe de risco da ação e o valor <code>allow</code>, <code>deny</code> ou <code>ask</code>; o que não está na tabela
+é negado.</li>
+<li>[ ] Nenhuma ferramenta de escrita aceita identidade (<code>autor</code>, <code>user</code>, <code>session</code>) como
+argumento; a identidade vem do processo ou do harness.</li>
+<li>[ ] A ferramenta negada a um papel não aparece na descoberta (<code>tools/list</code> ou equivalente)
+daquele papel.</li>
+<li>[ ] Toda ferramenta que devolve conteúdo de terceiros tem teto de saída, marca de corte e
+delimitação como dado; e o time sabe dizer, por escrito, o que impede a ação caso o
+modelo obedeça ao conteúdo mesmo assim.</li>
+<li>[ ] Ferramentas de arquivo resolvem o caminho (incluindo links simbólicos) e recusam o que
+sai do diretório permitido; há um caso de teste com <code>../</code> e um com link.</li>
+<li>[ ] Credenciais de ferramenta e de provedor ficam fora do repositório e fora da linha de
+comando; o repositório guarda no máximo o endereço e o hash.</li>
+<li>[ ] Cada regra do arquivo de instrução do agente está marcada como &quot;imposta por&quot; (hook,
+permissão, portão) ou &quot;vale enquanto for seguida&quot;; nenhuma afirma proteção que não existe
+naquele harness.</li>
+<li>[ ] Todo hook ou guarda tem um portão que prova a <strong>fiação</strong> (apagar a configuração reprova),
+não só o script.</li>
+<li>[ ] Antes de ligar um servidor de ferramentas novo, o time roda sondas com ao menos um caso
+legítimo e viu cada sonda reprovar uma vez.</li>
+<li>[ ] Toda ferramenta ou framework avaliado tem um registro datado com veredito; licença e
+reversibilidade foram olhadas antes de propor uso; e todo &quot;observar&quot; tem gatilho escrito.</li>
+<li>[ ] O que o time redistribui (instalador, plugin, template) leva licença e atribuição, não
+sobrescreve configuração do destino e distingue arquivo seu de arquivo alheio ao atualizar.</li>
+</ul>
+<h2 id="referências" tabindex="-1">Referências <a class="header-anchor" href="#referências" aria-hidden="true">#</a></h2>
+<ul>
+<li>Maestro, <code>maestro@19823c2</code> — specs 015, 018, 019, 033, 036, 044, 046, 047, 050, 051, 056, 057,
+058, 064; ADRs 0008, 0012, 0020, 0025; <code>docs/ecosystem/</code>; <code>docs/records/decisoes.jsonl</code>;
+<code>scripts/hooks/</code>; <code>painel/mcp_painel.py</code>.
+<a href="https://github.com/GHDaru/maestro/tree/19823c2">https://github.com/GHDaru/maestro/tree/19823c2</a></li>
+<li>Maestro handbook (por versão, neste repositório): cap. 10 (gates e classes de risco), cap. 13
+§5.13 (vendorização), apêndices A (<code>maestro-02</code>) e B (Superpowers), receita &quot;instalar o
+Maestro&quot;. <code>../../maestro-handbook/</code></li>
+<li>Model Context Protocol — especificação e documentação. <a href="https://modelcontextprotocol.io">https://modelcontextprotocol.io</a>
+(acesso em 02/11/2026).</li>
+<li>OWASP. <em>Top 10 for LLM Applications 2025</em> (LLM01 Prompt Injection, LLM02 Sensitive
+Information Disclosure, LLM03 Supply Chain, LLM06 Excessive Agency, LLM10 Unbounded
+Consumption). <a href="https://genai.owasp.org/llm-top-10/">https://genai.owasp.org/llm-top-10/</a> (acesso em 02/11/2026).</li>
+<li>Greshake, K. et al. <em>Not what you've signed up for: Compromising Real-World LLM-Integrated
+Applications with Indirect Prompt Injection</em>. arXiv:2302.12173, 2023.</li>
+<li>Yang, J. et al. <em>SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering</em>.
+NeurIPS 2024. arXiv:2405.15793.</li>
+<li>Anthropic. Claude Code — documentação de hooks, permissões e MCP.
+<a href="https://docs.anthropic.com/en/docs/claude-code">https://docs.anthropic.com/en/docs/claude-code</a> (acesso em 02/11/2026).</li>
+<li>OpenAI. Agents SDK. <a href="https://openai.github.io/openai-agents-python/">https://openai.github.io/openai-agents-python/</a> (acesso em 02/11/2026).</li>
+<li>Google. Agent Development Kit (ADK). <a href="https://google.github.io/adk-docs/">https://google.github.io/adk-docs/</a> (acesso em
+02/11/2026).</li>
+<li>Microsoft. Agent Framework. <a href="https://github.com/microsoft/agent-framework">https://github.com/microsoft/agent-framework</a> (acesso em
+02/11/2026).</li>
+<li>GitHub. Spec Kit. <a href="https://github.com/github/spec-kit">https://github.com/github/spec-kit</a> (acesso em 02/11/2026).</li>
+<li>Agent2Agent (A2A) Protocol. <a href="https://a2a-protocol.org">https://a2a-protocol.org</a> (acesso em 02/11/2026).</li>
+</ul>
+</article>
+    <nav class="paginacao" aria-label="Anterior e próximo"><a class="pg-prev" href="11-risco-reversibilidade-e-autonomia-exemplo.html"><small>← anterior</small>Exemplo executável — 11 Risco, reversibilidade e autonomia</a><a class="pg-next" href="12-ferramentas-mcp-e-o-ecossistema-exemplo.html"><small>próximo →</small>Exemplo executável — 12 Ferramentas, MCP e o ecossistema</a></nav>
+    <footer class="rodape">
+      <a href="https://github.com/GHDaru/agentic_software_engineering">github.com/GHDaru/agentic_software_engineering</a>
+       · <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/12-ferramentas-mcp-e-o-ecossistema/capitulo.md">fonte desta página</a>
+      · gerado de <code>livro/</code> por <code>publicar/build.mjs</code>
+    </footer>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body></html>

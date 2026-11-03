@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exemplo executável — 06 Como dividir o trabalho · Engenharia de Software Orientada por Agentes</title>
+<meta name="description" content="Governança operacional para um humano regendo muitos agentes">
+<script>try{var t=localStorage.getItem("tema");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="assets/estilo.css">
+</head><body>
+<header class="barra">
+  <button id="alt-menu" aria-label="Abrir o sumário" aria-expanded="false" aria-controls="sidebar">☰ <span>Sumário</span></button>
+  <a class="barra-titulo" href="index.html">Engenharia de Software Orientada por Agentes</a>
+  <button id="alt-tema" aria-label="Alternar tema claro/escuro">◐</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="marca" href="index.html">Engenharia de Software Orientada por Agentes<small>Agentic Software Engineering</small></a>
+    <div class="nav-parte">Abertura</div><ul><li><a href="00-prefacio.html">Prefácio</a></li></ul><div class="nav-parte">Parte I — Por que agentes mudam a engenharia</div><ul><li><a href="01-a-mudanca-de-unidade-de-trabalho.html">1. A mudança de unidade de trabalho</a></li><li class="filho"><a class="filho" href="01-a-mudanca-de-unidade-de-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="02-o-problema-da-confianca.html">2. O problema da confiança</a></li><li class="filho"><a class="filho" href="02-o-problema-da-confianca-exemplo.html">Exemplo executável</a></li><li><a href="03-um-humano-muitos-agentes.html">3. Um humano, muitos agentes</a></li><li class="filho"><a class="filho" href="03-um-humano-muitos-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte II — Especificar e dar contexto</div><ul><li><a href="04-a-spec-como-partitura.html">4. A spec como partitura</a></li><li class="filho"><a class="filho" href="04-a-spec-como-partitura-exemplo.html">Exemplo executável</a></li><li><a href="05-engenharia-de-contexto.html">5. Engenharia de contexto</a></li><li class="filho"><a class="filho" href="05-engenharia-de-contexto-exemplo.html">Exemplo executável</a></li><li><a href="06-como-dividir-o-trabalho.html">6. Como dividir o trabalho</a></li><li class="filho"><a class="filho ativo" aria-current="page" href="06-como-dividir-o-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="07-papeis-e-skills.html">7. Papéis e skills</a></li><li class="filho"><a class="filho" href="07-papeis-e-skills-exemplo.html">Exemplo executável</a></li><li><a href="08-ddd-para-agentes.html">8. DDD para agentes</a></li><li class="filho"><a class="filho" href="08-ddd-para-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte III — Provar e conter</div><ul><li><a href="09-arquitetura-que-se-defende.html">9. Arquitetura que se defende</a></li><li class="filho"><a class="filho" href="09-arquitetura-que-se-defende-exemplo.html">Exemplo executável</a></li><li><a href="10-quality-gates-que-provam-fatos.html">10. Quality gates que provam fatos</a></li><li class="filho"><a class="filho" href="10-quality-gates-que-provam-fatos-exemplo.html">Exemplo executável</a></li><li><a href="11-risco-reversibilidade-e-autonomia.html">11. Risco, reversibilidade e autonomia</a></li><li class="filho"><a class="filho" href="11-risco-reversibilidade-e-autonomia-exemplo.html">Exemplo executável</a></li><li><a href="12-ferramentas-mcp-e-o-ecossistema.html">12. Ferramentas, MCP e o ecossistema</a></li><li class="filho"><a class="filho" href="12-ferramentas-mcp-e-o-ecossistema-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte IV — Medir e aprender</div><ul><li><a href="13-observabilidade-e-economia.html">13. Observabilidade e economia</a></li><li class="filho"><a class="filho" href="13-observabilidade-e-economia-exemplo.html">Exemplo executável</a></li><li><a href="14-a-organizacao-que-aprende.html">14. A organização que aprende</a></li><li class="filho"><a class="filho" href="14-a-organizacao-que-aprende-exemplo.html">Exemplo executável</a></li><li><a href="15-validando-o-maestro.html">15. Validando o Maestro</a></li><li class="filho"><a class="filho" href="15-validando-o-maestro-exemplo.html">Exemplo executável</a></li><li><a href="16-o-futuro-da-engenharia-agentica.html">16. O futuro da engenharia agêntica</a></li><li class="filho"><a class="filho" href="16-o-futuro-da-engenharia-agentica-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Apêndices</div><ul><li><a href="apendice-a-o-maestro-em-uma-pagina.html">A. O Maestro em uma página</a></li><li><a href="apendice-b-aseg-bench.html">B. ASEG-Bench — um benchmark de governança</a></li><li><a href="apendice-c-pacote-de-replicacao.html">C. Pacote de replicação</a></li><li><a href="apendice-d-estudos-de-campo.html">D. Estudos de campo do ecossistema</a></li></ul><div class="nav-parte">Consulta</div><ul><li><a href="glossario.html">Glossário</a></li><li><a href="evidencias.html">Evidências (claims)</a></li></ul>
+  </aside>
+  <main class="conteudo">
+    <article class="markdown"><h1 id="exemplo-do-capítulo-6--onde-cortar" tabindex="-1">Exemplo do capítulo 6 — onde cortar <a class="header-anchor" href="#exemplo-do-capítulo-6--onde-cortar" aria-hidden="true">#</a></h1>
+<p>O que este exemplo prova, em oito passos: o mesmo trabalho, cortado de três jeitos, dá três
+resultados diferentes. O corte por <strong>tela</strong> e o corte por <strong>quantidade</strong> produzem colisões que
+uma regra de &quot;arquivos diferentes&quot; não enxerga (um conceito com três donos, um contrato que
+ninguém escreve); o corte por <strong>fronteira</strong> dá um dono a cada conceito e a cada arquivo, e a
+ordem de execução sai dos contratos, não de uma lista. O exemplo também mostra que paralelizar
+só compensa enquanto a passagem entre fatias é barata, escolhe o padrão de orquestração pela
+menor autonomia que resolve e reproduz a colisão de numeração entre duas linhas de trabalho
+paralelas.</p>
+<p>Os planos são um modelo simplificado do caso real do capítulo (ciclo 074 do Maestro, o &quot;número
+único&quot; de quem precisa do humano). Os custos são unidades abstratas, não horas medidas.</p>
+<p>Requisito: Python 3.8+ (só biblioteca padrão) e bash. Nada pago, nada de rede.</p>
+<h2 id="como-rodar" tabindex="-1">Como rodar <a class="header-anchor" href="#como-rodar" aria-hidden="true">#</a></h2>
+<pre><code class="language-bash">cd livro/06-como-dividir-o-trabalho/exemplo
+bash rodar.sh                               # imprime a saída
+bash rodar.sh | diff - saida-esperada.txt   # confere: nenhuma linha de diferença
+</code></pre>
+<p>No Windows, rode no Git Bash. O script procura <code>python3</code>, <code>python</code> e <code>py</code>, nessa ordem, e usa
+o primeiro que for Python 3.8+. Para forçar um interpretador: <code>PYTHON=... bash rodar.sh</code>.</p>
+<h2 id="os-arquivos" tabindex="-1">Os arquivos <a class="header-anchor" href="#os-arquivos" aria-hidden="true">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Arquivo</th>
+<th>Papel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dividir.py</code></td>
+<td><code>colisao</code>, <code>ondas</code>, <code>custo</code>, <code>autonomia</code>, <code>numerar</code></td>
+</tr>
+<tr>
+<td><code>planos/por-tela.json</code></td>
+<td>cada agente com uma tela; os três calculam o mesmo número</td>
+</tr>
+<tr>
+<td><code>planos/por-quantidade.json</code></td>
+<td>seis mudanças, duas por agente, na ordem da lista</td>
+</tr>
+<tr>
+<td><code>planos/por-fronteira.json</code></td>
+<td>um dono por conceito; a casca expõe uma porta inerte; quem consome espera</td>
+</tr>
+<tr>
+<td><code>casos.json</code></td>
+<td>seis situações para a regra da menor autonomia</td>
+</tr>
+<tr>
+<td><code>linhas.json</code></td>
+<td>duas linhas de trabalho que numeraram ciclos sem se falar</td>
+</tr>
+<tr>
+<td><code>saida-esperada.txt</code></td>
+<td>a saída de <code>bash rodar.sh</code>, conferida em 02/11/2026</td>
+</tr>
+<tr>
+<td><code>medir_maestro.py</code></td>
+<td>opcional: reproduz num clone do Maestro os números do capítulo</td>
+</tr>
+</tbody>
+</table>
+<h2 id="o-modelo-de-custo-passos-5-e-6" tabindex="-1">O modelo de custo (passos 5 e 6) <a class="header-anchor" href="#o-modelo-de-custo-passos-5-e-6" aria-hidden="true">#</a></h2>
+<ul>
+<li><strong>um agente, em sequência</strong> = soma dos custos das fatias;</li>
+<li><strong>caminho crítico</strong> = soma, onda a onda, da fatia mais cara da onda;</li>
+<li><strong>passagens</strong> = quantas vezes uma fatia consome um contrato de outra (cada uma custa
+<code>custo_handoff</code>, ou o valor de <code>--handoff</code>);</li>
+<li><strong>retrabalho</strong> = para cada colisão, a soma dos custos das fatias envolvidas: um corte fora
+da costura não se reconcilia, se refaz;</li>
+<li><strong>overhead de coordenação</strong> = (passagens + retrabalho) ÷ tempo paralelo.</li>
+</ul>
+<h2 id="saída-esperada" tabindex="-1">Saída esperada <a class="header-anchor" href="#saída-esperada" aria-hidden="true">#</a></h2>
+<p>Os passos 1, 2, 5, a segunda linha do 6 e o 8 saem com código 1 <strong>de propósito</strong>: são as
+colisões e o paralelo que não paga.</p>
+<pre><code class="language-text">
+== 1. corte por tela: o mesmo conceito ganha três donos
+plano: um número só para «precisa de mim», cortado por TELA  (critério do corte: cada agente fica com uma tela e resolve tudo o que ela mostra)
+  ✗ conceito com mais de um dono: contagem-precisa-de-mim  ← W01, W04, W05
+✗ 1 colisão(ões): a reconciliação vai custar o que o paralelo economizou.
+(exit 1)
+
+== 2. corte por quantidade: dois agentes no mesmo arquivo, e um contrato que ninguém escreve
+plano: o mesmo trabalho, cortado por QUANTIDADE  (critério do corte: seis mudanças, duas para cada agente, na ordem da lista)
+  ✗ arquivo com dois escritores: casca.js  ← A, B
+  ✗ contrato consumido sem dono: contagem-dos-andares  ← C
+✗ 2 colisão(ões): a reconciliação vai custar o que o paralelo economizou.
+(exit 1)
+
+== 3. corte por fronteira: cada arquivo e cada conceito com um dono
+plano: o mesmo trabalho, cortado por FRONTEIRA (um dono por conceito)  (critério do corte: o conceito tem um dono; quem consome espera o contrato; a casca expõe uma porta inerte)
+✓ 4 fatias, cada arquivo e cada conceito com um dono só.
+(exit 0)
+
+== 4. a ordem sai dos contratos: o dono antes de quem consome
+  onda 1: W01 · W02 · W03
+  onda 2: W05 (espera W01, W02)
+✓ 2 onda(s); dentro de uma onda as fatias correm em paralelo.
+(exit 0)
+
+== 5. quanto custa: o corte por tela e o por quantidade não pagam a coordenação
+plano: um número só para «precisa de mim», cortado por TELA
+  um agente, em sequência ......... 9
+  caminho crítico das ondas ....... 3
+  passagens entre fatias .......... 0 × 1 = 0
+  colisões → retrabalho ........... 1 colisão(ões) = 9
+  paralelo (caminho + coordenação)  12
+  overhead de coordenação ......... 9/12 = 75% do tempo paralelo
+✗ paralelizar NÃO compensa: 12 ≥ 9. Um agente só, ou um corte melhor.
+(exit 1)
+plano: o mesmo trabalho, cortado por QUANTIDADE
+  um agente, em sequência ......... 9
+  caminho crítico das ondas ....... 9
+  passagens entre fatias .......... 3 × 1 = 3
+  colisões → retrabalho ........... 2 colisão(ões) = 9
+  paralelo (caminho + coordenação)  21
+  overhead de coordenação ......... 12/21 = 57% do tempo paralelo
+✗ paralelizar NÃO compensa: 21 ≥ 9. Um agente só, ou um corte melhor.
+(exit 1)
+
+== 6. o corte por fronteira paga ... enquanto a passagem for barata
+plano: o mesmo trabalho, cortado por FRONTEIRA (um dono por conceito)
+  um agente, em sequência ......... 14
+  caminho crítico das ondas ....... 7
+  passagens entre fatias .......... 2 × 1 = 2
+  colisões → retrabalho ........... 0 colisão(ões) = 0
+  paralelo (caminho + coordenação)  9
+  overhead de coordenação ......... 2/9 = 22% do tempo paralelo
+✓ paralelizar compensa: 14 → 9
+(exit 0)
+plano: o mesmo trabalho, cortado por FRONTEIRA (um dono por conceito)
+  um agente, em sequência ......... 14
+  caminho crítico das ondas ....... 7
+  passagens entre fatias .......... 2 × 4 = 8
+  colisões → retrabalho ........... 0 colisão(ões) = 0
+  paralelo (caminho + coordenação)  15
+  overhead de coordenação ......... 8/15 = 53% do tempo paralelo
+✗ paralelizar NÃO compensa: 15 ≥ 14. Um agente só, ou um corte melhor.
+(exit 1)
+
+== 7. a menor autonomia que resolve, caso a caso
+  1. Conduzir um ciclo: spec → plano → tarefas → implementar → DoD
+    → encadeamento + avaliador-otimizador  (passos conhecidos: fluxo fixo, barato e depurável; o laço para quando o critério passa)
+  2. Triar o que chega: correção de texto, funcionalidade nova, migração de banco
+    → roteamento  (classificar a entrada e escolher o caminho fixo)
+  3. Número único: domínio, casca e entrada, com o contrato escrito antes
+    → paralelização + avaliador-otimizador  (fatias por fronteira, cada uma com dono e contrato; o laço para quando o critério passa)
+  4. Metade dos arquivos para cada agente, 'porque são independentes'
+    → encadeamento  (partes 'independentes' sem fronteira declarada: corte antes de paralelizar)
+  5. Integrar 42 branches de outra linha: o corte só aparece lendo o histórico
+    → orquestrador-trabalhadores  (as fatias só se conhecem lendo o problema; o reduce é humano)
+  6. Um agente que 'descobre sozinho' o que refatorar no repositório
+    → encadeamento  (autônomo pedido sem evidência de que o simples falhou: recusado)
+(exit 0)
+
+== 8. numerar em duas linhas paralelas: colisão de endereço e recusa
+  ✗ número 064 alocado 2 vezes: dev:064-capa-para-a-ia-que-instala × paralela:064-workflow-painel
+  ✗ número 065 alocado 2 vezes: dev:065-o-metodo-se-cobra × paralela:065-board
+  ✗ 'ciclo 064' → recusado: 2 destinos (endereço ambíguo não se resolve, se recusa)
+  ✓ 'ciclo 066' → paralela:066-custeio
+  ✗ 'ciclo 068' → recusado: nenhum destino
+  renumeração (a linha 'dev' fica; a outra ganha o próximo livre):
+    064-workflow-painel      → 066-workflow-painel
+    065-board                → 067-board
+    066-custeio              → 068-custeio
+    067-painel-chamados      → 069-painel-chamados
+    070-conferidor           → 070-conferidor
+(exit 1)
+</code></pre>
+<p>Leia o passo 8 até o fim: a renumeração resolve a colisão e <strong>quebra</strong> a referência que
+estava certa. Quem anotou &quot;ciclo 066&quot; antes dela apontava para <code>066-custeio</code>; depois, o mesmo
+texto aponta para outra coisa ou para nada. A política &quot;próximo livre&quot; é a do brinquedo; o
+mapa real do Maestro foi aprovado por um humano e seguiu a ordem de integração (ver o
+capítulo, seção &quot;O padrão Maestro&quot;).</p>
+<h2 id="exercícios" tabindex="-1">Exercícios <a class="header-anchor" href="#exercícios" aria-hidden="true">#</a></h2>
+<ol>
+<li>Em <code>planos/por-tela.json</code>, dê o conceito <code>contagem-precisa-de-mim</code> a uma fatia só e faça
+as outras duas consumi-lo. Rode <code>colisao</code>, <code>ondas</code> e <code>custo</code>: quantas ondas aparecem, e o
+paralelo passa a compensar?</li>
+<li>Em <code>planos/por-fronteira.json</code>, faça <code>W01</code> consumir <code>api.contarMenu</code> e <code>W02</code> consumir
+<code>quemPrecisaDeVoce</code>. Rode <code>ondas</code>: o que o script diz, e por que nenhuma ordem serve?</li>
+<li>Ache o valor de <code>--handoff</code> a partir do qual o corte por fronteira deixa de pagar.</li>
+</ol>
+<h2 id="opcional-os-números-do-maestro" tabindex="-1">Opcional: os números do Maestro <a class="header-anchor" href="#opcional-os-números-do-maestro" aria-hidden="true">#</a></h2>
+<pre><code class="language-bash">git clone https://github.com/GHDaru/maestro /tmp/maestro
+python medir_maestro.py /tmp/maestro 19823c2
+</code></pre>
+<p>Imprime as pastas de <code>specs/</code> com número repetido, as decisões de renumeração e de integração,
+os comandos versionados no ciclo 025 e hoje, os relatórios com portão provado falhando, o
+tamanho das listas de tarefas, a worktree por Worker no lançador e o estado corrente das ideias
+de divisão no catálogo, e os commits da costura do ciclo 074. Saída conferida em 02/11/2026:</p>
+<pre><code class="language-text">Maestro @ 19823c2
+
+[numeração] 76 pastas em specs/
+  prefixo 066 usado 2 vezes: 066-painel-de-coordenacao-v0, 066-painel-de-regencia
+  prefixo 070 usado 2 vezes: 070-conferidor-ordem-veredito, 070-workflow-sqlite
+  pastas sem número (NNN-*): 1
+  decisão ciclo-065-renumerado: registrada em 2026-10-12
+  decisão ciclo-066-integra-painel-controle: registrada em 2026-10-20
+  decisão decisao-066-sessoes-via-gateway: registrada em 2026-10-19
+
+[comandos] 11 arquivos em .claude/commands/ @ c47ea48
+
+[comandos] 12 arquivos em .claude/commands/ @ 19823c2
+
+[avaliador-otimizador] qa-reports com 'prova... falhando' @ c47ea48 (fora o 025): 4
+  specs/017-retro-check-proxy/qa-report.md
+  specs/018-instalacao-e-ux-jornadas/qa-report.md
+  specs/020-bpmn-navegavel-no-livro/qa-report.md
+  specs/021-maestro-instalado-no-maestro/qa-report.md
+
+[tarefas] 74 tasks.md; 8 com mais de 20 caixas de tarefa
+    85  074-prototipo-navegavel
+    57  072-painel-de-regencia
+    31  076-padroes-de-engenharia-e-react
+
+[worktree] scripts/multi-session.py cria worktree por Worker: sim
+[catálogo] estado corrente (última linha) das ideias de divisão:
+  worktree-por-task              observar   2026-08-10
+  grafo-de-dependencias          observar   2026-07-30
+  decomposicao-tres-passadas     observar   2026-08-10
+  padroes-de-fatiamento          observar   2026-08-10
+  fatia-vertical-invest          observar   2026-08-10
+  contrato-por-fatia             observar   2026-08-10
+  decompose-feature-em-issues    descartar  2026-08-06
+
+[costura 074] commits da fatia «um número só»:
+  361070a 2026-10-29 ciclo 074: costura-um-numero — a seam api  [ponta do Worker]
+  78a1945 2026-10-29 ciclo 074: costura-um-numero — a seam api  [na linha (cherry-pick do Gerente)]
+  79d8076 2026-10-29 ciclo 074: costura-um-numero — o predicad  [ponta do Worker]
+  6cba79b 2026-10-29 ciclo 074: costura-um-numero — o predicad  [na linha (cherry-pick do Gerente)]
+  c3d2e55 2026-10-30 ciclo 074: chip do numero unico, chamada   [ponta do Worker]
+  692bf8c 2026-10-30 ciclo 074: chip do numero unico, chamada   [na linha (cherry-pick do Gerente)]
+</code></pre>
+<p>As pontas dos Workers (<code>361070a</code>, <code>79d8076</code>, <code>c3d2e55</code>) existem num clone que tenha as
+branches de trabalho; num clone só da linha principal, aparecem como <code>AUSENTE</code>, e os três
+cherry-picks bastam para a conferência.</p>
+</article>
+    <nav class="paginacao" aria-label="Anterior e próximo"><a class="pg-prev" href="06-como-dividir-o-trabalho.html"><small>← anterior</small>06 — Como dividir o trabalho</a><a class="pg-next" href="07-papeis-e-skills.html"><small>próximo →</small>07 — Papéis e skills</a></nav>
+    <footer class="rodape">
+      <a href="https://github.com/GHDaru/agentic_software_engineering">github.com/GHDaru/agentic_software_engineering</a>
+       · <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/06-como-dividir-o-trabalho/exemplo/README.md">fonte desta página</a>
+      · gerado de <code>livro/</code> por <code>publicar/build.mjs</code>
+    </footer>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body></html>

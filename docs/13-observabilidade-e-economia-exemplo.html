@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exemplo executável — 13 Observabilidade e economia · Engenharia de Software Orientada por Agentes</title>
+<meta name="description" content="Governança operacional para um humano regendo muitos agentes">
+<script>try{var t=localStorage.getItem("tema");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="assets/estilo.css">
+</head><body>
+<header class="barra">
+  <button id="alt-menu" aria-label="Abrir o sumário" aria-expanded="false" aria-controls="sidebar">☰ <span>Sumário</span></button>
+  <a class="barra-titulo" href="index.html">Engenharia de Software Orientada por Agentes</a>
+  <button id="alt-tema" aria-label="Alternar tema claro/escuro">◐</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="marca" href="index.html">Engenharia de Software Orientada por Agentes<small>Agentic Software Engineering</small></a>
+    <div class="nav-parte">Abertura</div><ul><li><a href="00-prefacio.html">Prefácio</a></li></ul><div class="nav-parte">Parte I — Por que agentes mudam a engenharia</div><ul><li><a href="01-a-mudanca-de-unidade-de-trabalho.html">1. A mudança de unidade de trabalho</a></li><li class="filho"><a class="filho" href="01-a-mudanca-de-unidade-de-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="02-o-problema-da-confianca.html">2. O problema da confiança</a></li><li class="filho"><a class="filho" href="02-o-problema-da-confianca-exemplo.html">Exemplo executável</a></li><li><a href="03-um-humano-muitos-agentes.html">3. Um humano, muitos agentes</a></li><li class="filho"><a class="filho" href="03-um-humano-muitos-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte II — Especificar e dar contexto</div><ul><li><a href="04-a-spec-como-partitura.html">4. A spec como partitura</a></li><li class="filho"><a class="filho" href="04-a-spec-como-partitura-exemplo.html">Exemplo executável</a></li><li><a href="05-engenharia-de-contexto.html">5. Engenharia de contexto</a></li><li class="filho"><a class="filho" href="05-engenharia-de-contexto-exemplo.html">Exemplo executável</a></li><li><a href="06-como-dividir-o-trabalho.html">6. Como dividir o trabalho</a></li><li class="filho"><a class="filho" href="06-como-dividir-o-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="07-papeis-e-skills.html">7. Papéis e skills</a></li><li class="filho"><a class="filho" href="07-papeis-e-skills-exemplo.html">Exemplo executável</a></li><li><a href="08-ddd-para-agentes.html">8. DDD para agentes</a></li><li class="filho"><a class="filho" href="08-ddd-para-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte III — Provar e conter</div><ul><li><a href="09-arquitetura-que-se-defende.html">9. Arquitetura que se defende</a></li><li class="filho"><a class="filho" href="09-arquitetura-que-se-defende-exemplo.html">Exemplo executável</a></li><li><a href="10-quality-gates-que-provam-fatos.html">10. Quality gates que provam fatos</a></li><li class="filho"><a class="filho" href="10-quality-gates-que-provam-fatos-exemplo.html">Exemplo executável</a></li><li><a href="11-risco-reversibilidade-e-autonomia.html">11. Risco, reversibilidade e autonomia</a></li><li class="filho"><a class="filho" href="11-risco-reversibilidade-e-autonomia-exemplo.html">Exemplo executável</a></li><li><a href="12-ferramentas-mcp-e-o-ecossistema.html">12. Ferramentas, MCP e o ecossistema</a></li><li class="filho"><a class="filho" href="12-ferramentas-mcp-e-o-ecossistema-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte IV — Medir e aprender</div><ul><li><a href="13-observabilidade-e-economia.html">13. Observabilidade e economia</a></li><li class="filho"><a class="filho ativo" aria-current="page" href="13-observabilidade-e-economia-exemplo.html">Exemplo executável</a></li><li><a href="14-a-organizacao-que-aprende.html">14. A organização que aprende</a></li><li class="filho"><a class="filho" href="14-a-organizacao-que-aprende-exemplo.html">Exemplo executável</a></li><li><a href="15-validando-o-maestro.html">15. Validando o Maestro</a></li><li class="filho"><a class="filho" href="15-validando-o-maestro-exemplo.html">Exemplo executável</a></li><li><a href="16-o-futuro-da-engenharia-agentica.html">16. O futuro da engenharia agêntica</a></li><li class="filho"><a class="filho" href="16-o-futuro-da-engenharia-agentica-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Apêndices</div><ul><li><a href="apendice-a-o-maestro-em-uma-pagina.html">A. O Maestro em uma página</a></li><li><a href="apendice-b-aseg-bench.html">B. ASEG-Bench — um benchmark de governança</a></li><li><a href="apendice-c-pacote-de-replicacao.html">C. Pacote de replicação</a></li><li><a href="apendice-d-estudos-de-campo.html">D. Estudos de campo do ecossistema</a></li></ul><div class="nav-parte">Consulta</div><ul><li><a href="glossario.html">Glossário</a></li><li><a href="evidencias.html">Evidências (claims)</a></li></ul>
+  </aside>
+  <main class="conteudo">
+    <article class="markdown"><h1 id="exemplo-do-capítulo-13--quanto-custa-uma-tarefa-aceita" tabindex="-1">Exemplo do capítulo 13 — quanto custa uma tarefa aceita <a class="header-anchor" href="#exemplo-do-capítulo-13--quanto-custa-uma-tarefa-aceita" aria-hidden="true">#</a></h1>
+<p>Dois scripts e dois livros de ponto. O primeiro script deriva as métricas de economia do capítulo;
+o segundo projeta o mesmo registro no formato do OpenTelemetry (OTel), com minimização provada
+por mutação.</p>
+<table>
+<thead>
+<tr>
+<th>Arquivo</th>
+<th>O que é</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tarefas-064.jsonl</code></td>
+<td>cópia byte a byte de <code>docs/records/tarefas.jsonl</code> do Maestro na versão <code>19823c2</code> — o único ciclo que o livro de ponto mediu</td>
+</tr>
+<tr>
+<td><code>sintetico.jsonl</code></td>
+<td>livro pequeno e redondo (três tarefas, quatro revisões) para conferir a conta à mão</td>
+</tr>
+<tr>
+<td><code>economia.py</code></td>
+<td>custo por tipo, tokens com e sem <em>cache</em>, vereditos válidos e descartados, custo por tarefa aceita × ingênuo, retrabalho por tentativa × por linhagem, tempo de ciclo, órfãos</td>
+</tr>
+<tr>
+<td><code>projetar_otel.py</code></td>
+<td><em>spans</em> no formato OTel, nomes <code>gen_ai.*</code>, lista de permissão de campos e o portão que reprova se algo fora da lista sair</td>
+</tr>
+</tbody>
+</table>
+<p>Proveniência da cópia (o <em>hash</em> tem de bater):</p>
+<pre><code class="language-bash">git -C &lt;maestro&gt; show 19823c2:docs/records/tarefas.jsonl | sha256sum
+# 590ff5da4dcc8cf3d701f6ed359207d41628e76cea8e3bdd9e5a993b013f4c69
+sha256sum tarefas-064.jsonl      # o mesmo valor
+</code></pre>
+<h2 id="como-rodar" tabindex="-1">Como rodar <a class="header-anchor" href="#como-rodar" aria-hidden="true">#</a></h2>
+<p>Requisito: Python 3.8 ou mais novo, só biblioteca padrão. No Git Bash do Windows, onde <code>python3</code>
+pode ser um atalho vazio, use <code>python</code>; se o console reclamar de codificação, exporte
+<code>PYTHONUTF8=1</code>.</p>
+<pre><code class="language-bash">cd livro/13-observabilidade-e-economia/exemplo
+python3 economia.py                      # o livro do Maestro
+python3 economia.py sintetico.jsonl      # o livro sintético
+python3 projetar_otel.py                 # projeção OTel, minimizada
+python3 projetar_otel.py --sem-filtro    # a mutação: tem de reprovar
+python3 projetar_otel.py --json          # todos os spans, para inspecionar
+</code></pre>
+<h2 id="saída-esperada" tabindex="-1">Saída esperada <a class="header-anchor" href="#saída-esperada" aria-hidden="true">#</a></h2>
+<h3 id="python3-economiapy--sai-com-código-0" tabindex="-1"><code>python3 economia.py</code> — sai com código 0 <a class="header-anchor" href="#python3-economiapy--sai-com-código-0" aria-hidden="true">#</a></h3>
+<pre><code class="language-text">livro: tarefas-064.jsonl · 52 eventos · 0 linha(s) inválida(s)
+tentativas: 16 com stop (13 medidas, 3 sem medida: 064-T7#2, 064-F3#1, 064-F7#1)
+
+1. Custo por tipo de tarefa (só tentativas medidas)
+   review      2 tentativa(s)  US$  6.3429   51.3 %
+   fix         4 tentativa(s)  US$  2.5580   20.7 %
+   implement   5 tentativa(s)  US$  2.1450   17.4 %
+   docs        2 tentativa(s)  US$  1.3102   10.6 %
+   total      13               US$ 12.3561
+
+2. Tokens por tentativa medida
+   média total: 2,265,740 tokens · média sem cache (entrada+saída): 19,090 tokens
+   taxa de cache (lido / entrada total): 96.7 %
+
+3. Vereditos
+   válidos (dados por tarefa review/audit, na sessão que a executou): 2
+   descartados (dados por quem não julga): 5 -&gt; 064-T2&lt;-manager-claude-e8, 064-T3&lt;-manager-claude-e8, 064-T4&lt;-manager-claude-e8, 064-T5&lt;-manager-claude-e8, 064-cycle&lt;-064-R1
+
+4. Custo por tarefa aceita
+   ingênuo (custo ÷ tarefas executadas, sem juízes): 12 tarefa(s), US$ 1.0297 — não diz nada sobre o que foi aceito
+   n/a: nenhuma TAREFA tem veredito válido — o número não é calculado, para não ser inventado
+   ciclo aceito (064-cycle, por 064-R2): custo do ciclo inteiro US$ 12.3561
+
+5. Retrabalho
+   (a) por tentativa (attempt &gt;= 2): 1 medida(s), US$ 0.1312
+   (b) por linhagem (da 1ª reprovação até a aceitação): 5 tentativa(s), US$ 5.7457 medidos = 46.5 % do total (+1 sem medida: 064-F3#1)
+   iniciadas depois dessa aceitação (fora da conta): 064-F6, 064-F7
+
+6. Tempo de ciclo e órfãos
+   do primeiro evento à aceitação: 42.9 min
+   do primeiro ao último evento: 46.8 min
+   órfãos (start sem stop = trabalho pago e não entregue): 0
+</code></pre>
+<p>Os números das seções 1, 2 e 5(a) e a contagem de vereditos descartados batem com o relatório
+oficial do Maestro (<code>scripts/report-tasks.py</code> em <code>19823c2</code>, rodado sobre o mesmo arquivo:
+US$ 12.3561, 96.7 %, US$ 0.1312, &quot;verdicts from non-judges: 5&quot;). O que o relatório oficial não
+mostra é a linha 5(b): o retrabalho por linhagem — F1, F2, F3, F4 e a segunda revisão, R2 — é
+cerca de 44 vezes o retrabalho por tentativa.</p>
+<p>O &quot;064-cycle&lt;-064-R1&quot; descartado é a cópia do veredito de R1 que a sessão gerente gravou &quot;se
+estivesse faltando&quot;; o original, gravado na sessão de R1, é um dos dois válidos.</p>
+<h3 id="python3-economiapy-sinteticojsonl--sai-com-código-0" tabindex="-1"><code>python3 economia.py sintetico.jsonl</code> — sai com código 0 <a class="header-anchor" href="#python3-economiapy-sinteticojsonl--sai-com-código-0" aria-hidden="true">#</a></h3>
+<pre><code class="language-text">livro: sintetico.jsonl · 29 eventos · 0 linha(s) inválida(s)
+tentativas: 8 com stop (8 medidas, 0 sem medida: -)
+
+1. Custo por tipo de tarefa (só tentativas medidas)
+   implement   4 tentativa(s)  US$  3.5000   81.4 %
+   review      4 tentativa(s)  US$  0.8000   18.6 %
+   total       8               US$  4.3000
+
+2. Tokens por tentativa medida
+   média total: 53,750 tokens · média sem cache (entrada+saída): 5,375 tokens
+   taxa de cache (lido / entrada total): 98.6 %
+
+3. Vereditos
+   válidos (dados por tarefa review/audit, na sessão que a executou): 4
+   descartados (dados por quem não julga): 1 -&gt; 900-C&lt;-gerente
+
+4. Custo por tarefa aceita
+   ingênuo (custo ÷ tarefas executadas, sem juízes): 3 tarefa(s), US$ 1.4333 — não diz nada sobre o que foi aceito
+   2 tarefa(s) aceita(s): US$ 2.1500 por tarefa aceita (custo total do livro ÷ tarefas aceitas)
+
+5. Retrabalho
+   (a) por tentativa (attempt &gt;= 2): 1 medida(s), US$ 0.5000
+   (b) por linhagem (da 1ª reprovação até a aceitação): 2 tentativa(s), US$ 0.7000 medidos = 16.3 % do total
+   iniciadas depois dessa aceitação (fora da conta): 900-C, 900-RC
+
+6. Tempo de ciclo e órfãos
+   do primeiro evento à aceitação: 20.0 min
+   do primeiro ao último evento: 28.0 min
+   órfãos (start sem stop = trabalho pago e não entregue): 0
+</code></pre>
+<p>A conta à mão. Implementações: A = 1,00; B#1 = 1,00 (reprovada); B#2 = 0,50 (aprovada); C = 1,00
+(reprovada). Revisões: 4 × 0,20 = 0,80. Total = 4,30. Aceitas: A e B → 4,30 ÷ 2 = <strong>2,15</strong>.
+Executadas: A, B, C → 4,30 ÷ 3 = <strong>1,4333</strong>. A diferença é o preço de C, que foi paga e não
+aprovada. O &quot;approved&quot; que o gerente escreveu sobre C é descartado: gerente não é juiz. Retrabalho
+por linhagem = B#2 + a revisão de B#2 = 0,50 + 0,20 = <strong>0,70</strong>.</p>
+<p>Limite da linha 5(b), declarado: o script mede a linhagem a partir da <strong>primeira</strong> reprovação
+válida do livro até a aceitação seguinte. Serve para um ciclo com uma revisão de ciclo (o caso do
+Maestro); num livro com várias tarefas reprovadas em paralelo, a conta certa é por alvo, e fica
+como exercício.</p>
+<h3 id="python3-projetar_otelpy--sai-com-código-0" tabindex="-1"><code>python3 projetar_otel.py</code> — sai com código 0 <a class="header-anchor" href="#python3-projetar_otelpy--sai-com-código-0" aria-hidden="true">#</a></h3>
+<pre><code class="language-text">52 eventos -&gt; 1 trace(s), 19 span(s), 7 com veredito
+ficaram para trás (minimização): cost_start_usd×13, note×7, reason×7, redoes×5, session×52, to×13, tokens_by_model×13, tokens_subagents×13
+um span, por exemplo:
+{
+ &quot;trace_id&quot;: &quot;5e18d34a87ed6c9bea50e24d898c9c7b&quot;,
+ &quot;span_id&quot;: &quot;1d50d04fd6f79c3f&quot;,
+ &quot;name&quot;: &quot;064-T2#2&quot;,
+ ...
+ &quot;attributes&quot;: {
+  &quot;esoa.task.kind&quot;: &quot;implement&quot;,
+  &quot;esoa.task.attempt&quot;: 2,
+  &quot;gen_ai.request.model&quot;: &quot;claude-sonnet-5-5&quot;,
+  &quot;gen_ai.operation.name&quot;: &quot;invoke_agent&quot;,
+  ...
+  &quot;gen_ai.usage.input_tokens&quot;: 12,
+  &quot;gen_ai.usage.output_tokens&quot;: 1672,
+  ...
+ },
+ &quot;events&quot;: [ { &quot;name&quot;: &quot;verdict&quot;, ... &quot;esoa.verdict&quot;: &quot;approved_with_notes&quot;, ... } ]
+}
+✓ nenhum atributo fora da lista de permissão
+</code></pre>
+<p>(O JSON do <em>span</em> sai inteiro; acima, abreviado com <code>...</code>.) Os 19 <em>spans</em> são as 16 tentativas
+mais 3 <em>spans</em> sem duração para os vereditos do ciclo inteiro. Os textos livres (<code>reason</code>,
+<code>note</code>), os identificadores de sessão e o destinatário (<code>to</code>) nunca saem.</p>
+<h3 id="python3-projetar_otelpy---sem-filtro--sai-com-código-1" tabindex="-1"><code>python3 projetar_otel.py --sem-filtro</code> — sai com código 1 <a class="header-anchor" href="#python3-projetar_otelpy---sem-filtro--sai-com-código-1" aria-hidden="true">#</a></h3>
+<p>A mutação desliga a lista de permissão. A última linha tem de ser:</p>
+<pre><code class="language-text">✗ VAZOU atributo fora da lista de permissão: attempt×16, cost_start_usd×13, kind×16, note×4, reason×7, redoes×2, session×23, tokens_by_model×13, tokens_subagents×13
+</code></pre>
+<p>Se esta linha não aparecer, o portão de minimização é decoração (capítulo 10): ele não viu o
+vazamento que você provocou de propósito.</p>
+<h2 id="o-que-fazer-com-isto-no-seu-time" tabindex="-1">O que fazer com isto no seu time <a class="header-anchor" href="#o-que-fazer-com-isto-no-seu-time" aria-hidden="true">#</a></h2>
+<p>Troque o livro pelo seu. O formato mínimo de cada linha é <code>ts</code>, <code>event</code> (<code>assigned</code>, <code>start</code>,
+<code>stop</code>, <code>verdict</code>) e <code>task_id</code>; <code>stop</code> carrega <code>attempt</code>, <code>kind</code>, <code>cost_usd</code> e os tokens por
+categoria; <code>verdict</code> carrega <code>verdict</code>, <code>by</code> (o id da tarefa de revisão) e <code>session</code>. Qualquer
+<em>harness</em> que deixe ler o uso de tokens de uma sessão consegue gravar isso.</p>
+</article>
+    <nav class="paginacao" aria-label="Anterior e próximo"><a class="pg-prev" href="13-observabilidade-e-economia.html"><small>← anterior</small>13 — Observabilidade e economia</a><a class="pg-next" href="14-a-organizacao-que-aprende.html"><small>próximo →</small>14 — A organização que aprende</a></nav>
+    <footer class="rodape">
+      <a href="https://github.com/GHDaru/agentic_software_engineering">github.com/GHDaru/agentic_software_engineering</a>
+       · <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/13-observabilidade-e-economia/exemplo/README.md">fonte desta página</a>
+      · gerado de <code>livro/</code> por <code>publicar/build.mjs</code>
+    </footer>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body></html>

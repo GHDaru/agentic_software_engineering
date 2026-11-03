@@ -1,0 +1,19 @@
+{
+  "_fonte": "maestro@19823c2:docs/governance/axioms.md — derivações copiadas da seção 'The theorems' e da coluna 'From' da tabela de corolários",
+  "axiomas": {
+    "A1": {"nome": "a intenção é humana", "natureza": "pessoas"},
+    "A2": {"nome": "consequência precisa de dono", "natureza": "consequência"},
+    "A3": {"nome": "o contexto é finito e degrada ao encher", "natureza": "ferramenta"},
+    "A4": {"nome": "o que está escrito é o que sobrevive", "natureza": "ferramenta"},
+    "A5": {"nome": "o custo é assimétrico entre fazer e desfazer", "natureza": "economia"}
+  },
+  "teoremas": {
+    "T1": ["A1", "A4"], "T2": ["A2", "A3"], "T3": ["A2", "A5"], "T4": ["A2", "A4"],
+    "T5": ["A3", "A4"], "T6": ["A3", "A4"], "T7": ["A2", "A4"]
+  },
+  "corolarios": {
+    "C1": ["T6"], "C2": ["T4"], "C3": ["T2"], "C4": ["T3"], "C5": ["T4"],
+    "C6": ["T1", "T3"], "C7": ["T4", "T6"], "C8": ["T2", "T5"], "C9": ["T5"],
+    "C10": ["A4"], "C11": ["T7", "T5"], "C12": ["A3", "A4"], "C13": ["A4", "T4"]
+  }
+}

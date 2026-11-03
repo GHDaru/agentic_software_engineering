@@ -1,0 +1,26 @@
+== papel × modelo × custo fixo de contexto
+  perfil                  julga  modelo    linhas  ~tokens
+  arquiteto               não    grande        21      180
+  especificador           não    medio         21      184
+  implementador           não    medio         21      176
+  revisor                 sim    grande        21      203
+  seguranca               sim    medio         21      164
+  semantica-de-interface  não    medio         21      212
+  total                                       126     1119
+
+== o time como está
+  ✓ dez regras conformes
+
+== mutações (cada uma deve ser acusada pela SUA regra)
+  ✓ M1 o papel de interface perde o agente: P1 acusou — 'Semântica de interface' é prescrito pelo modelo e nenhum perfil o entrega
+  ✓ M2 o modelo deixa de citar a segurança: P2 acusou — perfil 'seguranca' entrega 'Segurança', que o modelo não prescreve
+  ✓ M3 o revisor ganha caneta: P3 acusou — 'revisor' julga e tem Edit
+  ✓ M4 o implementador perde o 'Não faz': P4 acusou — 'implementador' sem: Não faz:
+  ✓ M5 o arquiteto incha: P5 acusou — 'arquiteto' tem 46 linhas (teto 40)
+  ✓ M6 o especificador esquece o modelo: P6 acusou — 'especificador' não declara a faixa de modelo (pequeno|medio|grande)
+  ✓ M7 a skill perde o gatilho: S1 acusou — skill 'criterio-verificavel' sem gatilho ('Use quando') na description
+  ✓ M8 a lei vira sugestão: S2 acusou — skill 'diagnosticar-antes-de-consertar' sem lei de ferro completa (lei=sim, desculpas fechadas=3)
+  ✓ M9 a skill nasce sem linha de base: S3 acusou — skill 'criterio-verificavel' sem linha de base (linha-de-base.md)
+  ✓ M10 ninguém consome a skill: S4 acusou — skill 'diagnosticar-antes-de-consertar' não é consumida por nenhum papel (skill órfã)
+
+resultado: time conforme · mutações acusadas: 10/10

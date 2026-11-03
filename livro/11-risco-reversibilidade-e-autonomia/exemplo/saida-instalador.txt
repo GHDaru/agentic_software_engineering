@@ -1,0 +1,32 @@
+C1 a flag destrutiva não vence o freio
+   v1:
+      --force --dry-run → force=1 dry=0
+   v2:
+      --force --dry-run → force=0 dry=1
+   → defeito reproduzido na v1: sim; invariante na v2: sim  [ok]
+C2 reivindicar é consequência de escrever, não de olhar
+   v1:
+      arquivo do projeto, idêntico ao nosso, depois da poda: APAGADO
+   v2:
+      arquivo do projeto, idêntico ao nosso, depois da poda: existe
+   → defeito reproduzido na v1: sim; invariante na v2: sim  [ok]
+C3 o --force guarda a edição do projeto antes de sobrescrever
+   v1:
+      edição do time depois do --force: PERDIDA, sem cópia
+   v2:
+      edição do time depois do --force: recuperável em .maestro-old
+   → defeito reproduzido na v1: sim; invariante na v2: sim  [ok]
+C4 a poda não sai do alvo
+   v1:
+      arquivo fora do alvo depois da poda: APAGADO
+   v2:
+      recusado: '../fora.txt' resolve fora do alvo — o manifesto é dado, não comando
+      arquivo fora do alvo depois da poda: existe
+   → defeito reproduzido na v1: sim; invariante na v2: sim  [ok]
+C5 execução a seco não escreve nada
+   v1:
+      --force --dry-run mudou a árvore? SIM
+   v2:
+      --force --dry-run mudou a árvore? não
+   → defeito reproduzido na v1: sim; invariante na v2: sim  [ok]
+resumo: 5 cenários, 0 falha(s)

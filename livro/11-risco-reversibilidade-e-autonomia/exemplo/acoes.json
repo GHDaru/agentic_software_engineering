@@ -1,0 +1,179 @@
+{
+  "_nota": "Ações inspiradas em casos do Maestro (capítulo 11). Os números de 'dia' são fictícios, só para mostrar o funil.",
+  "acoes": [
+    {
+      "nome": "ler o código do repositório",
+      "desfazer": "nada",
+      "raio": "proprio",
+      "espera": 0
+    },
+    {
+      "nome": "ler log de produção com dados pessoais mascarados",
+      "desfazer": "nada",
+      "raio": "externo",
+      "sensivel": true,
+      "espera": 1
+    },
+    {
+      "nome": "ler o .env de produção (segredo lido não se desvê)",
+      "desfazer": "impossivel",
+      "raio": "externo",
+      "sensivel": true,
+      "espera": 5
+    },
+    {
+      "nome": "commit numa branch de trabalho",
+      "desfazer": "trivial",
+      "raio": "proprio",
+      "espera": 2
+    },
+    {
+      "nome": "push de uma branch nova no remoto",
+      "desfazer": "trivial",
+      "raio": "proprio",
+      "espera": 2
+    },
+    {
+      "nome": "merge na branch de integração (git revert -m 1)",
+      "desfazer": "trivial",
+      "raio": "compartilhado",
+      "espera": 3
+    },
+    {
+      "nome": "instalador poda arquivo em repositório alheio",
+      "desfazer": "caro",
+      "raio": "externo",
+      "espera": 4
+    },
+    {
+      "nome": "instalador poda arquivo em repositório alheio",
+      "desfazer": "caro",
+      "raio": "externo",
+      "alavancas": [
+        "copia_ao_lado"
+      ],
+      "espera": 3
+    },
+    {
+      "nome": "apagar tabela em produção",
+      "desfazer": "impossivel",
+      "raio": "externo",
+      "espera": 5
+    },
+    {
+      "nome": "apagar tabela em produção",
+      "desfazer": "impossivel",
+      "raio": "externo",
+      "alavancas": [
+        "backup"
+      ],
+      "espera": 4
+    },
+    {
+      "nome": "apagar tabela em produção",
+      "desfazer": "impossivel",
+      "raio": "externo",
+      "alavancas": [
+        "soft_delete"
+      ],
+      "espera": 3
+    },
+    {
+      "nome": "migração destrutiva",
+      "desfazer": "impossivel",
+      "raio": "externo",
+      "alavancas": [
+        "dry_run"
+      ],
+      "espera": 0
+    },
+    {
+      "nome": "migração destrutiva",
+      "desfazer": "impossivel",
+      "raio": "externo",
+      "alavancas": [
+        "staging"
+      ],
+      "espera": 2
+    },
+    {
+      "nome": "agente escreve no registro que lhe dá endereço",
+      "desfazer": "trivial",
+      "raio": "compartilhado",
+      "autoriza_a_si_mesmo": true,
+      "espera": 6
+    },
+    {
+      "nome": "migração em massa entre inquilinos",
+      "desfazer": "caro",
+      "raio": "multi",
+      "espera": 6
+    }
+  ],
+  "dia": [
+    {
+      "nome": "ler código",
+      "desfazer": "nada",
+      "raio": "proprio",
+      "vezes": 140
+    },
+    {
+      "nome": "commit em branch",
+      "desfazer": "trivial",
+      "raio": "proprio",
+      "vezes": 35
+    },
+    {
+      "nome": "push de branch nova",
+      "desfazer": "trivial",
+      "raio": "proprio",
+      "vezes": 4
+    },
+    {
+      "nome": "migração ensaiada a seco",
+      "desfazer": "impossivel",
+      "raio": "externo",
+      "alavancas": [
+        "dry_run"
+      ],
+      "vezes": 3
+    },
+    {
+      "nome": "migração em homologação",
+      "desfazer": "impossivel",
+      "raio": "externo",
+      "alavancas": [
+        "staging"
+      ],
+      "vezes": 2
+    },
+    {
+      "nome": "merge na integração",
+      "desfazer": "trivial",
+      "raio": "compartilhado",
+      "vezes": 2
+    },
+    {
+      "nome": "apagar registro com soft delete",
+      "desfazer": "impossivel",
+      "raio": "externo",
+      "alavancas": [
+        "soft_delete"
+      ],
+      "vezes": 1
+    },
+    {
+      "nome": "apagar tabela sem backup",
+      "desfazer": "impossivel",
+      "raio": "externo",
+      "vezes": 1
+    },
+    {
+      "nome": "agente reescreve a própria permissão",
+      "desfazer": "trivial",
+      "raio": "compartilhado",
+      "autoriza_a_si_mesmo": true,
+      "vezes": 1
+    }
+  ]
+}

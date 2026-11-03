@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exemplo executável — 09 Arquitetura que se defende · Engenharia de Software Orientada por Agentes</title>
+<meta name="description" content="Governança operacional para um humano regendo muitos agentes">
+<script>try{var t=localStorage.getItem("tema");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="assets/estilo.css">
+</head><body>
+<header class="barra">
+  <button id="alt-menu" aria-label="Abrir o sumário" aria-expanded="false" aria-controls="sidebar">☰ <span>Sumário</span></button>
+  <a class="barra-titulo" href="index.html">Engenharia de Software Orientada por Agentes</a>
+  <button id="alt-tema" aria-label="Alternar tema claro/escuro">◐</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="marca" href="index.html">Engenharia de Software Orientada por Agentes<small>Agentic Software Engineering</small></a>
+    <div class="nav-parte">Abertura</div><ul><li><a href="00-prefacio.html">Prefácio</a></li></ul><div class="nav-parte">Parte I — Por que agentes mudam a engenharia</div><ul><li><a href="01-a-mudanca-de-unidade-de-trabalho.html">1. A mudança de unidade de trabalho</a></li><li class="filho"><a class="filho" href="01-a-mudanca-de-unidade-de-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="02-o-problema-da-confianca.html">2. O problema da confiança</a></li><li class="filho"><a class="filho" href="02-o-problema-da-confianca-exemplo.html">Exemplo executável</a></li><li><a href="03-um-humano-muitos-agentes.html">3. Um humano, muitos agentes</a></li><li class="filho"><a class="filho" href="03-um-humano-muitos-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte II — Especificar e dar contexto</div><ul><li><a href="04-a-spec-como-partitura.html">4. A spec como partitura</a></li><li class="filho"><a class="filho" href="04-a-spec-como-partitura-exemplo.html">Exemplo executável</a></li><li><a href="05-engenharia-de-contexto.html">5. Engenharia de contexto</a></li><li class="filho"><a class="filho" href="05-engenharia-de-contexto-exemplo.html">Exemplo executável</a></li><li><a href="06-como-dividir-o-trabalho.html">6. Como dividir o trabalho</a></li><li class="filho"><a class="filho" href="06-como-dividir-o-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="07-papeis-e-skills.html">7. Papéis e skills</a></li><li class="filho"><a class="filho" href="07-papeis-e-skills-exemplo.html">Exemplo executável</a></li><li><a href="08-ddd-para-agentes.html">8. DDD para agentes</a></li><li class="filho"><a class="filho" href="08-ddd-para-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte III — Provar e conter</div><ul><li><a href="09-arquitetura-que-se-defende.html">9. Arquitetura que se defende</a></li><li class="filho"><a class="filho ativo" aria-current="page" href="09-arquitetura-que-se-defende-exemplo.html">Exemplo executável</a></li><li><a href="10-quality-gates-que-provam-fatos.html">10. Quality gates que provam fatos</a></li><li class="filho"><a class="filho" href="10-quality-gates-que-provam-fatos-exemplo.html">Exemplo executável</a></li><li><a href="11-risco-reversibilidade-e-autonomia.html">11. Risco, reversibilidade e autonomia</a></li><li class="filho"><a class="filho" href="11-risco-reversibilidade-e-autonomia-exemplo.html">Exemplo executável</a></li><li><a href="12-ferramentas-mcp-e-o-ecossistema.html">12. Ferramentas, MCP e o ecossistema</a></li><li class="filho"><a class="filho" href="12-ferramentas-mcp-e-o-ecossistema-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte IV — Medir e aprender</div><ul><li><a href="13-observabilidade-e-economia.html">13. Observabilidade e economia</a></li><li class="filho"><a class="filho" href="13-observabilidade-e-economia-exemplo.html">Exemplo executável</a></li><li><a href="14-a-organizacao-que-aprende.html">14. A organização que aprende</a></li><li class="filho"><a class="filho" href="14-a-organizacao-que-aprende-exemplo.html">Exemplo executável</a></li><li><a href="15-validando-o-maestro.html">15. Validando o Maestro</a></li><li class="filho"><a class="filho" href="15-validando-o-maestro-exemplo.html">Exemplo executável</a></li><li><a href="16-o-futuro-da-engenharia-agentica.html">16. O futuro da engenharia agêntica</a></li><li class="filho"><a class="filho" href="16-o-futuro-da-engenharia-agentica-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Apêndices</div><ul><li><a href="apendice-a-o-maestro-em-uma-pagina.html">A. O Maestro em uma página</a></li><li><a href="apendice-b-aseg-bench.html">B. ASEG-Bench — um benchmark de governança</a></li><li><a href="apendice-c-pacote-de-replicacao.html">C. Pacote de replicação</a></li><li><a href="apendice-d-estudos-de-campo.html">D. Estudos de campo do ecossistema</a></li></ul><div class="nav-parte">Consulta</div><ul><li><a href="glossario.html">Glossário</a></li><li><a href="evidencias.html">Evidências (claims)</a></li></ul>
+  </aside>
+  <main class="conteudo">
+    <article class="markdown"><h1 id="exemplo-do-capítulo-9--portões-de-arquitetura-provados-por-mutação" tabindex="-1">Exemplo do capítulo 9 — portões de arquitetura provados por mutação <a class="header-anchor" href="#exemplo-do-capítulo-9--portões-de-arquitetura-provados-por-mutação" aria-hidden="true">#</a></h1>
+<p>Um projeto de brinquedo com dois leitores (um servidor em camadas, lido por máquina, e um livro
+publicado, lido por gente) e sete portões de arquitetura. Um harness prova cada portão: ele tem de
+ficar verde no projeto como está e nas fixtures legítimas, e vermelho em cada mutação da sua
+família. Portão que deixa mutação viva, ou que reprova o mundo certo, é <strong>decoração</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Arquivo</th>
+<th>O que é</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>projeto/</code></td>
+<td>o projeto de brinquedo: <code>fronteira.json</code> (os dois domínios e o caminho compartilhado), <code>publicar/sumario.json</code> (dois canais de publicação: itens e materiais), <code>servidor/</code> (domínio, portas, adaptadores)</td>
+</tr>
+<tr>
+<td><code>portoes.py</code></td>
+<td>os sete portões, funções que recebem a raiz do projeto e devolvem a lista de violações</td>
+</tr>
+<tr>
+<td><code>provar.py</code></td>
+<td>o harness: copia o projeto para um diretório temporário, aplica cada mutação e roda todos os portões</td>
+</tr>
+</tbody>
+</table>
+<h2 id="os-portões" tabindex="-1">Os portões <a class="header-anchor" href="#os-portões" aria-hidden="true">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Portão</th>
+<th>Forma</th>
+<th>Inspirado em</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fronteira/um-canal</code></td>
+<td>ingênuo: lê só <code>itens</code></td>
+<td><code>check-boundary.sh</code> antes do ciclo 054</td>
+</tr>
+<tr>
+<td><code>fronteira/dois-canais</code></td>
+<td>ingênuo: lê <code>itens</code> e <code>materiais</code> pelo nome</td>
+<td>a correção pontual do ciclo 054</td>
+</tr>
+<tr>
+<td><code>fronteira/fato</code></td>
+<td>lê todo campo <code>arquivo</code> do sumário, em qualquer canal</td>
+<td>uma resposta possível ao anti-padrão 23 (não é a forma do Maestro)</td>
+</tr>
+<tr>
+<td><code>dependencias/texto</code></td>
+<td>ingênuo: procura a linha <code>import &lt;módulo de I/O&gt;</code></td>
+<td>a busca por texto que o capítulo 10 chama de proxy</td>
+</tr>
+<tr>
+<td><code>dependencias/fato</code></td>
+<td>lê a árvore sintática; domínio não importa I/O, porta nem adaptador; porta não importa adaptador</td>
+<td><code>painel/tests/test_import_fronteira.py</code> e <code>test_esqueleto.py</code></td>
+</tr>
+<tr>
+<td><code>registro/fato</code></td>
+<td>lê a árvore sintática do adaptador; recusa <code>w</code>, <code>x</code>, <code>r+</code>, modo não constante, <code>truncate()</code> e <code>seek()</code></td>
+<td><code>TestF14AbreEmAppend</code> e o ADR 0027</td>
+</tr>
+<tr>
+<td><code>portas/fato</code></td>
+<td>toda porta tem dois adaptadores, contando o falso</td>
+<td>a síntese das bancas do ciclo 076 (A4)</td>
+</tr>
+</tbody>
+</table>
+<p>As três invariantes da fronteira são as do Maestro: todo arquivo com exatamente um dono (prefixo
+mais longo, empate é falha); todo caminho compartilhado com dono no toolkit; toda página publicada
+vinda do guia ou de caminho compartilhado.</p>
+<h2 id="como-rodar" tabindex="-1">Como rodar <a class="header-anchor" href="#como-rodar" aria-hidden="true">#</a></h2>
+<p>Requisito: Python 3.8 ou mais novo, sem dependência externa. No Git Bash do Windows, onde
+<code>python3</code> pode ser um atalho vazio, use <code>python</code>.</p>
+<pre><code class="language-bash">cd livro/09-arquitetura-que-se-defende/exemplo
+python3 provar.py
+</code></pre>
+<p>Leva poucos segundos no Linux; no Windows, com antivírus varrendo o diretório temporário, cerca de
+um minuto (são dezenove cópias do projeto: a base, três legítimas e quinze mutações).</p>
+<h2 id="saída-esperada" tabindex="-1">Saída esperada <a class="header-anchor" href="#saída-esperada" aria-hidden="true">#</a></h2>
+<p><strong>Sai com código 0</strong>, porque o resultado bate com o que o capítulo afirma: os portões &quot;fato&quot; são
+portões e os ingênuos são decoração.</p>
+<pre><code class="language-text">fronteira/um-canal     mutações mortas 4/6  →  DECORAÇÃO
+    ✗ mutação sobreviveu: 'arquivo do toolkit publicado pelo 2º canal (materiais)'
+    ✗ mutação sobreviveu: 'arquivo do toolkit publicado por um 3º canal (anexos)'
+fronteira/dois-canais  mutações mortas 5/6  →  DECORAÇÃO
+    ✗ mutação sobreviveu: 'arquivo do toolkit publicado por um 3º canal (anexos)'
+fronteira/fato         mutações mortas 6/6  →  PORTÃO
+dependencias/texto     mutações mortas 1/5  →  DECORAÇÃO
+    ✗ mutação sobreviveu: 'domínio faz from sqlite3 import connect'
+    ✗ mutação sobreviveu: 'domínio importa o adaptador por import relativo'
+    ✗ mutação sobreviveu: 'domínio usa __import__('sqlite3')'
+    ✗ mutação sobreviveu: 'porta importa o adaptador'
+dependencias/fato      mutações mortas 5/5  →  PORTÃO
+registro/fato          mutações mortas 3/3  →  PORTÃO
+portas/fato            mutações mortas 1/1  →  PORTÃO
+resumo: 7 portões provados, 4 portão(ões), 3 decoração(ões)
+✓ o resultado bate com o capítulo
+</code></pre>
+<p>Saída conferida em 02/11/2026, Python 3.12, Windows 11 (Git Bash).</p>
+<h2 id="exercícios" tabindex="-1">Exercícios <a class="header-anchor" href="#exercícios" aria-hidden="true">#</a></h2>
+<ol>
+<li><strong>A porta nova (anti-padrão 23).</strong> Acrescente ao <code>projeto/publicar/sumario.json</code> um canal
+<code>&quot;destaques&quot;: [{&quot;arquivo&quot;: &quot;scripts/interno.html&quot;}]</code> e rode <code>python3 -c &quot;import portoes; print(portoes.fronteira_dois_canais('projeto')); print(portoes.fronteira('projeto'))&quot;</code>. O
+primeiro devolve lista vazia (verde); o segundo acusa. Desfaça a edição depois.</li>
+<li><strong>O falso senso de segurança.</strong> Em <code>provar.py</code>, acrescente à lista <code>MUTACOES</code> uma mutação de
+dependências que insere <code>import importlib</code> e <code>_b = importlib.import_module(&quot;sqlite3&quot;)</code> no
+domínio. Rode: <code>dependencias/fato</code> passa a ser DECORAÇÃO. O portão testa o que foi codificado,
+não o que foi esquecido. Corrija <code>portoes._importados</code> para reconhecer a chamada e veja o
+portão voltar.</li>
+<li><strong>O portão mais estrito que a regra.</strong> Em <code>portoes.so_acrescenta</code>, troque a condição para
+reprovar qualquer modo com <code>+</code>. A fixture legítima <code>&quot;a+&quot;</code> vira falso vermelho e o portão vira
+DECORAÇÃO, embora mate todas as mutações.</li>
+</ol>
+</article>
+    <nav class="paginacao" aria-label="Anterior e próximo"><a class="pg-prev" href="09-arquitetura-que-se-defende.html"><small>← anterior</small>09 — Arquitetura que se defende</a><a class="pg-next" href="10-quality-gates-que-provam-fatos.html"><small>próximo →</small>10 — Quality gates que provam fatos</a></nav>
+    <footer class="rodape">
+      <a href="https://github.com/GHDaru/agentic_software_engineering">github.com/GHDaru/agentic_software_engineering</a>
+       · <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/09-arquitetura-que-se-defende/exemplo/README.md">fonte desta página</a>
+      · gerado de <code>livro/</code> por <code>publicar/build.mjs</code>
+    </footer>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body></html>

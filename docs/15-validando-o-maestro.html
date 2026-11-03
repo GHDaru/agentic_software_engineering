@@ -1,0 +1,963 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>15 — Validando o Maestro · Engenharia de Software Orientada por Agentes</title>
+<meta name="description" content="Governança operacional para um humano regendo muitos agentes">
+<script>try{var t=localStorage.getItem("tema");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="assets/estilo.css">
+</head><body>
+<header class="barra">
+  <button id="alt-menu" aria-label="Abrir o sumário" aria-expanded="false" aria-controls="sidebar">☰ <span>Sumário</span></button>
+  <a class="barra-titulo" href="index.html">Engenharia de Software Orientada por Agentes</a>
+  <button id="alt-tema" aria-label="Alternar tema claro/escuro">◐</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="marca" href="index.html">Engenharia de Software Orientada por Agentes<small>Agentic Software Engineering</small></a>
+    <div class="nav-parte">Abertura</div><ul><li><a href="00-prefacio.html">Prefácio</a></li></ul><div class="nav-parte">Parte I — Por que agentes mudam a engenharia</div><ul><li><a href="01-a-mudanca-de-unidade-de-trabalho.html">1. A mudança de unidade de trabalho</a></li><li class="filho"><a class="filho" href="01-a-mudanca-de-unidade-de-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="02-o-problema-da-confianca.html">2. O problema da confiança</a></li><li class="filho"><a class="filho" href="02-o-problema-da-confianca-exemplo.html">Exemplo executável</a></li><li><a href="03-um-humano-muitos-agentes.html">3. Um humano, muitos agentes</a></li><li class="filho"><a class="filho" href="03-um-humano-muitos-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte II — Especificar e dar contexto</div><ul><li><a href="04-a-spec-como-partitura.html">4. A spec como partitura</a></li><li class="filho"><a class="filho" href="04-a-spec-como-partitura-exemplo.html">Exemplo executável</a></li><li><a href="05-engenharia-de-contexto.html">5. Engenharia de contexto</a></li><li class="filho"><a class="filho" href="05-engenharia-de-contexto-exemplo.html">Exemplo executável</a></li><li><a href="06-como-dividir-o-trabalho.html">6. Como dividir o trabalho</a></li><li class="filho"><a class="filho" href="06-como-dividir-o-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="07-papeis-e-skills.html">7. Papéis e skills</a></li><li class="filho"><a class="filho" href="07-papeis-e-skills-exemplo.html">Exemplo executável</a></li><li><a href="08-ddd-para-agentes.html">8. DDD para agentes</a></li><li class="filho"><a class="filho" href="08-ddd-para-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte III — Provar e conter</div><ul><li><a href="09-arquitetura-que-se-defende.html">9. Arquitetura que se defende</a></li><li class="filho"><a class="filho" href="09-arquitetura-que-se-defende-exemplo.html">Exemplo executável</a></li><li><a href="10-quality-gates-que-provam-fatos.html">10. Quality gates que provam fatos</a></li><li class="filho"><a class="filho" href="10-quality-gates-que-provam-fatos-exemplo.html">Exemplo executável</a></li><li><a href="11-risco-reversibilidade-e-autonomia.html">11. Risco, reversibilidade e autonomia</a></li><li class="filho"><a class="filho" href="11-risco-reversibilidade-e-autonomia-exemplo.html">Exemplo executável</a></li><li><a href="12-ferramentas-mcp-e-o-ecossistema.html">12. Ferramentas, MCP e o ecossistema</a></li><li class="filho"><a class="filho" href="12-ferramentas-mcp-e-o-ecossistema-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte IV — Medir e aprender</div><ul><li><a href="13-observabilidade-e-economia.html">13. Observabilidade e economia</a></li><li class="filho"><a class="filho" href="13-observabilidade-e-economia-exemplo.html">Exemplo executável</a></li><li><a href="14-a-organizacao-que-aprende.html">14. A organização que aprende</a></li><li class="filho"><a class="filho" href="14-a-organizacao-que-aprende-exemplo.html">Exemplo executável</a></li><li><a class="ativo" aria-current="page" href="15-validando-o-maestro.html">15. Validando o Maestro</a></li><li class="filho"><a class="filho" href="15-validando-o-maestro-exemplo.html">Exemplo executável</a></li><li><a href="16-o-futuro-da-engenharia-agentica.html">16. O futuro da engenharia agêntica</a></li><li class="filho"><a class="filho" href="16-o-futuro-da-engenharia-agentica-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Apêndices</div><ul><li><a href="apendice-a-o-maestro-em-uma-pagina.html">A. O Maestro em uma página</a></li><li><a href="apendice-b-aseg-bench.html">B. ASEG-Bench — um benchmark de governança</a></li><li><a href="apendice-c-pacote-de-replicacao.html">C. Pacote de replicação</a></li><li><a href="apendice-d-estudos-de-campo.html">D. Estudos de campo do ecossistema</a></li></ul><div class="nav-parte">Consulta</div><ul><li><a href="glossario.html">Glossário</a></li><li><a href="evidencias.html">Evidências (claims)</a></li></ul>
+  </aside>
+  <main class="conteudo">
+    <article class="markdown"><h1 id="15--validando-o-maestro" tabindex="-1">15 — Validando o Maestro <a class="header-anchor" href="#15--validando-o-maestro" aria-hidden="true">#</a></h1>
+<blockquote>
+<p>&quot;Knowing the gap and stopping there is what T7 names.&quot;
+— teorema T7, <code>axioms.md</code> do Maestro</p>
+</blockquote>
+<p>Até aqui o livro defendeu um método com histórias do próprio método. Isso é bom para ensinar e
+fraco para provar: quem escreveu as regras também escolheu os exemplos. Este capítulo vira a
+lente para dentro. Se você vai adotar spec, portões, revisão em contexto fresco e retrospectiva
+que vira regra, precisa saber como se descobre que isso funciona, e como se descobre que um
+agente piorou sem ninguém perceber. A resposta não é um benchmark famoso nem uma pesquisa de
+satisfação do time. É uma disciplina pequena, que o Maestro aprendeu errando duas vezes no mesmo
+dia.</p>
+<h2 id="pergunta-central" tabindex="-1" class="callout c-obj" data-rotulo="Pergunta">Pergunta central <a class="header-anchor" href="#pergunta-central" aria-hidden="true">#</a></h2>
+<p>Como testar uma metodologia, e não só o software que ela produz?</p>
+<h2 id="resultado-de-aprendizagem" tabindex="-1">Resultado de aprendizagem <a class="header-anchor" href="#resultado-de-aprendizagem" aria-hidden="true">#</a></h2>
+<p>Ao final, você consegue:</p>
+<ol>
+<li><strong>Distinguir</strong> teste, benchmark e avaliação (<em>eval</em>): o teste compara por igualdade, o
+benchmark compara modelos entre si, a avaliação registra uma linha de base para um julgamento
+que não se compara por igualdade.</li>
+<li><strong>Escrever</strong> um caso de avaliação com entrada fixa, asserções positivas e, sobretudo,
+asserções <strong>negativas</strong> (o que uma resposta errada afirmaria), datado e preso ao alvo que ele
+mede.</li>
+<li><strong>Provar</strong> que o caso discrimina, rodando-o contra o alvo <strong>ablado</strong> (o mesmo agente sem a
+instrução que o caso diz medir) e vendo-o reprovar antes de confiar no passe.</li>
+<li><strong>Conferir</strong> a premissa da fixture antes de rodar, e reconhecer a fixture que já carrega o
+próprio veredito.</li>
+<li><strong>Trocar</strong> a pergunta &quot;você está seguindo o método?&quot; por um comando que lê os artefatos, e
+separar o que esse comando mede (conformidade) do que ele não mede (se o método é bom).</li>
+</ol>
+<h2 id="a-falha-real" tabindex="-1" class="callout c-falha" data-rotulo="Caso real">A falha real <a class="header-anchor" href="#a-falha-real" aria-hidden="true">#</a></h2>
+<p>Em 6 de agosto de 2026, o ciclo 037 do Maestro entregou o corpus de avaliações: uma pasta
+<code>evals/</code>, um portão <code>check-evals.sh</code> e um comando <code>/eval</code> que roda um caso em contexto fresco. O
+motivo estava escrito no teorema que o ciclo criou: durante 36 ciclos, 13 agentes operaram sem
+linha de base nenhuma, e nada teria notado se o agente de revisão tivesse regredido
+[CLAIM-15-001]. O ciclo saiu com dois casos-semente e, de propósito, com o portão <strong>vermelho</strong>:
+nenhum dos dois casos tinha sido executado, e marcar o campo <code>First-red</code> sem ter visto o caso
+reprovar seria mentir para o próprio portão. O achado foi registrado como
+<code>achado-037-linhas-de-base-pendentes</code> no índice de decisões [CLAIM-15-002].</p>
+<p>No dia seguinte, 7 de agosto, os dois casos rodaram. O caso 001 mede se o agente de revisão
+compara o diff com o plano, e não só lê o código. Passou com seis de seis asserções — uma delas
+marcada como limítrofe (&quot;borderline&quot;: o revisor sugeriu em linha um idioma de uma linha, e o
+caso proibia &quot;consertar&quot;) — e a própria execução achou dois defeitos de redação no caso, que
+foram corrigidos sem afrouxar o que ele exige. Até aí, nada provado: um passe só diz que o alvo
+acertou, não que o caso saberia notar um alvo que erra. Então o caso foi rodado de novo contra o
+<strong>mesmo agente sem a instrução de comparar com o plano — e sem o plano na entrada</strong>. O agente
+ablado fez uma boa revisão de código, achou defeitos reais, e reprovou o caso: viu que faltava
+validação, mas atribuiu a falta a um comentário do script e não a um requisito, e sugeriu apagar
+a promessa da descrição em vez de implementá-la
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/evals/001-review-drops-a-requirement/baseline.md">baseline do caso 001</a>)
+[CLAIM-15-003]. Esse vermelho é o que vale. O caso 001 ganhou linha de base.</p>
+<p>Leia a ablação com o cuidado que ela merece. Ela removeu <strong>duas</strong> coisas de uma vez: a linha da
+instrução e o próprio plano. Um revisor que não recebe o plano não tem como compará-lo com o diff,
+com ou sem instrução. Então o vermelho prova que o caso separa um revisor &quot;cego ao plano&quot; de um
+que o usa — que é o eixo declarado —, mas não isola quanto do efeito vem da instrução e quanto
+vem da ausência do documento. A ablação limpa, que atribuiria o vermelho só à instrução, seria
+rodar o ablado <strong>com</strong> o plano na entrada. Ela não foi feita, e o capítulo não a dá como feita.</p>
+<p>O caso 002 contou a outra história. Ele mediria se o agente guardião do processo rejeita uma
+raia de trabalho declarada errada. A primeira fixture era flagrante: reescrever no lugar um
+arquivo documentado como somente-acréscimo, declarado como raia leve. O alvo real acertou. O alvo
+ablado, sem a instrução &quot;confira a raia declarada&quot;, acertou também, chegando lá só pelo
+Princípio III (reversibilidade). A fixture foi reescrita como caso limítrofe, em que todo sinal
+de superfície dizia &quot;leve&quot; e o defeito era o raio de impacto de uma linha de regra de portão.
+O alvo ablado passou de novo. Duas fixtures, quatro rodadas, e nenhuma separava um agente que
+julga raia de um que não julga
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/evals/002-guardian-accepts-a-wrong-lane/baseline.md">baseline do caso 002</a>)
+[CLAIM-15-004].</p>
+<p>E houve o golpe mais incômodo: as duas fixtures, escritas à mão, tinham defeito, e quem achou
+foram os agentes avaliados, não o autor. A primeira trazia as conclusões escritas no próprio
+enunciado. A segunda tinha premissa falsa: o agente ablado conferiu, sem que ninguém pedisse, que
+o padrão citado na fixture não casava com a linha que ela dizia ser sinalizada [CLAIM-15-005].
+Para completar o quadro, as rodadas daquele dia foram commitadas citando um ciclo 040 que não
+tinha pasta em <code>specs/</code>: trabalho sem spec, violação do Princípio I cometida pelo próprio agente
+que montava as avaliações, pega pelo <code>check-cycle.sh</code> [CLAIM-15-006].</p>
+<p>A retrospectiva do ciclo 041 fechou os quatro achados sem afrouxar nada. O caso 002 foi
+<strong>aposentado com motivo</strong>, em vez de ajustado até passar. Nasceram o anti-padrão 19 (caso de
+avaliação que ninguém viu reprovar) e o 20 (fixture que carrega o próprio veredito ou cuja
+premissa nunca foi conferida), e três campos obrigatórios: <code>Axis</code> no caso, <code>Ablation</code> e
+<code>Premise-checked</code> na linha de base
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/041-retro-dos-quatro-achados-de-eval/qa-report.md">qa-report do ciclo 041</a>)
+[CLAIM-15-007]. E o caso 002 deixou um subproduto que nenhuma pesquisa de opinião teria dado:
+remover a instrução de conferir raia <strong>não muda nada</strong> no agente guardião. Ou o item é
+redundante, ou o caso certo ainda não foi escrito. O método registrou isso como hipótese, não
+como regra.</p>
+<p>A lição para quem lidera time não é &quot;avaliação é difícil&quot;. É que, sem o alvo ablado, o Maestro
+teria declarado duas linhas de base verdes na mesma tarde, e uma delas não media nada.</p>
+<h2 id="teoria" tabindex="-1">Teoria <a class="header-anchor" href="#teoria" aria-hidden="true">#</a></h2>
+<h3 id="o-teorema-onde-a-saída-não-se-compara-o-critério-é-uma-linha-de-base" tabindex="-1">O teorema: onde a saída não se compara, o critério é uma linha de base <a class="header-anchor" href="#o-teorema-onde-a-saída-não-se-compara-o-critério-é-uma-linha-de-base" aria-hidden="true">#</a></h3>
+<p>O <a href="10-quality-gates-que-provam-fatos.html">capítulo 10</a> derivou do teorema T4 que
+critério sem comando não é critério. O teorema T7 nota o limite disso: um comando só decide o
+que se compara por igualdade. Uma seção existe ou não; um link resolve ou não. Um <strong>julgamento</strong>
+— o veredito de uma revisão, a classificação de uma raia, o <em>trade-off</em> de um plano — não tem
+essa comparação, e &quot;ler com atenção&quot; também não serve: não produz artefato (axioma A4, só o que
+está escrito sobrevive à sessão seguinte) nem algo pelo qual alguém responda (axioma A2, a
+consequência precisa de dono)
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/axioms.md">axioms.md</a>).</p>
+<p>O que substitui a comparação é uma <strong>linha de base registrada</strong>: entrada fixa, asserções que
+separam a resposta certa da apenas plausível, e uma observação com data. O ponto fino está no
+lado negativo. Uma asserção que só pergunta &quot;achou alguma coisa?&quot; passa com qualquer resposta
+prolixa. O que discrimina é o que uma resposta <strong>errada</strong> afirmaria — no caso 001, &quot;o diff
+implementa o plano&quot; ou &quot;os testes dão cobertura real&quot;. O próprio T7 traz a evidência
+desconfortável que o originou: a única ocorrência da palavra <em>judge</em> nos scripts do repositório
+era um comentário em <code>check-cycle.sh</code> admitindo que o portão &quot;não consegue julgar a resposta&quot;
+[CLAIM-15-008]. Saber da lacuna e parar ali é exatamente o que o teorema nomeia.</p>
+<h3 id="teste-benchmark-e-avaliação-não-são-a-mesma-coisa" tabindex="-1">Teste, benchmark e avaliação não são a mesma coisa <a class="header-anchor" href="#teste-benchmark-e-avaliação-não-são-a-mesma-coisa" aria-hidden="true">#</a></h3>
+<p>O glossário do Maestro separa os três termos, e a separação evita metade das discussões
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/glossary.md">glossary.md</a>). O
+<strong>teste</strong> compara por igualdade e entra na integração contínua (CI, de <em>continuous
+integration</em>). O <strong>benchmark</strong> compara modelos ou sistemas entre si sobre um corpus de tarefas,
+como o SWE-bench e o SWE-Bench Pro, que medem se um agente resolve <em>issues</em> reais de repositórios
+públicos. A <strong>avaliação</strong> mede um alvo seu — um agente, uma skill, um prompt — contra a linha de
+base que você mesmo registrou. Benchmark responde &quot;qual modelo é melhor&quot;; avaliação responde &quot;o
+meu revisor piorou desde terça&quot;.</p>
+<p>Dois corolários de T7 dão a forma prática. O C11 diz que uma avaliação <strong>nomeia seu alvo e
+envelhece quando o alvo muda</strong>: a linha de base carrega o commit do agente que mediu
+(<code>Target-commit</code>), e o <code>check-evals.sh</code> acusa a linha de base defasada quando o arquivo do agente
+muda depois dela. O portão não julga a saída de agente nenhum — isso exigiria chave de interface
+de programação (API, de <em>application programming interface</em>) num portão que todos rodam — ele
+mede a <strong>saúde do corpus</strong>: o alvo existe, há asserção negativa, a linha de base é atual, o caso
+já foi visto reprovando. O julgamento roda sob demanda, pelo comando <code>/eval</code>, em contexto fresco.</p>
+<h3 id="a-ablação-é-o-grupo-de-controle" tabindex="-1">A ablação é o grupo de controle <a class="header-anchor" href="#a-ablação-é-o-grupo-de-controle" aria-hidden="true">#</a></h3>
+<p>Da falha do dia 7 sai a ideia central do capítulo, que o método aprendeu na prática antes de
+escrever em regra: <strong>um caso de avaliação só vale depois de reprovar o alvo ablado no eixo que
+ele diz medir</strong>. É o grupo de controle de um experimento, reduzido ao tamanho de um time. Tira-se
+do agente exatamente a instrução que o caso alega medir e se roda de novo. Se o ablado passa, o
+caso mede outra coisa (no 002, &quot;detectar operação destrutiva óbvia&quot;, não &quot;julgar raia&quot;). É a
+mesma segunda lei do capítulo 10, &quot;prove o check falhando antes de confiar nele&quot;, estendida ao
+julgamento: mutação é para portão determinístico o que ablação é para avaliação.</p>
+<h3 id="memória-não-é-testemunha" tabindex="-1">Memória não é testemunha <a class="header-anchor" href="#memória-não-é-testemunha" aria-hidden="true">#</a></h3>
+<p>O terceiro corolário completa a validação do lado do processo. O C13 afirma que <strong>pergunta
+respondível de memória será respondida de memória, e memória relata intenção</strong>. Perguntar ao
+agente &quot;você está seguindo o método?&quot; mede o que ele pretendia. No mesmo ciclo 041, o agente do
+próprio repositório teria respondido &quot;sim&quot; enquanto dois commits citavam um ciclo sem spec, e um
+agente companheiro relatou &quot;CI verde&quot; antes de checar
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/check-conformance.sh">check-conformance.sh</a>).
+Daí o <code>check-conformance.sh</code>, decidido no Architecture Decision Record (ADR) 0019: ele lê as
+declarações e a cauda de fechamento nos artefatos que o executor consome, e responde com fato.
+O limite é declarado no próprio script: ele mede se o método <strong>sobreviveu nos artefatos</strong>, não
+se o método é bom nem se o humano leu.</p>
+<h3 id="três-camadas-de-validação" tabindex="-1">Três camadas de validação <a class="header-anchor" href="#três-camadas-de-validação" aria-hidden="true">#</a></h3>
+<p>Juntando, validar uma metodologia tem três camadas, e confundi-las é o erro comum. A primeira é
+<strong>conformidade</strong>: o método foi aplicado? Responde-se com comando, como o
+<code>check-conformance.sh</code>. A segunda é <strong>regressão de julgamento</strong>: os agentes que o método usa
+continuam julgando bem? Responde-se com avaliação de linha de base, como <code>evals/</code>. A terceira é
+<strong>efeito</strong>: aplicar o método produz software melhor, mais barato ou com menos retrabalho do que
+não aplicá-lo? Essa só se responde com experimento comparativo — níveis de tratamento (só prompt,
+prompt mais spec, spec mais portões, método completo), repetições com distribuição e ambiente
+congelado — e o livro a registra como agenda de hipóteses H1 a H10 em
+<code>pesquisa/base-de-pesquisa.md</code>, não como fato [CLAIM-15-009]. As duas primeiras camadas o
+Maestro já executa. A terceira ele ainda não provou, e o restante do capítulo trata cada uma
+nessa ordem.</p>
+<h2 id="alternativas" tabindex="-1">Alternativas <a class="header-anchor" href="#alternativas" aria-hidden="true">#</a></h2>
+<p>Quem lidera um time que adotou agentes já usa alguma forma de &quot;validar o processo&quot;, mesmo sem
+chamar assim. Vale olhar cada uma pela régua das três camadas — conformidade, regressão de
+julgamento, efeito — e perguntar o que ela mede de fato.</p>
+<p><strong>Perguntar ao agente (ou ao time) se o método está sendo seguido.</strong> É a mais barata e a mais
+comum. O agente lê a instrução, lembra da intenção e responde &quot;sim&quot;. O corolário C13 explica por
+que isso não serve: a pergunta respondível de memória é respondida de memória, e a memória
+relata o que se pretendia fazer. O caso do ciclo 041 contado acima é exatamente esse — dois
+commits citavam um ciclo sem spec enquanto a resposta honesta, de memória, seria &quot;estou seguindo&quot;.
+Veredito: descarte como evidência. Serve para abrir conversa, não para fechar portão.</p>
+<p><strong>Pesquisa de percepção do time.</strong> Questionários sobre satisfação, confiança nos agentes,
+sensação de produtividade. Medem algo real — a adoção percebida — e ajudam a priorizar onde
+dói. Não medem nenhuma das três camadas: não dizem se o artefato carrega a cauda de
+fechamento, não notam um revisor que piorou e confundem &quot;gosto de trabalhar assim&quot; com &quot;entrega
+melhor&quot;. Veredito: complemento útil para a conversa de gestão, inútil como validação.</p>
+<p><strong>Benchmark público.</strong> O SWE-bench (Jimenez et al., 2024) toma <em>issues</em> reais de repositórios
+Python públicos e pergunta se o sistema produz um <em>patch</em> que faz passar os testes que a correção
+original fez passar. O SWE-Bench Pro (Deng et al., 2025) mantém o desenho e endurece a tarefa:
+problemas de horizonte longo, tirados de 41 repositórios mantidos [CLAIM-15-027], muitos exigindo mudança
+coordenada em vários arquivos. Nos dois, quem decide é um teste — comparação por igualdade, o
+mundo do capítulo 10. São a melhor ferramenta disponível para <strong>escolher modelo ou harness</strong>, e
+não servem como linha de base de julgamento por três motivos. Primeiro, medem o sistema de
+outra pessoa, num corpus alheio: respondem &quot;qual sistema é melhor&quot;, não &quot;o meu revisor, com a
+minha instrução, ainda compara o diff com o plano&quot;. Segundo, medem o que se decide por teste — o
+<em>patch</em> passa ou não —, e o que o seu processo pede ao revisor (o requisito que faltou, a raia
+errada) não tem teste que o decida. Terceiro, não envelhecem com o seu alvo: mudar uma linha da
+instrução do seu agente não muda nada no placar público. E dois sistemas empatados num benchmark
+podem divergir justamente no julgamento que o seu processo exige. Veredito: use para a decisão de compra e como corpus externo da camada de
+efeito (está na agenda de pesquisa do livro); não use como linha de base do seu agente.</p>
+<p><strong>Juiz automático em toda integração contínua.</strong> Um modelo avalia a saída de outro modelo a cada
+<em>push</em> — o padrão conhecido como <em>LLM-as-judge</em>, em que um modelo de linguagem de grande porte (LLM, de <em>large language model</em>) faz o papel de juiz. Resolve o problema do &quot;ninguém rodou&quot;, mas cria
+três outros: o portão passa a exigir uma chave de API que nem todo colaborador tem, fica
+não-determinístico (o mesmo commit pode sair verde e vermelho) e, sem ablação, continua sem
+provar que o caso discrimina. O Maestro escolheu de propósito a separação: o portão
+determinístico mede a saúde do corpus, e o julgamento roda sob demanda, pelo <code>/eval</code>, em contexto
+fresco. Veredito: viável quando a chave é centralizada e o custo cabe; mesmo assim, só depois que
+cada caso foi visto reprovando o alvo ablado.</p>
+<p><strong>Ferramentas de avaliação de prompt.</strong> Há <em>frameworks</em> abertos que executam casos contra
+prompts e verificam asserções (promptfoo e OpenAI Evals são exemplos). Eles resolvem a parte
+mecânica — rodar, comparar, guardar histórico — e podem oferecer o vocabulário do lado negativo:
+o promptfoo, por exemplo, documenta que qualquer tipo de asserção pode ser negado com o prefixo
+<code>not-</code> (documentação de <em>expected outputs</em>, acesso em 02/11/2026). Oferecer não é exigir. As duas
+disciplinas do capítulo — todo caso com lado negativo, todo caso visto reprovando um grupo de
+controle ablado — são regras sobre a suíte, e quem as cobra é um portão seu, como o
+<code>check-evals.sh</code>, não o executor. Uma suíte cheia de &quot;a resposta menciona X&quot; passa com qualquer
+resposta prolixa, em qualquer ferramenta. Veredito: adote a
+ferramenta se ela poupar trabalho; a disciplina continua sendo sua. O argumento sobrevive à troca
+de ferramenta.</p>
+<p><strong>Métricas de fluxo de entrega.</strong> As métricas do programa DevOps Research and Assessment (DORA)
+— frequência de entrega, tempo de espera, taxa de falha de mudança, tempo de recuperação — medem
+efeito na entrega, e o <a href="13-observabilidade-e-economia.html">capítulo 13</a> as trata. São
+a aproximação mais honesta da terceira camada que um time consegue no dia a dia. O limite é a
+atribuição: a taxa de falha caiu por causa da spec, do modelo novo ou da equipe mais experiente?
+Sem grupo de comparação, a métrica observa, não explica. Veredito: acompanhe; não use como prova
+de que o método funciona.</p>
+<p><strong>Experimento controlado.</strong> Rodar as mesmas tarefas em níveis de tratamento (só prompt; prompt
+mais spec; spec mais portões; método completo), com repetições, distribuição e ambiente
+congelado, é o único desenho que responde à terceira camada com atribuição. É também o mais
+caro, e por isso o livro o registra como agenda (H1 a H10), não como resultado. Veredito: é o
+padrão-ouro e ainda não foi feito; quem afirmar que o Maestro &quot;reduz retrabalho&quot; sem ele está
+relatando intenção.</p>
+<table>
+<thead>
+<tr>
+<th>Alternativa</th>
+<th>Camada que mede</th>
+<th>Veredito</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Perguntar ao agente</td>
+<td>nenhuma (intenção)</td>
+<td>descartar como evidência</td>
+</tr>
+<tr>
+<td>Pesquisa de percepção</td>
+<td>nenhuma (adoção percebida)</td>
+<td>complemento de gestão</td>
+</tr>
+<tr>
+<td>Benchmark público</td>
+<td>efeito, em corpus alheio</td>
+<td>escolher modelo; corpus externo</td>
+</tr>
+<tr>
+<td>Juiz automático na CI</td>
+<td>regressão, se houver ablação</td>
+<td>só com chave central e casos provados</td>
+</tr>
+<tr>
+<td>Ferramenta de avaliação de prompt</td>
+<td>regressão (mecânica)</td>
+<td>adotar se poupar trabalho; disciplina é sua</td>
+</tr>
+<tr>
+<td>Métricas DORA</td>
+<td>efeito, sem atribuição</td>
+<td>acompanhar, não provar</td>
+</tr>
+<tr>
+<td>Experimento controlado</td>
+<td>efeito, com atribuição</td>
+<td>padrão-ouro, ainda agenda</td>
+</tr>
+</tbody>
+</table>
+<p>A coluna do meio é o ponto: nenhuma alternativa cobre conformidade, e só duas tocam a regressão
+de julgamento — ambas dependendo de uma disciplina que elas mesmas não impõem.</p>
+<h2 id="o-padrão-maestro" tabindex="-1">O padrão Maestro <a class="header-anchor" href="#o-padrão-maestro" aria-hidden="true">#</a></h2>
+<p>O Maestro cobre as duas primeiras camadas com peças pequenas e separa, em cada uma, o que é
+regra escrita, o que é script e o que roda sozinho. Tudo abaixo está citado na versão
+<code>maestro@19823c2</code>.</p>
+<h3 id="camada-1--conformidade-a-resposta-executável" tabindex="-1">Camada 1 — conformidade: a resposta executável <a class="header-anchor" href="#camada-1--conformidade-a-resposta-executável" aria-hidden="true">#</a></h3>
+<p><strong>Regra.</strong> O corolário C13 e o Architecture Decision Record (ADR) 0019
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0019-conformidade-executavel-e-catalogo-de-artefatos.md">ADR 0019</a>)
+transformam omissão em declaração. O plano declara cada artefato condicional com um <em>token</em>
+legível por máquina — <code>ART:research=yes|no</code>, <code>ART:data-model=</code>, <code>ART:contracts=</code>,
+<code>ART:checklist=</code>, <code>ART:ux-design=</code> — e o <code>tasks.md</code> carrega a cauda de fechamento
+(<code>TAIL:review</code>, <code>TAIL:security</code>, <code>TAIL:mutation</code>, <code>TAIL:gate</code>), cada item presente ou <code>n/a</code>
+com motivo. O catálogo do que se aplica quando é o
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/artifacts.md">artifacts.md</a>. A
+falha que originou a regra foi medida no ciclo 042: 35 de 40 <code>tasks.md</code> tinham perdido o gate
+humano que o template carregava [CLAIM-15-010] — o anti-padrão 22, método instalado como cópia
+com perdas, em que o executor segue fielmente um artefato que é subconjunto.</p>
+<p><strong>Script.</strong> O
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/check-conformance.sh">check-conformance.sh</a>
+lê esses <em>tokens</em> do disco e do git e responde &quot;você está seguindo o Maestro?&quot; com fato. O
+<code>CLAUDE.md</code> do projeto proíbe responder a essa pergunta de memória e manda rodar o script.</p>
+<p><strong>Onde bloqueia.</strong> Aqui está o desenho mais instrutivo. A versão completa do script é
+<strong>consultiva</strong> na integração contínua, porque um ciclo aberto tem caixas desmarcadas e um
+<code>qa-report.md</code> de esqueleto, e um portão sempre vermelho é um portão que se aprende a ignorar.
+A conformidade bloqueia onde o ciclo de fato termina: o <code>promote-main.sh</code> recusa promover para
+a linha principal enquanto ela está vermelha. E a metade que pode bloquear sem nunca acusar
+trabalho em andamento — <code>--ticked-only</code>, &quot;caixa marcada tem evidência&quot; — é bloqueante na CI
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/.github/workflows/ci.yml">ci.yml</a>). Ela nasceu
+porque, em quatro ciclos seguidos (057 a 060), as caixas da cauda foram marcadas sem
+<code>qa-report.md</code> e só a revisão humana pegou [CLAIM-15-011].</p>
+<p><strong>Gancho.</strong> O <em>hook</em> <code>SessionStart</code>
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/hooks/session-state.sh">session-state.sh</a>)
+injeta o estado <strong>medido</strong> do método no início de cada sessão — ciclo aberto, conformidade,
+achados abertos — em vez de deixá-lo para a memória do agente. É o C13 aplicado na entrada.</p>
+<h3 id="camada-2--regressão-de-julgamento-o-corpus-de-avaliações" tabindex="-1">Camada 2 — regressão de julgamento: o corpus de avaliações <a class="header-anchor" href="#camada-2--regressão-de-julgamento-o-corpus-de-avaliações" aria-hidden="true">#</a></h3>
+<p><strong>Regra.</strong> O teorema T7 e o corolário C11, decididos no
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0016-evals-para-saida-nao-deterministica.md">ADR 0016</a>,
+e os anti-padrões 19 e 20 da skill
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/skills/anti-patterns/SKILL.md">anti-patterns</a>.
+Cada caso mora em <code>evals/&lt;NNN-slug&gt;/</code> com três arquivos:</p>
+<ul>
+<li><code>case.md</code> — <code>Target:</code> (o arquivo de instrução avaliado), <code>Question:</code> e <code>Axis:</code> (a capacidade
+que o caso diz separar); opcionalmente <code>Status: retired</code> com <code>Retired-because:</code>;</li>
+<li><code>expect.md</code> — pelo menos um <code>MUST-FIND:</code> e pelo menos um <code>MUST-NOT-CLAIM:</code>;</li>
+<li><code>baseline.md</code> — <code>Date:</code>, <code>Target-commit:</code>, <code>First-red:</code>, <code>Verdict:</code>, <code>Ablation:</code> e
+<code>Premise-checked:</code>.</li>
+</ul>
+<p><strong>Script.</strong> O
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/check-evals.sh">check-evals.sh</a> é
+bloqueante na CI e declara no próprio cabeçalho que <strong>não julga</strong> saída de agente nenhuma. Ele
+confere que o alvo existe, que há eixo, que os dois lados das asserções existem, que todos os
+campos da linha de base estão lá, que <code>First-red</code> saiu de <code>pending</code> e que o <code>Target-commit</code>
+registrado ainda é o último commit que tocou o alvo — se não for, acusa linha de base
+defasada. Caso aposentado aparece na saída com o motivo; aposentar sem motivo é tratado como
+apagar, e reprova. Corpus vazio sai verde com a frase &quot;and empty. Nothing here is evaluated
+yet&quot;, para que verde nunca seja lido como cobertura.</p>
+<p><strong>Comando.</strong> O
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/.claude/commands/eval.md">/eval</a> é a parte que
+precisa de modelo no laço e roda sob demanda. Tem dois pré-voos, nesta ordem: rodar o
+<code>check-evals.sh</code> e <strong>reproduzir a premissa</strong> da fixture, procurando também conclusão vazada no
+enunciado. Depois responde à pergunta em contexto fresco, obedecendo ao alvo; lê o <code>expect.md</code>
+<strong>só depois</strong> que a resposta existe; e então roda de novo contra o alvo ablado — a mesma
+instrução sem o item que o <code>Axis:</code> nomeia. Se o ablado reprova, esse é o <code>First-red</code>,
+conquistado e não encenado. Se passa, o comando proíbe ajustar a fixture até ficar vermelho
+(&quot;isso é pescaria&quot;) e manda aposentar com motivo ou reescolher o eixo. O veredito é por
+asserção, com o trecho citado da resposta; decidir o que ele significa fica com o humano.</p>
+<p><strong>Quando cresce.</strong> O roteiro do Maestro não fixa meta de cobertura. O gatilho para um caso
+novo é um agente que <strong>regrediu</strong>: cada regressão observada ganha caso, e a cobertura cresce por
+dor, não por meta
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/roadmap.md">roadmap.md</a>).</p>
+<h3 id="camada-3--efeito-declarada-não-afirmada" tabindex="-1">Camada 3 — efeito: declarada, não afirmada <a class="header-anchor" href="#camada-3--efeito-declarada-não-afirmada" aria-hidden="true">#</a></h3>
+<p>O Maestro não tem script para a terceira camada, e não finge ter. O que existe é o registro
+honesto do que o próprio repositório pode testemunhar — ciclos, achados, retrospectivas — e a
+agenda de hipóteses do livro. A seção de Evidência separa uma coisa da outra.</p>
+<table>
+<thead>
+<tr>
+<th>Peça</th>
+<th>Tipo</th>
+<th>Camada</th>
+<th>Bloqueia?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T7, C11, C13; ADRs 0016 e 0019; anti-padrões 19, 20, 22</td>
+<td>regra</td>
+<td>1 e 2</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>check-conformance.sh --ticked-only</code></td>
+<td>script</td>
+<td>1</td>
+<td>sim, na CI</td>
+</tr>
+<tr>
+<td><code>check-conformance.sh</code> completo</td>
+<td>script</td>
+<td>1</td>
+<td>consultivo na CI; bloqueia a promoção</td>
+</tr>
+<tr>
+<td><code>session-state.sh</code> (<code>SessionStart</code>)</td>
+<td><em>hook</em></td>
+<td>1</td>
+<td>não; informa</td>
+</tr>
+<tr>
+<td><code>check-evals.sh</code></td>
+<td>script</td>
+<td>2 (saúde do corpus)</td>
+<td>sim, na CI</td>
+</tr>
+<tr>
+<td><code>/eval</code></td>
+<td>comando</td>
+<td>2 (julgamento)</td>
+<td>não; produz veredito</td>
+</tr>
+</tbody>
+</table>
+<h3 id="o-que-é-conceito-e-o-que-é-o-harness" tabindex="-1">O que é conceito e o que é o harness <a class="header-anchor" href="#o-que-é-conceito-e-o-que-é-o-harness" aria-hidden="true">#</a></h3>
+<p>O Maestro roda no Claude Code, e três peças acima usam mecanismos dele: o <code>/eval</code> é um comando
+de barra, o estado entra por um <em>hook</em> <code>SessionStart</code>, e a ordem de não responder de memória
+mora no <code>CLAUDE.md</code>. Nenhuma das três é o padrão; são a forma que o padrão tomou ali. Os scripts
+(<code>check-conformance.sh</code>, <code>check-evals.sh</code>) são shell e git puros e não dependem de harness.</p>
+<table>
+<thead>
+<tr>
+<th>Conceito</th>
+<th>No Maestro (Claude Code)</th>
+<th>Em outro harness</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>resposta executável à pergunta &quot;estou seguindo?&quot;</td>
+<td><code>check-conformance.sh</code>, citado no <code>CLAUDE.md</code></td>
+<td>o mesmo script, citado no arquivo de instrução que o seu harness lê ao abrir a sessão (por exemplo um <code>AGENTS.md</code>)</td>
+</tr>
+<tr>
+<td>estado medido na entrada da sessão</td>
+<td><em>hook</em> <code>SessionStart</code> rodando <code>session-state.sh</code></td>
+<td>qualquer gancho de início de sessão; sem gancho, a primeira instrução do arquivo de regras manda rodar o comando antes de agir</td>
+</tr>
+<tr>
+<td>julgamento sob demanda em contexto fresco, com ablação</td>
+<td>comando <code>/eval</code> que abre subagentes</td>
+<td>dois agentes abertos sem histórico — um com a instrução inteira, outro sem a linha do eixo —, respostas salvas em arquivo e comparadas com o <code>expect.md</code></td>
+</tr>
+<tr>
+<td>saúde do corpus, sem modelo</td>
+<td><code>check-evals.sh</code> bloqueante na CI</td>
+<td>o mesmo script, ou o <code>avaliar.py</code> do exemplo, em qualquer CI</td>
+</tr>
+</tbody>
+</table>
+<p>Se o seu harness não tem subagente, a ablação continua possível: são duas sessões novas, sem
+memória compartilhada. O que não é negociável é o que está na coluna da esquerda.</p>
+<h2 id="exemplo-executável" tabindex="-1" class="callout c-prat" data-rotulo="Mão na massa">Exemplo executável <a class="header-anchor" href="#exemplo-executável" aria-hidden="true">#</a></h2>
+<p>A pasta <a href="15-validando-o-maestro-exemplo.html"><code>exemplo/</code></a> reproduz em miniatura as duas metades da segunda camada:
+a saúde do corpus, que o <code>check-evals.sh</code> mede, e a prova por ablação, que o <code>/eval</code> faz. É um
+único script, <code>avaliar.py</code>, em Python 3 sem dependências, mais um corpus de três casos e dois
+alvos — a instrução de um agente de revisão e a de um guardião do processo.</p>
+<p>Antes de rodar, um aviso que o próprio script repete: as respostas do alvo e do alvo ablado
+foram <strong>escritas à mão</strong>, e o &quot;juiz&quot; casa palavras-sinal. Isso é um <em>proxy</em> — o anti-padrão 13
+do Maestro, a checagem que mede o substituto e não o fato. Ele está aqui para mostrar a
+mecânica sem exigir chave de API de ninguém. No uso real, as duas respostas viriam de dois
+subagentes em contexto fresco: um com a instrução inteira, outro com a instrução menos a linha
+que o <code>Axis:</code> nomeia.</p>
+<h3 id="os-três-casos" tabindex="-1">Os três casos <a class="header-anchor" href="#os-três-casos" aria-hidden="true">#</a></h3>
+<p>O <strong>caso 001</strong> espelha o caso 001 real do Maestro em forma reduzida. O alvo é o revisor; o eixo é
+&quot;comparar o diff com o plano&quot;. A entrada traz só fatos: o plano tem dois requisitos funcionais (FR, de <em>functional
+requirement</em>), FR1 e FR2;
+o diff implementa o FR1 e deixa um <code>TODO</code> no lugar do FR2; o teste novo só verifica que nada
+levantou exceção. O <code>expect.md</code> tem dois <code>MUST-FIND:</code> (o FR2 não foi implementado; o teste não
+verifica comportamento) e dois <code>MUST-NOT-CLAIM:</code> (o diff implementa o plano; basta apagar o
+<code>TODO</code>). A resposta ablada imita o padrão do agente ablado real de 7 de agosto — que atribuiu a falta a
+um comentário e sugeriu apagar a promessa em vez de implementá-la: vê o <code>TODO</code>, trata como
+problema de estilo e sugere removê-lo.</p>
+<p>O <strong>caso 002</strong> espelha o caso aposentado. O alvo é o guardião; o eixo é &quot;conferir a raia
+declarada&quot;. A entrada é a fixture flagrante — reescrever no lugar um arquivo somente-acréscimo
+declarado como raia leve. As duas respostas rejeitam a mudança: a do alvo pela raia, a do
+ablado pelo Princípio III.</p>
+<p>O <strong>caso 003</strong> é o erro de quem começa: um caso com só o lado positivo (&quot;aponta algum
+problema&quot;) e nunca rodado contra ablado.</p>
+<h3 id="rodando" tabindex="-1">Rodando <a class="header-anchor" href="#rodando" aria-hidden="true">#</a></h3>
+<pre><code class="language-bash">cd livro/15-validando-o-maestro/exemplo
+python avaliar.py        # ou python3
+echo $?
+</code></pre>
+<p>A saída, copiada da execução de 2 de novembro de 2026, termina assim [CLAIM-15-012]:</p>
+<pre><code class="language-text">• 001-revisor-perde-requisito
+  ...
+  alvo   PASSA
+  ablado REPROVA (não achou: o requisito FR2 do plano não foi implementado; ...)
+• 002-guardiao-aceita-raia-errada
+  ...
+  alvo   PASSA
+  ablado PASSA
+  ✗ o ablado PASSA — o caso não mede o eixo 'conferir a raia declarada ...'; aposente com
+    motivo, não ajuste a fixture até ficar vermelho
+• 003-sem-lado-negativo
+  ✗ sem MUST-NOT-CLAIM: — sem lado negativo o caso não discrimina
+  ✗ nunca visto reprovando (First-red: pending) — rode o caso contra o ablado
+──
+casos: 3 · saudáveis: 1 · aposentados: 0
+✗ o corpus não está saudável (veja acima).
+</code></pre>
+<p>O código de saída é 1. A saída completa, linha a linha, está no
+<a href="15-validando-o-maestro-exemplo.html">README do exemplo</a>.</p>
+<h3 id="como-ler" tabindex="-1">Como ler <a class="header-anchor" href="#como-ler" aria-hidden="true">#</a></h3>
+<p>Repare que o caso 002 <strong>passa</strong> no critério que a maioria dos times usaria — o alvo real acertou
+— e mesmo assim é o caso mais grave do corpus. Ele está bem formado: tem alvo, eixo, os dois
+lados das asserções, linha de base atual. Só que o grupo de controle acerta igual, e então o
+passe do alvo não diz nada sobre o eixo declarado. Sem a segunda execução, esse corpus teria
+dois verdes e um vermelho; com ela, tem um verde, e é o único que vale.</p>
+<p>O caso 003 mostra a outra metade: o verificador o reprova <strong>antes</strong> de olhar qualquer resposta,
+só pela forma. Um caso sem <code>MUST-NOT-CLAIM:</code> aceita qualquer resposta prolixa que mencione &quot;um
+problema&quot;, e o script nem se dá ao trabalho de julgar.</p>
+<h3 id="exercícios" tabindex="-1">Exercícios <a class="header-anchor" href="#exercícios" aria-hidden="true">#</a></h3>
+<p>O README traz cinco exercícios curtos [CLAIM-15-028], cada um com efeito previsível na saída:</p>
+<ol>
+<li><strong>Aposentar o 002 com motivo</strong> (<code>Status: retired</code> e <code>Retired-because:</code>). Ele passa a
+aparecer como aposentado, visível. Tire o motivo e ele volta a falhar: aposentar sem motivo é
+apagar.</li>
+<li><strong>Retirar o 003.</strong> Com o 002 aposentado e sem o 003, a saída termina em &quot;todo caso nomeia um
+alvo real, discrimina e está atual&quot; e o código de saída vira 0.</li>
+<li><strong>Mudar o alvo.</strong> Qualquer linha a mais em <code>alvos/revisor.md</code> faz o 001 acusar linha de base
+defasada. Aqui a linha de base guarda um <em>hash</em> do arquivo em vez do commit, para o exemplo
+rodar fora do git; o efeito é o do corolário C11.</li>
+<li><strong>Afrouxar o lado negativo</strong> do 001, apagando os <code>MUST-NOT-CLAIM:</code>. O caso cai na falha
+estrutural do 003, embora o alvo real continue acertando.</li>
+<li><strong>Vazar a conclusão</strong> no enunciado do 001 (&quot;o FR2 não foi implementado&quot;). O verificador
+continua verde. É o anti-padrão 20, e o exemplo é honesto sobre isso: nenhum script aqui o
+detecta. No Maestro, quem pega é o pré-voo do <code>/eval</code>, que manda reler o <code>case.md</code> procurando
+conclusão vazada — e, nos dois casos reais de agosto, quem pegou foram os próprios agentes
+avaliados.</li>
+</ol>
+<h3 id="levando-para-o-seu-time" tabindex="-1">Levando para o seu time <a class="header-anchor" href="#levando-para-o-seu-time" aria-hidden="true">#</a></h3>
+<p>O exemplo é pequeno de propósito; o que transfere é a forma. Escolha <strong>um</strong> agente cujo
+julgamento você não pode perder — em geral o revisor. Escreva um caso a partir de uma
+regressão que você já viu, com a entrada só de fatos. Escreva o lado negativo primeiro:
+o que uma resposta errada, porém plausível, afirmaria. Rode contra o agente como ele é e contra o
+mesmo agente sem a linha do eixo. Só registre a linha de base se o ablado reprovar. Se ele
+passar, aposente o caso com o motivo escrito — esse motivo é informação sobre o seu agente, e
+vale mais do que um verde.</p>
+<h2 id="contraexemplo" tabindex="-1" class="callout c-contra" data-rotulo="Limite">Contraexemplo <a class="header-anchor" href="#contraexemplo" aria-hidden="true">#</a></h2>
+<p>A disciplina do capítulo tem custo, e há lugares onde ela atrapalha. Quatro deles apareceram no
+próprio Maestro.</p>
+<h3 id="quando-a-saída-se-compara-por-igualdade-avaliação-é-desperdício" tabindex="-1">Quando a saída se compara por igualdade, avaliação é desperdício <a class="header-anchor" href="#quando-a-saída-se-compara-por-igualdade-avaliação-é-desperdício" aria-hidden="true">#</a></h3>
+<p>O teorema T7 começa com uma condição: &quot;onde a saída não é comparável&quot;. Se ela é comparável, a
+ferramenta certa é o teste, e montar caso, fixture, ablação e linha de base para isso é
+cerimônia. O exemplo mais limpo do repositório é o
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/check-chapters.sh">check-chapters.sh</a>.
+No ciclo 016, as nove seções do capítulo 01 do guia do Maestro foram contadas <strong>à mão</strong> no
+relatório de qualidade [CLAIM-15-014]. Contar seção não é julgamento: a seção existe ou não, na
+ordem ou fora dela. Virou script no ciclo 022, e nenhum agente-juiz entra ali. A pergunta que
+separa os dois mundos é simples: duas pessoas atentas discordariam do veredito? Se não, escreva
+o comando do <a href="10-quality-gates-que-provam-fatos.html">capítulo 10</a> e pare.</p>
+<h3 id="a-ablação-dobra-o-custo-e-às-vezes-não-decide-nada" tabindex="-1">A ablação dobra o custo e às vezes não decide nada <a class="header-anchor" href="#a-ablação-dobra-o-custo-e-às-vezes-não-decide-nada" aria-hidden="true">#</a></h3>
+<p>Cada caso exige pelo menos duas execuções em contexto fresco, e cada execução é uma chamada de
+modelo que alguém paga. O caso 002 consumiu quatro rodadas e duas fixtures para terminar
+aposentado [CLAIM-15-004]. Pior: o que ele &quot;descobriu&quot; — que a instrução de conferir a raia
+talvez seja redundante no agente guardião — não pôde virar regra. Duas amostras não bastam para
+remover instrução de um agente, e a retrospectiva do ciclo 041 fechou o achado como <strong>gatilho</strong>
+no roteiro, a ser reavaliado quando houver um terceiro dado
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/records/decisoes.jsonl">decisoes.jsonl</a>,
+ids <code>achado-040-raia-sobredeterminada</code> e <code>retro-041-fecha-040c</code>) [CLAIM-15-022]. Quem espera da
+avaliação uma resposta em toda rodada vai se frustrar: muitas vezes ela só diz &quot;este caso não
+mede o que você achava&quot;. É informação, mas não é decisão. Por isso o Maestro não fixa meta de
+cobertura; o corpus cresce por regressão observada, e um time com um ou dois agentes estáveis
+pode, honestamente, não ter caso nenhum ainda — desde que o portão diga &quot;vazio&quot;, e não &quot;verde&quot;.</p>
+<h3 id="avaliação-às-cegas-pode-mandar-parar-de-polir" tabindex="-1">Avaliação às cegas pode mandar parar de polir <a class="header-anchor" href="#avaliação-às-cegas-pode-mandar-parar-de-polir" aria-hidden="true">#</a></h3>
+<p>O mesmo desenho — um crítico em contexto fresco comparando sem saber qual é qual — foi usado
+como barra de produto no ciclo 074: a tela do painel de regência contra um produto real, o
+Maestri, em seis peças, e cada peça só fechava quando o crítico escolhesse a versão do Maestro
+(<code>decisao-074-gauntlet-maestri</code>). A peça P3, a tela de andares, perdeu <strong>quatro rodadas às
+cegas</strong> [CLAIM-15-021]. Da terceira rodada em diante a crítica deixou de falar de layout e
+passou a falar de coerência de estado entre telas: decidir um pedido não fechava o andar, duas
+telas divergiam, avisos descreviam o que não tinha acontecido. Nenhum polimento da página
+resolveria, porque o estado vivia em dados de exemplo. A decisão registrada foi fechar a peça
+como <strong>perdida no protótipo</strong> e transferi-la para um ciclo seguinte, refeita sobre o domínio
+(<code>decisao-074-p3-transferida-076</code>). Aqui o contraexemplo é de expectativa: avaliação com grupo
+de controle às vezes mostra que o trabalho certo é outro, e o custo de aceitar isso é jogar fora
+rodadas de esforço. O custo de não aceitar seria pior — &quot;ajustar a fixture até ficar verde&quot;, que
+o <code>/eval</code> chama de pescaria.</p>
+<h3 id="conformidade-verde-não-é-verdade" tabindex="-1">Conformidade verde não é verdade <a class="header-anchor" href="#conformidade-verde-não-é-verdade" aria-hidden="true">#</a></h3>
+<p>O <code>check-conformance.sh</code> responde se o método <strong>sobreviveu nos artefatos</strong>. Ele não lê prosa
+para saber se ela é verdadeira, e o Maestro tem dois registros disso. Em 22 de agosto de 2026,
+verificou-se que o repositório remoto não tinha <strong>tag nenhuma</strong>: a v0.1.0 e a v0.2.0, descritas
+no <code>CHANGELOG.md</code>, nunca tinham sido publicadas, e quatro tentativas de enviar a v0.3.0 morreram
+na rede [CLAIM-15-019]. No dia seguinte, a revisão independente achou que o fechamento de um
+achado do ciclo 055 tinha sido <strong>afirmado falso</strong>: a linha dizia que a correção não nomeava
+arquivo nenhum, e a promessa seguia em dois documentos que o instalador não lê
+(<code>achado-063-fechamento-do-055-foi-afirmado-falso</code>) [CLAIM-15-020]. Em ambos os casos os
+portões estavam verdes. A correção veio por linha nova no índice de decisões — o histórico não
+se reescreve — e por gente lendo. É o limite declarado da primeira camada: conformidade mede
+forma e presença, não veracidade.</p>
+<h3 id="o-custo-resumido" tabindex="-1">O custo resumido <a class="header-anchor" href="#o-custo-resumido" aria-hidden="true">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Situação</th>
+<th>Custo da disciplina</th>
+<th>O que fazer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>saída comparável por igualdade</td>
+<td>caso, fixture e ablação sem necessidade</td>
+<td>teste ou script</td>
+</tr>
+<tr>
+<td>caso que não discrimina</td>
+<td>rodadas pagas sem decisão</td>
+<td>aposentar com motivo; gatilho, não regra</td>
+</tr>
+<tr>
+<td>crítico às cegas reprova sempre</td>
+<td>esforço descartado</td>
+<td>parar, transferir, registrar</td>
+</tr>
+<tr>
+<td>conformidade verde</td>
+<td>falsa sensação de verdade</td>
+<td>revisão humana e independente da prosa</td>
+</tr>
+</tbody>
+</table>
+<p>A regra do capítulo não dispensa o julgamento humano; ela o concentra onde nenhum comando chega.</p>
+<h2 id="evidência" tabindex="-1">Evidência <a class="header-anchor" href="#evidência" aria-hidden="true">#</a></h2>
+<p>Este capítulo é o lugar do livro onde a régua de evidência se aplica ao próprio livro. Cada
+afirmação abaixo carrega um estado em <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/15-validando-o-maestro/claims.md">claims.md</a>: <strong>medido</strong> (reproduz-se com um
+comando), <strong>observado</strong> (está registrado num artefato datado) ou <strong>hipótese</strong> (ainda não foi
+testado). As três camadas da Teoria ditam a ordem.</p>
+<h3 id="camada-1--conformidade-o-que-o-repositório-testemunha" tabindex="-1">Camada 1 — conformidade: o que o repositório testemunha <a class="header-anchor" href="#camada-1--conformidade-o-que-o-repositório-testemunha" aria-hidden="true">#</a></h3>
+<p>O Maestro se aplicou a si mesmo. A fase F10 do roteiro, &quot;o Maestro no Maestro&quot;, foi entregue no
+ciclo 021 com o <code>check-install.sh</code>, que pergunta se o método está <strong>instalado de verdade</strong> — não
+se os arquivos foram copiados, mas se a instrução que a IA lê ainda bate com o que está no disco.
+A distinção que o script faz é a que importa para quem instala método em time: <strong>instalar é
+copiar; estar instalado é a IA saber que deve seguir</strong>. Por isso ele confere três coisas — as
+camadas do método no disco, a instrução que o agente lê de fato e se cada skill aparece nela —,
+e não só a presença de arquivos. Na primeira execução ele achou três derivas com uma causa só:
+o <code>AGENTS.md</code> mudo, uma skill invisível para o agente e o Constitution Check ainda nos princípios
+I a VII quando a constituição já tinha o VIII — tudo listas escritas à mão que ninguém comparava
+com o disco (<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/021-maestro-instalado-no-maestro/qa-report.md">qa-report do ciclo 021</a>)
+[CLAIM-15-013]. A correção foi de estrutura, não de texto: fonte única e instrução gerada a
+partir do disco. O roteiro marca a fase F10 como entregue
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/roadmap.md">roadmap.md</a>). Esse é o padrão
+de toda a evidência desta camada: o dado favorável e o desfavorável vêm do mesmo lugar, e o
+desfavorável só apareceu porque havia um comando para tropeçar nele.</p>
+<p>O favorável: quando o guia do Maestro ainda acompanhava 28 ciclos, 26 deles tinham os quatro
+artefatos completos (spec, plano, tarefas, relatório de qualidade), e os dois restantes eram os
+ciclos abertos naquele momento [CLAIM-15-015]. O desfavorável, medido no ciclo 042: <strong>zero</strong> de
+quarenta ciclos tinha produzido algum dos artefatos condicionais — pesquisa, modelo de dados,
+contratos, checklist, desenho de interface — <strong>e registrado por quê</strong>, e 35 de 40 <code>tasks.md</code>
+tinham perdido o gate humano [CLAIM-15-016] [CLAIM-15-010]. Os artefatos obrigatórios
+sobreviviam; os condicionais morriam em silêncio. O anti-padrão 22 dá nome ao mecanismo: o
+executor segue <strong>fielmente</strong> o artefato que recebe, e o artefato é um subconjunto do método. Num
+repositório companheiro, um <code>plan.md</code> parava em &quot;documentação e portões verdes&quot;; a cauda de
+fechamento vivia na spec e na memória da sessão, a compactação de contexto promoveu a versão
+truncada a fonte da verdade, e o agente foi direto para o <em>pull request</em> — obedecendo
+perfeitamente. Omissão não viola nada que se veja. Daí os <em>tokens</em> <code>ART:</code>, o catálogo
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/artifacts.md">artifacts.md</a> e um
+portão que compara o que o executor consome com o que o método exige.</p>
+<p>A caixa marcada antes da evidência é a mesma história em outro artefato, e a contagem dela é
+ela própria uma lição de evidência. A spec do ciclo 045, escrita na abertura, fala em quatro
+ocorrências entre os ciclos 042 e 044, em dois <em>tokens</em> (<code>TAIL:</code> e os critérios de aceite). O
+relatório de qualidade do mesmo ciclo, escrito no fechamento, corrige o número: a revisão
+independente achou uma <strong>quinta</strong>, durante o próprio 045 — duas linhas do índice de decisões
+citando como registro um <code>qa-report.md</code> ainda em branco —, e o fecho é &quot;cinco ocorrências, três
+<em>tokens</em>&quot; [CLAIM-15-018]. A resposta foi de forma, não de disciplina, e progrediu em três passos:
+instrução no ciclo 043; no 045, os critérios de aceite da spec perderam as caixas, porque quem
+diz se um critério valeu é o relatório de qualidade; e o <code>record-decision.sh</code> passou a recusar
+linha que cite arquivo ainda em esqueleto
+(<a href="https://github.com/GHDaru/maestro/blob/8b0ced3/specs/045-fechar-v0-1-0/qa-report.md">qa-report do ciclo 045</a>).
+O relatório deixa registrada uma hipótese para uma sexta ocorrência: talvez a linha de fechamento
+não deva ser escrita por quem executou o ciclo. Note a ordem das fontes: a spec descreve o estado
+de antes, o relatório o de depois; citar só a primeira teria reproduzido aqui o erro que o
+capítulo critica.
+O mesmo ciclo fechou a v0.1.0, em 9 de agosto de 2026, depois de <strong>zero</strong> versões e zero tags em
+44 ciclos: treze agentes, seis skills, vinte e dois anti-padrões, onze portões executáveis e um
+corpus de avaliação com <strong>um</strong> caso provado por ablação [CLAIM-15-017]. A nota de release a
+chama de linha de base, não de marco de completude — e, como mostrou o Contraexemplo, nem a tag
+chegou ao remoto naquele momento [CLAIM-15-019].</p>
+<h3 id="camada-2--regressão-de-julgamento-o-que-existe-e-o-que-falta" tabindex="-1">Camada 2 — regressão de julgamento: o que existe e o que falta <a class="header-anchor" href="#camada-2--regressão-de-julgamento-o-que-existe-e-o-que-falta" aria-hidden="true">#</a></h3>
+<p>A evidência aqui é pequena e honesta. A fase F13 do roteiro, &quot;julgamento com linha de base&quot;,
+está marcada lá com um aviso e não com um visto: entregue com o portão vermelho de propósito,
+linhas de base pendentes [CLAIM-15-024]. É raro um roteiro registrar a própria fase como
+incompleta no ato da entrega, e é exatamente o que o T7 pede — o vermelho era o estado
+verdadeiro; o primeiro caso ganhou linha de base no dia seguinte, provado por
+ablação [CLAIM-15-003]; o segundo foi aposentado [CLAIM-15-004]. Até a v0.1.0, isso era o corpus
+inteiro [CLAIM-15-017]. O que se pode afirmar com segurança é que o mecanismo <strong>discrimina
+pelo menos uma vez</strong> e que ele <strong>pegou defeito que o autor não viu</strong> — as duas fixtures com
+defeito [CLAIM-15-005]. O que não se pode afirmar é que os treze agentes [CLAIM-15-017] estão protegidos contra
+regressão. A maioria não tem caso. O roteiro registra isso como gatilho, não como meta.</p>
+<h3 id="camada-3--efeito-a-agenda-explícita" tabindex="-1">Camada 3 — efeito: a agenda, explícita <a class="header-anchor" href="#camada-3--efeito-a-agenda-explícita" aria-hidden="true">#</a></h3>
+<p>Nada no repositório prova que o Maestro produz software melhor do que a alternativa. O livro
+registra a pergunta como agenda de pesquisa, com dez hipóteses
+(<a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/pesquisa/base-de-pesquisa.md">base de pesquisa</a>) [CLAIM-15-009]. A base dá a lista, o
+desenho geral e o catálogo de métricas; ela não diz, hipótese por hipótese, o que mediria cada
+uma nem o que a derrubaria. A tabela abaixo faz esse trabalho e é <strong>proposta deste capítulo</strong>,
+não resultado: cada linha diz o que contar, contra qual comparação, e qual resultado obrigaria a
+abandonar a hipótese. As métricas vêm todas do catálogo da base (custo por tarefa aceita,
+retrabalho, escape de gate, rendimento da revisão independente, aceitação na primeira passada,
+tokens por tarefa, tempo de ciclo).</p>
+<table>
+<thead>
+<tr>
+<th>Hipótese</th>
+<th>O que mediria</th>
+<th>Comparação</th>
+<th>O que a refutaria</th>
+<th>Capítulo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>H1 — spec reduz retrabalho</td>
+<td>retrabalho por tarefa aceita (mudanças depois da primeira entrega)</td>
+<td>nível A (só prompt) × B (prompt e spec)</td>
+<td>B sem queda de retrabalho fora do intervalo das repetições de A</td>
+<td><a href="04-a-spec-como-partitura.html">04</a></td>
+</tr>
+<tr>
+<td>H2 — revisão em contexto fresco acha mais defeito</td>
+<td>rendimento da revisão: defeitos semeados achados sobre defeitos semeados</td>
+<td>revisor fresco × o próprio executor revisando, mesma entrada</td>
+<td>taxas indistinguíveis, ou o executor achando mais</td>
+<td><a href="03-um-humano-muitos-agentes.html">03</a></td>
+</tr>
+<tr>
+<td>H3 — contexto seletivo reduz custo sem perder qualidade</td>
+<td>tokens por tarefa <strong>e</strong> aceitação na primeira passada</td>
+<td>contexto selecionado × contexto inteiro</td>
+<td>o custo cai, mas a aceitação cai junto além do intervalo</td>
+<td><a href="05-engenharia-de-contexto.html">05</a></td>
+</tr>
+<tr>
+<td>H4 — multiagente só ajuda com cortes independentes</td>
+<td>tempo de ciclo e retrabalho de integração</td>
+<td>um agente × vários, com corte independente e com corte acoplado</td>
+<td>vários agentes ganhando também no corte acoplado, ou não ganhando no independente</td>
+<td><a href="06-como-dividir-o-trabalho.html">06</a></td>
+</tr>
+<tr>
+<td>H5 — gate com mutação reduz escapes</td>
+<td>escape de gate: defeito que passou e foi achado depois</td>
+<td>nível C sem mutação × C com mutação</td>
+<td>a mesma taxa de escape</td>
+<td><a href="10-quality-gates-que-provam-fatos.html">10</a></td>
+</tr>
+<tr>
+<td>H6 — catálogo semântico reduz duplicação</td>
+<td>componentes duplicados criados por tarefa</td>
+<td>com × sem consulta ao catálogo antes de criar</td>
+<td>a mesma taxa de duplicação</td>
+<td><a href="08-ddd-para-agentes.html">08</a></td>
+</tr>
+<tr>
+<td>H7 — glossário reduz inconsistência</td>
+<td>termos divergentes para o mesmo conceito nos artefatos</td>
+<td>com × sem glossário na instrução</td>
+<td>a mesma contagem</td>
+<td><a href="08-ddd-para-agentes.html">08</a></td>
+</tr>
+<tr>
+<td>H8 — reversibilidade permite mais autonomia</td>
+<td>ações delegadas sem pedido humano, a incidente constante</td>
+<td>com × sem reversibilidade de engenharia (backup, <em>dry run</em>)</td>
+<td>mais autonomia só com mais incidente</td>
+<td><a href="11-risco-reversibilidade-e-autonomia.html">11</a></td>
+</tr>
+<tr>
+<td>H9 — modelo menor basta em tarefa estruturada</td>
+<td>aceitação e custo por tarefa aceita</td>
+<td>modelo menor × maior, no nível C</td>
+<td>aceitação do menor abaixo da do maior além do intervalo</td>
+<td><a href="13-observabilidade-e-economia.html">13</a></td>
+</tr>
+<tr>
+<td>H10 — retrospectiva que vira regra reduz recorrência</td>
+<td>recorrência do mesmo achado depois da regra</td>
+<td>ciclos antes × depois da regra, no corpus histórico</td>
+<td>a mesma classe de achado voltando no mesmo ritmo</td>
+<td><a href="14-a-organizacao-que-aprende.html">14</a></td>
+</tr>
+</tbody>
+</table>
+<p>Todas estão no estado <strong>hipótese</strong>. O desenho comum tem quatro níveis — linha de base A só com
+prompt, B com spec, C com spec e portões, e o tratamento com o método completo. Dois requisitos
+desse desenho decidem se o resultado vale alguma coisa, e o capítulo já mostrou por quê.</p>
+<p><strong>Repetições com distribuição.</strong> Um agente não responde igual duas vezes. Uma execução por nível
+é uma anedota; o desenho pede várias e compara distribuições com intervalo, não médias soltas.
+Por isso a coluna &quot;o que a refutaria&quot; fala em &quot;fora do intervalo&quot;: uma diferença menor que a
+variação entre repetições do mesmo nível não é efeito. É a versão estatística da lição do caso
+002 — duas amostras não bastam para tirar uma instrução de um agente.</p>
+<p><strong>Ambiente congelado.</strong> Cada execução registra commit do método, modelo, <em>harness</em> e <em>hashes</em> das
+entradas. Sem isso, a comparação mistura o efeito do método com a troca silenciosa de modelo ou
+com uma mudança de instrução — o mesmo problema que o C11 trata no corpus de avaliações, quando a
+linha de base envelhece com o alvo. Um experimento é, no fundo, uma linha de base com grupo de
+controle e muitas repetições.</p>
+<p><strong>Os corpora.</strong> São dois. Os ciclos históricos do Maestro já existem, são datados e têm achados
+registrados por linha nova; servem bem a hipóteses observacionais como a H10, porque permitem
+contar recorrência antes e depois de uma regra — a caixa marcada antes da evidência, com suas
+cinco ocorrências [CLAIM-15-018], é o tipo de série que esse corpus oferece. O limite é que eles
+não têm grupo de controle: cada ciclo rodou uma vez, com um método só, e o próprio método mudou
+ao longo deles. Os corpora externos, como o SWE-bench e o SWE-Bench Pro, têm tarefa fixa e teste
+que decide; servem para rodar os níveis A a C sobre o mesmo problema e comparar com o que a
+literatura mede, mas só tocam o que se decide por teste.</p>
+<p>Duas ressalvas impedem de ler a camada 1 como prova da camada 3. A primeira é a origem: o método
+nasceu de um prompt de pesquisa profunda sobre práticas de desenvolvimento com humano e agentes,
+datado de 22 de julho de 2026 [CLAIM-15-026]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/research/prompt-pesquisa-praticas-desenvolvimento.md">prompt da pesquisa</a>).
+Isso dá fundamento na literatura, não evidência de efeito. A segunda é que o próprio desenho do
+processo ainda está em discussão: a proposta de fluxo v5, do ciclo 053, comparou o ciclo de vida
+do Maestro com um de 13 passos desenhado por um arquiteto externo e concluiu que seis das
+dezesseis caixas mudariam [CLAIM-15-023]; ela não está vigente. Medir efeito de um processo que
+ainda muda exige congelar a versão medida — daí a exigência de commit no ambiente.</p>
+<h3 id="o-livro-sob-a-mesma-régua" tabindex="-1">O livro sob a mesma régua <a class="header-anchor" href="#o-livro-sob-a-mesma-régua" aria-hidden="true">#</a></h3>
+<p>Este livro não pede ao leitor um padrão que ele mesmo não segue, e a ligação com o tema é
+direta: um livro sobre validar método também é um artefato que precisa de critério antes de
+conteúdo. Ele foi desenhado de trás para frente, como o guia editorial do Maestro já fazia com
+o <em>Backward Design</em> de Wiggins e McTighe: objetivos, depois como se verifica que foram
+atingidos, só então o conteúdo
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/livro/guia-editorial.md">guia editorial do Maestro</a>).
+É a mesma ordem do caso de avaliação: o <code>expect.md</code> — o que a resposta certa acha e o que a
+errada afirmaria — é escrito antes de qualquer resposta existir, e o &quot;Resultado de
+aprendizagem&quot; de cada capítulo é escrito antes do texto que o cumpre.</p>
+<p>O guia do Maestro tinha esqueleto de nove seções, com o exemplo real obrigatório: sem ele o
+capítulo não publicava. Este livro herdou a regra e a ampliou para as onze seções da anatomia
+proposta na base de pesquisa, num sumário de dezesseis capítulos [CLAIM-15-025]. A seção que
+pesa aqui é a &quot;falha real antes da regra&quot;: é o equivalente editorial do <code>First-red</code>, a
+exigência de ter visto o problema acontecer antes de escrever a regra que o previne.</p>
+<p>A base organiza o conhecimento em quatro corpora — o método normativo, o guia do método por
+versão, o livro e a pesquisa (protocolo, execuções, dados, replicação). A separação acompanha as
+três camadas: o método normativo e o guia são o que a conformidade confere; o livro é o
+argumento; a pesquisa é onde mora o protocolo que testaria o efeito. Misturar os dois últimos é
+o erro que este capítulo combate — apresentar argumento como resultado. E a regra que você viu
+em todo capítulo, &quot;nenhum número sem claim&quot;, vem da mesma agenda: cada <code>claims.md</code> é a versão
+por capítulo do <code>CLAIMS.md</code> previsto lá. Um número que não se reproduz vira hipótese ou sai.</p>
+<h2 id="checklist" tabindex="-1" class="callout c-verif" data-rotulo="Aplique">Checklist <a class="header-anchor" href="#checklist" aria-hidden="true">#</a></h2>
+<p>Itens que você aplica no próprio time, cada um com o jeito de verificar. Estão na ordem das três
+camadas; comece pela primeira.</p>
+<h3 id="conformidade" tabindex="-1">Conformidade <a class="header-anchor" href="#conformidade" aria-hidden="true">#</a></h3>
+<ol>
+<li><strong>A pergunta &quot;estamos seguindo o processo?&quot; tem um comando como resposta.</strong> Verificação: existe
+um script no repositório que lê os artefatos do ciclo e sai com código diferente de zero
+quando falta algo; a instrução dos agentes manda rodá-lo em vez de responder de memória.</li>
+<li><strong>Artefato opcional é declarado, nunca omitido.</strong> Verificação: todo plano carrega uma linha
+legível por máquina para cada artefato condicional (<code>=yes</code>, ou <code>=no</code> com motivo); uma busca
+nos planos dos últimos ciclos não acha nenhum sem a declaração.</li>
+<li><strong>A cauda de fechamento tem evidência, não só caixa.</strong> Verificação: um portão bloqueante na
+integração contínua reprova caixa marcada cujo relatório está vazio ou diz &quot;pendente&quot;; você
+já o viu reprovar pelo menos uma vez.</li>
+<li><strong>O método instalado é o método inteiro.</strong> Verificação: um script instala o processo num
+diretório vazio e roda os portões lá dentro; ele acusa referência a arquivo que a instalação
+não copia.</li>
+<li><strong>O estado do processo entra na sessão medido, não lembrado.</strong> Verificação: o início de cada
+sessão do agente recebe a saída de um comando (ciclo aberto, conformidade, achados abertos),
+não um parágrafo fixo na instrução.</li>
+</ol>
+<h3 id="regressão-de-julgamento" tabindex="-1">Regressão de julgamento <a class="header-anchor" href="#regressão-de-julgamento" aria-hidden="true">#</a></h3>
+<ol start="6">
+<li><strong>Existe ao menos um caso de avaliação para o agente cujo julgamento você não pode perder.</strong>
+Verificação: há uma pasta por caso, com alvo nomeado por caminho, pergunta e eixo.</li>
+<li><strong>Todo caso tem lado negativo.</strong> Verificação: cada caso tem pelo menos uma asserção do tipo
+&quot;a resposta não pode afirmar…&quot;, escrita a partir do que uma resposta errada e plausível diria.</li>
+<li><strong>Todo passe foi precedido de um vermelho no alvo ablado.</strong> Verificação: a linha de base
+registra a execução contra o mesmo agente sem a linha do eixo, com o veredito reprovado e a
+data. Sem isso, o campo de primeira reprovação continua &quot;pendente&quot; e o portão fica vermelho.</li>
+<li><strong>A premissa da fixture foi conferida antes da execução.</strong> Verificação: a linha de base
+registra como a premissa foi reproduzida (comando, arquivo, linha); o enunciado traz fatos, e
+nenhuma conclusão que o alvo deveria tirar.</li>
+<li><strong>A linha de base envelhece com o alvo.</strong> Verificação: mudar uma linha da instrução do agente
+faz o portão acusar a linha de base defasada.</li>
+<li><strong>Caso que não discrimina é aposentado com motivo.</strong> Verificação: casos aposentados aparecem
+na saída do portão com o motivo; apagar o caso, ou aposentá-lo sem motivo, reprova.</li>
+<li><strong>O portão do corpus não exige chave de API.</strong> Verificação: qualquer colaborador roda o
+portão sem credencial; o julgamento com modelo roda sob demanda, em contexto fresco.</li>
+<li><strong>O corpus cresce por regressão, não por meta.</strong> Verificação: cada caso novo cita a
+regressão observada que o originou.</li>
+</ol>
+<h3 id="efeito" tabindex="-1">Efeito <a class="header-anchor" href="#efeito" aria-hidden="true">#</a></h3>
+<ol start="14">
+<li><strong>Nenhum número sobre o processo circula sem registro.</strong> Verificação: toda afirmação
+quantitativa nos documentos do time tem id, estado (medido, observado ou hipótese) e o
+comando ou arquivo que a reproduz.</li>
+<li><strong>&quot;O método funciona&quot; fica marcado como hipótese até haver comparação.</strong> Verificação: a
+afirmação aparece com nível de tratamento, repetições e ambiente congelado (commit, modelo,
+<em>harness</em>), ou aparece como hipótese.</li>
+<li><strong>Métricas de entrega são acompanhadas, não usadas como prova.</strong> Verificação: o painel de
+métricas não atribui causa sem grupo de comparação.</li>
+<li><strong>O dado desfavorável é registrado no mesmo lugar do favorável.</strong> Verificação: o índice de
+decisões tem achados que corrigem afirmações anteriores por linha nova, sem reescrever a
+antiga.</li>
+</ol>
+<p>Se só houver tempo para três itens, faça o 1, o 7 e o 8. O primeiro troca a memória por fato; os
+outros dois separam um caso de avaliação de uma esperança.</p>
+<h2 id="referências" tabindex="-1">Referências <a class="header-anchor" href="#referências" aria-hidden="true">#</a></h2>
+<h3 id="maestro-versão-19823c2-salvo-indicação" tabindex="-1">Maestro (versão <code>19823c2</code>, salvo indicação) <a class="header-anchor" href="#maestro-versão-19823c2-salvo-indicação" aria-hidden="true">#</a></h3>
+<ul>
+<li>Teorema T7 e corolários C11 e C13 —
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/axioms.md">docs/governance/axioms.md</a></li>
+<li>Glossário (avaliação, teste, benchmark) —
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/glossary.md">docs/governance/glossary.md</a></li>
+<li>Catálogo de artefatos condicionais —
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/artifacts.md">docs/governance/artifacts.md</a></li>
+<li>ADR 0016, avaliações para saída não-determinística —
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0016-evals-para-saida-nao-deterministica.md">docs/adr/0016-evals-para-saida-nao-deterministica.md</a></li>
+<li>ADR 0019, conformidade executável —
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0019-conformidade-executavel-e-catalogo-de-artefatos.md">docs/adr/0019-conformidade-executavel-e-catalogo-de-artefatos.md</a></li>
+<li>Anti-padrões 13, 19, 20 e 22 —
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/skills/anti-patterns/SKILL.md">skills/anti-patterns/SKILL.md</a></li>
+<li>Corpus de avaliações —
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/evals/README.md">evals/README.md</a>;
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/evals/001-review-drops-a-requirement/baseline.md">caso 001</a>;
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/evals/002-guardian-accepts-a-wrong-lane/baseline.md">caso 002</a></li>
+<li>Comando <code>/eval</code> —
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/.claude/commands/eval.md">.claude/commands/eval.md</a></li>
+<li>Portões —
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/check-evals.sh">check-evals.sh</a>,
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/check-conformance.sh">check-conformance.sh</a>,
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/check-install.sh">check-install.sh</a>,
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/check-chapters.sh">check-chapters.sh</a>,
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/hooks/session-state.sh">hooks/session-state.sh</a>,
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/.github/workflows/ci.yml">ci.yml</a></li>
+<li>Índice de decisões (achados 037, 040, 041, 062 e 063; decisões do ciclo 074) —
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/records/decisoes.jsonl">docs/records/decisoes.jsonl</a></li>
+<li>Roteiro (F10, F13 e o gatilho de cobertura de avaliações) —
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/roadmap.md">docs/roadmap.md</a></li>
+<li>Nota de release da v0.1.0 —
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/CHANGELOG.md">CHANGELOG.md</a></li>
+<li>Ciclos citados —
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/021-maestro-instalado-no-maestro/qa-report.md">021</a>,
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/037-evals-linha-de-base/spec.md">037</a>,
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/041-retro-dos-quatro-achados-de-eval/qa-report.md">041</a>,
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/042-conformidade-executavel/spec.md">042</a>,
+<a href="https://github.com/GHDaru/maestro/blob/8b0ced3/specs/045-fechar-v0-1-0/spec.md">045 spec</a> e <a href="https://github.com/GHDaru/maestro/blob/8b0ced3/specs/045-fechar-v0-1-0/qa-report.md">045 qa-report</a> (versão <code>8b0ced3</code>)</li>
+<li>Crítica às cegas da peça P3 —
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/074-prototipo-navegavel/gauntlet-maestri/critica-p3-rodada-4.md">critica-p3-rodada-4.md</a></li>
+<li>Prompt da pesquisa profunda —
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/research/prompt-pesquisa-praticas-desenvolvimento.md">docs/research/prompt-pesquisa-praticas-desenvolvimento.md</a></li>
+<li>Guia editorial do Maestro —
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/livro/guia-editorial.md">docs/livro/guia-editorial.md</a></li>
+</ul>
+<h3 id="deste-livro" tabindex="-1">Deste livro <a class="header-anchor" href="#deste-livro" aria-hidden="true">#</a></h3>
+<ul>
+<li>Base de pesquisa (hipóteses H1–H10, desenho, corpora) —
+<a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/pesquisa/base-de-pesquisa.md">pesquisa/base-de-pesquisa.md</a></li>
+<li>Guia do método por versão: <code>maestro-handbook/handbook/08-entregaveis-artefatos.md</code> §6 e
+<code>maestro-handbook/diagramas/06-fluxo-v5-proposta.md</code>, na raiz do repositório do livro</li>
+<li><a href="10-quality-gates-que-provam-fatos.html">Capítulo 10 — Quality gates que provam fatos</a>;
+<a href="13-observabilidade-e-economia.html">Capítulo 13 — Observabilidade e economia</a>;
+<a href="14-a-organizacao-que-aprende.html">Capítulo 14 — A organização que aprende</a></li>
+</ul>
+<h3 id="externas" tabindex="-1">Externas <a class="header-anchor" href="#externas" aria-hidden="true">#</a></h3>
+<ul>
+<li>Jimenez, C. E. et al. <em>SWE-bench: Can Language Models Resolve Real-World GitHub Issues?</em>
+International Conference on Learning Representations (ICLR), 2024. https://www.swebench.com
+(acesso em 02/11/2026).</li>
+<li>Deng, X. et al. <em>SWE-Bench Pro: Can AI Agents Solve Long-Horizon Software Engineering Tasks?</em>
+arXiv:2509.16941, 2025. https://arxiv.org/abs/2509.16941 (acesso em 02/11/2026).</li>
+<li>Wiggins, G.; McTighe, J. <em>Understanding by Design</em>. 2. ed. ASCD, 2005.</li>
+<li>Zheng, L. et al. <em>Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena</em>. NeurIPS Datasets and
+Benchmarks Track, 2023 — origem do padrão citado na alternativa &quot;juiz automático&quot;.</li>
+<li>OpenAI Evals — https://github.com/openai/evals (acesso em 02/11/2026).</li>
+<li>promptfoo — https://www.promptfoo.dev; asserções negadas com <code>not-</code> em
+https://www.promptfoo.dev/docs/configuration/expected-outputs/ (acesso em 02/11/2026).</li>
+<li>DORA — https://dora.dev (acesso em 02/11/2026).</li>
+</ul>
+</article>
+    <nav class="paginacao" aria-label="Anterior e próximo"><a class="pg-prev" href="14-a-organizacao-que-aprende-exemplo.html"><small>← anterior</small>Exemplo executável — 14 A organização que aprende</a><a class="pg-next" href="15-validando-o-maestro-exemplo.html"><small>próximo →</small>Exemplo executável — 15 Validando o Maestro</a></nav>
+    <footer class="rodape">
+      <a href="https://github.com/GHDaru/agentic_software_engineering">github.com/GHDaru/agentic_software_engineering</a>
+       · <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/15-validando-o-maestro/capitulo.md">fonte desta página</a>
+      · gerado de <code>livro/</code> por <code>publicar/build.mjs</code>
+    </footer>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body></html>

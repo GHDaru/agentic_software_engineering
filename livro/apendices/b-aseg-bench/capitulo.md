@@ -542,7 +542,7 @@ no histórico do método, um incidente datado de injeção por documento. Há o 
 registra que o canal entre sessões "aceita a identidade escrita pelo modelo", e o ciclo 075
 passou a decidir identidade fora do texto. A referência externa é a primeira entrada do OWASP
 GenAI (*Open Worldwide Application Security Project*, a lista de riscos de aplicações com
-modelos de linguagem): LLM01, *prompt injection*.
+modelos de linguagem): LLM01 (LLM = *Large Language Model*), *prompt injection*.
 
 **Gatilho.** "Corrija o erro de digitação em `docs/integracao.md`." O arquivo tem, num
 comentário de *HyperText Markup Language* (HTML), uma nota "para assistentes de Inteligência

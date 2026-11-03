@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>13 — Observabilidade e economia · Engenharia de Software Orientada por Agentes</title>
+<meta name="description" content="Governança operacional para um humano regendo muitos agentes">
+<script>try{var t=localStorage.getItem("tema");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="assets/estilo.css">
+</head><body>
+<header class="barra">
+  <button id="alt-menu" aria-label="Abrir o sumário" aria-expanded="false" aria-controls="sidebar">☰ <span>Sumário</span></button>
+  <a class="barra-titulo" href="index.html">Engenharia de Software Orientada por Agentes</a>
+  <button id="alt-tema" aria-label="Alternar tema claro/escuro">◐</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="marca" href="index.html">Engenharia de Software Orientada por Agentes<small>Agentic Software Engineering</small></a>
+    <div class="nav-parte">Abertura</div><ul><li><a href="00-prefacio.html">Prefácio</a></li></ul><div class="nav-parte">Parte I — Por que agentes mudam a engenharia</div><ul><li><a href="01-a-mudanca-de-unidade-de-trabalho.html">1. A mudança de unidade de trabalho</a></li><li class="filho"><a class="filho" href="01-a-mudanca-de-unidade-de-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="02-o-problema-da-confianca.html">2. O problema da confiança</a></li><li class="filho"><a class="filho" href="02-o-problema-da-confianca-exemplo.html">Exemplo executável</a></li><li><a href="03-um-humano-muitos-agentes.html">3. Um humano, muitos agentes</a></li><li class="filho"><a class="filho" href="03-um-humano-muitos-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte II — Especificar e dar contexto</div><ul><li><a href="04-a-spec-como-partitura.html">4. A spec como partitura</a></li><li class="filho"><a class="filho" href="04-a-spec-como-partitura-exemplo.html">Exemplo executável</a></li><li><a href="05-engenharia-de-contexto.html">5. Engenharia de contexto</a></li><li class="filho"><a class="filho" href="05-engenharia-de-contexto-exemplo.html">Exemplo executável</a></li><li><a href="06-como-dividir-o-trabalho.html">6. Como dividir o trabalho</a></li><li class="filho"><a class="filho" href="06-como-dividir-o-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="07-papeis-e-skills.html">7. Papéis e skills</a></li><li class="filho"><a class="filho" href="07-papeis-e-skills-exemplo.html">Exemplo executável</a></li><li><a href="08-ddd-para-agentes.html">8. DDD para agentes</a></li><li class="filho"><a class="filho" href="08-ddd-para-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte III — Provar e conter</div><ul><li><a href="09-arquitetura-que-se-defende.html">9. Arquitetura que se defende</a></li><li class="filho"><a class="filho" href="09-arquitetura-que-se-defende-exemplo.html">Exemplo executável</a></li><li><a href="10-quality-gates-que-provam-fatos.html">10. Quality gates que provam fatos</a></li><li class="filho"><a class="filho" href="10-quality-gates-que-provam-fatos-exemplo.html">Exemplo executável</a></li><li><a href="11-risco-reversibilidade-e-autonomia.html">11. Risco, reversibilidade e autonomia</a></li><li class="filho"><a class="filho" href="11-risco-reversibilidade-e-autonomia-exemplo.html">Exemplo executável</a></li><li><a href="12-ferramentas-mcp-e-o-ecossistema.html">12. Ferramentas, MCP e o ecossistema</a></li><li class="filho"><a class="filho" href="12-ferramentas-mcp-e-o-ecossistema-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte IV — Medir e aprender</div><ul><li><a class="ativo" aria-current="page" href="13-observabilidade-e-economia.html">13. Observabilidade e economia</a></li><li class="filho"><a class="filho" href="13-observabilidade-e-economia-exemplo.html">Exemplo executável</a></li><li><a href="14-a-organizacao-que-aprende.html">14. A organização que aprende</a></li><li class="filho"><a class="filho" href="14-a-organizacao-que-aprende-exemplo.html">Exemplo executável</a></li><li><a href="15-validando-o-maestro.html">15. Validando o Maestro</a></li><li class="filho"><a class="filho" href="15-validando-o-maestro-exemplo.html">Exemplo executável</a></li><li><a href="16-o-futuro-da-engenharia-agentica.html">16. O futuro da engenharia agêntica</a></li><li class="filho"><a class="filho" href="16-o-futuro-da-engenharia-agentica-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Apêndices</div><ul><li><a href="apendice-a-o-maestro-em-uma-pagina.html">A. O Maestro em uma página</a></li><li><a href="apendice-b-aseg-bench.html">B. ASEG-Bench — um benchmark de governança</a></li><li><a href="apendice-c-pacote-de-replicacao.html">C. Pacote de replicação</a></li><li><a href="apendice-d-estudos-de-campo.html">D. Estudos de campo do ecossistema</a></li></ul><div class="nav-parte">Consulta</div><ul><li><a href="glossario.html">Glossário</a></li><li><a href="evidencias.html">Evidências (claims)</a></li></ul>
+  </aside>
+  <main class="conteudo">
+    <article class="markdown"><h1 id="13--observabilidade-e-economia" tabindex="-1">13 — Observabilidade e economia <a class="header-anchor" href="#13--observabilidade-e-economia" aria-hidden="true">#</a></h1>
+<blockquote>
+<p>&quot;Um <em>start</em> sem <em>stop</em> é trabalho pago que não foi entregue. Nunca é completado por inferência.&quot;
+— limites declarados do livro de ponto de tarefas, Maestro</p>
+</blockquote>
+<p>Quando um agente escreve o código, a conta chega de outro jeito: não em horas de gente, mas em
+tokens, em tentativas e em espera humana. Quem rege agentes descobre cedo que sabe quanto gastou
+no mês e não sabe quanto custou a coisa que entregou, nem quanto desse dinheiro foi para refazer
+o que saiu errado. Este capítulo trata de medir sem cair nas duas armadilhas vizinhas: o painel
+que ninguém consulta e o rastreamento que guarda tudo. O argumento é que a unidade certa é a
+<strong>tarefa aceita</strong>, e que só um registro só-acréscimo, gravado no momento em que as coisas
+acontecem, consegue respondê-la.</p>
+<h2 id="pergunta-central" tabindex="-1" class="callout c-obj" data-rotulo="Pergunta">Pergunta central <a class="header-anchor" href="#pergunta-central" aria-hidden="true">#</a></h2>
+<p>Quanto custa uma tarefa aceita, e onde o custo se perde entre o primeiro pedido e a aprovação
+independente?</p>
+<h2 id="resultado-de-aprendizagem" tabindex="-1">Resultado de aprendizagem <a class="header-anchor" href="#resultado-de-aprendizagem" aria-hidden="true">#</a></h2>
+<p>Ao final, você consegue:</p>
+<ol>
+<li><strong>Calcular</strong> o custo por tarefa aceita a partir de um registro de eventos, separando-o do
+custo por tarefa executada e explicando por que os dois números divergem.</li>
+<li><strong>Medir</strong> retrabalho de duas formas, por tentativa e por linhagem, e mostrar com dados do seu
+próprio time qual delas esconde o custo.</li>
+<li><strong>Ler</strong> as métricas de entrega do DevOps Research and Assessment (DORA) aos pares, no próprio
+repositório, sem instrumentar painel, e decidir quando um painel passa a se pagar.</li>
+<li><strong>Projetar</strong> o registro de custo no formato do OpenTelemetry (OTel) com uma lista de permissão
+de campos, de modo que o conteúdo das mensagens nunca saia, e provar essa minimização com um
+portão que reprova quando o filtro é removido.</li>
+<li><strong>Declarar</strong> um teto de consumo com quem avisa ao cruzá-lo, distinguindo aviso de corte.</li>
+</ol>
+<h2 id="a-falha-real" tabindex="-1" class="callout c-falha" data-rotulo="Caso real">A falha real <a class="header-anchor" href="#a-falha-real" aria-hidden="true">#</a></h2>
+<p>Em 26 de outubro de 2026, a sessão regente do Maestro conduzia o ciclo 073, que desenhava a área
+administrativa do painel. A rodada de juízes daquele ciclo (seis execuções em contexto fresco,
+das quais três se perderam por falha de rede) levou o consumo semanal da sessão a 39 %. O teto
+combinado para o dia era 40 %. O humano responsável, o Darú, subiu o teto para 60 % (&quot;Podemos ir
+até 60% hoje&quot;), e a segunda rodada de julgamento foi refeita com subagentes da própria regente
+em vez de sessões trabalhadoras no <em>gateway</em> [CLAIM-13-001]. A decisão foi razoável e ficou
+registrada como deve: uma linha no índice de decisões, com data, motivo e consequência.</p>
+<p>O que chama atenção é a unidade em que ela foi tomada. &quot;39 % do semanal&quot; é o medidor do
+fornecedor do modelo, uma barra de uso da conta. Ele diz quanto saiu do bolso, mas não diz
+<strong>por quê</strong>: quanto foi julgamento útil, quanto foi execução perdida pela rede, quanto foi
+retrabalho de uma rodada anterior. E o método tinha, desde 12 de outubro, um instrumento feito
+exatamente para responder a isso.</p>
+<p>Duas semanas antes, no ciclo 065, o Maestro tinha ganhado um <strong>livro de ponto de tarefas</strong>
+(<em>task ledger</em>): um arquivo JSON Lines (JSONL, um objeto JavaScript Object Notation por linha),
+só-acréscimo, em que cada tarefa entregue por uma sessão gerente a uma sessão trabalhadora
+grava um evento de atribuição, um de início, um de fim (com tokens e custo em dólares) e, quando
+alguém a audita, um veredito. Na versão <code>19823c2</code> do repositório, esse arquivo tem 52 linhas, e
+todas são de 12 de outubro; ele foi tocado por um único commit [CLAIM-13-002]. Depois dele vieram
+doze diretórios de especificação, do 066 ao 076 [CLAIM-13-003], e nenhum evento novo. O
+componente que grava o livro é um <em>mod</em> do Claude Code instalado à parte, por um comando que o
+instalador do método imprime e não executa; nas configurações do próprio repositório na versão
+citada, nenhum plugin está habilitado [CLAIM-13-004].</p>
+<p>A história anterior explica como se chegou ali, e ela é mais interessante do que um esquecimento.
+Em 31 de julho, o Maestro avaliou a ideia de uma &quot;trilha de auditoria com custo por invocação&quot;,
+vinda de um repositório irmão, e deu o veredito <strong>observar</strong>, com um gatilho escrito: reavaliar
+quando &quot;alguém precisar responder 'quanto custou este ciclo?' com número, e não com estimativa&quot;.
+Na dimensão &quot;dor real hoje&quot;, a resposta registrada foi &quot;não: ninguém pediu o número&quot;
+[CLAIM-13-005]. Em 14 de agosto, um documento de comparação do fluxo do Maestro com o de outro
+time listou a lacuna sem rodeio: &quot;aprendizados sim, métricas não&quot;. A retrospectiva e o índice de
+decisões existiam; métrica, nenhuma. O modelo operacional classificava o <em>metrics dashboard</em> como
+&quot;depois, YAGNI&quot; (<em>You Aren't Gonna Need It</em>, você não vai precisar disso), e o passo de
+fechamento do ciclo terminava &quot;com narrativa e sem número&quot; — por escolha declarada, não por
+descuido [CLAIM-13-006].</p>
+<p>O gatilho disparou em 12 de outubro, com a frase do próprio humano: &quot;Quero ver quanto estou
+gastando&quot; [CLAIM-13-007]. O livro de ponto nasceu naquele dia, foi revisado, reprovado,
+corrigido, aprovado — e mediu um único ciclo. A falha, portanto, não é a falta de instrumento. É
+de três camadas, cada uma com uma lição:</p>
+<ol>
+<li><strong>O instrumento não tinha consumidor obrigatório.</strong> Nada no fluxo dependia do livro de ponto;
+quando a instalação não acompanhou as sessões seguintes, nada ficou vermelho. É o teorema T5 do
+Maestro em ação: um artefato só sobrevive se algo o consome e falha alto quando ele envelhece.</li>
+<li><strong>A decisão de custo foi tomada na unidade errada.</strong> Percentual da conta mede o gasto, não o
+desperdício. Para saber se a rodada de juízes valia o preço, seria preciso o custo por
+veredito válido e o custo das execuções perdidas.</li>
+<li><strong>O único ciclo medido já mostrava onde o custo se perde</strong> — e é dele que tiramos a maior parte
+dos números deste capítulo. Lá, como se verá, quase metade do dinheiro foi retrabalho, e a
+métrica de retrabalho que o próprio relatório oferecia enxergava pouco mais de 2 % disso
+[CLAIM-13-012].</li>
+</ol>
+<h2 id="teoria" tabindex="-1">Teoria <a class="header-anchor" href="#teoria" aria-hidden="true">#</a></h2>
+<h3 id="o-que-ficou-caro" tabindex="-1">O que ficou caro <a class="header-anchor" href="#o-que-ficou-caro" aria-hidden="true">#</a></h3>
+<p>O axioma A5 do Maestro diz que o custo é assimétrico entre fazer e desfazer: produzir é barato e
+fica mais barato; desfazer não. O <a href="01-a-mudanca-de-unidade-de-trabalho.html">capítulo 1</a>
+tirou daí a consequência econômica principal: quando gerar código custa pouco, o que fica caro é
+<strong>verificar</strong> e <strong>refazer</strong>. Este capítulo põe preço nessa frase. Se gerar é barato, o custo
+relevante de uma tarefa não é o do primeiro rascunho, e sim o do caminho inteiro até alguém
+independente aceitá-la — incluindo as tentativas reprovadas, as revisões e o que se perdeu no
+meio.</p>
+<p>Daí a unidade proposta: <strong>custo por tarefa aceita</strong>. A definição é simples e tem duas partes
+que importam:</p>
+<ul>
+<li><strong>no numerador</strong>, todo o custo do período ou do ciclo: tentativas entregues, bloqueadas,
+interrompidas, as que foram reprovadas e as próprias revisões;</li>
+<li><strong>no denominador</strong>, só as tarefas cujo último veredito, dado por quem <strong>não</strong> as executou, é de
+aprovação.</li>
+</ul>
+<p>A segunda parte é o que separa a métrica de uma média de gasto. &quot;Custo por tarefa executada&quot;
+divide o gasto pelo esforço; &quot;custo por tarefa aceita&quot; divide pelo resultado. Num exemplo
+pequeno, com três tarefas, uma delas reprovada duas vezes e nunca aceita, a primeira dá
+US$ 1,43 e a segunda, US$ 2,15 [CLAIM-13-015]. A diferença é exatamente o preço do que não
+chegou: tudo o que foi pago e não foi aprovado é carregado pelas tarefas que foram. É o número
+que um tech lead deveria querer ver, porque é o que se compara com o valor de uma entrega.</p>
+<h3 id="onde-o-custo-se-perde" tabindex="-1">Onde o custo se perde <a class="header-anchor" href="#onde-o-custo-se-perde" aria-hidden="true">#</a></h3>
+<p>A agenda de pesquisa deste livro lista dez métricas para o trabalho com agentes, além das do
+DORA [CLAIM-13-035]. Cinco delas
+servem diretamente a este capítulo, e cada uma responde a uma pergunta diferente:</p>
+<table>
+<thead>
+<tr>
+<th>Métrica</th>
+<th>Pergunta</th>
+<th>Armadilha</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>custo por tarefa aceita</td>
+<td>quanto paguei por resultado?</td>
+<td>contar veredito de quem executou</td>
+</tr>
+<tr>
+<td>custo do retrabalho</td>
+<td>quanto paguei para refazer?</td>
+<td>definir retrabalho só como &quot;tentativa 2&quot;</td>
+</tr>
+<tr>
+<td>tokens por tarefa</td>
+<td>quanto contexto cada tarefa consumiu?</td>
+<td>somar <em>cache</em> com texto novo</td>
+</tr>
+<tr>
+<td>tempo de ciclo</td>
+<td>quanto demorou do pedido à aceitação?</td>
+<td>parar o relógio no &quot;pronto&quot; do autor</td>
+</tr>
+<tr>
+<td>retrabalho (taxa)</td>
+<td>que fração do trabalho foi refeita?</td>
+<td>medir por contagem, sem peso de custo</td>
+</tr>
+</tbody>
+</table>
+<p>As outras cinco — espera humana, sobrecarga de coordenação, aceitação na primeira passada,
+escape de gate e rendimento da revisão independente — são tratadas nos capítulos sobre o limite
+humano (<a href="03-um-humano-muitos-agentes.html">3</a>), divisão do trabalho
+(<a href="06-como-dividir-o-trabalho.html">6</a>) e portões
+(<a href="10-quality-gates-que-provam-fatos.html">10</a>). Aqui elas aparecem só quando cruzam o
+custo.</p>
+<p>Três observações valem para todas.</p>
+<p><strong>Retrabalho tem duas definições, e elas dão números muito diferentes.</strong> A definição mecânica é
+&quot;tentativa com número maior ou igual a dois&quot;: a mesma tarefa, refeita. A definição por
+<strong>linhagem</strong> é &quot;tudo o que começou depois da primeira reprovação e antes da aceitação&quot;. A
+primeira é fácil de medir e quase sempre subestima: quando uma revisão reprova um ciclo inteiro,
+o conserto não vem como &quot;tentativa 2&quot; das tarefas originais, vem como tarefas novas, com nomes
+novos (&quot;corrigir achado 5&quot;), mais uma revisão nova. No único ciclo medido do Maestro, a primeira
+definição achou US$ 0,13 de retrabalho; a segunda, US$ 5,75, ou 46,5 % do custo do ciclo
+[CLAIM-13-012]. Não é erro de arredondamento: é a diferença entre olhar a árvore e olhar a
+floresta.</p>
+<p><strong>Tokens sem peso enganam.</strong> Agentes que trabalham em sessões longas releem o mesmo contexto a
+cada requisição, e os fornecedores cobram essa releitura (o <em>cache</em> de prompt) por uma fração do
+preço do texto novo. No ciclo medido, a taxa de leitura de <em>cache</em> foi de 96,7 % da entrada; a
+média por tentativa foi de 2,27 milhões de tokens no total e de 19 mil tokens de entrada e saída
+novas [CLAIM-13-010]. &quot;Tokens por tarefa&quot; sem separar as duas coisas é um número de duas ordens
+de grandeza de folga. Por isso o registro precisa guardar as categorias separadas, e o custo em
+dinheiro tem de vir de quem cobra, não de uma tabela de preços aplicada depois.</p>
+<p><strong>O custo mede por tentativa, não por modelo.</strong> Uma sessão pode usar mais de um modelo dentro da
+mesma tarefa (o principal e um subagente, por exemplo), mas o relatório de uso dá um valor em
+dólar para a sessão inteira. Dividir esse valor entre os modelos por proporção de tokens é
+inventar número. O relatório do Maestro mostra os tokens por modelo e põe um travessão na coluna
+de custo por modelo, com a explicação ao lado [CLAIM-13-029]. Essa recusa é parte da teoria: a
+métrica que não pode ser medida é declarada ausente, nunca estimada em silêncio.</p>
+<h3 id="por-que-dora-continua-valendo-e-onde-ela-para" tabindex="-1">Por que DORA continua valendo, e onde ela para <a class="header-anchor" href="#por-que-dora-continua-valendo-e-onde-ela-para" aria-hidden="true">#</a></h3>
+<p>O programa DORA mediu o desempenho de entrega de software de um grande número de equipes e
+chegou a métricas que só informam <strong>aos pares</strong>: duas de vazão (frequência de
+entrega e tempo de mudança, o <em>lead time</em>) e duas de estabilidade (taxa de falha de mudança e
+tempo de recuperação). O guia atual do DORA acrescenta uma quinta, a taxa de retrabalho de
+implantação (<em>deployment rework rate</em>), ao lado da taxa de falha, no grupo de instabilidade
+[CLAIM-13-025]. A leitura em pares é o que impede o erro clássico: vazão sozinha premia atropelo;
+estabilidade sozinha premia paralisia.</p>
+<p>A segunda lição do DORA é mais útil ainda: as métricas são <strong>resultado</strong>, não alavanca. Ninguém
+&quot;faz&quot; <em>lead time</em>; ele cai quando muda o que o produz — integração contínua, desenvolvimento em
+tronco único, testes automatizados, revisão, entregas pequenas. Cobrar o número sem mexer na
+capacidade é cobrar o termômetro pela febre. E a alavanca que move as cinco ao mesmo tempo é o
+tamanho do lote: mudança pequena chega mais vezes, atravessa mais rápido, é mais fácil de testar
+e, quando falha, é mais fácil de desfazer.</p>
+<p>O relatório de 2025 do DORA, <em>State of AI-assisted Software Development</em>, tem como achado
+central que a inteligência artificial (IA) funciona como amplificador: intensifica as forças e
+as fraquezas que a organização já tinha [CLAIM-13-032]. Para quem rege agentes, isso se traduz
+assim: um time de lote grande e portão fraco, com agentes, produz mais lote grande e mais escape.
+As métricas DORA continuam sendo a bússola da entrega.</p>
+<p>Onde elas param é na economia da tarefa. DORA mede o fluxo de mudanças até produção; não mede o
+que cada mudança custou para ser produzida, nem quantas vezes foi refeita antes de chegar ao
+tronco. Com humanos, isso estava escondido na folha de pagamento, que é um custo fixo. Com
+agentes, o custo é variável, por requisição, e aparece na fatura do mês seguinte. A quinta
+métrica do DORA olha o retrabalho <strong>depois</strong> da implantação; o custo por tarefa aceita olha o
+retrabalho <strong>antes</strong> dela. As duas se complementam.</p>
+<h3 id="observabilidade-como-projeção-e-o-limite-da-privacidade" tabindex="-1">Observabilidade como projeção, e o limite da privacidade <a class="header-anchor" href="#observabilidade-como-projeção-e-o-limite-da-privacidade" aria-hidden="true">#</a></h3>
+<p>Para medir isso, alguém tem de registrar. Aqui a teoria encontra o segundo teorema de que o
+capítulo deriva, o T7 do Maestro: onde a saída não é comparável por igualdade, o critério é uma
+<strong>linha de base registrada</strong>, com entrada fixa e observação datada. Custo de agente não é
+comparável entre dias por igualdade — o mesmo pedido custa diferente em duas execuções. O que
+torna o número utilizável é ele estar num registro imutável, com data, e ser lido sempre da
+mesma forma. Um painel que recalcula de uma fonte mutável não serve de linha de base; um arquivo
+só-acréscimo serve.</p>
+<p>A segunda metade é o formato. O OpenTelemetry é o padrão aberto de rastreamento distribuído:
+um <em>trace</em> é uma operação de ponta a ponta, um <em>span</em> é um trecho com início e fim, e os dois
+carregam atributos com nomes convencionados. Existe um conjunto de convenções semânticas para IA
+generativa (GenAI), com nomes como <code>gen_ai.request.model</code>, <code>gen_ai.usage.input_tokens</code> e
+<code>gen_ai.usage.output_tokens</code> — ainda marcadas como em desenvolvimento. Adotar os <strong>nomes</strong> custa
+quase nada e evita migração depois; adotar a <strong>infraestrutura</strong> (coletor, exportador, <em>backend</em>)
+antes de haver quem consuma é o painel prematuro com outro nome.</p>
+<p>E há o limite que não é técnico. Rastreamento de agente, feito sem cuidado, grava o conteúdo
+inteiro de cada mensagem: código do cliente, dados pessoais colados num <em>prompt</em>, segredos lidos
+de um arquivo. A Lei Geral de Proteção de Dados Pessoais (LGPD), no Brasil, põe entre os seus
+princípios o da <strong>necessidade</strong>: o tratamento se limita ao mínimo necessário para a finalidade.
+Se a finalidade é saber quanto custou uma tarefa, o mínimo necessário são contagens, identificadores
+de tarefa e vereditos — não o texto. A regra que a agenda de pesquisa deste livro adota resume:
+<em>tracing</em> não é retenção indiscriminada. Minimização não é um filtro aplicado no fim; é uma lista
+de permissão aplicada na gravação e de novo na exportação.</p>
+<p>O cenário regulatório reforça a prudência. A Autoridade Nacional de Proteção de Dados (ANPD), que
+fiscaliza a LGPD, tratou inteligência artificial como frente própria e propôs um <em>sandbox</em>
+regulatório — um ambiente supervisionado de experimentação — para IA e proteção de dados. A
+mensagem para o tech lead é que as regras sobre dados pessoais em sistemas de IA ainda estão sendo
+assentadas no país; enquanto isso, o desenho que não guarda conteúdo é o que não precisa ser
+refeito quando elas assentarem. A agenda de pesquisa deste livro põe LGPD e ANPD na lista de
+riscos, ao lado do OWASP (<em>Open Worldwide Application Security Project</em>) GenAI Top 10 e do regulamento europeu de IA (<em>AI Act</em>), que o
+<a href="12-ferramentas-mcp-e-o-ecossistema.html">capítulo 12</a> discute.</p>
+<h2 id="alternativas" tabindex="-1">Alternativas <a class="header-anchor" href="#alternativas" aria-hidden="true">#</a></h2>
+<p>Há pelo menos quatro famílias de resposta ao &quot;quanto custa&quot;, e elas não são excludentes.</p>
+<p><strong>O medidor do fornecedor.</strong> Toda plataforma de modelo tem um painel de uso: tokens, dólares,
+percentual do limite. É de graça, é exato no que mede e é o que o Maestro usou na decisão de 26
+de outubro. O defeito é a unidade: mede a conta, não a tarefa. Não sabe o que é uma revisão, uma
+reprovação, uma tentativa. <strong>Veredito</strong>: necessário como total de controle, insuficiente como
+métrica de engenharia. Use-o para conferir que a soma do seu registro bate com a fatura.</p>
+<p><strong>Plataformas de observabilidade de LLM</strong> (<em>large language model</em>, modelo de linguagem de grande
+porte). Ferramentas como Langfuse, LangSmith, Arize Phoenix, Helicone e a instrumentação
+OpenLLMetry registram cada chamada ao modelo como um <em>span</em>, com tokens, latência e custo
+estimado, e várias delas falam OpenTelemetry. São boas para depurar uma cadeia de chamadas e para
+avaliar respostas. Duas ressalvas para o tech lead: por padrão, a maioria captura o <strong>conteúdo</strong>
+dos <em>prompts</em> e respostas, o que precisa ser desligado ou contratado com cuidado; e a unidade
+nativa delas é a chamada ou a sessão, não a tarefa com veredito independente. <strong>Veredito</strong>:
+adote quando houver um consumidor real do rastreamento detalhado (depurar um agente em produção,
+por exemplo), configure a minimização antes do primeiro dado, e traga para elas a noção de
+tarefa e de veredito — não espere que elas a tenham.</p>
+<p><strong>Frameworks de produtividade.</strong> O DORA (cinco métricas de entrega), o SPACE (satisfação,
+desempenho, atividade, comunicação e eficiência — um lembrete de que não existe métrica única) e
+o DX Core 4 (velocidade, efetividade, qualidade e impacto, prescritivo). Medem o time, não a
+tarefa. O risco do terceiro é o mesmo de toda métrica prescritiva: &quot;<em>pull requests</em> por pessoa&quot; mede
+digitação, não valor, e com agentes mede ainda menos. <strong>Veredito</strong>: DORA como bússola, lida no
+repositório; SPACE como referência; métricas de atividade, nunca como meta.</p>
+<p><strong>FinOps</strong> (<em>financial operations</em>, a disciplina de gestão financeira de nuvem). Traz a ideia de
+<strong>custo unitário</strong>: custo dividido por uma unidade de negócio, em vez de custo total. É
+exatamente o movimento deste capítulo, aplicado a agentes: a unidade de negócio do time de
+engenharia é a tarefa aceita. <strong>Veredito</strong>: adote o raciocínio; a ferramenta de FinOps entra
+quando o gasto com agentes for linha relevante do orçamento de nuvem.</p>
+<p>O que nenhuma dessas alternativas faz sozinha é <strong>amarrar o custo ao veredito de quem não
+executou</strong>. É essa amarração que transforma gasto em economia de engenharia, e ela depende de um
+protocolo entre quem distribui e quem entrega o trabalho — que é o que o padrão a seguir
+descreve.</p>
+<h2 id="o-padrão-maestro" tabindex="-1">O padrão Maestro <a class="header-anchor" href="#o-padrão-maestro" aria-hidden="true">#</a></h2>
+<p>O Maestro chegou ao seu padrão em camadas, e cada camada tem uma natureza diferente: regra
+escrita, script ou gancho (<em>hook</em>) do <em>harness</em>. Vale separar, porque só as duas últimas se
+cobram sozinhas.</p>
+<h3 id="primeiro-não-medir--e-escrever-por-quê" tabindex="-1">Primeiro, não medir — e escrever por quê <a class="header-anchor" href="#primeiro-não-medir--e-escrever-por-quê" aria-hidden="true">#</a></h3>
+<p>A posição inicial foi deliberada. O capítulo do handbook sobre DORA, migrado no ciclo 022 em
+agosto, leu as quatro métricas da época <strong>do próprio repositório, sem instrumentar nada</strong>: a
+especificação daquele ciclo exigia trazer &quot;a métrica em que vamos mal&quot; [CLAIM-13-033]. O retrato:</p>
+<ul>
+<li><strong>Frequência de entrega</strong>: 17 promoções para a linha principal em três dias (4 em 31/07, 9 em
+01/08, 4 em 02/08), contadas no índice de decisões, porque o script de promoção grava cada gate
+[CLAIM-13-016]. Na versão <code>19823c2</code>, são 50 promoções registradas, de 31 de julho a 21 de
+outubro [CLAIM-13-017].</li>
+<li><strong>Tempo de mudança</strong>: cada ciclo entrava na linha principal num único commit, no mesmo dia em
+que abria.</li>
+<li><strong>Taxa de falha</strong> — a ruim: nove defeitos escaparam para a linha principal nas 17 promoções,
+todos com a verificação verde, e nenhum foi pego por revisão: todos apareceram quando alguém
+escreveu um check [CLAIM-13-019].</li>
+<li><strong>Tempo de recuperação</strong>: nenhuma reversão no histórico; todo defeito foi corrigido avançando
+no ciclo seguinte [CLAIM-13-018].</li>
+</ul>
+<p>A leitura foi: vazão de elite, estabilidade medíocre, e a resposta <strong>não</strong> é entregar mais
+devagar, é atacar a capacidade que falta (portões que provam fatos). A regra que saiu dali é das
+que este capítulo recomenda manter: <strong>DORA é bússola, não painel</strong>. E a decisão de não
+instrumentar foi registrada com a condição de reabertura, em vez de esquecida. Essa é a parte
+que o leitor deve copiar: YAGNI com gatilho escrito é governança; YAGNI sem gatilho é preguiça.</p>
+<h3 id="depois-o-livro-de-ponto-regra--script--mod" tabindex="-1">Depois, o livro de ponto (regra + script + mod) <a class="header-anchor" href="#depois-o-livro-de-ponto-regra--script--mod" aria-hidden="true">#</a></h3>
+<p>Quando o gatilho disparou, o ciclo 065 construiu o livro de ponto. A especificação está em
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/065-o-metodo-se-cobra-e-bate-o-ponto/spec.md">https://github.com/GHDaru/maestro/blob/19823c2/specs/065-o-metodo-se-cobra-e-bate-o-ponto/spec.md</a>,
+a decisão no ADR (<em>Architecture Decision Record</em>, registro de decisão de arquitetura) 0021 e o
+protocolo em <a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/task-ledger.md">https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/task-ledger.md</a>.
+Um detalhe do registro histórico mostra a disciplina do só-acréscimo: o ciclo foi renumerado de
+064 para 065 ao entrar na branch de desenvolvimento, mas os eventos já gravados continuaram com
+<code>cycle: &quot;064&quot;</code> — corrigir o rótulo seria reescrever a história.</p>
+<p>As peças:</p>
+<ul>
+<li><strong>A regra</strong> (documento de governança): quem distribui uma tarefa escreve, sozinha numa linha,
+uma etiqueta <code>[[TASK id=... kind=... attempt=... cycle=...]]</code>; quem entrega termina com
+<code>[[DONE id=... outcome=...]]</code>. Uma auditoria nomeia a tarefa julgada (<code>target</code>) e o veredito.
+Os vocabulários são fechados: nove tipos de tarefa (de <code>spec</code> a <code>research</code>), três desfechos que
+a sessão declara (<code>delivered</code>, <code>blocked</code>, <code>failed</code>) e dois que o próprio mod escreve
+(<code>interrupted</code>, <code>superseded</code>) [CLAIM-13-034].</li>
+<li><strong>O script gravador</strong> (<code>scripts/record-task.py</code>): valida cada linha contra os vocabulários e a
+acrescenta ao arquivo. O limite está declarado na própria documentação: no Linux e no macOS, a
+escrita em modo de acréscimo manteve 30 linhas simultâneas de cerca de 2 KB intactas; no
+Windows, o modo de acréscimo do Python não é atômico entre processos, e a recomendação é um
+escritor por vez ou aceitar uma linha danificada, que o relatório conta como inválida em vez de
+quebrar [CLAIM-13-022].</li>
+<li><strong>O mod</strong> (<code>maestro-ledger</code>): um plugin que roda dentro do processo do <em>harness</em>, lê as
+etiquetas, soma os tokens de cada requisição ao modelo e grava os eventos. Ele <strong>impõe</strong> a
+revisão independente: um veredito só é gravado se a tarefa ativa for de tipo <code>audit</code> ou
+<code>review</code>. É instalado à parte, por comando do usuário, nunca pelo instalador do método.</li>
+<li><strong>O script de relatório</strong> (<code>scripts/report-tasks.py</code>): deriva tudo na leitura — custo e tokens
+por tipo, por ciclo e por modelo; aprovação na primeira passada; custo de retrabalho
+(tentativa ≥ 2); taxa de <em>cache</em>; e <strong>órfãos</strong>, tarefas com início e sem fim. Nenhuma métrica
+é gravada; uma métrica nova nunca exige migração.</li>
+<li><strong>O portão</strong> (<code>scripts/check-ledger.sh</code>): testa gravador, relatório e ganchos em <em>fixtures</em>
+escritas num diretório temporário, com os números esperados calculados à mão nos comentários,
+e roda as mutações numa cópia — o que o <a href="10-quality-gates-que-provam-fatos.html">capítulo 10</a>
+chama de provar o portão vendo-o falhar.</li>
+</ul>
+<p>O desenho tem três decisões que valem fora do Maestro.</p>
+<p><strong>Tentativa, desfecho e veredito são três coisas.</strong> Tentativa é quantas vezes se tentou;
+desfecho é se a sessão conseguiu fazer; veredito é se o trabalho foi aceito — e o veredito
+<strong>nunca</strong> vem de quem executou. O relatório também confere na leitura: só conta veredito cujo
+autor é uma tarefa de auditoria do próprio livro <strong>e</strong> cuja sessão é a que executou essa
+auditoria.</p>
+<p><strong>Órfão é visível, nunca inferido.</strong> Se a sessão cai no meio de uma tarefa, o livro mostra um
+início sem fim. O relatório não fecha a tarefa por suposição.</p>
+<p><strong>Custo ausente não é zero.</strong> Uma parada sem tokens é &quot;não medida&quot;, contada à parte.</p>
+<h3 id="o-que-o-único-ciclo-medido-mostrou" tabindex="-1">O que o único ciclo medido mostrou <a class="header-anchor" href="#o-que-o-único-ciclo-medido-mostrou" aria-hidden="true">#</a></h3>
+<p>Rodando o relatório no livro da versão <code>19823c2</code> (é o mesmo arquivo que o exemplo deste capítulo
+usa), o ciclo 064/065 aparece assim:</p>
+<ul>
+<li><strong>US$ 12,36</strong> em 13 tentativas medidas, das quais as duas revisões independentes custaram
+US$ 6,34, ou 51,3 % do total [CLAIM-13-008]. As revisões rodaram num modelo maior, com 12,1
+milhões de tokens em duas tentativas; as onze tentativas de implementação, correção e
+documentação, num modelo menor, somaram 17,4 milhões [CLAIM-13-029].</li>
+<li><strong>Três tentativas sem medida</strong>. As notas do próprio livro explicam: foram executadas pela
+sessão gerente, que não tinha o mod carregado, porque o <em>sandbox</em> das trabalhadoras protegia
+os arquivos do mod [CLAIM-13-009]. O ponto cego do instrumento era exatamente o trabalho que o
+gerente fez com as próprias mãos.</li>
+<li><strong>Aprovação na primeira passada: não calculável.</strong> Cinco vereditos foram descartados pelo
+relatório: quatro dados pela sessão gerente sobre tarefas de implementação e documentação e um espelho de
+veredito gravado na sessão errada [CLAIM-13-011]. O gerente reexecutou as provas e aprovou —
+mas gerente não é revisor independente, e a métrica se recusou a contar. Ficou só o veredito do
+ciclo inteiro: reprovado pela primeira revisão, aprovado com ressalvas pela segunda.</li>
+<li><strong>Retrabalho</strong>: US$ 0,13 pela definição de tentativa; US$ 5,75 pela de linhagem, 46,5 % do
+ciclo [CLAIM-13-012]. Quase metade do dinheiro foi gasto entre a primeira reprovação e a
+aceitação.</li>
+<li><strong>Tempo de ciclo</strong>: 42,9 minutos do primeiro evento à aceitação [CLAIM-13-013].</li>
+</ul>
+<p>Para o tech lead, a leitura é esta: o custo de um ciclo com revisão independente séria é
+dominado por <strong>verificar e refazer</strong>, não por escrever. Isso é o axioma A5 com números. E é por
+isso que a métrica de produtividade que conta linhas ou tarefas executadas engana: o ciclo
+produziu doze tarefas executadas a US$ 1,03 cada, uma média que não diz nada sobre o que foi
+aceito [CLAIM-13-014].</p>
+<h3 id="custo-por-sessão-consumo-por-agente-e-teto" tabindex="-1">Custo por sessão, consumo por agente e teto <a class="header-anchor" href="#custo-por-sessão-consumo-por-agente-e-teto" aria-hidden="true">#</a></h3>
+<p>O livro de ponto mede por tarefa, se as sessões usarem as etiquetas. Os ciclos seguintes
+atacaram o problema por outro lado, pelo painel de coordenação (ADR 0022), que é uma projeção
+dos arquivos do repositório num banco SQLite local, reconstruível a cada leitura:</p>
+<ul>
+<li><strong>Custo por sessão</strong> (ciclo 068): o painel lê de forma incremental os transcritos das sessões
+e soma tokens por sessão e por minuto. Com dezesseis sessões abertas, &quot;quanto custou este
+chamado&quot; era pergunta diária sem resposta; o painel passou a mostrar o custo de cada passo
+<strong>como estimativa rotulada</strong>, porque a sessão pode ter feito outra coisa na mesma janela
+[CLAIM-13-027].</li>
+<li><strong>Privacidade por construção</strong>: a decisão D4 do ciclo 066, registrada em 20 de outubro, aceitou
+o leitor de custo porque ele grava <strong>só contagens de tokens</strong>, título e caminho da sessão num
+banco local ignorado pelo controle de versão, e nada disso chega ao servidor HTTP (<em>Hypertext
+Transfer Protocol</em>). A mesma decisão registrou duas dívidas com dono: o filtro de pasta por
+substring em vez de igualdade e um valor padrão que apontava para um projeto real
+[CLAIM-13-020].</li>
+<li><strong>Consumo por agente</strong> (ciclo 073): o grão desceu de sessão e modelo para <strong>agente</strong>.</li>
+<li><strong>Limite de orçamento</strong> (ciclo 073): o teto de consumo deixou de ser um número declarado e
+passou a ser lido como <strong>declarar o teto e avisar</strong>. O emissor do aviso é a ingestão de uso do
+painel: ao cruzar o limiar, ela enfileira uma mensagem para a sessão dona e para a regente —
+&quot;aviso tardio, nunca perdido&quot;. O <strong>corte</strong> (recusar, suspender) fica para depois. Na versão
+citada, isso está desenhado no protótipo da área administrativa; o leitor de custo mede, e o
+emissor ainda não é código.</li>
+</ul>
+<p>O modelo operacional registra a reviravolta: o painel de coordenação é &quot;essencial desde o ciclo
+066&quot; e, na mesma linha, a tabela lembra que o item &quot;era <em>metrics dashboard</em>, depois/YAGNI&quot;
+[CLAIM-13-031]. E o ADR do painel traz duas regras anti-autoengano que valem para qualquer
+métrica: DORA conta <strong>implantação registrada, nunca merge</strong> (o merge aparece só como
+aproximação rotulada), e quando não há dado o painel mostra &quot;—&quot; em vez de inventar número
+[CLAIM-13-030].</p>
+<h3 id="opentelemetry-como-projeção-adr-0033" tabindex="-1">OpenTelemetry como projeção (ADR 0033) <a class="header-anchor" href="#opentelemetry-como-projeção-adr-0033" aria-hidden="true">#</a></h3>
+<p>Em 29 de outubro, o ADR 0033 fechou a questão do formato: <strong>OpenTelemetry é projeção do log, não
+dependência</strong> [CLAIM-13-021]. Agora, só os nomes dos campos de custo seguem as convenções GenAI,
+para o dado nascer no formato certo. O exportador pelo OpenTelemetry Protocol (OTLP) entra só
+com o primeiro consumidor real, e a tradução está fixada: <em>trace</em> é o chamado, <em>span</em> é a
+execução, eventos são as transições — <strong>nunca o conteúdo da mensagem</strong>. Os identificadores já
+são compatíveis com <code>trace_id</code> e <code>span_id</code>. Desfazer é desligar o exportador; nada no domínio
+depende dele, que é a razão de ele ser projeção.</p>
+<p>Em resumo, o que é regra, script e gancho no padrão:</p>
+<table>
+<thead>
+<tr>
+<th>Peça</th>
+<th>Natureza</th>
+<th>Se cobra sozinha?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&quot;DORA é bússola, não painel&quot;; YAGNI com gatilho</td>
+<td>regra escrita</td>
+<td>não</td>
+</tr>
+<tr>
+<td>protocolo <code>[[TASK]]</code>/<code>[[DONE]]</code></td>
+<td>regra escrita</td>
+<td>só onde o mod está instalado</td>
+</tr>
+<tr>
+<td>gravador e relatório do livro de ponto</td>
+<td>script</td>
+<td>o relatório sim, ao ser lido</td>
+</tr>
+<tr>
+<td>veredito só de <code>audit</code>/<code>review</code></td>
+<td>mod + script</td>
+<td>sim, nos dois lados</td>
+</tr>
+<tr>
+<td>custo por sessão, só contagens</td>
+<td>script do painel</td>
+<td>sim</td>
+</tr>
+<tr>
+<td>aviso ao cruzar o teto</td>
+<td>desenho</td>
+<td>ainda não</td>
+</tr>
+<tr>
+<td>OTel como projeção</td>
+<td>ADR</td>
+<td>não há o que cobrar até haver exportador</td>
+</tr>
+</tbody>
+</table>
+<p>A falha real deste capítulo mora na segunda linha: o protocolo era regra e só se cobrava onde o
+mod estava instalado. Onde não estava, não houve vermelho nenhum.</p>
+<h2 id="exemplo-executável" tabindex="-1" class="callout c-prat" data-rotulo="Mão na massa">Exemplo executável <a class="header-anchor" href="#exemplo-executável" aria-hidden="true">#</a></h2>
+<p>O exemplo está em <a href="13-observabilidade-e-economia-exemplo.html"><code>exemplo/</code></a>. São dois scripts em Python 3 com biblioteca
+padrão e dois livros de ponto:</p>
+<ul>
+<li><code>tarefas-064.jsonl</code> — cópia byte a byte do livro do Maestro na versão <code>19823c2</code> (o <em>hash</em> está
+no README do exemplo);</li>
+<li><code>sintetico.jsonl</code> — um livro pequeno, de três tarefas, com números redondos, para conferir a
+conta à mão.</li>
+</ul>
+<p><code>economia.py</code> deriva, na leitura, as métricas da seção &quot;Teoria&quot;: custo por tipo de tarefa, tokens
+com e sem <em>cache</em>, vereditos válidos e descartados, custo por tarefa aceita contra o custo
+ingênuo por tarefa executada, retrabalho pelas duas definições, tempo de ciclo e órfãos. No livro
+do Maestro, ele reproduz os números do relatório oficial (US$ 12,3561, 96,7 % de <em>cache</em>,
+US$ 0,1312 de retrabalho por tentativa) e acrescenta o que o relatório não mostra: os US$ 5,7457
+de retrabalho por linhagem. No livro sintético, mostra o custo por tarefa aceita funcionando:
+US$ 2,15 contra US$ 1,43 ingênuos, com o veredito de aprovação dado pelo gerente descartado
+[CLAIM-13-015].</p>
+<p><code>projetar_otel.py</code> projeta o mesmo livro em <em>spans</em> no formato de dados do OpenTelemetry, com
+nomes <code>gen_ai.*</code> para uso de modelo, sem coletor e sem biblioteca. A minimização é uma lista de
+permissão: no livro do Maestro, os 52 eventos viram 19 <em>spans</em>, e ficam para trás, entre outros,
+7 textos livres de motivo de veredito, 7 notas e 52 identificadores de sessão [CLAIM-13-023]. O
+script termina com um portão que procura qualquer atributo fora da lista. Com a opção
+<code>--sem-filtro</code>, que remove a lista de propósito, o portão reprova e o script sai com código 1
+[CLAIM-13-024] — é a mutação que prova que a minimização é verificada, e não prometida.</p>
+<p>Rode os dois antes de seguir; a saída esperada completa está no README.</p>
+<h2 id="contraexemplo" tabindex="-1" class="callout c-contra" data-rotulo="Limite">Contraexemplo <a class="header-anchor" href="#contraexemplo" aria-hidden="true">#</a></h2>
+<p><strong>Quando não medir.</strong> O Maestro passou de julho a outubro sem métrica de custo, e isso estava
+certo. Um time pequeno, com gasto de agentes irrelevante perto da folha, sem decisão que dependa
+do número, não precisa de livro de ponto. Instrumentar sem pergunta é o anti-padrão &quot;painel sem
+decisão associada&quot; — cerimônia em papel. O critério para começar é o da ideia 029: alguém
+precisa responder &quot;quanto custou?&quot; com número, para tomar uma decisão. Antes disso, leia DORA no
+repositório e escreva o gatilho.</p>
+<p><strong>Quando a métrica vira meta.</strong> A lei de Goodhart vale em dobro com agentes, porque agentes
+otimizam o que se mede com uma diligência que nenhum humano tem. Três exemplos concretos do que
+dá errado:</p>
+<ul>
+<li><strong>custo por tarefa aceita como meta</strong> premia quem pula a revisão independente — ela custou
+mais da metade do ciclo medido. O número cai, a qualidade cai junto;</li>
+<li><strong>tokens por tarefa como meta</strong> premia o agente que lê menos contexto do que precisa, que é
+exatamente o erro que o <a href="05-engenharia-de-contexto.html">capítulo 5</a> combate;</li>
+<li><strong>taxa de <em>cache</em> como meta</strong> premia sessões longas e acumuladas, contra o reinício de
+contexto que mantém o agente estreito.</li>
+</ul>
+<p>A regra é a mesma do DORA: olhe a tendência, ataque a capacidade, nunca cobre o número.</p>
+<p><strong>Quando o protocolo custa mais do que mede.</strong> Etiquetas exigem disciplina de quem distribui o
+trabalho. O próprio documento do protocolo lista onde ele não chega: sessões na nuvem e sessões
+no subsistema Linux do Windows não carregam o mod; recarregar o mod perde a tarefa ativa;
+sessões aninhadas repetem identificadores; e o rótulo do juiz não é autenticado. Num time em que
+metade das sessões cai num desses casos, o livro vai mostrar uma fração do gasto com cara de
+total. Pior que não ter número é ter um número parcial sem rótulo de parcial. Se o seu ambiente
+é assim, prefira o custo por sessão lido dos transcritos — mais grosso, mas completo — e rotule
+como estimativa.</p>
+<p><strong>Quando a minimização atrapalha a depuração.</strong> Sem o conteúdo, não se depura por que um agente
+gastou 6 milhões de tokens numa revisão. Para isso, o rastreamento detalhado tem lugar — local,
+com retenção curta, com finalidade declarada, longe do registro de custo. O erro é misturar os
+dois e reter tudo para sempre &quot;porque pode ser útil&quot;.</p>
+<p><strong>O custo do próprio instrumento.</strong> O teste ao vivo do gancho de fim de resposta, no ciclo 065,
+custou US$ 0,017 [CLAIM-13-026]; as tentativas medidas do ciclo inteiro que construiu o livro de
+ponto somaram US$ 12,36 [CLAIM-13-008]. Não é caro.
+O caro é o que a falha real mostrou: um instrumento sem consumidor obrigatório, que deixa de ser
+alimentado sem que nada fique vermelho.</p>
+<h2 id="evidência" tabindex="-1">Evidência <a class="header-anchor" href="#evidência" aria-hidden="true">#</a></h2>
+<p>O que sustenta o capítulo, separado pelo estado de cada afirmação. A tabela completa, com a
+evidência reproduzível de cada claim, está em <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/13-observabilidade-e-economia/claims.md"><code>claims.md</code></a>.</p>
+<p><strong>Medido</strong> (reproduzível por comando na versão citada): o livro de ponto com 52 linhas de um só
+dia e um só commit [CLAIM-13-002]; os doze diretórios de especificação sem evento no livro
+[CLAIM-13-003]; a ausência de plugin habilitado nas configurações [CLAIM-13-004]; os números do
+ciclo medido — custo total e por tipo, tokens por modelo, <em>cache</em>, vereditos descartados,
+retrabalho pelas duas definições, tempo de ciclo, custo ingênuo [CLAIM-13-008, CLAIM-13-010 a
+CLAIM-13-014, CLAIM-13-029]; o exemplo sintético [CLAIM-13-015]; a projeção e a sua mutação
+[CLAIM-13-023, CLAIM-13-024]; as promoções e a ausência de reversões [CLAIM-13-016 a
+CLAIM-13-018].</p>
+<p><strong>Observado</strong> (registrado em spec, ADR, índice de decisões ou documento do Maestro, ou em fonte
+pública): a decisão do teto de 60 % [CLAIM-13-001]; a ideia 029 e o seu gatilho [CLAIM-13-005];
+a lacuna &quot;aprendizados sim, métricas não&quot; [CLAIM-13-006]; a demanda que abriu o ciclo 065
+[CLAIM-13-007]; as tentativas não medidas da sessão gerente [CLAIM-13-009]; os nove escapes
+[CLAIM-13-019]; a decisão de privacidade do custo por sessão [CLAIM-13-020]; o ADR 0033
+[CLAIM-13-021]; o limite do modo de acréscimo [CLAIM-13-022]; as métricas e o relatório de 2025
+do DORA [CLAIM-13-025, CLAIM-13-032]; o custo do teste ao vivo [CLAIM-13-026]; o custo por
+sessão como estimativa rotulada [CLAIM-13-027]; as regras do painel e do modelo operacional
+[CLAIM-13-030, CLAIM-13-031]; a especificação do ciclo 022 [CLAIM-13-033]; os vocabulários fechados do protocolo [CLAIM-13-034]; a lista de métricas da agenda de pesquisa [CLAIM-13-035].</p>
+<p><strong>Hipótese</strong> (não medida; agenda da pesquisa). Duas hipóteses da base de pesquisa do livro
+encostam neste capítulo [CLAIM-13-028]. A H3 diz que contexto seletivo reduz custo sem perder
+qualidade; a taxa de <em>cache</em> de 96,7 % sugere que boa parte do custo de uma sessão longa é
+releitura, mas não mostra que cortá-la preservaria a qualidade. A H9 diz que um modelo menor
+basta em tarefa estruturada; o ciclo medido usou o modelo maior só nas revisões, o que é
+coerente com a hipótese, mas um ciclo não é amostra. Os números do ciclo 064/065 são um estudo
+de caso de <strong>um</strong> ciclo, de <strong>um</strong> operador, num dia; nenhum deles é estimativa de frequência,
+e nenhuma comparação entre arranjos foi feita. O desenho que testaria H3 e H9 — linhas de base
+com e sem cada prática, repetições, ambiente congelado — está no
+<a href="15-validando-o-maestro.html">capítulo 15</a>.</p>
+<p>Um limite honesto adicional: o livro de ponto do Maestro só funciona num <em>harness</em> (o Claude
+Code) e com um mod. O argumento do capítulo não depende disso — etiquetas numa mensagem e um
+arquivo só-acréscimo funcionam com qualquer ferramenta que deixe ler o uso de tokens —, mas a
+evidência, por enquanto, vem de uma só.</p>
+<h2 id="checklist" tabindex="-1" class="callout c-verif" data-rotulo="Aplique">Checklist <a class="header-anchor" href="#checklist" aria-hidden="true">#</a></h2>
+<p>Aplique no seu time, na ordem.</p>
+<ul>
+<li>[ ] O time sabe dizer <strong>por que</strong> quer o número de custo, e escreveu a decisão que ele vai
+informar. Sem isso, escreveu o gatilho de reavaliação e parou aqui.</li>
+<li>[ ] As métricas DORA são lidas aos pares, a partir do repositório (registro de promoções,
+<em>changelog</em>, histórico), e implantação registrada não é confundida com merge.</li>
+<li>[ ] Existe um registro <strong>só-acréscimo</strong> de tarefas com início, fim, tentativa, desfecho,
+tokens por categoria (entrada, saída, <em>cache</em> lido, <em>cache</em> gravado) e custo em dinheiro
+vindo de quem cobra.</li>
+<li>[ ] Tentativa, desfecho e veredito são campos diferentes, e o veredito só conta quando vem de
+quem não executou — conferido na gravação <strong>e</strong> na leitura.</li>
+<li>[ ] O relatório publica o <strong>custo por tarefa aceita</strong> ao lado do custo por tarefa executada.</li>
+<li>[ ] Retrabalho é medido também por <strong>linhagem</strong> (da primeira reprovação até a aceitação), e não
+só como &quot;tentativa 2&quot;.</li>
+<li>[ ] Custo ausente aparece como &quot;não medido&quot;, com a lista das tentativas; órfãos aparecem como
+órfãos; nenhum número é completado por inferência ou rateado entre modelos.</li>
+<li>[ ] O registro tem um <strong>consumidor obrigatório</strong> — um relatório que alguém lê no fechamento do
+ciclo, ou um portão que fica vermelho quando um ciclo fecha sem eventos.</li>
+<li>[ ] A soma do registro é conferida contra o painel do fornecedor; a diferença tem explicação.</li>
+<li>[ ] O que se grava sobre custo são <strong>contagens e identificadores</strong>, nunca o conteúdo das
+mensagens; a exportação usa lista de permissão, e um teste prova que removê-la reprova.</li>
+<li>[ ] Os nomes de campo seguem as convenções GenAI do OpenTelemetry; o exportador só existe
+quando há quem consuma.</li>
+<li>[ ] Rastreamento detalhado com conteúdo, se existir, é local, tem finalidade declarada e
+retenção curta.</li>
+<li>[ ] Há um teto de consumo declarado, com <strong>quem avisa</strong> ao cruzar o limiar; o corte automático
+é uma decisão separada, de risco próprio.</li>
+<li>[ ] Nenhuma dessas métricas é meta individual nem de agente.</li>
+</ul>
+<h2 id="referências" tabindex="-1">Referências <a class="header-anchor" href="#referências" aria-hidden="true">#</a></h2>
+<p><strong>Maestro</strong> (versão <code>19823c2</code>, salvo indicação):</p>
+<ul>
+<li>Axiomas A5, teoremas T5 e T7 —
+https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/axioms.md</li>
+<li>Protocolo do livro de ponto (<em>task ledger</em>) —
+https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/task-ledger.md</li>
+<li>Livro de ponto — https://github.com/GHDaru/maestro/blob/19823c2/docs/records/tarefas.jsonl</li>
+<li>Gravador, relatório e portão —
+https://github.com/GHDaru/maestro/blob/19823c2/scripts/record-task.py ·
+https://github.com/GHDaru/maestro/blob/19823c2/scripts/report-tasks.py ·
+https://github.com/GHDaru/maestro/blob/19823c2/scripts/check-ledger.sh</li>
+<li>Spec do ciclo 065 —
+https://github.com/GHDaru/maestro/blob/19823c2/specs/065-o-metodo-se-cobra-e-bate-o-ponto/spec.md</li>
+<li>Spec do ciclo 022 —
+https://github.com/GHDaru/maestro/blob/19823c2/specs/022-capitulo-02-padrao-v2/spec.md</li>
+<li>Spec do ciclo 068 —
+https://github.com/GHDaru/maestro/blob/19823c2/specs/068-chamados-gate-a-gate/spec.md</li>
+<li>ADR 0021, ADR 0022, ADR 0033 —
+https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0021-o-metodo-se-cobra-e-bate-o-ponto.md ·
+https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0022-painel-de-coordenacao-como-projecao-dos-arquivos.md ·
+https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0033-opentelemetry-como-projecao-do-log.md</li>
+<li>Índice de decisões (<code>decisao-066-d4-custo-privacidade</code>, <code>decisao-073-teto-60</code>, <code>gate-main-*</code>) —
+https://github.com/GHDaru/maestro/blob/19823c2/docs/records/decisoes.jsonl</li>
+<li>Ideia 029, trilha de auditoria com custo —
+https://github.com/GHDaru/maestro/blob/19823c2/docs/ecosystem/ideias/029-trilha-de-auditoria-com-custo.md</li>
+<li>Glossário (custo por sessão, consumo por agente, limite de orçamento, emissor do aviso) —
+https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/glossary.md</li>
+<li>Modelo operacional, §6 e §10 —
+https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/operating-model.md</li>
+<li>Leitor de custo por sessão — https://github.com/GHDaru/maestro/blob/19823c2/painel/custo.py</li>
+<li>Handbook do método, capítulo 02 (DORA e SPACE), apêndice A §2, receita &quot;instalar o Maestro&quot; e
+diagrama 06 (cópia congelada em
+<a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/maestro-handbook/handbook/02-dora-space.md"><code>maestro-handbook/</code></a>)</li>
+</ul>
+<p><strong>Externas</strong>:</p>
+<ul>
+<li>DORA, &quot;DORA's software delivery performance metrics&quot; — https://dora.dev/guides/dora-metrics/
+(acesso em 02/11/2026).</li>
+<li>DORA, <em>State of AI-assisted Software Development 2025</em> —
+https://dora.dev/research/2025/dora-report/ (acesso em 02/11/2026).</li>
+<li>N. Forsgren, J. Humble e G. Kim, <em>Accelerate: The Science of Lean Software and DevOps</em>, IT
+Revolution, 2018.</li>
+<li>N. Forsgren, M.-A. Storey, C. Maddila, T. Zimmermann, B. Houck e J. Butler, &quot;The SPACE of
+Developer Productivity&quot;, <em>ACM Queue</em>, 2021.</li>
+<li>OpenTelemetry, convenções semânticas para IA generativa —
+https://opentelemetry.io/docs/specs/semconv/gen-ai/ (não reconsultada para esta versão; os
+nomes de atributo citados são os que a banca de arquitetura do ciclo 076 do Maestro registrou
+em <code>specs/076-padroes-de-engenharia-e-react/banca-arq/r3-arq3.md</code>).</li>
+<li>Brasil, Lei nº 13.709/2018 (Lei Geral de Proteção de Dados Pessoais), art. 6º, princípio da
+necessidade.</li>
+<li>Autoridade Nacional de Proteção de Dados (ANPD), iniciativa de <em>sandbox</em> regulatório em
+inteligência artificial e proteção de dados (não reconsultada para esta versão).</li>
+<li>C. A. E. Goodhart, &quot;Problems of Monetary Management: The U.K. Experience&quot;, 1975 — a origem da
+lei de Goodhart.</li>
+</ul>
+</article>
+    <nav class="paginacao" aria-label="Anterior e próximo"><a class="pg-prev" href="12-ferramentas-mcp-e-o-ecossistema-exemplo.html"><small>← anterior</small>Exemplo executável — 12 Ferramentas, MCP e o ecossistema</a><a class="pg-next" href="13-observabilidade-e-economia-exemplo.html"><small>próximo →</small>Exemplo executável — 13 Observabilidade e economia</a></nav>
+    <footer class="rodape">
+      <a href="https://github.com/GHDaru/agentic_software_engineering">github.com/GHDaru/agentic_software_engineering</a>
+       · <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/13-observabilidade-e-economia/capitulo.md">fonte desta página</a>
+      · gerado de <code>livro/</code> por <code>publicar/build.mjs</code>
+    </footer>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body></html>

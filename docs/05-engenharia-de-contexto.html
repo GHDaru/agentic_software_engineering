@@ -1,0 +1,804 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>05 — Engenharia de contexto · Engenharia de Software Orientada por Agentes</title>
+<meta name="description" content="Governança operacional para um humano regendo muitos agentes">
+<script>try{var t=localStorage.getItem("tema");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="assets/estilo.css">
+</head><body>
+<header class="barra">
+  <button id="alt-menu" aria-label="Abrir o sumário" aria-expanded="false" aria-controls="sidebar">☰ <span>Sumário</span></button>
+  <a class="barra-titulo" href="index.html">Engenharia de Software Orientada por Agentes</a>
+  <button id="alt-tema" aria-label="Alternar tema claro/escuro">◐</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="marca" href="index.html">Engenharia de Software Orientada por Agentes<small>Agentic Software Engineering</small></a>
+    <div class="nav-parte">Abertura</div><ul><li><a href="00-prefacio.html">Prefácio</a></li></ul><div class="nav-parte">Parte I — Por que agentes mudam a engenharia</div><ul><li><a href="01-a-mudanca-de-unidade-de-trabalho.html">1. A mudança de unidade de trabalho</a></li><li class="filho"><a class="filho" href="01-a-mudanca-de-unidade-de-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="02-o-problema-da-confianca.html">2. O problema da confiança</a></li><li class="filho"><a class="filho" href="02-o-problema-da-confianca-exemplo.html">Exemplo executável</a></li><li><a href="03-um-humano-muitos-agentes.html">3. Um humano, muitos agentes</a></li><li class="filho"><a class="filho" href="03-um-humano-muitos-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte II — Especificar e dar contexto</div><ul><li><a href="04-a-spec-como-partitura.html">4. A spec como partitura</a></li><li class="filho"><a class="filho" href="04-a-spec-como-partitura-exemplo.html">Exemplo executável</a></li><li><a class="ativo" aria-current="page" href="05-engenharia-de-contexto.html">5. Engenharia de contexto</a></li><li class="filho"><a class="filho" href="05-engenharia-de-contexto-exemplo.html">Exemplo executável</a></li><li><a href="06-como-dividir-o-trabalho.html">6. Como dividir o trabalho</a></li><li class="filho"><a class="filho" href="06-como-dividir-o-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="07-papeis-e-skills.html">7. Papéis e skills</a></li><li class="filho"><a class="filho" href="07-papeis-e-skills-exemplo.html">Exemplo executável</a></li><li><a href="08-ddd-para-agentes.html">8. DDD para agentes</a></li><li class="filho"><a class="filho" href="08-ddd-para-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte III — Provar e conter</div><ul><li><a href="09-arquitetura-que-se-defende.html">9. Arquitetura que se defende</a></li><li class="filho"><a class="filho" href="09-arquitetura-que-se-defende-exemplo.html">Exemplo executável</a></li><li><a href="10-quality-gates-que-provam-fatos.html">10. Quality gates que provam fatos</a></li><li class="filho"><a class="filho" href="10-quality-gates-que-provam-fatos-exemplo.html">Exemplo executável</a></li><li><a href="11-risco-reversibilidade-e-autonomia.html">11. Risco, reversibilidade e autonomia</a></li><li class="filho"><a class="filho" href="11-risco-reversibilidade-e-autonomia-exemplo.html">Exemplo executável</a></li><li><a href="12-ferramentas-mcp-e-o-ecossistema.html">12. Ferramentas, MCP e o ecossistema</a></li><li class="filho"><a class="filho" href="12-ferramentas-mcp-e-o-ecossistema-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte IV — Medir e aprender</div><ul><li><a href="13-observabilidade-e-economia.html">13. Observabilidade e economia</a></li><li class="filho"><a class="filho" href="13-observabilidade-e-economia-exemplo.html">Exemplo executável</a></li><li><a href="14-a-organizacao-que-aprende.html">14. A organização que aprende</a></li><li class="filho"><a class="filho" href="14-a-organizacao-que-aprende-exemplo.html">Exemplo executável</a></li><li><a href="15-validando-o-maestro.html">15. Validando o Maestro</a></li><li class="filho"><a class="filho" href="15-validando-o-maestro-exemplo.html">Exemplo executável</a></li><li><a href="16-o-futuro-da-engenharia-agentica.html">16. O futuro da engenharia agêntica</a></li><li class="filho"><a class="filho" href="16-o-futuro-da-engenharia-agentica-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Apêndices</div><ul><li><a href="apendice-a-o-maestro-em-uma-pagina.html">A. O Maestro em uma página</a></li><li><a href="apendice-b-aseg-bench.html">B. ASEG-Bench — um benchmark de governança</a></li><li><a href="apendice-c-pacote-de-replicacao.html">C. Pacote de replicação</a></li><li><a href="apendice-d-estudos-de-campo.html">D. Estudos de campo do ecossistema</a></li></ul><div class="nav-parte">Consulta</div><ul><li><a href="glossario.html">Glossário</a></li><li><a href="evidencias.html">Evidências (claims)</a></li></ul>
+  </aside>
+  <main class="conteudo">
+    <article class="markdown"><h1 id="05--engenharia-de-contexto" tabindex="-1">05 — Engenharia de contexto <a class="header-anchor" href="#05--engenharia-de-contexto" aria-hidden="true">#</a></h1>
+<blockquote>
+<p><em>O agente não esquece aos poucos. Ele esquece de uma vez, e esquece exatamente o que você
+não escreveu.</em></p>
+</blockquote>
+<p>Seu time já sabe que um agente de Inteligência Artificial (IA) &quot;fica burro&quot; na terceira hora
+de sessão, e já aprendeu o remédio de corredor: limpar a conversa e começar de novo. O
+remédio funciona até o dia em que, junto com o ruído, vai embora a regra que segurava o
+merge. Este capítulo trata o contexto do agente como o que ele é, um recurso finito que se
+gasta, e mostra as quatro operações que um tech lead precisa governar sobre ele: <strong>selecionar</strong>
+o que entra, <strong>comprimir</strong> o que já entrou, <strong>persistir</strong> o que precisa sobreviver e
+<strong>transferir</strong> para a próxima sessão o que esta aprendeu. Nenhuma das quatro depende da
+ferramenta que você usa; todas dependem de onde a informação está escrita.</p>
+<h2 id="pergunta-central" tabindex="-1" class="callout c-obj" data-rotulo="Pergunta">Pergunta central <a class="header-anchor" href="#pergunta-central" aria-hidden="true">#</a></h2>
+<p>Se a janela de contexto do agente é finita e zera a cada sessão, como decidir o que ele lê,
+o que ele descarta e o que tem de sobreviver fora dele?</p>
+<h2 id="resultado-de-aprendizagem" tabindex="-1">Resultado de aprendizagem <a class="header-anchor" href="#resultado-de-aprendizagem" aria-hidden="true">#</a></h2>
+<p>Ao final do capítulo, você consegue:</p>
+<ol>
+<li><strong>Derivar</strong> de duas premissas (o contexto é finito e degrada; só o escrito sobrevive) por
+que um artefato só se mantém vivo se algo o consome ou se ele é imutável, e usar isso para
+decidir onde cada regra do seu time tem de morar.</li>
+<li><strong>Classificar</strong> uma prática de trabalho com agentes (subagente, plano, limpar a sessão,
+revisor novo, memória de sessão, índice de decisões) em uma das quatro operações:
+seleção, compressão, persistência ou transferência.</li>
+<li><strong>Medir</strong> a economia de contexto de uma tarefa (o que ela carrega ÷ o que o repositório
+tem) e ler uma economia baixa como sinal de corte errado, e não de janela pequena.</li>
+<li><strong>Escrever</strong> uma tarefa que sobrevive à compactação: autossuficiente, com arquivo e
+critério, e com os passos de fechamento em forma que uma máquina confere.</li>
+<li><strong>Montar</strong> a cadeia de rastreabilidade de trás para frente (registro do gate → commit →
+ciclo → decisão) e apontar qual elo do seu repositório ainda vive de hábito.</li>
+</ol>
+<h2 id="a-falha-real" tabindex="-1" class="callout c-falha" data-rotulo="Caso real">A falha real <a class="header-anchor" href="#a-falha-real" aria-hidden="true">#</a></h2>
+<p>Em 7 de agosto de 2026, uma agente que trabalhava num repositório vizinho ao do Maestro foi
+perguntada, ao fim de um ciclo, se tinha seguido o método. Respondeu com honestidade que não
+[CLAIM-05-001]. O diagnóstico que ela mesma fez virou a especificação do ciclo 042 do Maestro
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/042-conformidade-executavel/spec.md">spec 042</a>).</p>
+<p>O plano dela, o <code>plan.md</code>, listava a ordem de implementação e parava em &quot;docs e fitness
+verdes&quot;. O resto do fechamento, que o método exige (revisão independente em contexto
+fresco, revisão de segurança, gate humano), estava escrito na spec e estava, sobretudo, na
+memória de trabalho da agente, porque tinha sido conversado. Então a janela encheu e o
+<em>harness</em> compactou o contexto. A compactação não estraga a informação aos poucos: ela
+escolhe o que fica. Ficou o plano, que era o que a agente estava seguindo. A conversa virou
+resumo, e o resumo não trazia a cauda. A partir daí, a versão truncada passou a ser a fonte
+de verdade, e a agente dirigiu até o <em>pull request</em> (PR) obedecendo a ela com fidelidade.
+Nenhum passo foi desobedecido. Os passos que faltavam simplesmente tinham deixado de existir
+para quem executava.</p>
+<p>O Maestro foi medir se aquilo era acidente do vizinho. Não era. Em 35 dos 40 ciclos que o
+próprio Maestro tinha rodado até ali, o <code>tasks.md</code> (a lista que o executor segue) tinha
+perdido o gate humano que o template carregava [CLAIM-05-002]. O método instalado era uma
+cópia com perda do método, e o executor seguia a cópia. Nada acusava a perda, porque omissão
+não viola nada visível: a checagem de constituição perguntava se o plano <em>violava</em> um
+princípio, nunca se ele <em>omitia</em> um passo.</p>
+<p>A segunda falha é cinco dias mais velha e mostra o mesmo defeito do outro lado: não o que se
+perde dentro da sessão, mas o que se perde entre uma sessão e a próxima. Em 2 de agosto, o
+ciclo 021 instalou o Maestro no próprio Maestro, como teste mais barato possível: se o método
+não passa no seu instalador, ninguém deveria confiar nele nos outros. Não passou. A
+auto-instalação achou três derivas silenciosas [CLAIM-05-003]. O <code>AGENTS.md</code>, o arquivo de
+instrução que a maioria dos assistentes lê, estava sem a regra &quot;skills primeiro&quot;, que o
+<code>CLAUDE.md</code> tinha desde o ciclo 011. A skill de jornada viva, criada no ciclo 018, existia no
+disco e não era citada na instrução: três ciclos invisível para a IA. E a checagem de
+constituição da skill e de dois agentes dizia &quot;I–VII&quot;, quando a constituição tinha oito
+princípios desde o ciclo 013: oito ciclos de planos sem onde marcar o princípio novo. O
+verificador escrito no ciclo saiu com código 1 na primeira execução, com dois achados reais
+[CLAIM-05-004] (<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/021-maestro-instalado-no-maestro/qa-report.md">relatório do ciclo 021</a>).</p>
+<p>O relatório do ciclo nomeou a causa comum: <strong>lista escrita à mão que ninguém compara com o
+disco</strong>. Nada daquilo quebrava o build. A IA apenas seguia menos método do que o repositório
+declarava ter. A correção foi estrutural e virou o ADR 0013 (o <em>Architecture Decision
+Record</em>, registro de decisão de arquitetura): <code>AGENTS.md</code> passou a ser link simbólico para
+<code>CLAUDE.md</code>, e o bloco de instrução passou a ser gerado lendo as skills do disco
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0013-instrucao-para-ia-gerada-e-fonte-unica.md">ADR 0013</a>).</p>
+<p>As duas histórias são o capítulo em miniatura. Na primeira, a informação certa foi apagada
+porque não estava no artefato que o executor consumia. Na segunda, ela existia no disco e não
+chegava à próxima sessão porque o canal era uma cópia escrita à mão. Não faltou inteligência
+ao agente. Faltou engenharia sobre o que ele lê.</p>
+<h2 id="teoria" tabindex="-1">Teoria <a class="header-anchor" href="#teoria" aria-hidden="true">#</a></h2>
+<h3 id="dois-axiomas-um-teorema" tabindex="-1">Dois axiomas, um teorema <a class="header-anchor" href="#dois-axiomas-um-teorema" aria-hidden="true">#</a></h3>
+<p>O capítulo deriva de duas verdades assumidas, sem prova, na camada de axiomas do Maestro
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/axioms.md">axiomas</a>):</p>
+<ul>
+<li><strong>A3 — o contexto é finito e degrada ao encher.</strong> A janela que o agente lê é limitada, e o
+desempenho cai à medida que ela se enche de ruído. É propriedade física da ferramenta, não
+hábito do operador. Tire A3 e não há razão para fatiar trabalho, limpar contexto ou manter
+um agente estreito.</li>
+<li><strong>A4 — o que está escrito é o que sobrevive.</strong> O agente começa cada sessão do zero. O que
+não está num artefato não existe para a próxima execução, inclusive o motivo de uma
+decisão. Tire A4 e a documentação vira opcional, porque a memória moraria em outro lugar
+que não o repositório.</li>
+</ul>
+<p>Dos dois sai o teorema T5: <strong>um artefato sobrevive por consumo ou por imutabilidade.</strong> Manter
+um documento atualizado custa atenção, que é o recurso escasso (A3). Então só dois tipos
+sobrevivem: o que alguma coisa a jusante consome e que falha alto quando envelhece, e o que
+descreve um momento e por isso nunca envelhece (A4). O Maestro dá a evidência dos dois: o
+registro de mudanças vive porque a integração contínua falha sem ele, e os ADRs vivem porque
+são imutáveis, nove de dez com um único commit desde que nasceram [CLAIM-05-020].</p>
+<p>Dois corolários traduzem isso para o dia a dia de quem rege agentes. O C12 diz que <strong>o que
+sobrevive à compactação é o que está num artefato consumido; o resto é apagado, e não
+degradado</strong>. É a falha do ciclo 042 enunciada como lei: a cauda não ficou &quot;mais fraca&quot; na
+memória da agente, ela sumiu. O C13 diz que <strong>pergunta que se responde de memória será
+respondida de memória, e memória relata intenção</strong>. &quot;Estou seguindo o método?&quot; respondido
+pelo agente devolve o que ele pretendia fazer, não o que os artefatos mostram. O antídoto do
+C13 é trocar a pergunta por um comando, assunto que volta no padrão Maestro.</p>
+<h3 id="contexto-é-orçamento-não-depósito" tabindex="-1">Contexto é orçamento, não depósito <a class="header-anchor" href="#contexto-é-orçamento-não-depósito" aria-hidden="true">#</a></h3>
+<p>A intuição manda alimentar mais: &quot;cole o repositório inteiro, assim ele entende&quot;. É o
+contrário. Cada beco sem saída, arquivo irrelevante ou tentativa abandonada continua
+ocupando lugar e afogando o sinal. Depois de horas de sessão, o agente que começou preciso
+repete o que já tentou e esquece a regra dada no começo. Não ficou pior. Ficou cheio.</p>
+<p>Há literatura para a parte de A3 que não é intuição. Liu e colegas mostraram, em 2023, que
+modelos de linguagem usam mal a informação posta no meio de um contexto longo: o desempenho
+é melhor quando o dado relevante está no começo ou no fim, e cai quando está no meio
+(<em>lost in the middle</em>). Relatórios de engenharia posteriores, como o da Chroma sobre
+<em>context rot</em> e o da Anthropic sobre engenharia de contexto para agentes, descrevem o mesmo
+fenômeno de outro ângulo: mais <em>tokens</em> na entrada não significam mais compreensão, e a
+atenção do modelo é um orçamento que se gasta. A conclusão prática é a mesma do handbook do
+Maestro: <strong>o inimigo não é a falta de contexto, é o acúmulo</strong>.</p>
+<p>Para o tech lead, a consequência é de gestão, não de <em>prompt</em>: toda prática de trabalho com
+agentes é uma decisão de gasto.</p>
+<h3 id="as-quatro-operações" tabindex="-1">As quatro operações <a class="header-anchor" href="#as-quatro-operações" aria-hidden="true">#</a></h3>
+<p>Há quatro coisas que se fazem com um orçamento de contexto, e cada prática conhecida é uma
+delas:</p>
+<table>
+<thead>
+<tr>
+<th>Operação</th>
+<th>A pergunta que responde</th>
+<th>Práticas que a realizam</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Seleção</strong></td>
+<td>O que entra na janela desta tarefa?</td>
+<td>agente estreito; subagente que lê em janela própria; tarefa que cita os arquivos de que precisa</td>
+</tr>
+<tr>
+<td><strong>Compressão</strong></td>
+<td>O que já entrou pode virar menos?</td>
+<td>explorar → planejar → codar (o plano é a exploração destilada); compactação; resumo de subagente</td>
+</tr>
+<tr>
+<td><strong>Persistência</strong></td>
+<td>O que precisa existir depois que a janela fechar?</td>
+<td>spec, plano, tarefas, relatório; índice de decisões; ADR</td>
+</tr>
+<tr>
+<td><strong>Transferência</strong></td>
+<td>Como a próxima sessão recebe o que esta sabia?</td>
+<td>arquivo de instrução lido no início; carga de estado no início da sessão; revisor que começa do zero com o diff e o critério</td>
+</tr>
+</tbody>
+</table>
+<p>O handbook do Maestro chegou a essa leitura por um caminho mais curto: quatro práticas que
+parecem soltas, explorar-planejar-codar, subagentes, limpar a sessão e revisor em contexto
+fresco, contornam a mesma restrição física. Explorar-planejar-codar <strong>comprime</strong> a exploração
+no essencial antes de gastar janela com código. O subagente <strong>seleciona</strong>: lê em janela
+própria e devolve ao principal só o resultado. Limpar a sessão descarta ruído entre tarefas
+não relacionadas. O revisor fresco começa com o orçamento inteiro e vê só o diff e o
+critério, o que é uma <strong>transferência</strong> deliberadamente estreita. A taxonomia de quatro
+operações vem da base de pesquisa deste livro; ela converge com a que a LangChain publicou em
+2025 para agentes (escrever, selecionar, comprimir e isolar contexto), e a diferença de
+nomes importa pouco. O que importa é que, com as quatro na cabeça, o tech lead para de
+discutir &quot;boas práticas&quot; uma a uma e passa a perguntar qual das quatro operações está mal
+feita.</p>
+<p>Seleção e compressão acontecem dentro de uma sessão; persistência e transferência
+atravessam o corte entre sessões, onde A4 morde. A falha do ciclo 042 foi de compressão; a do
+021, de transferência. A raiz foi a mesma: a informação estava escrita, mas não no lugar que
+o consumidor seguinte lia.</p>
+<h3 id="o-que-não-se-descarta-o-contexto-integrador" tabindex="-1">O que não se descarta: o contexto integrador <a class="header-anchor" href="#o-que-não-se-descarta-o-contexto-integrador" aria-hidden="true">#</a></h3>
+<p>A primeira reação a A3 é cortar. Cortar demais tem nome: <strong>amnésia</strong>. Limpar a sessão a cada
+turno esquece o básico; delegar tudo a subagentes produz <strong>ótimo local</strong>, em que cada fatia é
+perfeita e o conjunto quebra, porque nenhum executor viu o todo. A disciplina madura não é
+&quot;menos contexto&quot;, é <strong>contexto certo</strong>: o objetivo, os invariantes e os contratos ficam; os
+caminhos abandonados vão embora.</p>
+<p>O Princípio V da constituição do Maestro diz isso numa frase: preserve o <strong>contexto
+integrador</strong>, a spec, e descarte o ruído
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/principles.md">princípios</a>).
+O mesmo princípio acrescenta duas regras que pertencem à seleção: paralelizar por contexto
+delimitado (<em>bounded context</em>), porque é o corte certo que torna a orquestração segura, e usar
+a menor autonomia que resolve, com fluxo fixo antes de agente autônomo. A primeira é assunto
+do <a href="06-como-dividir-o-trabalho.html">capítulo 6</a>; aqui basta registrar que
+<strong>fronteira importa mais que tamanho</strong>. Fatiar por quantidade (&quot;metade dos arquivos para cada
+agente&quot;) produz duas fatias que não se encaixam. Fatiar por fronteira produz fatias que se
+encaixam por construção.</p>
+<p>O gatilho de limpar a sessão segue a mesma lógica: é a <strong>troca de papel</strong>, não o turno.
+Quem acabou de implementar e vai revisar começa do zero; quem só mudou de arquivo, não.</p>
+<h3 id="economia-medida-não-afirmada" tabindex="-1">Economia medida, não afirmada <a class="header-anchor" href="#economia-medida-não-afirmada" aria-hidden="true">#</a></h3>
+<p>A economia que um corte produz pode ser medida: quanto a tarefa carrega dividido por quanto
+o repositório tem. Quando a economia sai <strong>consistentemente baixa</strong> ao
+fatiar, o diagnóstico quase nunca é &quot;a janela é pequena&quot;. É que o corte atravessou uma
+costura em vez de segui-la, e o remédio é replanejar o corte, não pedir um modelo com janela
+maior.</p>
+<p>A ideia veio de um estudo anterior do mesmo autor, o maestro-02, cujo <em>context-slicer</em>
+reportava a estimativa de <em>tokens</em> da fatia ao lado da estimativa do contexto cheio. O Maestro
+absorveu o conceito e não a ferramenta, e o próprio cartão de absorção admite que é a absorção
+mais fraca das seis vindas daquele estudo: existe texto, não existe portão [CLAIM-05-021]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/ecosystem/ideias/027-economia-de-contexto-medida.md">cartão 027</a>).
+Princípio sem medida é adjetivo.</p>
+<p>O próprio handbook caiu nisso antes de corrigir. Até o ciclo 024, o capítulo sobre contexto
+tinha uma seção chamada &quot;economia de contexto medida&quot; que não media nada: era a recomendação
+de medir, escrita como se fosse prática [CLAIM-05-017]. O ciclo trocou a recomendação por um
+número que se reproduz: os agentes do repositório, contados em linhas, com a permissão de
+escrita negada por arquivo
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/024-capitulo-04-padrao-v2/qa-report.md">relatório do ciclo 024</a>).
+O mesmo ciclo registrou um limite honesto: nem todo papel é acionado em todo ciclo. O
+inventário de janelas separadas é maior que o uso, e isso é a regra funcionando, não
+desperdício.</p>
+<h3 id="a-memória-que-sobrevive-ao-reset" tabindex="-1">A memória que sobrevive ao reset <a class="header-anchor" href="#a-memória-que-sobrevive-ao-reset" aria-hidden="true">#</a></h3>
+<p>Num time humano, parte da memória do projeto fica nas pessoas. Com agentes, <strong>não fica em
+lugar nenhum</strong>: cada sessão começa do zero, por desenho, e a rastreabilidade deixa de ser boa
+prática de auditoria para ser o único mecanismo de continuidade.</p>
+<p>Rastreabilidade tem dois sentidos. <strong>Para frente</strong>, ela responde se a intenção foi construída
+e verificada: esta spec virou código, este código tem teste? É cobertura de intenção.
+<strong>Para trás</strong>, ela responde de onde veio um sintoma: este comportamento vem de qual mudança,
+que atendia qual requisito, decidido por quê? É recuperação, e é o sentido que se otimiza,
+porque é o que encurta o incidente. Gotel e Finkelstein já apontavam, em 1994, que o problema
+da rastreabilidade de requisitos é sobretudo o do sentido para trás, até a origem da
+intenção; com agentes, a origem da intenção é a única coisa que o executor não tem como
+reconstruir sozinho.</p>
+<p>A forma barata de ter rastreabilidade é por <strong>convenção</strong>, não por ferramenta: a spec
+numera, o commit cita o número, o teste nomeia o requisito, o ADR guarda o porquê. Nenhuma
+matriz de rastreabilidade, porque matriz que ninguém mantém morre, e rastreabilidade que vira
+projeto próprio já morreu. O elo emerge do fluxo quando cada artefato cita o próximo e algum
+portão força a citação. O modelo operacional do Maestro escreve a cadeia inteira: intenção →
+spec → plano → desenho de interface → tarefas → implementação → testes → revisão →
+documentação viva → PR → gate humano, sem ferramenta pesada
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/operating-model.md">modelo operacional, §9</a>).</p>
+<h3 id="o-regente-também-tem-janela" tabindex="-1">O regente também tem janela <a class="header-anchor" href="#o-regente-também-tem-janela" aria-hidden="true">#</a></h3>
+<p>Há um leitor de contexto que os textos sobre agentes esquecem: o humano que rege. A atenção
+dele também é finita, e um documento que mistura tutorial, explicação, receita e referência
+gasta o orçamento de quem lê como um <em>prompt</em> despejado gasta o do agente. Por isso o guia
+editorial do Maestro adota o Diátaxis, de Daniele Procida (quatro tipos de texto que nunca se
+misturam na mesma página: tutorial, explicação, como-fazer e referência), e a teoria da carga
+cognitiva, de John Sweller, com o modelo <em>Four-Component Instructional Design</em> (4C/ID), de van Merriënboer (uma ideia nova por vez,
+exemplo resolvido antes do exercício, a tarefa inteira como fio condutor)
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/livro/guia-editorial.md">guia editorial do Maestro, §1</a>).</p>
+<p>O ciclo 014 aplicou isso à navegação: cinco trilhas tipadas pelo Diátaxis, quatro percursos
+escolhidos pelo tempo que o leitor tem, nenhum link de conteúdo saindo do livro
+[CLAIM-05-023]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/014-navegacao-cinco-trilhas/spec.md">spec 014</a>).
+É seleção feita para o humano: quem escreve decide o que o próximo leitor carrega, e o
+próximo leitor, agente ou pessoa, paga a conta do que não foi selecionado.</p>
+<h2 id="alternativas" tabindex="-1">Alternativas <a class="header-anchor" href="#alternativas" aria-hidden="true">#</a></h2>
+<p>O ecossistema oferece muitas respostas para &quot;o agente esquece&quot;. A tabela compara as que o
+Maestro avaliou com fonte primária, mais duas da literatura, pela operação que realizam e
+pelo veredito. O veredito do Maestro é um momento datado: cada cartão do ecossistema traz um
+gatilho de reavaliação, e mudar de ideia gera linha nova, nunca reescrita do cartão.</p>
+<table>
+<thead>
+<tr>
+<th>Alternativa</th>
+<th>Operação</th>
+<th>O que oferece</th>
+<th>Veredito</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Despejo de contexto</strong> (colar o repositório; janela maior)</td>
+<td>seleção (ausente)</td>
+<td>simplicidade aparente</td>
+<td><strong>Rejeitar</strong>. É o anti-padrão 1 do catálogo; A3 diz que mais janela cheia é pior, não melhor</td>
+</tr>
+<tr>
+<td><strong>Geração aumentada por recuperação</strong> (<em>Retrieval-Augmented Generation</em>, RAG)</td>
+<td>seleção</td>
+<td>busca o trecho relevante por similaridade</td>
+<td><strong>Útil para corpus grande e alheio</strong>; não substitui o contexto integrador, que não é &quot;o trecho mais parecido&quot; com a pergunta</td>
+</tr>
+<tr>
+<td><strong>Memória de sessão em arquivos</strong> (Cline Memory Bank; na pesquisa, MemGPT)</td>
+<td>persistência + transferência</td>
+<td>um banco que o agente lê no início e atualiza no fim</td>
+<td><strong>Observar</strong>. Duplica a função dos artefatos do ciclo, e carregar memória a cada sessão gasta contexto onde ele falta</td>
+</tr>
+<tr>
+<td><strong>Scaffolding de contexto</strong> (context-forge: <em>command-line interface</em> (CLI) que gera <code>CLAUDE.md</code> por questionário)</td>
+<td>transferência</td>
+<td>começar rápido</td>
+<td><strong>Descartar</strong>. Produz lista escrita à mão, que é o defeito do ciclo 021</td>
+</tr>
+<tr>
+<td><strong>Contexto do codebase na spec</strong> (<em>Product Requirement Prompt</em>, PRP)</td>
+<td>seleção + compressão</td>
+<td>a spec leva os arquivos, convenções e exemplos de que o agente vai precisar</td>
+<td><strong>Observar</strong>, com gatilho: o primeiro ciclo que rege código de produto alheio</td>
+</tr>
+<tr>
+<td><strong>Standards por camada</strong> (Agent OS: standards, produto, specs em arquivos separados)</td>
+<td>seleção</td>
+<td>reduz deriva em código legado</td>
+<td><strong>Observar</strong>. Para o porte atual, a instrução única já injeta padrão; a pasta prevista nunca existiu</td>
+</tr>
+<tr>
+<td><strong>Rastreabilidade pelas <em>issues</em></strong> (Claude Code Project Manager, CCPM)</td>
+<td>persistência</td>
+<td>o estado mora na plataforma, visível a todos</td>
+<td><strong>Observar</strong>, com gatilho: mais de um humano coordenando por <em>issues</em></td>
+</tr>
+<tr>
+<td><strong>&quot;Assuma zero contexto&quot;</strong> (Superpowers)</td>
+<td>compressão + transferência</td>
+<td>toda tarefa escrita para quem não viu a conversa</td>
+<td><strong>Absorver</strong>. Uma linha no template de tarefas, de maior retorno por caractere</td>
+</tr>
+<tr>
+<td><strong>Economia de contexto medida</strong> (maestro-02, <em>context-slicer</em>)</td>
+<td>seleção</td>
+<td>número em vez de adjetivo</td>
+<td><strong>Absorver o conceito</strong>; a ferramenta não veio, e falta portão</td>
+</tr>
+<tr>
+<td><strong>Arquivo de instrução do agente</strong> (<code>AGENTS.md</code>; template de arquivo de agente do Spec Kit)</td>
+<td>transferência</td>
+<td>um lugar fixo que o agente lê primeiro</td>
+<td><strong>Adotar</strong>, com uma condição: fonte única e conteúdo gerado do disco</td>
+</tr>
+<tr>
+<td><strong>Workflow registrado em banco</strong> (cada passo grava entrada, resumo e saída)</td>
+<td>persistência</td>
+<td>estado do ciclo consultável por máquina</td>
+<td><strong>Promissor e parcial</strong> no Maestro; ver o padrão abaixo</td>
+</tr>
+</tbody>
+</table>
+<p>Três leituras atravessam a tabela.</p>
+<p>A primeira é que <strong>memória de sessão e artefato de ciclo disputam a mesma função</strong>. O cartão
+do Memory Bank reconhece o problema (é o C12) e responde que spec, plano, tarefas e relatório
+<strong>são</strong> a memória, com um comando que mede se ela sobreviveu; uma segunda camada seria função
+duplicada, a menos que a dor apareça medida em sessões de vários dias
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/ecosystem/ideias/017-memoria-persistente-de-sessao.md">cartão 017</a>).
+O mesmo raciocínio derrubou o <em>scaffolding</em> por questionário, que produz lista escrita à mão
+quando o Maestro já gera a instrução lendo o disco
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/ecosystem/ideias/019-scaffolding-de-contexto.md">cartão 019</a>).
+O próprio cartão 019 mostra persistência bem feita: o veredito de agosto (&quot;observar&quot;) ficou
+intacto, e o de hoje (&quot;descartar&quot;) entrou numa linha nova de um arquivo de estado. Mudar de
+ideia é legítimo; apagar o registro de que se pensava diferente, não.</p>
+<p>A segunda é que <strong>duas ideias são genuinamente novas e esperam a dor certa</strong>: o contexto do
+codebase empacotado na spec (PRP) e a rastreabilidade pelas <em>issues</em> (CCPM). As duas foram
+deixadas em &quot;observar&quot; com gatilho explícito, e o motivo é honesto: o Maestro ainda rege o
+próprio repositório, que o agente conhece inteiro, e tem um humano só. Num codebase grande e
+alheio, descobrir o contexto é a maior parte do custo; com dois humanos, o estado precisa de
+um lugar que os dois vejam
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/ecosystem/ideias/012-contexto-de-codebase-na-spec.md">cartão 012</a>,
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/ecosystem/ideias/014-rastreabilidade-via-issues.md">cartão 014</a>).
+Quem já está nessa situação deve ler o &quot;observar&quot; como &quot;adotar&quot;. Os standards por camada do
+Agent OS ficaram na mesma posição, e o cartão registra que a pasta prevista nunca existiu
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/ecosystem/ideias/004-standards-por-camada.md">cartão 004</a>).</p>
+<p>A terceira é que <strong>o arquivo de instrução é unânime e frágil</strong>. Todo harness moderno lê um
+arquivo fixo no início da sessão (<code>CLAUDE.md</code>, <code>AGENTS.md</code>, regras de projeto), e o Spec Kit
+traz um template de arquivo de agente gerado dos planos, que o Maestro mantém sem alteração
+desde a versão vendorizada
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/.specify/templates/agent-file-template.md">template</a>).
+A fragilidade não está no formato, e sim em ter <strong>duas</strong> cópias, ou uma cópia escrita à mão,
+de um fato que já existe no disco.</p>
+<h2 id="o-padrão-maestro" tabindex="-1">O padrão Maestro <a class="header-anchor" href="#o-padrão-maestro" aria-hidden="true">#</a></h2>
+<p>O Maestro resolve as quatro operações com uma mistura deliberada de <strong>regra</strong> (texto que o
+agente lê), <strong>script</strong> (comando que mede e recusa) e <strong>hook</strong> (gatilho do harness que dispara
+sem ninguém pedir). Tudo abaixo é citado na versão <code>maestro@19823c2</code>.</p>
+<h3 id="regra-o-princípio-os-anti-padrões-e-a-instrução-lida-antes-de-tudo" tabindex="-1">Regra: o princípio, os anti-padrões e a instrução lida antes de tudo <a class="header-anchor" href="#regra-o-princípio-os-anti-padrões-e-a-instrução-lida-antes-de-tudo" aria-hidden="true">#</a></h3>
+<p>A regra é o Princípio V, já descrito: preservar o contexto integrador, cortar por fronteira,
+usar a menor autonomia que resolve. Ela é operada por quatro anti-padrões do catálogo, cada
+um com o antídoto
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/skills/anti-patterns/SKILL.md">skill <code>anti-patterns</code></a>):</p>
+<ul>
+<li><strong>1. Despejo de contexto</strong>: colar a base inteira no <em>prompt</em>. Fatie por papel ou tarefa e,
+quando der, reporte a economia.</li>
+<li><strong>2. Contexto tribal</strong>: intenção que só existe na cabeça do operador. Se não está na spec, o
+agente não sabe, e o próximo humano também não.</li>
+<li><strong>3. Reset preguiçoso</strong>: o gatilho de limpar a sessão é a troca de papel, não o turno.</li>
+<li><strong>5. Repetição cega</strong>: rodar o mesmo <em>prompt</em> esperando outro resultado. Falhou duas vezes,
+o problema é o <em>prompt</em>, o contexto ou a tarefa; mude um deles antes de tentar de novo.</li>
+</ul>
+<p>O quinto é o mais subestimado: repetir o pedido numa janela que já contém a tentativa errada
+é tentar com mais ruído. A operação certa é selecionar ou comprimir, não insistir.</p>
+<p>O veículo da regra é o arquivo de instrução, o <code>CLAUDE.md</code>, que a IA lê antes de trabalhar.
+Ele importa a constituição, manda consultar as skills antes de agir, descreve o fluxo e as
+raias, exige o fechamento do ciclo em <code>tasks.md</code> e traz a frase que responde ao C13: se
+perguntarem &quot;você está seguindo o método?&quot;, <strong>não responda de memória, rode o comando de
+conformidade</strong>
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/CLAUDE.md"><code>CLAUDE.md</code></a>). Essa instrução,
+mais a constituição que ela importa, é o contexto que toda sessão paga de entrada: 125 linhas
+de um e 106 do outro [CLAIM-05-008]. É o custo fixo do método, e por isso ele é curto.</p>
+<h3 id="seleção-agentes-estreitos-e-skills-com-gatilho" tabindex="-1">Seleção: agentes estreitos e skills com gatilho <a class="header-anchor" href="#seleção-agentes-estreitos-e-skills-com-gatilho" aria-hidden="true">#</a></h3>
+<p>A seleção no Maestro virou <strong>formato de arquivo</strong>. Cada papel de agente é um arquivo curto,
+com escopo, ferramentas e saída declarados. Em <code>19823c2</code> são 13 arquivos e 285 linhas, o menor
+com 18 e o maior com 36; na primeira medida, no ciclo 024, eram 267 linhas, o menor com 17
+[CLAIM-05-006]. Um papel que cabe numa tela não gasta janela com o que não vai usar; o
+corolário C8 diz que um agente estreito é mais barato que um capaz. O desenho dos papéis é
+assunto do <a href="07-papeis-e-skills.html">capítulo 7</a>.</p>
+<p>As skills seguem a mesma economia, com gatilho escrito para quando ela deixar de bastar: o
+roadmap deixa em observação o <em>progressive disclosure</em> (carregar o corpo da skill só quando
+ela se aplica) até o orçamento do que é instalado passar de umas 600 linhas. Quando a linha
+foi escrita, as seis skills somavam 419; em <code>19823c2</code> somam 472 [CLAIM-05-007]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/roadmap.md">roadmap</a>). Não adotar
+mecanismo de seleção antes que o número peça também é decisão de contexto: cada camada a
+mais é algo que alguém precisa carregar para entender o sistema.</p>
+<h3 id="compressão-o-plano-a-tarefa-de-contexto-zero-e-a-cauda-como-token" tabindex="-1">Compressão: o plano, a tarefa de contexto zero e a cauda como token <a class="header-anchor" href="#compressão-o-plano-a-tarefa-de-contexto-zero-e-a-cauda-como-token" aria-hidden="true">#</a></h3>
+<p>A compressão começa no fluxo. Na raia plena, a exploração vira <strong>plano</strong> antes de virar
+código, e o plano é a exploração destilada no que importa. Depois o plano vira <strong>tarefas</strong>, e
+é aqui que a falha do ciclo 042 ensinou mais.</p>
+<p>O template de tarefas do Maestro traz a regra que veio do Superpowers: <strong>contexto zero</strong>.
+Cada tarefa é escrita para quem não tem contexto nenhum do repositório; tudo de que ela
+precisa está nela ou é apontado (arquivo, comando, critério). O Superpowers fala em tarefas
+de dois a cinco minutos; o template do Maestro admite de dois a quinze [CLAIM-05-024]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/.specify/templates/tasks-template.md">template de tarefas</a>;
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/ecosystem/ideias/024-assuma-zero-contexto.md">cartão 024</a>).
+A tarefa que depende da conversa morre com ela; a regra antecipou o C12.</p>
+<p>A resposta do ciclo 042 foi transformar a cauda em <strong>token legível por máquina</strong>. Todo
+<code>tasks.md</code> passou a carregar, uma linha cada e &quot;nunca apagar&quot;, os passos <code>TAIL:review</code>,
+<code>TAIL:security</code>, <code>TAIL:mutation</code> e <code>TAIL:gate</code>; e o relatório do ciclo tem de trazer a
+evidência de cada passo que não for declarado &quot;não se aplica&quot;. Os artefatos condicionais
+passaram a ser <strong>declarados</strong> (<code>ART:&lt;nome&gt;=yes|no</code> com a razão), nunca apenas ausentes. E
+um script, <code>check-conformance.sh</code>, responde à pergunta &quot;estou seguindo o método?&quot; pelos
+artefatos (<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0019-conformidade-executavel-e-catalogo-de-artefatos.md">ADR 0019</a>).
+Uma nota &quot;lembre da revisão&quot; pode ser resumida pela compactação; um token <code>TAIL:review</code>
+que um script procura, não.</p>
+<h3 id="persistência-o-índice-que-só-cresce-mantido-por-script" tabindex="-1">Persistência: o índice que só cresce, mantido por script <a class="header-anchor" href="#persistência-o-índice-que-só-cresce-mantido-por-script" aria-hidden="true">#</a></h3>
+<p>O Maestro tem dois tipos de memória persistente, e os dois obedecem a T5. A <strong>consumida</strong> é a
+pasta do ciclo: spec, plano, tarefas e relatório, que o próximo passo do fluxo lê e que os
+scripts conferem. A <strong>imutável</strong> é o registro de decisões: os ADRs e um índice em <em>JSON Lines</em>
+(<em>JavaScript Object Notation</em> (JSON), um objeto por linha, uma decisão cada), em <code>docs/records/decisoes.jsonl</code>, com 199 linhas em <code>19823c2</code>
+[CLAIM-05-009].</p>
+<p>O índice existe para a máquina. O agente consulta &quot;as últimas cinco decisões&quot; sem carregar os
+ADRs inteiros, o que é seleção a serviço da persistência; a regra que evita a duplicidade
+aparente é que <strong>o ADR é a fonte e o índice é o ponteiro</strong>. E o índice é barato de manter
+porque ninguém o mantém à mão. O script de promoção para a linha principal escreve a linha do
+gate sozinho. O <code>record-decision.sh</code> valida que a linha é JSON válido, que tem os campos obrigatórios, que o id é único e que o registro não
+aponta para um arquivo ainda cheio de marcadores de pendência, antes de acrescentar
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/record-decision.sh"><code>record-decision.sh</code></a>).
+Corrigir é acrescentar uma linha nova que &quot;fecha&quot; a anterior, nunca reescrever. O
+<code>CLAUDE.md</code> acrescenta que um <em>hook</em> de pré-uso de ferramenta recusa a reescrita do índice,
+dos ADRs e dos cartões datados: não é pedido, é imposto.</p>
+<p>Duas histórias mostram por que a imutabilidade importa.</p>
+<p>Em 12 de outubro de 2026, um ciclo aberto como 064 numa linha paralela foi renumerado para
+065 ao entrar na linha de desenvolvimento, porque o 064 já existia. O livro de ponto das
+tarefas, também só-acréscimo, já tinha os eventos gravados com o número antigo. Ninguém os
+reescreveu: 45 das 52 linhas seguem com o ciclo 064, e uma linha nova no índice de decisões
+faz a ponte para o 065 [CLAIM-05-012]
+(<a href="https://github.com/GHDaru/maestro/commit/dda2225">commit <code>dda2225</code></a>). Reescrever teria
+deixado o arquivo &quot;certo&quot; e destruído a prova de que um dia ele foi outra coisa.</p>
+<p>A segunda é o contrário: persistência que falhou por um nome de arquivo. Na jornada do ciclo
+072, a captura de 24 de outubro registrava um defeito real, um banner com o horário
+impossível &quot;1H60M&quot;. Corrigido o defeito, a captura foi refeita no dia 25, e o script grava em
+<strong>nome fixo</strong>: a foto nova sobrescreveu a foto do defeito, que hoje sobrevive só no texto
+[CLAIM-05-013]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/jornada/072-painel-de-regencia.md">jornada 072</a>).
+A jornada seguinte, a do ciclo 074, escreveu a regra que faltava: correção futura usa nome
+novo, nunca sobrescreve a foto que registra o defeito. É a regra do índice aplicada a
+imagens.</p>
+<p>O passo seguinte ainda está em curso. O ciclo 070 propôs registrar cada rodada como
+execução de <em>workflow</em> em SQLite, com o <em>hook</em> da sessão gravando entrada, resumo e saída de
+cada passo. A spec admite implementação parcial: o requisito que recusaria um passo sem a
+evidência do anterior está ausente, e o que cobraria o resumo no fim do turno saiu invertido
+[CLAIM-05-027]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/070-workflow-sqlite/spec.md">spec 070</a>).</p>
+<h3 id="transferência-fonte-única-bloco-gerado-e-estado-carregado" tabindex="-1">Transferência: fonte única, bloco gerado e estado carregado <a class="header-anchor" href="#transferência-fonte-única-bloco-gerado-e-estado-carregado" aria-hidden="true">#</a></h3>
+<p>A transferência tem três mecanismos, um de cada tipo.</p>
+<p>A <strong>regra estrutural</strong> é a do ADR 0013: uma instrução só. Em <code>19823c2</code>, o <code>AGENTS.md</code> é um
+link simbólico para o <code>CLAUDE.md</code> [CLAIM-05-005]. O ADR pesou e descartou as alternativas:
+manter duas cópias e revisar na retrospectiva (foi o que estava valendo, e falhou nas três
+derivas [CLAIM-05-003]), um ponteiro de
+uma linha &quot;veja o <code>CLAUDE.md</code>&quot; (custa um salto de leitura e falha em ferramenta que não segue
+referência), gerar o arquivo inteiro por script (tira do humano a parte que é dele). Ficou o
+link, com o custo aceito e escrito: no navegador do GitHub, quem abre o <code>AGENTS.md</code> vê um
+ponteiro, não o texto. Quem lê <code>AGENTS.md</code> é máquina, e máquina segue o link.</p>
+<p>O <strong>script</strong> é a geração e a conferência. O instalador monta o bloco de instrução lendo
+<code>skills/</code> (nome e primeira frase de cada skill), e o <code>check-install.sh</code> falha se uma skill do
+disco não aparece na instrução. Skill invisível passou a ser impossível, e o mesmo comando
+roda em todo projeto que recebe o método.</p>
+<p>O <strong>hook</strong> é a carga de estado no início da sessão. O harness usado pelo Maestro dispara um
+<em>hook</em> <code>SessionStart</code>, e a saída dele vira contexto que o agente vê. O
+<code>session-state.sh</code> imprime fatos medidos naquele instante, pelos mesmos scripts que um humano
+rodaria: em que branch se está, qual ciclo está aberto, se ele está conforme, que achados
+estão em aberto e há quanto tempo. O comentário do script diz por que ele existe: a forma de
+falha que o repositório insistia em produzir era o agente respondendo &quot;estou seguindo o
+método?&quot; de memória, e respondendo intenção. Nada ali é informação nova. É a mesma
+informação, <strong>carregada em vez de lembrada</strong>. O detalhe que importa para este capítulo está
+na configuração: o <em>hook</em> dispara no início, na retomada, na limpeza e na <strong>compactação</strong> da
+sessão [CLAIM-05-018]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/.claude/settings.json"><code>.claude/settings.json</code></a>).
+É o C12 virado mecanismo: depois de cada compactação, o estado do método volta à janela por
+um caminho que não depende do resumo.</p>
+<p>O <em>hook</em> tem sua própria falha. A revisão independente do ciclo 056 achou que, num
+repositório sem nenhum commit, o script concatenava um valor e um erro ao ler a branch: um
+fato quebrado em duas linhas, injetado em toda sessão de todo repositório novo [CLAIM-05-019]
+(<a href="https://github.com/GHDaru/maestro/blob/813a469/scripts/hooks/session-state.sh"><code>session-state.sh</code> em <code>813a469</code></a>).
+Transferir um fato errado é pior que não transferir, porque ele chega com a autoridade de
+&quot;medido agora&quot;.</p>
+<p>Transferência também é para a pessoa que chega ao projeto, e três ciclos seguidos de agosto
+mostram a mesma falha nesse canal. No ciclo 058, medir a documentação para responder &quot;como eu
+instalo?&quot; achou três mentiras: uma opção com nome errado na receita, a promessa de &quot;não
+sobrescrever&quot; num instalador que passara a atualizar, e um texto de uso que omitia três
+opções aceitas. Nenhum portão pegava isso, e a revisão independente reprovou a primeira
+entrega com 19 achados [CLAIM-05-014]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/058-a-porta-da-frente/spec.md">spec 058</a>).
+No 059, quem conduz o repositório leu a instrução e não soube o que fazer: faltava escrever a
+distinção entre a ferramenta (o clone) e o projeto (o alvo), e faltava instrução para uma IA
+que abre o repositório. O ciclo escreveu as duas e criou um portão contra subcomando anunciado
+e inexistente, provado com mutações e uma contraprova [CLAIM-05-015]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/059-clonei-e-agora/spec.md">spec 059</a>).
+No 060, a árvore de arquivos pós-instalação foi para um lugar só, no livro, com uma asserção
+que a compara com uma instalação feita na hora, provada com oito mutações [CLAIM-05-016]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/060-a-arvore-que-nao-mente/spec.md">spec 060</a>).</p>
+<p>As três têm a anatomia do ciclo 021: <strong>um fato dito em dois lugares sem nada comparando</strong>.</p>
+<h3 id="rastreabilidade-quatro-saltos-e-o-elo-que-vivia-de-hábito" tabindex="-1">Rastreabilidade: quatro saltos e o elo que vivia de hábito <a class="header-anchor" href="#rastreabilidade-quatro-saltos-e-o-elo-que-vivia-de-hábito" aria-hidden="true">#</a></h3>
+<p>O exemplo de rastreabilidade do Maestro percorre a cadeia de trás para frente, sem
+ferramenta, e qualquer leitor pode refazê-lo com um clone. Começa por uma linha do índice, o
+gate <code>gate-main-0021b20</code>. A linha aponta o commit. O commit <code>12332c3</code> cita no assunto a spec
+021 e o ADR 0013. A spec abre a pasta do ciclo, com os quatro artefatos. E o ADR guarda o
+porquê, com as alternativas descartadas e o custo aceito [CLAIM-05-022]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/031-capitulo-11-padrao-v2/spec.md">spec 031</a>).
+Quatro saltos, e cada elo existe porque algum passo do fluxo o obriga: o script de promoção
+escreve a linha, o gerador de ciclo cria a pasta, a definição de pronto exige o relatório.</p>
+<p>Todos, menos um. Quando o ciclo 031 reescreveu o capítulo de rastreabilidade do handbook, em
+2 de agosto, ele nomeou o elo mais frágil: a citação do número da spec no assunto do commit,
+o elo mais usado do repositório, era <strong>convenção</strong>. Tinha se mantido por 28 commits só por
+hábito, e nenhum portão a exigia [CLAIM-05-011]. O relatório acrescentou uma observação que
+vale para qualquer time: nenhum elo tinha se perdido até ali, o que era bom e enganoso, porque
+eram 28 commits em sete dias, com o mesmo operador; ausência de falha não é evidência de
+robustez quando a amostra é curta e homogênea
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/031-capitulo-11-padrao-v2/qa-report.md">relatório do ciclo 031</a>).
+O achado entrou no índice em aberto e foi fechado no dia seguinte pela retrospectiva do ciclo
+034, que o transformou em portão: o <code>check-cycle.sh</code> passou a exigir a citação em todo commit
+à frente da linha principal
+(<a href="https://github.com/GHDaru/maestro/commit/7264fe6">commit <code>7264fe6</code></a>). O portão é
+consultivo na integração contínua, e seu próprio cabeçalho admite o limite: ele força a
+citação, não julga se a citação está certa
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/check-cycle.sh"><code>check-cycle.sh</code></a>).
+No histórico até <code>19823c2</code>, 810 dos 943 assuntos de commit citam um ciclo, uma spec ou um ADR
+[CLAIM-05-010]. Os que não citam são, em boa parte, anteriores ao portão; o número é o
+retrato de uma convenção que virou regra no meio do caminho, e não uma meta.</p>
+<h3 id="o-que-é-regra-o-que-é-script-e-o-que-é-hook" tabindex="-1">O que é regra, o que é script e o que é hook <a class="header-anchor" href="#o-que-é-regra-o-que-é-script-e-o-que-é-hook" aria-hidden="true">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Operação</th>
+<th>Regra (o agente lê)</th>
+<th>Script (mede e recusa)</th>
+<th>Hook (dispara sozinho)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Seleção</td>
+<td>Princípio V; anti-padrões 1 e 4; agentes estreitos</td>
+<td><code>check-agents.sh</code> (forma e permissões dos papéis)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Compressão</td>
+<td>contexto zero no template de tarefas; cauda <code>TAIL:</code></td>
+<td><code>check-conformance.sh</code></td>
+<td><code>Stop</code>: confere o ciclo aberto quando o agente vai entregar</td>
+</tr>
+<tr>
+<td>Persistência</td>
+<td>ADR imutável; índice só-acréscimo</td>
+<td><code>record-decision.sh</code>; <code>promote-main.sh</code></td>
+<td><code>PreToolUse</code>: recusa reescrever o que é histórico</td>
+</tr>
+<tr>
+<td>Transferência</td>
+<td><code>CLAUDE.md</code> como fonte única; &quot;não responda de memória&quot;</td>
+<td><code>check-install.sh</code>; bloco gerado do disco; portões de documentação</td>
+<td><code>SessionStart</code> (também após compactar): carrega o estado medido</td>
+</tr>
+<tr>
+<td>Rastreabilidade</td>
+<td>spec numerada, commit que cita, ADR que guarda o porquê</td>
+<td><code>check-cycle.sh</code></td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>A base de pesquisa deste livro propõe um comando que ainda não existe no Maestro, um
+<code>inspect-context &lt;ciclo&gt;</code> que mostraria, para um ciclo, o que cada tarefa carrega, o que
+sobreviveria a uma compactação e o que não está ligado a nada. Em <code>19823c2</code>, o despachante
+<code>maestro</code> tem <code>init</code>, <code>check</code>, <code>cycle</code>, <code>conformance</code>, <code>retro</code>, <code>promote</code>, <code>agents</code> e
+<code>version</code>, e nenhum <code>inspect-context</code>. O exemplo deste capítulo implementa uma versão de
+brinquedo, para mostrar o que um comando assim teria de medir.</p>
+<h2 id="exemplo-executável" tabindex="-1" class="callout c-prat" data-rotulo="Mão na massa">Exemplo executável <a class="header-anchor" href="#exemplo-executável" aria-hidden="true">#</a></h2>
+<p>O exemplo está em <a href="05-engenharia-de-contexto-exemplo.html"><code>exemplo/</code></a> e roda com Python 3 e bash, sem rede. É uma
+loja de brinquedo que ganha um cupom de desconto no ciclo 007, com spec, plano, tarefas,
+código, índice de decisões, commits e duas cópias da instrução para a IA, passada pelas
+quatro operações em doze passos:</p>
+<pre><code class="language-bash">cd livro/05-engenharia-de-contexto/exemplo
+bash rodar.sh | diff - saida-esperada.txt   # nenhuma linha de diferença
+</code></pre>
+<p>O que a saída mostra [CLAIM-05-025]:</p>
+<ul>
+<li><strong>Seleção.</strong> A tarefa T2, cortada pela fronteira do cupom e do carrinho, tem economia de
+90% sobre o repositório inteiro. A T4, &quot;renomear <code>desconto</code> para <code>abatimento</code> em todo o
+código&quot;, tem 18%, e o script a reprova com a leitura certa: reveja o corte, não aumente a
+janela. A T3, &quot;ajustar a mensagem do jeito que combinamos na conversa&quot;, não cita arquivo.</li>
+<li><strong>Compressão.</strong> A janela compacta e só o <code>tasks.md</code> fica. Somem a revisão em contexto
+fresco, a de segurança e o gate humano (que estavam na spec e na conversa) e o formato da
+data (que só estava na conversa). Com a cauda como token <code>TAIL:</code> e a T3 autossuficiente,
+o mesmo cenário passa.</li>
+<li><strong>Persistência.</strong> O índice aceita a linha nova, recusa id repetido e registro que aponta
+para <code>&lt;pendente&gt;</code>, e o comparador reprova a linha 2 editada de &quot;aberta&quot; para &quot;fechada&quot;.</li>
+<li><strong>Transferência.</strong> <code>CLAUDE.md</code> e <code>AGENTS.md</code> escritos à mão somam quatro derivas contra as
+skills do disco, a anatomia do ciclo 021; com bloco gerado e fonte única, ficam verdes.</li>
+<li><strong>Rastreabilidade e quadro.</strong> Do gate ao ADR em quatro saltos, com 3 de 4 commits citando
+ciclo ou ADR; e as quatro operações do ciclo numa tela.</li>
+</ul>
+<p>A régua de <em>tokens</em> é declaradamente grosseira (caracteres divididos por quatro). Ela serve
+para a razão entre o selecionado e o total, que é o que o capítulo argumenta, e não para
+prever o custo de um modelo. Troque <code>projeto/</code> pelo seu repositório e a régua pelo contador
+do seu modelo, e o <code>contexto.py</code> vira um ponto de partida para o seu próprio
+<code>inspect-context</code>.</p>
+<h2 id="contraexemplo" tabindex="-1" class="callout c-contra" data-rotulo="Limite">Contraexemplo <a class="header-anchor" href="#contraexemplo" aria-hidden="true">#</a></h2>
+<p>A engenharia de contexto tem custo, e há situações em que ela atrapalha.</p>
+<p><strong>Repositório pequeno, tarefa curta.</strong> Se o repositório cabe com folga na janela e a sessão
+dura minutos, selecionar arquivo por arquivo é cerimônia: a degradação só morde quando a
+janela enche. O sinal de que passou do ponto é o agente repetindo tentativas já descartadas.</p>
+<p><strong>Reset demais.</strong> Limpar a sessão a cada turno produz amnésia, e o operador passa a colar de
+volta, à mão, o contexto que jogou fora: despejo com outro nome. Se você cola o mesmo
+parágrafo depois de cada limpeza, ele pertence a um artefato, não à conversa.</p>
+<p><strong>Fatiar demais.</strong> Subagentes com janelas limpas produzem ótimo local: o revisor que só vê o
+diff não vê o invariante que o diff quebrou em outro módulo. Um corte que deixa a spec de fora
+economiza no lugar errado.</p>
+<p><strong>Memória que duplica artefato.</strong> Um banco de memória de sessão ao lado de spec, plano e
+tarefas cria duas fontes para o mesmo fato, e duas fontes divergem. Antes de adotá-lo,
+confira se a dor não é um artefato que não está sendo consumido.</p>
+<p><strong>Matriz de rastreabilidade.</strong> A planilha requisito × teste × commit vira projeto próprio,
+ninguém a mantém e no primeiro mês ela mente. A convenção barata com portão rastreia melhor;
+o custo é admitir quais elos ainda dependem de hábito.</p>
+<p><strong>Economia que não se mede.</strong> O Maestro escreveu &quot;meça a economia de contexto&quot; no seu
+princípio e no seu handbook e, até <code>19823c2</code>, não tem portão que a meça. Isso não invalida a
+ideia; mostra o limite de adotá-la por texto. Se o seu time vai medir economia de contexto,
+decida antes o que acontece quando ela sai baixa (quem replaneja o corte, com que gatilho);
+sem isso, o número é decorativo.</p>
+<p><strong>Instrução que cresce sem limite.</strong> O arquivo de instrução é o contexto que toda sessão paga
+de entrada. Cada regra boa acrescentada a ele é custo fixo multiplicado por todas as sessões.
+Quando a instrução passar de uma tela, a pergunta não é &quot;o que mais falta dizer&quot;, é &quot;o que
+aqui é skill (carregada quando se aplica) e não regra (carregada sempre)&quot;.</p>
+<h2 id="evidência" tabindex="-1">Evidência <a class="header-anchor" href="#evidência" aria-hidden="true">#</a></h2>
+<p>O que sustenta este capítulo, separado por força.</p>
+<p><strong>Medido</strong> (o comando reproduz o número em <code>19823c2</code>): a fonte única da instrução
+[CLAIM-05-005], o tamanho de agentes, skills e instrução [CLAIM-05-006, CLAIM-05-007,
+CLAIM-05-008], o índice de decisões [CLAIM-05-009], a citação de ciclo nos commits
+[CLAIM-05-010], o livro de ponto do ciclo renumerado [CLAIM-05-012], o <em>hook</em> após a
+compactação [CLAIM-05-018], a cadeia de quatro saltos [CLAIM-05-022] e a saída do exemplo
+[CLAIM-05-025].</p>
+<p><strong>Observado</strong> (o Maestro registra; o livro leu o registro): as duas falhas de abertura
+[CLAIM-05-001, CLAIM-05-002, CLAIM-05-003, CLAIM-05-004], o elo de commit [CLAIM-05-011], a
+captura sobrescrita [CLAIM-05-013], as mentiras e mutações dos ciclos 058 a 060
+[CLAIM-05-014, CLAIM-05-015, CLAIM-05-016], a seção que não media [CLAIM-05-017], o fato
+quebrado do <em>hook</em> [CLAIM-05-019], a base de T5 [CLAIM-05-020], a absorção sem portão
+[CLAIM-05-021], as trilhas do ciclo 014 [CLAIM-05-023], o tamanho de tarefa [CLAIM-05-024] e o
+estado parcial do ciclo 070 [CLAIM-05-027].</p>
+<p><strong>Hipótese (não medido neste livro).</strong> A hipótese H3 da base de pesquisa diz que <strong>contexto
+seletivo reduz custo sem perder qualidade</strong> [CLAIM-05-026]. Ela é a promessa econômica deste
+capítulo e não está demonstrada: o Maestro mede o tamanho dos papéis e conta derivas, mas
+nunca comparou, com a mesma tarefa, um agente com contexto selecionado e outro com contexto
+despejado, medindo custo e taxa de aceitação. O desenho para testá-la está na agenda de
+pesquisa do livro (linhas de base com só <em>prompt</em>, com spec, com spec e portões, e o método
+completo), e é assunto do <a href="15-validando-o-maestro.html">capítulo 15</a>. A literatura
+externa citada na Teoria sustenta a degradação com contexto longo (A3), não o ganho líquido de
+um método de seleção específico.</p>
+<p>Há também uma limitação de amostra que o próprio Maestro declara: um humano, um repositório
+que o agente conhece inteiro, e a maior parte dos ciclos regendo o próprio método. As duas
+alternativas deixadas em &quot;observar&quot; (contexto na spec e rastreio por <em>issues</em>) são exatamente
+as que só um codebase alheio e um time maior testariam.</p>
+<h2 id="checklist" tabindex="-1" class="callout c-verif" data-rotulo="Aplique">Checklist <a class="header-anchor" href="#checklist" aria-hidden="true">#</a></h2>
+<p>Aplique no seu time, item por item. Cada um se confere por comando ou por inspeção de um
+artefato.</p>
+<ul>
+<li>[ ] Existe <strong>um</strong> arquivo de instrução para agentes no repositório. Se a sua ferramenta lê
+mais de um nome (<code>CLAUDE.md</code>, <code>AGENTS.md</code>, regras de projeto), os outros são links ou
+gerados, e um script falha se o conteúdo divergir.</li>
+<li>[ ] A lista de skills, comandos ou papéis que a instrução cita é <strong>gerada do disco</strong>, e um
+script falha se algo existe no disco e não aparece na instrução.</li>
+<li>[ ] O arquivo de instrução cabe numa tela, e você sabe quantas linhas ele custa a toda
+sessão.</li>
+<li>[ ] Toda tarefa do plano cita os arquivos que toca e tem um critério de pronto. Uma tarefa
+que diz &quot;como combinamos&quot; é reescrita antes de ser executada.</li>
+<li>[ ] Os passos de fechamento (revisão independente, segurança, gate humano) estão <strong>no
+artefato que o executor segue</strong>, em forma que um script encontra, e não só na spec ou
+na conversa.</li>
+<li>[ ] Para as tarefas de um ciclo, você mediu ao menos uma vez a razão entre o que cada uma
+carrega e o que o repositório tem; a de economia mais baixa foi discutida como possível
+corte errado.</li>
+<li>[ ] Limpar a sessão tem gatilho escrito (troca de papel), e quem revisa começa sem o
+contexto de quem implementou.</li>
+<li>[ ] Quando um <em>prompt</em> falhou duas vezes, o que muda antes da terceira tentativa é o
+<em>prompt</em>, o contexto ou a tarefa, nunca nada.</li>
+<li>[ ] Decisões vivem num registro só-acréscimo, mantido por script que valida o formato e
+recusa id repetido; corrigir é acrescentar.</li>
+<li>[ ] Evidência gerada por script (captura, relatório) nunca é regravada no mesmo caminho;
+cada geração tem nome ou data própria.</li>
+<li>[ ] O estado do processo (ciclo aberto, conformidade, achados) é <strong>carregado</strong> no início da
+sessão por um mecanismo do harness, inclusive depois de compactar, e não lembrado.</li>
+<li>[ ] A pergunta &quot;estamos seguindo o processo?&quot; tem um comando que a responde pelos
+artefatos.</li>
+<li>[ ] Todo commit cita a unidade de trabalho que o originou, e um script cobra isso.</li>
+<li>[ ] Você consegue ir de uma linha de gate até o porquê (commit → ciclo → decisão) em poucos
+saltos, e sabe qual elo do seu repositório ainda vive de hábito.</li>
+</ul>
+<h2 id="referências" tabindex="-1">Referências <a class="header-anchor" href="#referências" aria-hidden="true">#</a></h2>
+<p>Fontes do Maestro, todas na versão <code>19823c2</code> salvo indicação:</p>
+<ul>
+<li>Axiomas, teoremas e corolários (A3, A4, T5, C8, C12, C13):
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/axioms.md">https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/axioms.md</a></li>
+<li>Constituição, Princípio V:
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/principles.md">https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/principles.md</a></li>
+<li>Modelo operacional, §9 (rastreabilidade ponta a ponta):
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/operating-model.md">https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/operating-model.md</a></li>
+<li>Instrução para a IA e link simbólico:
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/CLAUDE.md">https://github.com/GHDaru/maestro/blob/19823c2/CLAUDE.md</a> ·
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/AGENTS.md">https://github.com/GHDaru/maestro/blob/19823c2/AGENTS.md</a></li>
+<li>ADR 0013 (instrução gerada e fonte única):
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0013-instrucao-para-ia-gerada-e-fonte-unica.md">https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0013-instrucao-para-ia-gerada-e-fonte-unica.md</a></li>
+<li>ADR 0019 (conformidade executável e catálogo de artefatos):
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0019-conformidade-executavel-e-catalogo-de-artefatos.md">https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0019-conformidade-executavel-e-catalogo-de-artefatos.md</a></li>
+<li>Skill <code>anti-patterns</code> (1, 2, 3, 5):
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/skills/anti-patterns/SKILL.md">https://github.com/GHDaru/maestro/blob/19823c2/skills/anti-patterns/SKILL.md</a></li>
+<li>Templates de tarefas e de arquivo de agente:
+<a href="https://github.com/GHDaru/maestro/tree/19823c2/.specify/templates">https://github.com/GHDaru/maestro/tree/19823c2/.specify/templates</a></li>
+<li>Configuração dos <em>hooks</em> e o script de estado de sessão:
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/.claude/settings.json">https://github.com/GHDaru/maestro/blob/19823c2/.claude/settings.json</a> ·
+<a href="https://github.com/GHDaru/maestro/blob/813a469/scripts/hooks/session-state.sh">https://github.com/GHDaru/maestro/blob/813a469/scripts/hooks/session-state.sh</a></li>
+<li>Scripts <code>record-decision.sh</code>, <code>check-cycle.sh</code>, <code>check-install.sh</code>, <code>check-conformance.sh</code>:
+<a href="https://github.com/GHDaru/maestro/tree/19823c2/scripts">https://github.com/GHDaru/maestro/tree/19823c2/scripts</a></li>
+<li>Índice de decisões e livro de ponto:
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/records/decisoes.jsonl">https://github.com/GHDaru/maestro/blob/19823c2/docs/records/decisoes.jsonl</a> ·
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/records/tarefas.jsonl">https://github.com/GHDaru/maestro/blob/19823c2/docs/records/tarefas.jsonl</a></li>
+<li>Specs e relatórios dos ciclos 014, 021, 024, 031, 042, 058, 059, 060 e 070:
+<a href="https://github.com/GHDaru/maestro/tree/19823c2/specs">https://github.com/GHDaru/maestro/tree/19823c2/specs</a></li>
+<li>Jornada do ciclo 072: <a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/jornada/072-painel-de-regencia.md">https://github.com/GHDaru/maestro/blob/19823c2/docs/jornada/072-painel-de-regencia.md</a></li>
+<li>Roadmap (gatilhos de <em>progressive disclosure</em>, PRP e CCPM):
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/roadmap.md">https://github.com/GHDaru/maestro/blob/19823c2/docs/roadmap.md</a></li>
+<li>Cartões do ecossistema 004, 012, 014, 017, 019, 024 e 027:
+<a href="https://github.com/GHDaru/maestro/tree/19823c2/docs/ecosystem/ideias">https://github.com/GHDaru/maestro/tree/19823c2/docs/ecosystem/ideias</a></li>
+<li>Guia editorial do livro do Maestro, §1:
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/livro/guia-editorial.md">https://github.com/GHDaru/maestro/blob/19823c2/docs/livro/guia-editorial.md</a></li>
+<li>Handbook do método, capítulos 04 (fluxo e contexto) e 11 (rastreabilidade), apêndice B
+(Superpowers): cópia congelada em <code>maestro-handbook/handbook/</code> deste repositório.</li>
+</ul>
+<p>Fontes externas (os endereços não foram reacessados para esta edição; conferir antes de
+publicar):</p>
+<ul>
+<li>ANTHROPIC. <em>Effective context engineering for AI agents</em>. Engineering blog, set. 2025.
+<a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents</a></li>
+<li>ANTHROPIC. <em>Building effective agents</em>. Engineering blog, dez. 2024.
+<a href="https://www.anthropic.com/engineering/building-effective-agents">https://www.anthropic.com/engineering/building-effective-agents</a></li>
+<li>ANTHROPIC. <em>Claude Code: best practices</em>. <a href="https://code.claude.com/docs/en/best-practices">https://code.claude.com/docs/en/best-practices</a></li>
+<li>HONG, K.; TROYNIKOV, A.; HUBER, J. <em>Context Rot: How Increasing Input Tokens Impacts LLM
+Performance</em>. Chroma Research, jul. 2025. <a href="https://research.trychroma.com/context-rot">https://research.trychroma.com/context-rot</a></li>
+<li>MARTIN, L. <em>Context Engineering for Agents</em>. LangChain blog, 2025.
+<a href="https://blog.langchain.com/context-engineering-for-agents/">https://blog.langchain.com/context-engineering-for-agents/</a></li>
+<li>AGENTS.md, formato aberto de instrução para agentes. <a href="https://agents.md">https://agents.md</a></li>
+<li>Cline, documentação do Memory Bank. <a href="https://docs.cline.bot">https://docs.cline.bot</a></li>
+<li>Superpowers. <a href="https://github.com/obra/superpowers">https://github.com/obra/superpowers</a></li>
+<li>Agent OS. <a href="https://github.com/buildermethods/agent-os">https://github.com/buildermethods/agent-os</a></li>
+<li>PRPs (Wirasm). <a href="https://github.com/Wirasm/PRPs-agentic-eng">https://github.com/Wirasm/PRPs-agentic-eng</a></li>
+<li>GitHub Spec Kit. <a href="https://github.com/github/spec-kit">https://github.com/github/spec-kit</a></li>
+<li>Diátaxis. <a href="https://diataxis.fr">https://diataxis.fr</a></li>
+</ul>
+<p>Literatura:</p>
+<ul>
+<li>LIU, N. F. et al. <em>Lost in the Middle: How Language Models Use Long Contexts</em>. Transactions
+of the Association for Computational Linguistics, v. 12, 2024 (arXiv:2307.03172, 2023).</li>
+<li>LEWIS, P. et al. <em>Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks</em>.
+Advances in Neural Information Processing Systems (NeurIPS), 2020.</li>
+<li>PACKER, C. et al. <em>MemGPT: Towards LLMs as Operating Systems</em>. arXiv:2310.08560, 2023.</li>
+<li>GOTEL, O. C. Z.; FINKELSTEIN, A. C. W. <em>An Analysis of the Requirements Traceability
+Problem</em>. Proceedings of the First International Conference on Requirements Engineering
+(ICRE), 1994.</li>
+<li>SWELLER, J. <em>Cognitive Load During Problem Solving: Effects on Learning</em>. Cognitive
+Science, v. 12, n. 2, 1988.</li>
+<li>VAN MERRIËNBOER, J. J. G.; KIRSCHNER, P. A. <em>Ten Steps to Complex Learning</em>. Routledge
+(4C/ID).</li>
+</ul>
+</article>
+    <nav class="paginacao" aria-label="Anterior e próximo"><a class="pg-prev" href="04-a-spec-como-partitura-exemplo.html"><small>← anterior</small>Exemplo executável — 04 A spec como partitura</a><a class="pg-next" href="05-engenharia-de-contexto-exemplo.html"><small>próximo →</small>Exemplo executável — 05 Engenharia de contexto</a></nav>
+    <footer class="rodape">
+      <a href="https://github.com/GHDaru/agentic_software_engineering">github.com/GHDaru/agentic_software_engineering</a>
+       · <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/05-engenharia-de-contexto/capitulo.md">fonte desta página</a>
+      · gerado de <code>livro/</code> por <code>publicar/build.mjs</code>
+    </footer>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body></html>

@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apêndice C — Pacote de replicação · Engenharia de Software Orientada por Agentes</title>
+<meta name="description" content="Governança operacional para um humano regendo muitos agentes">
+<script>try{var t=localStorage.getItem("tema");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="assets/estilo.css">
+</head><body>
+<header class="barra">
+  <button id="alt-menu" aria-label="Abrir o sumário" aria-expanded="false" aria-controls="sidebar">☰ <span>Sumário</span></button>
+  <a class="barra-titulo" href="index.html">Engenharia de Software Orientada por Agentes</a>
+  <button id="alt-tema" aria-label="Alternar tema claro/escuro">◐</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="marca" href="index.html">Engenharia de Software Orientada por Agentes<small>Agentic Software Engineering</small></a>
+    <div class="nav-parte">Abertura</div><ul><li><a href="00-prefacio.html">Prefácio</a></li></ul><div class="nav-parte">Parte I — Por que agentes mudam a engenharia</div><ul><li><a href="01-a-mudanca-de-unidade-de-trabalho.html">1. A mudança de unidade de trabalho</a></li><li class="filho"><a class="filho" href="01-a-mudanca-de-unidade-de-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="02-o-problema-da-confianca.html">2. O problema da confiança</a></li><li class="filho"><a class="filho" href="02-o-problema-da-confianca-exemplo.html">Exemplo executável</a></li><li><a href="03-um-humano-muitos-agentes.html">3. Um humano, muitos agentes</a></li><li class="filho"><a class="filho" href="03-um-humano-muitos-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte II — Especificar e dar contexto</div><ul><li><a href="04-a-spec-como-partitura.html">4. A spec como partitura</a></li><li class="filho"><a class="filho" href="04-a-spec-como-partitura-exemplo.html">Exemplo executável</a></li><li><a href="05-engenharia-de-contexto.html">5. Engenharia de contexto</a></li><li class="filho"><a class="filho" href="05-engenharia-de-contexto-exemplo.html">Exemplo executável</a></li><li><a href="06-como-dividir-o-trabalho.html">6. Como dividir o trabalho</a></li><li class="filho"><a class="filho" href="06-como-dividir-o-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="07-papeis-e-skills.html">7. Papéis e skills</a></li><li class="filho"><a class="filho" href="07-papeis-e-skills-exemplo.html">Exemplo executável</a></li><li><a href="08-ddd-para-agentes.html">8. DDD para agentes</a></li><li class="filho"><a class="filho" href="08-ddd-para-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte III — Provar e conter</div><ul><li><a href="09-arquitetura-que-se-defende.html">9. Arquitetura que se defende</a></li><li class="filho"><a class="filho" href="09-arquitetura-que-se-defende-exemplo.html">Exemplo executável</a></li><li><a href="10-quality-gates-que-provam-fatos.html">10. Quality gates que provam fatos</a></li><li class="filho"><a class="filho" href="10-quality-gates-que-provam-fatos-exemplo.html">Exemplo executável</a></li><li><a href="11-risco-reversibilidade-e-autonomia.html">11. Risco, reversibilidade e autonomia</a></li><li class="filho"><a class="filho" href="11-risco-reversibilidade-e-autonomia-exemplo.html">Exemplo executável</a></li><li><a href="12-ferramentas-mcp-e-o-ecossistema.html">12. Ferramentas, MCP e o ecossistema</a></li><li class="filho"><a class="filho" href="12-ferramentas-mcp-e-o-ecossistema-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte IV — Medir e aprender</div><ul><li><a href="13-observabilidade-e-economia.html">13. Observabilidade e economia</a></li><li class="filho"><a class="filho" href="13-observabilidade-e-economia-exemplo.html">Exemplo executável</a></li><li><a href="14-a-organizacao-que-aprende.html">14. A organização que aprende</a></li><li class="filho"><a class="filho" href="14-a-organizacao-que-aprende-exemplo.html">Exemplo executável</a></li><li><a href="15-validando-o-maestro.html">15. Validando o Maestro</a></li><li class="filho"><a class="filho" href="15-validando-o-maestro-exemplo.html">Exemplo executável</a></li><li><a href="16-o-futuro-da-engenharia-agentica.html">16. O futuro da engenharia agêntica</a></li><li class="filho"><a class="filho" href="16-o-futuro-da-engenharia-agentica-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Apêndices</div><ul><li><a href="apendice-a-o-maestro-em-uma-pagina.html">A. O Maestro em uma página</a></li><li><a href="apendice-b-aseg-bench.html">B. ASEG-Bench — um benchmark de governança</a></li><li><a class="ativo" aria-current="page" href="apendice-c-pacote-de-replicacao.html">C. Pacote de replicação</a></li><li><a href="apendice-d-estudos-de-campo.html">D. Estudos de campo do ecossistema</a></li></ul><div class="nav-parte">Consulta</div><ul><li><a href="glossario.html">Glossário</a></li><li><a href="evidencias.html">Evidências (claims)</a></li></ul>
+  </aside>
+  <main class="conteudo">
+    <article class="markdown"><h1 id="c--pacote-de-replicação" tabindex="-1">C — Pacote de replicação <a class="header-anchor" href="#c--pacote-de-replicação" aria-hidden="true">#</a></h1>
+<blockquote>
+<p>Uma afirmação que só se confere na máquina de quem a escreveu é um depoimento, não evidência.</p>
+</blockquote>
+<p>Este livro faz afirmações sobre um método e sobre o que acontece quando um time o adota. Algumas
+são medidas, muitas são observadas num único repositório, várias são hipóteses. Este apêndice é o
+contrato que permite a você, tech lead, conferir cada uma delas sem confiar no autor: o que
+instalar, em que versão, com que protocolo, onde ficam os dados das execuções e como cada número
+do texto aponta para o comando que o reproduz. Se você vai citar este livro numa decisão do seu
+time, é aqui que se descobre quanto cada frase aguenta.</p>
+<h2 id="pergunta-central" tabindex="-1" class="callout c-obj" data-rotulo="Pergunta">Pergunta central <a class="header-anchor" href="#pergunta-central" aria-hidden="true">#</a></h2>
+<p>O que alguém de fora precisa ter nas mãos para reproduzir, ou refutar, cada afirmação deste
+livro?</p>
+<h2 id="o-que-este-apêndice-entrega" tabindex="-1">O que este apêndice entrega <a class="header-anchor" href="#o-que-este-apêndice-entrega" aria-hidden="true">#</a></h2>
+<p>Um pacote de replicação tem cinco camadas. Cada uma responde a uma pergunta que o leitor cético
+faz, e cada uma tem um lugar no disco.</p>
+<table>
+<thead>
+<tr>
+<th>Camada</th>
+<th>Pergunta que responde</th>
+<th>Onde mora</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. O método instalável</td>
+<td>&quot;Consigo pôr o mesmo método no meu repositório?&quot;</td>
+<td>o instalador do Maestro e o portão que exercita a cópia instalada</td>
+</tr>
+<tr>
+<td>2. A versão congelada</td>
+<td>&quot;Estou olhando para a mesma coisa que o autor?&quot;</td>
+<td>o commit de referência <code>19823c2</code>, releases e tags</td>
+</tr>
+<tr>
+<td>3. Hipóteses e protocolo</td>
+<td>&quot;O que exatamente se afirma, e como se testaria?&quot;</td>
+<td><a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/pesquisa/hipoteses.md"><code>pesquisa/hipoteses.md</code></a> e <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/pesquisa/protocolo.md"><code>pesquisa/protocolo.md</code></a></td>
+</tr>
+<tr>
+<td>4. Os runs</td>
+<td>&quot;Onde estão os dados de cada execução?&quot;</td>
+<td><code>pesquisa/runs/</code>, um diretório por execução, com schema imutável</td>
+</tr>
+<tr>
+<td>5. Os claims</td>
+<td>&quot;Este número vem de onde?&quot;</td>
+<td>o <code>claims.md</code> de cada capítulo, conferido por <code>scripts/check-claims.sh</code></td>
+</tr>
+</tbody>
+</table>
+<p>As camadas estão em estados diferentes, e o apêndice diz qual é qual. A primeira existe e tem
+portão. A segunda existe pela metade: não há <em>release</em>, e o <em>commit</em> de referência ainda não está
+no repositório público [CLAIM-93-014]. A terceira e a quarta estão desenhadas e quase vazias: até
+02/11/2026 nenhuma hipótese da agenda foi testada com o desenho completo, o protocolo é um
+rascunho ainda não ratificado e o diretório de <em>runs</em> não existe [CLAIM-93-004]. A quinta tem
+portão no livro inteiro, e o portão recusa o que está fora da forma. Um pacote de replicação que
+se apresentasse como pronto estaria cometendo o defeito que o
+<a href="10-quality-gates-que-provam-fatos.html">capítulo 10</a> descreve: o check que mede o
+proxy, não o fato.</p>
+<h2 id="de-onde-vem-a-ideia-e-o-que-mais-existe" tabindex="-1">De onde vem a ideia, e o que mais existe <a class="header-anchor" href="#de-onde-vem-a-ideia-e-o-que-mais-existe" aria-hidden="true">#</a></h2>
+<p>Pacote de replicação não é invenção deste livro. Três práticas de outras áreas resolvem partes do
+mesmo problema, e vale saber o que cada uma fixa antes de julgar o que este apêndice toma delas.</p>
+<p><strong>Reproduzir não é replicar.</strong> A distinção que organiza o campo é de quem são os artefatos. A
+política de avaliação de artefatos da Association for Computing Machinery (ACM), <em>Artifact Review
+and Badging</em>, na versão 1.1, chama de resultado <strong>reproduzido</strong> o que outro time obtém com os
+artefatos do autor, e de <strong>replicado</strong> o que outro time obtém sem eles, refazendo o experimento
+a partir da descrição. Os dois verbos medem coisas diferentes. Reproduzir prova que o autor não
+errou na conta; replicar prova que o efeito não morava nos artefatos dele. Este apêndice entrega a
+primeira coisa para os claims e prepara a segunda para as hipóteses: o protocolo existe para que
+outro time rode os próprios <em>runs</em> sem pedir nada ao autor.</p>
+<table>
+<thead>
+<tr>
+<th>Prática</th>
+<th>O que fixa</th>
+<th>O que este pacote toma</th>
+<th>O que não toma</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Avaliação de artefatos (ACM <em>Artifact Review and Badging</em>)</td>
+<td>selos separados para artefato disponível, artefato que funciona e resultado reproduzido, concedidos por um comitê</td>
+<td>a separação entre &quot;o artefato roda&quot; (<code>check-installed.sh</code>, o exemplo deste apêndice) e &quot;o resultado se confirma&quot; (a coluna de evidência)</td>
+<td>o comitê externo; aqui a conferência é por conta do leitor</td>
+</tr>
+<tr>
+<td>Pré-registro (Nosek et al., 2018)</td>
+<td>hipótese, desenho e análise registrados com data antes de qualquer dado</td>
+<td>o protocolo congelado antes do primeiro <em>run</em> e a regra de que margem não muda depois de ver o resultado</td>
+<td>o carimbo de tempo de terceiro; aqui a data é um <em>commit</em> do próprio autor, que é mais fraca enquanto o <em>commit</em> não está num repositório público</td>
+</tr>
+<tr>
+<td>Fichas de dados e de modelo (Gebru et al., 2021; Mitchell et al., 2019)</td>
+<td>origem, composição, uso pretendido e limites do conjunto ou do modelo, num formato fixo</td>
+<td>o <code>run.json</code> como ficha de cada execução e a seção de limites deste apêndice</td>
+<td>a ficha do corpus inteiro, que só faz sentido quando os cenários existirem</td>
+</tr>
+<tr>
+<td><em>Benchmark</em> público (SWE-bench, <em>Software Engineering benchmark</em>; ver o <a href="15-validando-o-maestro.html">capítulo 15</a>)</td>
+<td>tarefa e teste fixos, que qualquer um roda contra qualquer agente</td>
+<td>o caso com oráculo determinístico, no ASEG-Bench</td>
+<td>a pergunta: o <em>benchmark</em> mede o agente; este pacote quer medir o método em volta dele</td>
+</tr>
+</tbody>
+</table>
+<p>O veredito é que nenhuma das quatro, sozinha, serve a um livro sobre método. A avaliação de
+artefatos supõe um comitê que este livro não tem. O pré-registro supõe uma hipótese pronta para
+testar, e a maior parte do texto é observação, não hipótese. As fichas descrevem um conjunto que
+ainda não existe. O <em>benchmark</em> fixa a tarefa, mas não o tratamento. O pacote combina as quatro
+em escala pequena e diz, camada por camada, qual parte já está de pé.</p>
+<h2 id="o-método-instalável-e-a-versão-congelada" tabindex="-1">O método instalável e a versão congelada <a class="header-anchor" href="#o-método-instalável-e-a-versão-congelada" aria-hidden="true">#</a></h2>
+<p>As camadas 1 e 2 respondem à pergunta que vem antes de qualquer hipótese: o método que você vai
+testar é o mesmo que o livro descreve?</p>
+<h3 id="instalar-é-escrever-arquivos-e-o-instalador-diz-quais" tabindex="-1">Instalar é escrever arquivos, e o instalador diz quais <a class="header-anchor" href="#instalar-é-escrever-arquivos-e-o-instalador-diz-quais" aria-hidden="true">#</a></h3>
+<p>O instalador canônico é
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/install-maestro.sh"><code>scripts/install-maestro.sh</code></a>.
+Ele põe agentes, <em>skills</em>, scripts, <em>templates</em> e <em>hooks</em> em outro repositório e aceita seis
+opções: <code>--dry-run</code> mostra o que faria, <code>--ai &lt;id&gt;</code> declara para qual agente de inteligência artificial (IA) instalar,
+<code>--write-block</code> grava o bloco de instruções do método no arquivo que a IA lê, <code>--no-hooks</code> pula a
+camada de enforcement, <code>--force</code> impõe a versão do método e <code>--block</code> só imprime o bloco
+[CLAIM-93-010]. A propriedade que importa para replicação é a que o cabeçalho do script declara:
+instalar também é atualizar, e nada que você escreveu é sobrescrito. Um arquivo que você alterou
+fica, com a versão nova ao lado como <code>*.maestro-new</code>; mesmo com <code>--force</code>, a sua versão é salva
+antes como <code>*.maestro-old</code> [CLAIM-93-010]. Um <em>run</em> que instala o método num cenário já
+povoado, portanto, não apaga a linha de base sem deixar rastro.</p>
+<p>O caminho curto é <code>bin/maestro init &lt;projeto&gt; --ai claude</code>, que conduz agente, destino,
+instalação e verificação. A receita
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/receitas/instalar-o-maestro.md"><code>instalar-o-maestro.md</code></a>
+registra o resultado de uma instalação real, num projeto que só tinha <code>README.md</code>: 81 arquivos
+escritos com <code>--ai claude</code>; 80 com <code>install-maestro.sh</code> sozinho, que não grava o <code>CLAUDE.md</code>;
+53, e nenhum diretório <code>.claude/</code>, com <code>--ai codex</code> [CLAIM-93-011]. A diferença não é detalhe.
+O braço T do protocolo instalado para um agente não é o mesmo braço T instalado para outro: a
+camada de <em>hooks</em> é mecanismo de um <em>harness</em> específico (o programa que executa o agente e
+lhe dá ferramentas, como o Claude Code ou o Codex) e não viaja para os demais. Por isso a
+escolha fica gravada em <code>.maestro/install-options.json</code>, um arquivo JavaScript Object Notation
+(JSON), com o agente, o arquivo de instrução,
+se há <em>harness</em>, a versão do método e a data [CLAIM-93-011], e esse arquivo entra na lista do
+que um <em>run</em> congela.</p>
+<h3 id="o-portão-que-exercita-a-cópia-instalada" tabindex="-1">O portão que exercita a cópia instalada <a class="header-anchor" href="#o-portão-que-exercita-a-cópia-instalada" aria-hidden="true">#</a></h3>
+<p>Todo portão do Maestro media o repositório-fonte, onde cada arquivo que o método menciona
+existe. Ninguém rodava a cópia instalada. Dois defeitos viveram nesse ponto cego até que um
+agente companheiro os achou numa instalação real: <code>scripts/check-roles.sh</code> era enviado e lia
+<code>docs/agents/README.md</code>, que o instalador não copia; os comandos <code>/speckit.*</code> eram enviados
+apontando para <code>.specify/memory/constitution.md</code>, caminho que a instalação não cria
+[CLAIM-93-012]. O cabeçalho de
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/check-installed.sh"><code>scripts/check-installed.sh</code></a>
+nomeia o defeito comum: o método enviava algo que aponta para o que não enviava.</p>
+<p>O portão nascido daí instala o método num diretório vazio e exercita o resultado. O próprio
+script delimita o que mede: não que o método é bom, nem que uma IA vai segui-lo, mas que uma
+instalação nova é coerente, ou seja, cada script enviado roda e cada caminho citado existe ali
+[CLAIM-93-012]. Para quem replica, essa é a pré-condição mínima. Antes de atribuir um
+resultado ao método, confirme que ele chegou inteiro ao cenário; um braço T com metade dos
+scripts quebrados mede o instalador, não o tratamento.</p>
+<h3 id="três-verificações-para-a-cópia-de-qualquer-método" tabindex="-1">Três verificações para a cópia de qualquer método <a class="header-anchor" href="#três-verificações-para-a-cópia-de-qualquer-método" aria-hidden="true">#</a></h3>
+<p>Nada acima depende do Maestro, só os nomes dos arquivos. Se o seu time adota outro método (um
+conjunto de <em>prompts</em> e <em>templates</em> de spec, um kit de <em>skills</em>, as regras de um orquestrador), a
+pergunta &quot;a cópia chegou inteira?&quot; se responde com as mesmas três verificações, cada uma com uma
+saída que uma máquina confere:</p>
+<ol>
+<li><strong>Ensaiar antes de escrever.</strong> O instalador, ou o seu passo manual de cópia, tem de listar o
+que escreveria sem escrever. Se ele não tem esse modo, a lista é o primeiro artefato a criar:
+sem ela, você não sabe o que o tratamento contém. No Maestro, é o <code>--dry-run</code>.</li>
+<li><strong>Exercitar a cópia num diretório vazio.</strong> Instale num repositório sem nada, rode cada script
+que veio e confira que cada caminho citado pelas instruções existe ali. O defeito que essa
+verificação acha é sempre o mesmo, o de cima: o pacote aponta para o que não leva. No Maestro,
+é <code>scripts/check-installed.sh</code>; em outro método, um <em>script</em> curto que instala, roda e procura
+os caminhos citados resolve.</li>
+<li><strong>Gravar a escolha no próprio destino.</strong> Para qual agente, com que <em>harness</em>, em que versão do método
+e em que data. O registro fica no repositório instalado e entra no registro de cada execução.
+No Maestro, é o <code>.maestro/install-options.json</code>; em outro método, um arquivo pequeno que o
+seu instalador escreve.</li>
+</ol>
+<p>As três juntas separam duas perguntas que um time costuma misturar: &quot;o método funciona?&quot; e &quot;o
+método chegou?&quot;. Só a segunda tem resposta hoje, e ela vem antes.</p>
+<h3 id="a-versão-um-commit-não-uma-release" tabindex="-1">A versão: um <em>commit</em>, não uma <em>release</em> <a class="header-anchor" href="#a-versão-um-commit-não-uma-release" aria-hidden="true">#</a></h3>
+<p>A base de pesquisa pede &quot;tags e releases reproduzíveis&quot; ao lado do protocolo e dos <em>runs</em>. O
+estado em 02/11/2026 é a metade disso. O <code>CHANGELOG.md</code> do Maestro no <em>commit</em> de referência
+tem três versões numeradas, 0.1.0, 0.2.0 e 0.3.0, de 09/08/2026 a 22/08/2026, e uma seção
+<code>[Unreleased]</code> acima delas; no clone local usado para escrever este livro, <code>git tag -l 'v*'</code> não
+lista nenhuma tag [CLAIM-93-013]. A ausência não é só do clone: em 03/11/2026, uma consulta
+anônima ao repositório público (<code>git ls-remote --tags</code>) também não devolve nenhuma tag
+[CLAIM-93-014]. Tudo o que o livro descreve depois de 22/08/2026 está, portanto, fora de
+qualquer versão numerada. É por isso que cada link ao Maestro neste livro aponta para
+<code>blob/19823c2/…</code>, e não para uma versão: o <em>commit</em> é a única referência que congela de fato o
+que foi lido. Um <em>commit</em> resolve a reprodução, mas não a comunicação. &quot;Rodei com o Maestro
+<code>19823c2</code>&quot; não diz a um leitor o que mudou desde a 0.3.0, e uma <em>release</em> diria.</p>
+<p>Há um furo maior, e ele vale ser dito antes de você clonar. Na mesma consulta de 03/11/2026, o
+repositório aceita leitura anônima, mas nenhuma das 50 <em>branches</em> públicas contém o <em>commit</em>
+<code>19823c2</code>: ele está numa <em>branch</em> local do autor que ainda não foi publicada [CLAIM-93-014]. Até
+ser publicado, um clone feito por você não tem a versão de referência, e o passo 1 do roteiro
+mais abaixo falha. O pacote não esconde isso: o script do exemplo deste apêndice marca
+<code>FALHA</code> exatamente nesse ponto. Um <em>commit</em> de referência que só existe na máquina do autor é o
+caso-limite da epígrafe, e é o primeiro item a corrigir antes de qualquer <em>run</em>.</p>
+<h2 id="as-hipóteses-o-que-o-livro-afirma-sem-ter-medido" tabindex="-1">As hipóteses: o que o livro afirma sem ter medido <a class="header-anchor" href="#as-hipóteses-o-que-o-livro-afirma-sem-ter-medido" aria-hidden="true">#</a></h2>
+<p>Boa parte deste livro descreve o que aconteceu num repositório: um ciclo, um <em>commit</em>, um
+portão que deixou passar um defeito. Isso é observação, e cada capítulo a marca como tal. Outra
+parte é aposta: &quot;a spec reduz retrabalho&quot;, &quot;multiagente só ajuda com cortes independentes&quot;. Essas
+apostas estão reunidas numa agenda de dez hipóteses, H1 a H10 [CLAIM-93-001], e o pacote de
+replicação existe principalmente para que elas deixem de ser apostas, num sentido ou no outro.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Hipótese</th>
+<th>Capítulo que a usa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>H1</td>
+<td>a spec reduz retrabalho</td>
+<td><a href="04-a-spec-como-partitura.html">4</a></td>
+</tr>
+<tr>
+<td>H2</td>
+<td>a revisão em contexto fresco acha mais defeito</td>
+<td><a href="02-o-problema-da-confianca.html">2</a></td>
+</tr>
+<tr>
+<td>H3</td>
+<td>contexto seletivo reduz custo sem perder qualidade</td>
+<td><a href="05-engenharia-de-contexto.html">5</a></td>
+</tr>
+<tr>
+<td>H4</td>
+<td>multiagente só ajuda com cortes independentes</td>
+<td><a href="06-como-dividir-o-trabalho.html">6</a></td>
+</tr>
+<tr>
+<td>H5</td>
+<td>portão provado por teste de mutação reduz escapes</td>
+<td><a href="10-quality-gates-que-provam-fatos.html">10</a></td>
+</tr>
+<tr>
+<td>H6</td>
+<td>catálogo semântico reduz duplicação</td>
+<td><a href="08-ddd-para-agentes.html">8</a></td>
+</tr>
+<tr>
+<td>H7</td>
+<td>glossário reduz inconsistência</td>
+<td><a href="08-ddd-para-agentes.html">8</a></td>
+</tr>
+<tr>
+<td>H8</td>
+<td>reversibilidade permite mais autonomia</td>
+<td><a href="11-risco-reversibilidade-e-autonomia.html">11</a></td>
+</tr>
+<tr>
+<td>H9</td>
+<td>modelo menor basta em tarefa estruturada</td>
+<td><a href="07-papeis-e-skills.html">7</a></td>
+</tr>
+<tr>
+<td>H10</td>
+<td>retrospectiva que vira regra reduz recorrência</td>
+<td><a href="14-a-organizacao-que-aprende.html">14</a></td>
+</tr>
+</tbody>
+</table>
+<p>Uma hipótese só serve a um pacote de replicação se responder a três perguntas antes do primeiro
+experimento: <strong>o que se mede</strong>, <strong>contra o quê</strong> e <strong>que resultado a derrubaria</strong>. O arquivo
+<a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/pesquisa/hipoteses.md"><code>pesquisa/hipoteses.md</code></a> responde às três para cada uma das
+dez. Aqui fica a lógica que as amarra.</p>
+<h3 id="o-desenho-quatro-braços-que-se-somam" tabindex="-1">O desenho: quatro braços que se somam <a class="header-anchor" href="#o-desenho-quatro-braços-que-se-somam" aria-hidden="true">#</a></h3>
+<p>A agenda compara quatro braços [CLAIM-93-002]. No braço A, a linha de base, o agente recebe só
+o <em>prompt</em> da tarefa. No B, recebe a tarefa como especificação escrita. No C, a especificação
+mais os portões automáticos de integração contínua. No braço de tratamento, o Maestro completo:
+raias, papéis, revisão em contexto fresco, portões, Architecture Decision Records (ADRs),
+<em>skills</em> e <em>hooks</em>. Cada braço acrescenta uma camada ao anterior, e é isso que torna o desenho
+útil: a diferença entre dois braços vizinhos isola uma camada. A H1 vive no contraste A × B; a
+H5, dentro do C; H3, H6 e H7 ligam e desligam uma peça só dentro do tratamento.</p>
+<p>Nem toda hipótese cabe nos quatro braços. A H4 pede um fatorial (um agente ou vários, cruzado
+com tarefas de cortes independentes ou acopladas), porque a palavra &quot;só&quot; é uma afirmação sobre
+as duas metades da tabela. A H9 também (modelo menor ou maior, tarefa estruturada ou aberta). A
+H10 é a mais fraca da agenda: não há como sortear retrospectivas, então ela é observacional,
+uma série temporal no corpus de ciclos históricos do Maestro, antes e depois de cada achado
+virar regra. O arquivo de hipóteses diz isso com todas as letras, porque um desenho fraco
+relatado como forte é o mesmo defeito do portão que mede o proxy.</p>
+<h3 id="o-que-conta-como-resultado" tabindex="-1">O que conta como resultado <a class="header-anchor" href="#o-que-conta-como-resultado" aria-hidden="true">#</a></h3>
+<p>Duas regras valem para as dez. A primeira: o ambiente de cada execução fica congelado, com
+<em>commit</em> do método, modelo, <em>harness</em> e <em>hashes</em> das entradas (a impressão digital de cada
+arquivo: mudou um byte, mudou o <em>hash</em>) [CLAIM-93-003], e uma execução sem
+esse registro não entra na análise. A segunda: o resultado é uma distribuição com intervalo,
+nunca um número só, porque o mesmo agente na mesma tarefa não produz a mesma saída duas vezes.</p>
+<p>Daí sai a definição de refutar. Uma hipótese de efeito (&quot;reduz&quot;, &quot;acha mais&quot;) cai quando o
+intervalo do efeito, no contraste declarado, inclui zero ou aponta contra ela. Uma hipótese de
+não-inferioridade (&quot;sem perder qualidade&quot;, &quot;basta&quot;) cai quando a perda passa de uma margem. O
+número de repetições, as margens e o nível do intervalo ainda não foram fixados; vão para
+<code>pesquisa/protocolo.md</code> antes do primeiro <em>run</em> e não podem mudar depois de alguém olhar os
+dados. Fixar a margem depois de ver o resultado é a versão estatística de reescrever um ADR.</p>
+<h3 id="cada-hipótese-tem-uma-armadilha-própria" tabindex="-1">Cada hipótese tem uma armadilha própria <a class="header-anchor" href="#cada-hipótese-tem-uma-armadilha-própria" aria-hidden="true">#</a></h3>
+<p>Escrever &quot;o que a refutaria&quot; obriga a nomear a explicação alternativa que imitaria o efeito.
+Três exemplos, todos de <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/pesquisa/hipoteses.md"><code>pesquisa/hipoteses.md</code></a>:</p>
+<ul>
+<li><strong>H2.</strong> Se o revisor em contexto fresco gasta mais <em>tokens</em> lendo o <em>diff</em> do que o autor
+gasta relendo o próprio trabalho, ele pode achar mais defeitos por ler mais, não por ter
+contexto limpo. O desenho iguala o orçamento de revisão; se o ganho some com orçamento igual,
+a hipótese cai na forma em que o livro a enuncia.</li>
+<li><strong>H1.</strong> A spec pode reduzir o retrabalho e ainda assim encarecer a entrega, se escrevê-la
+custa mais do que o retrabalho que poupa. Por isso a métrica principal é custo por tarefa
+aceita com o custo da spec somado, e não apenas o número de iterações de correção.</li>
+<li><strong>H4.</strong> A hipótese tem duas metades. Vários agentes que não melhoram nem as tarefas
+independentes refutam a primeira; vários agentes que melhoram também as acopladas refutam o
+&quot;só&quot;. O segundo resultado seria o mais interessante, porque contradiz o
+<a href="06-como-dividir-o-trabalho.html">capítulo 6</a>.</li>
+</ul>
+<h3 id="onde-moram-os-dados" tabindex="-1">Onde moram os dados <a class="header-anchor" href="#onde-moram-os-dados" aria-hidden="true">#</a></h3>
+<p>Os corpora previstos são três: os ciclos históricos do Maestro; o SWE-bench (<em>issues</em> reais de
+repositórios públicos, julgadas pelos testes da correção original) com a sua variante mais
+difícil, o SWE-Bench Pro, de tarefas de horizonte longo; e o ASEG-Bench (nome de trabalho:
+governança de <em>Agentic Software Engineering</em>, o título em inglês deste livro), um benchmark de
+governança com dez casos, de GOV-001 a GOV-010 [CLAIM-93-005], descrito
+no <a href="apendice-b-aseg-bench.html">Apêndice B</a>. Duas hipóteses já apontam para casos dele: a H6
+para o GOV-002 (componente duplicado) e a H8 para o GOV-007 (ação irreversível sem <em>rollback</em>).
+Cada execução vai para <code>pesquisa/runs/</code>, um diretório por <em>run</em> com <em>schema</em> imutável, e o
+protocolo que as governa fica em <code>pesquisa/protocolo.md</code> [CLAIM-93-004]. Imutável aqui tem o
+mesmo sentido que no Maestro: um <em>run</em> errado não se corrige, se registra outro que o
+substitui.</p>
+<p>Enquanto o protocolo não for ratificado e o primeiro <em>run</em> não for commitado, a regra para o
+leitor é simples: toda frase deste livro que menciona H1 a H10 é uma hipótese, e o capítulo que
+a usa diz isso.</p>
+<h2 id="o-protocolo-o-que-se-congela-antes-do-primeiro-run" tabindex="-1">O protocolo: o que se congela antes do primeiro run <a class="header-anchor" href="#o-protocolo-o-que-se-congela-antes-do-primeiro-run" aria-hidden="true">#</a></h2>
+<p>Hipótese sem protocolo é uma pergunta bem escrita. O que a transforma em experimento é um
+documento que diz, antes de alguém ver um resultado, como cada execução roda, o que ela registra
+e como se lê o conjunto. Esse documento é
+<a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/pesquisa/protocolo.md"><code>pesquisa/protocolo.md</code></a>. Em 02/11/2026 ele é um rascunho, versão
+0.1, ainda sem a revisão do autor do método e sem nenhum <em>run</em> feito sob ele [CLAIM-93-004]. O
+que segue é o que ele fixa e por quê.</p>
+<h3 id="a-falha-que-o-protocolo-existe-para-evitar" tabindex="-1">A falha que o protocolo existe para evitar <a class="header-anchor" href="#a-falha-que-o-protocolo-existe-para-evitar" aria-hidden="true">#</a></h3>
+<p>A primeira execução real do ASEG-Bench já aconteceu, e é o melhor argumento a favor
+do protocolo. Em 02/11/2026 o caso GOV-004 (ADR reescrito) rodou contra o Claude Code, versão
+2.1.316, com o modelo pedido pelo apelido <code>sonnet</code>. O <em>harness</em> recusou a autenticação antes do
+primeiro passo; o agente não fez nada; o avaliador reprovou o rastro por duas violações de
+declaração e o deu como conforme quando julgado só pelo estado dos arquivos [CLAIM-93-008].
+Isso não é escândalo: é exatamente a aprovação vazia que a coluna <code>tarefa_resolvida</code> existe para
+pegar.</p>
+<p>O problema aparece quando se pergunta se essa execução poderia entrar numa análise. O
+<code>veredito.json</code> que o <em>runner</em> grava tem oito campos: caso, modelo, instruções, <em>commit</em>-base do
+cenário, tarefa resolvida, erro do <em>harness</em>, violações e violações só de estado
+[CLAIM-93-007]. A versão do <em>harness</em> está só no README da pasta, não no registro. O modelo está
+como apelido, e um apelido aponta para versões diferentes ao longo do tempo. Não há hash do
+<em>prompt</em>, da ficha do caso nem do avaliador; se a ficha mudar amanhã, nada no registro diz
+contra qual versão o rastro foi julgado. E o <em>runner</em> repete uma vez por padrão [CLAIM-93-007].
+Uma execução assim serve para depurar o <em>runner</em>. Não serve para afirmar nada sobre um braço.</p>
+<h3 id="braços-e-tratamento" tabindex="-1">Braços e tratamento <a class="header-anchor" href="#braços-e-tratamento" aria-hidden="true">#</a></h3>
+<p>O protocolo usa os quatro braços da agenda: A (só o <em>prompt</em>), B (mais a especificação), C (mais
+os portões executáveis) e T, o Maestro completo instalado no cenário. A unidade é a <strong>célula</strong>:
+tarefa, braço, modelo e <em>harness</em>. A tarefa, ou seja, o repositório de cenário no mesmo
+<em>commit</em>-base, o mesmo gatilho e o mesmo critério de aceitação, é idêntica em todas as células
+comparadas; muda só o que o braço acrescenta. Desligar uma peça dentro de T (contexto seletivo,
+catálogo, glossário) é uma ablação com nome próprio, <code>T-sem-&lt;peça&gt;</code>, para que ninguém confunda
+&quot;o Maestro sem glossário&quot; com o braço C.</p>
+<h3 id="repetições-com-distribuição-e-intervalo" tabindex="-1">Repetições com distribuição e intervalo <a class="header-anchor" href="#repetições-com-distribuição-e-intervalo" aria-hidden="true">#</a></h3>
+<p>O protocolo propõe dez repetições por célula no piloto, proporções com intervalo de Wilson a
+95 %, e medianas com intervalo <em>bootstrap</em> percentil a 95 % sobre 10 000 reamostragens, com a
+semente registrada; para as hipóteses de não-inferioridade (H3 e H9), a margem proposta é de
+5 pontos percentuais em aceitação na primeira passada [CLAIM-93-006]. Os valores estão marcados
+como proposta e congelam no <em>commit</em> que registrar o primeiro <em>run</em>. A partir daí, mudar um
+deles é uma versão nova do protocolo, válida só para os <em>runs</em> seguintes.</p>
+<p>Três regras valem seja qual for o número:</p>
+<ul>
+<li><strong>Relata-se a distribuição inteira</strong>: n, mínimo, quartis, máximo e o intervalo. Média sozinha
+não entra no livro.</li>
+<li><strong>Falha do <em>harness</em> conta.</strong> Uma execução que caiu por autenticação ou <em>timeout</em> fica
+registrada e fora da métrica da tarefa, mas a taxa de erro por célula é relatada. Repetir até
+dar certo sem registrar as falhas é escolher a amostra.</li>
+<li><strong>A ordem das células é sorteada</strong>, para que uma mudança no provedor ao longo do dia não se
+confunda com efeito de braço.</li>
+</ul>
+<h3 id="o-ambiente-congelado" tabindex="-1">O ambiente congelado <a class="header-anchor" href="#o-ambiente-congelado" aria-hidden="true">#</a></h3>
+<p>Cada <em>run</em> registra, no próprio <code>run.json</code>, o <em>commit</em> do Maestro instalado (braço T), o <em>commit</em>
+do repositório do livro (fichas, <em>runner</em>, avaliador), o modelo pedido e o modelo <strong>resolvido</strong>,
+nome e versão do <em>harness</em>, o <em>commit</em>-base do cenário, o <em>hash</em> Secure Hash Algorithm de 256 bits (SHA-256) de cada entrada (<em>prompt</em>,
+instruções, ficha, <em>runner</em>, avaliador), sistema operacional, versão do interpretador e a semente.
+Se o <em>harness</em> não relata o modelo resolvido, o <em>run</em> entra marcado <code>modelo_nao_verificado</code>.
+Sem esses campos o <em>run</em> não entra na análise. É a lista do que faltava no <code>veredito.json</code> da
+seção anterior.</p>
+<h3 id="o-schema-imutável-de-runs" tabindex="-1">O <em>schema</em> imutável de <code>runs/</code> <a class="header-anchor" href="#o-schema-imutável-de-runs" aria-hidden="true">#</a></h3>
+<p>Um diretório por <em>run</em> em <code>pesquisa/runs/</code>, com <code>run.json</code>, <code>prompt.txt</code>, <code>rastro.json</code>,
+<code>veredito.json</code> e, opcionalmente, <code>telemetria.jsonl</code>. O <code>run.json</code> declara a versão do <em>schema</em>
+e a versão do protocolo sob a qual rodou. Imutável quer dizer quatro coisas: diretório commitado
+não se edita nem se apaga; <em>run</em> errado se corrige com outro <em>run</em> cujo campo <code>substitui</code> aponta
+o errado; campo novo exige versão nova do <em>schema</em>, e os <em>runs</em> antigos continuam lidos como
+estão; e os <em>runs</em> são commitados <strong>antes</strong> de a análise rodar, para que ninguém escolha quais
+entram depois de ver o resultado.</p>
+<p>Aqui o protocolo é franco sobre o próprio limite: o portão que faria valer a imutabilidade
+(<code>scripts/check-runs.sh</code>, conferindo por <em>diff</em> que nada sob <code>runs/</code> mudou) ainda não existe.
+Até existir, a imutabilidade é regra escrita, não fato verificado. No vocabulário do
+<a href="10-quality-gates-que-provam-fatos.html">capítulo 10</a>, é intenção sem portão.</p>
+<h3 id="telemetria-compatível-com-opentelemetry-com-minimização" tabindex="-1">Telemetria compatível com OpenTelemetry, com minimização <a class="header-anchor" href="#telemetria-compatível-com-opentelemetry-com-minimização" aria-hidden="true">#</a></h3>
+<p>Custo, <em>tokens</em>, tempo e overhead de coordenação se medem com <em>spans</em> exportáveis por
+OpenTelemetry (OTel): um por <em>run</em>, por chamada ao modelo, por chamada de ferramenta, por portão,
+por espera humana e por mensagem entre agentes. Os atributos usam os nomes das convenções
+semânticas de IA generativa do OTel (<code>gen_ai.*</code>) quando existem, com a versão das convenções
+registrada, porque elas ainda estão em desenvolvimento, e um prefixo próprio (<code>esoa.*</code>) para
+braço, hipótese, tarefa e repetição.</p>
+<p>O que <strong>não</strong> se registra pesa tanto quanto o que se registra. A Lei Geral de Proteção de Dados
+(LGPD) põe a necessidade entre os princípios do tratamento: coleta-se o mínimo para a
+finalidade. Medir custo e tempo não precisa do conteúdo do <em>prompt</em>, da resposta, dos arquivos
+nem da saída dos comandos; não precisa de caminhos absolutos, de nome de usuário nem da
+descrição da máquina. Por padrão, então, a telemetria guarda contagens, durações, nomes de
+ferramenta, códigos de saída e hashes. O conteúdo necessário para auditar um <em>run</em> já está em
+<code>prompt.txt</code> e <code>rastro.json</code>, de cenários sintéticos, revisados. O log bruto do <em>harness</em> não se
+publica, pela razão que o benchmark já documenta: a primeira linha do log do Claude Code
+descreve a máquina, com servidores e caminhos de memória. Quem quiser auditar o log refaz o
+<em>run</em> com o mesmo ambiente congelado. Rastrear não é reter tudo.</p>
+<h2 id="como-reproduzir-um-claim-deste-livro" tabindex="-1">Como reproduzir um claim deste livro <a class="header-anchor" href="#como-reproduzir-um-claim-deste-livro" aria-hidden="true">#</a></h2>
+<p>Os <em>runs</em> ainda não existem, mas os claims existem, e esta é a parte do pacote que você já pode
+usar. Cada capítulo tem um <code>claims.md</code>; a consolidação de todos, em <code>pesquisa/CLAIMS.md</code>,
+somava 511 claims em 02/11/2026 [CLAIM-93-009]. Cada linha tem quatro colunas: o id, a
+afirmação, o estado e a evidência reproduzível.</p>
+<p><strong>O estado diz quanto a frase aguenta.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Estado</th>
+<th>O que significa</th>
+<th>O que você faz com ele</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>medido</code></td>
+<td>um comando produz o número</td>
+<td>rode o comando; o número tem de bater</td>
+</tr>
+<tr>
+<td><code>observado</code></td>
+<td>um arquivo ou <em>commit</em> registra o fato, sem contagem automática</td>
+<td>abra o arquivo no <em>commit</em> indicado e leia</td>
+</tr>
+<tr>
+<td><code>observado (autodeclarado)</code></td>
+<td>o número é o balanço escrito pelo autor do método, não uma contagem</td>
+<td>trate como depoimento datado</td>
+</tr>
+<tr>
+<td><code>hipótese</code></td>
+<td>aposta, H1 a H10 ou similar</td>
+<td>não use como fato; veja o protocolo</td>
+</tr>
+</tbody>
+</table>
+<p><strong>A evidência diz onde rodar.</strong> Há dois formatos:</p>
+<ul>
+<li><code>git show 19823c2:&lt;caminho&gt;</code> ou <code>git ls-tree … 19823c2 …</code> roda num clone do Maestro. O
+<em>commit</em> <code>19823c2</code> é a versão de referência do livro inteiro; rodar em outro <em>commit</em> mede outra
+coisa.</li>
+<li><code>livro: &lt;comando&gt;</code> roda na raiz do repositório deste livro (por exemplo, os <code>sed -n</code> sobre
+<code>pesquisa/base-de-pesquisa.md</code>, ou um <code>exemplo/</code> com <code>--conferir</code>).</li>
+</ul>
+<p>O roteiro, de ponta a ponta:</p>
+<pre><code class="language-bash"># 1. o método na versão de referência
+git clone https://github.com/GHDaru/maestro.git &amp;&amp; cd maestro
+git cat-file -t 19823c2                      # → commit (em 03/11/2026: ainda falha, ver acima)
+
+# 2. um claim medido do prefácio (CLAIM-00-008: oito princípios)
+git show 19823c2:docs/governance/principles.md | grep -cE '^### [IVX]+\.'   # → 8
+
+# 3. no repositório do livro: todo id citado está registrado, e vice-versa
+scripts/check-claims.sh                      # saída 0 = conforme; 1 = lista pastas e ids
+grep -n 'CLAIM-00-008' pesquisa/CLAIMS.md    # a linha com a afirmação e o comando
+</code></pre>
+<p>O passo 3 confere a forma, não o conteúdo: <code>scripts/check-claims.sh</code> garante que todo id citado
+num <code>capitulo.md</code> está no <code>claims.md</code> da mesma pasta, que todo id registrado é citado e que o id
+tem a forma <code>CLAIM-NN-NNN</code>, mas não roda a coluna de evidência. O portão varre o livro inteiro;
+se sair com 1, ele imprime as pastas com desvio e os ids recusados, e a deste apêndice
+(<code>livro/apendices/c-pacote-de-replicacao</code>) não pode estar na lista. Os apêndices usam um número
+no lugar da letra (o B é <code>92</code>, este é <code>93</code>, o D é <code>94</code>) justamente porque o portão só aceita dois
+dígitos; uma versão anterior deste apêndice usava <code>0C</code> e o portão a recusou, que é o portão
+fazendo o seu trabalho. Conferir o número é o passo 2, claim a claim.</p>
+<h3 id="o-roteiro-num-script-só" tabindex="-1">O roteiro num script só <a class="header-anchor" href="#o-roteiro-num-script-só" aria-hidden="true">#</a></h3>
+<p>Os três passos estão juntos em
+<a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/apendices/c-pacote-de-replicacao/exemplo/README.md"><code>exemplo/conferir_pacote.py</code></a>, em Python 3 e Git, sem dependências e sem rede.
+Com <code>--conferir --maestro &lt;clone&gt;</code>, ele roda a evidência de quatro claims, três deste apêndice e um do
+prefácio (a versão de referência existe no clone, os oito princípios, as versões do
+<code>CHANGELOG.md</code> e as tags, os oito campos do veredito) e confere os ids do apêndice nos dois
+sentidos. Cada linha sai como <code>OK</code>, <code>FALHA</code> ou <code>PULA</code>, com o valor obtido ao lado do esperado; a
+saída do processo é 0 quando nada falha. O <code>README.md</code> da pasta traz as duas saídas esperadas: a
+do clone do autor, toda verde, e a de um clone sem o <em>commit</em> <code>19823c2</code>, com a falha no primeiro
+item. Rode-o antes de citar qualquer número deste livro numa decisão. Se o comando não
+reproduzir o número, o claim está errado até prova em contrário, e a regra do guia editorial vale
+para o autor: número que não se reproduz vira hipótese ou sai.</p>
+<p>Quando os primeiros <em>runs</em> existirem, um claim <code>medido</code> sobre H1–H10 terá na coluna de evidência
+o comando da análise e os <code>id</code>s dos <em>runs</em> usados, e o roteiro ganha um passo: refazer um <em>run</em>
+com os campos congelados do <code>run.json</code> e ver se o resultado cai dentro do intervalo relatado.</p>
+<h2 id="monte-o-pacote-do-seu-time" tabindex="-1">Monte o pacote do seu time <a class="header-anchor" href="#monte-o-pacote-do-seu-time" aria-hidden="true">#</a></h2>
+<p>Conferir o autor é a metade passiva. A outra metade é o seu time fazer o mesmo com as próprias
+afirmações, sem esperar os <em>runs</em> deste livro. O caminho mínimo cabe numa semana e usa as mesmas
+peças, em escala de um time:</p>
+<ol>
+<li><strong>Escolha uma afirmação que o time já faz.</strong> De preferência uma que já decide alguma coisa:
+&quot;a revisão por um agente sem o contexto do autor acha defeito que o autor não acha&quot;. Escreva,
+antes de rodar, o que se mede, contra o quê e que resultado a derrubaria.</li>
+<li><strong>Fixe o protocolo numa página, com data e <em>commit</em>.</strong> Número de repetições, métrica,
+critério de refutação. O piloto do protocolo deste livro propõe dez repetições por célula
+[CLAIM-93-006]; com dois braços (sem e com a prática) e uma tarefa, são vinte execuções.</li>
+<li><strong>Uma pasta por execução, com o <code>run.json</code> preenchido antes de rodar.</strong> O molde é
+<a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/apendices/c-pacote-de-replicacao/exemplo/README.md"><code>exemplo/run-modelo/</code></a>: o <code>run.json</code> no <em>schema</em> 1 do protocolo, já
+preenchido com os <em>hashes</em> reais do <em>prompt</em>, da ficha, do <em>runner</em> e do avaliador do caso
+GOV-004, e o <code>prompt.txt</code> que o agente recebeu. Troque os valores pelos do seu cenário.</li>
+<li><strong>Valide antes de contar.</strong> <code>python conferir_pacote.py --validar-run &lt;pasta&gt;</code> diz se a
+execução entra na análise. O exemplo traz o contraste com dados reais: o <code>run-como-veio/</code> é o
+<code>veredito.json</code> da primeira execução do ASEG-Bench, tal como o <em>runner</em> o gravou, e o
+validador recusa onze campos do ambiente congelado; o <code>run-modelo/</code> entra, com a marca
+<code>modelo_nao_verificado</code>, porque o modelo resolvido não foi relatado [CLAIM-93-015]. A
+execução recusada continua registrada; ela só não entra na conta.</li>
+<li><strong>Commite as execuções antes da análise</strong>, e relate a distribuição inteira com o intervalo.
+O número que sair vai para o texto com um id de claim e o comando que o refaz.</li>
+</ol>
+<p>Se ao fim da semana o time tiver vinte pastas, um protocolo datado e um número com intervalo, ele
+tem um pacote de replicação. Se tiver uma frase convincente na retrospectiva, tem um depoimento.</p>
+<h2 id="quando-um-pacote-assim-não-compensa" tabindex="-1">Quando um pacote assim não compensa <a class="header-anchor" href="#quando-um-pacote-assim-não-compensa" aria-hidden="true">#</a></h2>
+<p>O pacote tem custo: escrever o protocolo antes, calcular <em>hashes</em>, guardar cada execução,
+repetir até ter distribuição. Há casos em que esse custo é maior do que o erro que ele evita.</p>
+<ul>
+<li><strong>A decisão é barata de desfazer.</strong> Se o time pode adotar uma prática por duas <em>sprints</em> e
+voltar atrás sem perda, a própria adoção é o experimento, e a retrospectiva basta. O pacote se
+paga quando a decisão é cara: trocar o fluxo de vários times, contratar com base num número,
+publicar uma afirmação.</li>
+<li><strong>A pergunta é local.</strong> &quot;Isso funciona para nós, neste repositório?&quot; se responde observando o
+repositório. O protocolo com braços e repetições serve à pergunta geral, &quot;isso funciona?&quot;,
+que é a deste livro e raramente a de um time.</li>
+<li><strong>O volume não existe.</strong> Com poucas tarefas comparáveis, as repetições não formam uma
+distribuição útil, e um intervalo largo demais não decide nada. Melhor declarar a afirmação
+como observação do que vesti-la de medida.</li>
+<li><strong>O modelo muda mais depressa do que o experimento roda.</strong> Se o provedor troca o modelo por
+baixo do apelido no meio da coleta, as células deixam de ser comparáveis. Sem o modelo
+resolvido no registro, o pacote congela tudo menos o que mais varia.</li>
+<li><strong>O pacote vira cerimônia.</strong> Um protocolo sem <em>run</em>, um validador sem execução para validar, um
+<code>run.json</code> que ninguém lê: é o artefato sem função forçante que o próprio Maestro manda podar.
+Este apêndice corre esse risco hoje, e as camadas 3 e 4 só deixam de ser cerimônia no dia do
+primeiro <em>run</em>.</li>
+</ul>
+<h2 id="checklist-de-replicação" tabindex="-1" class="callout c-verif" data-rotulo="Aplique">Checklist de replicação <a class="header-anchor" href="#checklist-de-replicação" aria-hidden="true">#</a></h2>
+<p>Cada item tem um jeito de ser conferido sem perguntar ao autor. Aplique-o a este livro ou a
+qualquer afirmação que o seu time faça sobre o próprio processo com agentes.</p>
+<ul>
+<li>[ ] <strong>A versão é um <em>commit</em>.</strong> <code>git cat-file -t 19823c2</code> num clone do Maestro devolve
+<code>commit</code>; todo link ao método aponta para <code>blob/19823c2/…</code>, nunca para <code>main</code>.</li>
+<li>[ ] <strong>A instalação foi ensaiada antes.</strong> O instalador do método lista o que escreveria sem
+escrever, e o agente da lista é o mesmo que o <em>run</em> declara. No Maestro:
+<code>scripts/install-maestro.sh &lt;cenário&gt; --ai &lt;id&gt; --dry-run</code>.</li>
+<li>[ ] <strong>A cópia instalada é coerente.</strong> Instalado num diretório vazio, todo script enviado roda e
+todo caminho citado existe; senão o braço de tratamento mede o instalador. No Maestro:
+<code>scripts/check-installed.sh</code> sai com código zero no <em>commit</em> usado.</li>
+<li>[ ] <strong>A escolha do agente ficou gravada.</strong> Um arquivo no destino diz agente, <em>harness</em>, versão
+do método e data, e entra no registro do <em>run</em>. No Maestro: <code>.maestro/install-options.json</code>.</li>
+<li>[ ] <strong>O protocolo foi fixado antes dos dados.</strong> Repetições, margens e nível do intervalo estão
+em <code>pesquisa/protocolo.md</code> com data anterior ao primeiro <code>run.json</code>.</li>
+<li>[ ] <strong>O ambiente está congelado no próprio <em>run</em>.</strong> O <code>run.json</code> traz <em>commit</em> do Maestro,
+<em>commit</em> do cenário, modelo resolvido (não o apelido), versão do <em>harness</em> e os <em>hashes</em>.</li>
+<li>[ ] <strong>O resultado vem com distribuição.</strong> Nenhum número de H1–H10 aparece sem as repetições e o
+intervalo; um único <em>run</em> é anedota.</li>
+<li>[ ] <strong>Todo número do texto tem id.</strong> <code>scripts/check-claims.sh</code> não lista a pasta do capítulo
+entre as com desvio, e sai com código zero quando o livro inteiro está conforme;
+<code>exemplo/conferir_pacote.py --conferir</code> confere o mesmo para este apêndice.</li>
+<li>[ ] <strong>Uma amostra de claims foi rodada.</strong> Escolha alguns claims <code>medido</code>, rode a coluna de
+evidência e compare; um que não bate vira hipótese ou sai.</li>
+<li>[ ] <strong>O estado do claim foi respeitado.</strong> Nada marcado <code>hipótese</code> ou <code>observado (autodeclarado)</code> sustenta uma decisão como se fosse medida.</li>
+</ul>
+<h2 id="limites-deste-pacote" tabindex="-1">Limites deste pacote <a class="header-anchor" href="#limites-deste-pacote" aria-hidden="true">#</a></h2>
+<p><strong>Um repositório, um autor.</strong> Quase toda evidência deste livro vem do próprio Maestro,
+desenvolvido pela pessoa que o descreve. Um pacote de replicação torna essa evidência
+conferível; não a torna independente. Independência só chega quando outro time instala o método
+e publica os próprios <em>runs</em>.</p>
+<p><strong>O protocolo é rascunho e os <em>runs</em> não existem.</strong> Até 02/11/2026 nenhuma hipótese foi testada
+com o desenho completo [CLAIM-93-004]. Este apêndice descreve o que se congelaria, e cada valor
+proposto pode mudar até a ratificação [CLAIM-93-006]. Quem ler isto depois dessa data deve
+conferir a tabela «Estado» no fim de <code>pesquisa/protocolo.md</code> antes de assumir qualquer coisa.</p>
+<p><strong>A instalação depende do <em>harness</em>.</strong> A camada de <em>hooks</em> existe para um agente e não para os
+outros [CLAIM-93-011]. Um resultado obtido com <code>--ai claude</code> não se transfere automaticamente
+para <code>--ai codex</code>, porque o tratamento é outro. O argumento do livro pretende sobreviver à troca
+do <em>harness</em>; essa pretensão é ela mesma uma hipótese.</p>
+<p><strong>O portão confere coerência, não eficácia.</strong> <code>check-installed.sh</code> prova que a cópia chega
+inteira [CLAIM-93-012], e <code>check-claims.sh</code> prova que cada id citado está registrado. Nenhum dos
+dois prova que o método funciona ou que o número está certo. A segunda prova é sua: rodar a
+evidência.</p>
+<p><strong>A versão de referência ainda não é pública.</strong> Em 03/11/2026 o <em>commit</em> <code>19823c2</code> não está em
+nenhuma <em>branch</em> do repositório público [CLAIM-93-014]. Até estar, todo claim cuja evidência
+começa por <code>git show 19823c2:</code> é conferível só na máquina do autor, e a epígrafe deste apêndice
+vale contra ele mesmo.</p>
+<p><strong>Não há <em>release</em> para citar.</strong> A referência é um <em>commit</em> posterior à última versão numerada
+[CLAIM-93-013]. Reproduzir funciona; comparar com &quot;a versão anterior&quot; exige ler o histórico do
+<code>CHANGELOG.md</code>.</p>
+<p><strong>O log bruto não é publicado.</strong> Por minimização, o pacote guarda contagens, durações e o rastro
+revisado, não a primeira linha do log do <em>harness</em>, que descreve a máquina. Quem quiser auditar o
+log refaz o <em>run</em>.</p>
+<p><strong>O modelo muda por baixo.</strong> Um apelido como <code>sonnet</code> aponta para modelos diferentes ao longo do
+tempo, e o <em>runner</em> atual não grava o modelo resolvido [CLAIM-93-007]. Até isso mudar, um <em>run</em>
+refeito meses depois com o mesmo comando pode estar medindo outro modelo.</p>
+<h2 id="referências" tabindex="-1">Referências <a class="header-anchor" href="#referências" aria-hidden="true">#</a></h2>
+<p>Maestro, no <em>commit</em> de referência <code>19823c2</code>:</p>
+<ul>
+<li><a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/install-maestro.sh"><code>scripts/install-maestro.sh</code></a> — o instalador canônico e suas opções.</li>
+<li><a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/check-installed.sh"><code>scripts/check-installed.sh</code></a> — o portão que instala num diretório vazio e exercita o resultado.</li>
+<li><a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/receitas/instalar-o-maestro.md"><code>docs/receitas/instalar-o-maestro.md</code></a> — caminhos de instalação, <code>maestro init</code> e a árvore de uma instalação real.</li>
+<li><a href="https://github.com/GHDaru/maestro/blob/19823c2/CHANGELOG.md"><code>CHANGELOG.md</code></a> — as versões 0.1.0, 0.2.0 e 0.3.0.</li>
+<li><a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/principles.md"><code>docs/governance/principles.md</code></a> — os oito princípios usados no exemplo de reprodução.</li>
+</ul>
+<p>Neste livro:</p>
+<ul>
+<li><a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/pesquisa/base-de-pesquisa.md"><code>pesquisa/base-de-pesquisa.md</code></a> — a agenda H1–H10, os quatro braços e o que o repositório deve conter.</li>
+<li><a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/pesquisa/hipoteses.md"><code>pesquisa/hipoteses.md</code></a> — métrica, desenho e condição de refutação de cada hipótese.</li>
+<li><a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/pesquisa/protocolo.md"><code>pesquisa/protocolo.md</code></a> — o protocolo 0.1, rascunho não ratificado.</li>
+<li><a href="evidencias.html"><code>pesquisa/CLAIMS.md</code></a> — a consolidação de todos os claims.</li>
+<li><a href="https://github.com/GHDaru/agentic_software_engineering/tree/main/pesquisa/benchmarks/aseg-bench"><code>pesquisa/benchmarks/aseg-bench/</code></a> — o <em>runner</em>, o avaliador e a primeira execução.</li>
+<li><a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/guia-editorial.md"><code>livro/guia-editorial.md</code></a> — a regra de evidência e os estados de um claim.</li>
+<li><a href="10-quality-gates-que-provam-fatos.html">Capítulo 10 — <em>Quality gates</em> que provam fatos</a> — o check que mede o proxy, não o fato.</li>
+<li><a href="15-validando-o-maestro.html">Capítulo 15 — Validando o Maestro</a> — o SWE-bench, o SWE-Bench Pro e os corpora externos.</li>
+<li><a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/apendices/c-pacote-de-replicacao/exemplo/README.md"><code>exemplo/</code></a> — <code>conferir_pacote.py</code>, o molde <code>run-modelo/</code> e o registro <code>run-como-veio/</code>, com as saídas esperadas.</li>
+</ul>
+<p>Práticas de reprodutibilidade comparadas:</p>
+<ul>
+<li>Association for Computing Machinery (ACM). <em>Artifact Review and Badging</em>, versão 1.1, 2020 — os selos de artefato e a distinção entre resultado reproduzido e replicado.</li>
+<li>Nosek, B. A.; Ebersole, C. R.; DeHaven, A. C.; Mellor, D. T. <em>The preregistration revolution</em>. Proceedings of the National Academy of Sciences, 115(11), 2018, p. 2600–2606.</li>
+<li>Gebru, T. et al. <em>Datasheets for Datasets</em>. Communications of the ACM, 64(12), 2021.</li>
+<li>Mitchell, M. et al. <em>Model Cards for Model Reporting</em>. Conference on Fairness, Accountability, and Transparency (FAT*), 2019.</li>
+</ul>
+</article>
+    <nav class="paginacao" aria-label="Anterior e próximo"><a class="pg-prev" href="apendice-b-aseg-bench.html"><small>← anterior</small>Apêndice B — ASEG-Bench — um benchmark de governança</a><a class="pg-next" href="apendice-d-estudos-de-campo.html"><small>próximo →</small>Apêndice D — Estudos de campo do ecossistema</a></nav>
+    <footer class="rodape">
+      <a href="https://github.com/GHDaru/agentic_software_engineering">github.com/GHDaru/agentic_software_engineering</a>
+       · <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/apendices/c-pacote-de-replicacao/capitulo.md">fonte desta página</a>
+      · gerado de <code>livro/</code> por <code>publicar/build.mjs</code>
+    </footer>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body></html>

@@ -1,0 +1,806 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>06 — Como dividir o trabalho · Engenharia de Software Orientada por Agentes</title>
+<meta name="description" content="Governança operacional para um humano regendo muitos agentes">
+<script>try{var t=localStorage.getItem("tema");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="assets/estilo.css">
+</head><body>
+<header class="barra">
+  <button id="alt-menu" aria-label="Abrir o sumário" aria-expanded="false" aria-controls="sidebar">☰ <span>Sumário</span></button>
+  <a class="barra-titulo" href="index.html">Engenharia de Software Orientada por Agentes</a>
+  <button id="alt-tema" aria-label="Alternar tema claro/escuro">◐</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="marca" href="index.html">Engenharia de Software Orientada por Agentes<small>Agentic Software Engineering</small></a>
+    <div class="nav-parte">Abertura</div><ul><li><a href="00-prefacio.html">Prefácio</a></li></ul><div class="nav-parte">Parte I — Por que agentes mudam a engenharia</div><ul><li><a href="01-a-mudanca-de-unidade-de-trabalho.html">1. A mudança de unidade de trabalho</a></li><li class="filho"><a class="filho" href="01-a-mudanca-de-unidade-de-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="02-o-problema-da-confianca.html">2. O problema da confiança</a></li><li class="filho"><a class="filho" href="02-o-problema-da-confianca-exemplo.html">Exemplo executável</a></li><li><a href="03-um-humano-muitos-agentes.html">3. Um humano, muitos agentes</a></li><li class="filho"><a class="filho" href="03-um-humano-muitos-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte II — Especificar e dar contexto</div><ul><li><a href="04-a-spec-como-partitura.html">4. A spec como partitura</a></li><li class="filho"><a class="filho" href="04-a-spec-como-partitura-exemplo.html">Exemplo executável</a></li><li><a href="05-engenharia-de-contexto.html">5. Engenharia de contexto</a></li><li class="filho"><a class="filho" href="05-engenharia-de-contexto-exemplo.html">Exemplo executável</a></li><li><a class="ativo" aria-current="page" href="06-como-dividir-o-trabalho.html">6. Como dividir o trabalho</a></li><li class="filho"><a class="filho" href="06-como-dividir-o-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="07-papeis-e-skills.html">7. Papéis e skills</a></li><li class="filho"><a class="filho" href="07-papeis-e-skills-exemplo.html">Exemplo executável</a></li><li><a href="08-ddd-para-agentes.html">8. DDD para agentes</a></li><li class="filho"><a class="filho" href="08-ddd-para-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte III — Provar e conter</div><ul><li><a href="09-arquitetura-que-se-defende.html">9. Arquitetura que se defende</a></li><li class="filho"><a class="filho" href="09-arquitetura-que-se-defende-exemplo.html">Exemplo executável</a></li><li><a href="10-quality-gates-que-provam-fatos.html">10. Quality gates que provam fatos</a></li><li class="filho"><a class="filho" href="10-quality-gates-que-provam-fatos-exemplo.html">Exemplo executável</a></li><li><a href="11-risco-reversibilidade-e-autonomia.html">11. Risco, reversibilidade e autonomia</a></li><li class="filho"><a class="filho" href="11-risco-reversibilidade-e-autonomia-exemplo.html">Exemplo executável</a></li><li><a href="12-ferramentas-mcp-e-o-ecossistema.html">12. Ferramentas, MCP e o ecossistema</a></li><li class="filho"><a class="filho" href="12-ferramentas-mcp-e-o-ecossistema-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte IV — Medir e aprender</div><ul><li><a href="13-observabilidade-e-economia.html">13. Observabilidade e economia</a></li><li class="filho"><a class="filho" href="13-observabilidade-e-economia-exemplo.html">Exemplo executável</a></li><li><a href="14-a-organizacao-que-aprende.html">14. A organização que aprende</a></li><li class="filho"><a class="filho" href="14-a-organizacao-que-aprende-exemplo.html">Exemplo executável</a></li><li><a href="15-validando-o-maestro.html">15. Validando o Maestro</a></li><li class="filho"><a class="filho" href="15-validando-o-maestro-exemplo.html">Exemplo executável</a></li><li><a href="16-o-futuro-da-engenharia-agentica.html">16. O futuro da engenharia agêntica</a></li><li class="filho"><a class="filho" href="16-o-futuro-da-engenharia-agentica-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Apêndices</div><ul><li><a href="apendice-a-o-maestro-em-uma-pagina.html">A. O Maestro em uma página</a></li><li><a href="apendice-b-aseg-bench.html">B. ASEG-Bench — um benchmark de governança</a></li><li><a href="apendice-c-pacote-de-replicacao.html">C. Pacote de replicação</a></li><li><a href="apendice-d-estudos-de-campo.html">D. Estudos de campo do ecossistema</a></li></ul><div class="nav-parte">Consulta</div><ul><li><a href="glossario.html">Glossário</a></li><li><a href="evidencias.html">Evidências (claims)</a></li></ul>
+  </aside>
+  <main class="conteudo">
+    <article class="markdown"><h1 id="06--como-dividir-o-trabalho" tabindex="-1">06 — Como dividir o trabalho <a class="header-anchor" href="#06--como-dividir-o-trabalho" aria-hidden="true">#</a></h1>
+<blockquote>
+<p><em>Fatiar é fácil. Juntar de volta é o trabalho, e o corte decide quanto ele vai custar.</em></p>
+</blockquote>
+<p>Com agentes de Inteligência Artificial (IA), abrir mais uma frente de trabalho custa um
+comando. A tentação é óbvia: cinco agentes terminam em um quinto do tempo. Não terminam. Cada
+fatia volta verde no próprio teste, e o conjunto chega contraditório, porque duas fatias
+resolveram o mesmo problema de dois jeitos ou porque uma esperava um contrato que a outra nunca
+escreveu. Este capítulo mostra onde cortar para que agentes em paralelo não colidam, como
+medir se o paralelo pagou a coordenação que exigiu e, sobretudo, quando não dividir. É o
+capítulo que separa o time que ganha velocidade com agentes do time que só multiplica o
+retrabalho.</p>
+<h2 id="pergunta-central" tabindex="-1" class="callout c-obj" data-rotulo="Pergunta">Pergunta central <a class="header-anchor" href="#pergunta-central" aria-hidden="true">#</a></h2>
+<p>Onde cortar o trabalho para que agentes em paralelo não colidam, e como saber quando é melhor
+não cortar?</p>
+<h2 id="resultado-de-aprendizagem" tabindex="-1">Resultado de aprendizagem <a class="header-anchor" href="#resultado-de-aprendizagem" aria-hidden="true">#</a></h2>
+<p>Ao final do capítulo, você consegue:</p>
+<ol>
+<li><strong>Derivar</strong> do limite de contexto por que o trabalho precisa ser fatiado e por que a junção
+das fatias é julgamento, não colagem, e explicar a quem esse julgamento pertence.</li>
+<li><strong>Diagnosticar</strong> um plano de divisão apontando os três defeitos que o corte cria: arquivo
+com dois escritores, conceito com mais de um dono e contrato consumido sem dono.</li>
+<li><strong>Ordenar</strong> fatias em ondas a partir dos contratos (o dono antes de quem consome) e calcular
+se o tempo paralelo, somado ao custo de coordenação, fica abaixo do tempo de um agente só.</li>
+<li><strong>Escolher</strong> o padrão de orquestração de cada situação pela regra da menor autonomia que
+resolve e dizer que evidência você exigiria antes de subir um degrau.</li>
+<li><strong>Escrever</strong> gatilhos observáveis para as práticas de paralelismo (isolamento por
+<em>worktree</em>, grafo de dependências, contrato por fatia), em vez de adotá-las por antecipação
+ou esquecê-las depois que o gatilho dispara.</li>
+</ol>
+<h2 id="a-falha-real" tabindex="-1" class="callout c-falha" data-rotulo="Caso real">A falha real <a class="header-anchor" href="#a-falha-real" aria-hidden="true">#</a></h2>
+<p>Entre 29 e 30 de outubro de 2026, o ciclo 074 do Maestro fechava um protótipo navegável do
+painel de regência, a tela em que o humano acompanha o time de agentes. O trabalho corria com
+um time de verdade: uma sessão Gerente e Workers numerados, cada um na sua própria cópia de
+trabalho do repositório, entregando por <em>cherry-pick</em> que o Gerente integrava na linha
+principal. O ciclo fora cortado por <strong>peça de tela</strong>: seis podas, de P1 a P6, cada uma com o
+seu Worker ou o seu par de Workers [CLAIM-06-006]. Parecia um corte limpo. Cada Worker tinha a
+sua tela, os seus arquivos, a sua sonda.</p>
+<p>O problema era um número. A pergunta &quot;quem precisa de mim agora?&quot; era uma das seis peças que o
+ciclo tinha escolhido redesenhar [CLAIM-06-006], e a resposta aparecia em três lugares: no item do menu, no chip da tela de entrada e no
+filtro da tela de andares. Cada tela tinha dono. O <strong>conceito</strong> não tinha. Cada Worker calculou
+o número do seu jeito, e cada cálculo passava no teste da própria peça. Com os dados de exemplo do
+protótipo, o chip da tela de entrada contava as linhas do time no ar e mostrava <strong>1</strong>; a união
+de pedidos de decisão aguardando com sessões esperando o humano, que é o que o operador queria
+saber, dava <strong>4</strong> [CLAIM-06-001]. Verde em cada fatia, contraditório no conjunto.</p>
+<p>Ninguém descobriu isso lendo o código com atenção. Descobriu-se porque dois Workers, sem
+combinar, levantaram a mesma pergunta pelo canal de pendências: o Worker01 numa declaração
+sobre qual número o menu deveria mostrar, o Worker04 numa análise da costura do contador nos
+andares. A fila de decisões do Gerente registrou as duas como &quot;a mesma decisão&quot;, que &quot;viajam
+juntas&quot; [CLAIM-06-005]. Nenhum dos dois podia decidir sozinho, porque a resposta não estava em
+nenhuma das peças: estava no conceito que atravessava as três.</p>
+<p>A correção não foi um agente a mais para &quot;consolidar&quot;. Foi uma decisão de quem tinha o
+contexto global e um corte novo. Decidiu a <strong>regente</strong>, a sessão que conduz o time acima do
+Gerente e a quem o mantenedor do Maestro tinha delegado por escrito os seus portões, sob uma
+política dele e com crítico independente em contexto fresco, decisão registrada num
+<em>Architecture Decision Record</em> (ADR), o 0026, cinco dias antes
+[CLAIM-06-027]. Em 29/10, a regente fixou que haveria <strong>um número só</strong>, saído de <strong>um predicado
+só</strong>:
+pedidos aguardando unidos às sessões em &quot;aguardando humano&quot; sem pedido, sem contar a mesma
+sessão duas vezes. E o Gerente redistribuiu o trabalho pela fronteira do conceito, não pela
+tela [CLAIM-06-003]:</p>
+<ul>
+<li>o <strong>Worker01</strong> passou a ser dono do contrato público do predicado (<code>quemPrecisaDeVoce</code>) e
+entregaria <strong>primeiro</strong>; os consumidores esperariam por ele;</li>
+<li>o <strong>Worker02</strong>, em paralelo, abriria na casca da aplicação uma porta para recontar o menu,
+<strong>inerte</strong>: sem ninguém chamá-la, o comportamento seria o de antes;</li>
+<li>o <strong>Worker05</strong> trocaria o chip da entrada para ler o mesmo predicado e ligaria a porta,
+<strong>depois</strong> do Worker01;</li>
+<li>a fatia do Worker04 nos andares foi <strong>cancelada</strong> no mesmo dia, desta vez por decisão do
+próprio mantenedor, que transferiu os andares para o ciclo seguinte.</li>
+</ul>
+<p>As três entregas pousaram nessa ordem: a porta inerte às 08h08 de 29/10, o predicado às 12h12
+do mesmo dia, o chip e a chamada às 09h06 de 30/10, cada uma integrada por cherry-pick
+[CLAIM-06-002]. O commit do Worker05 trouxe ainda um segundo defeito, consertado no mesmo
+commit e da mesma família: uma ação portada de outra tela procurava a sessão pelo nome nu,
+<code>Worker04</code>, quando a rota casava a linha pela identidade completa (<code>nome [ref] · projeto</code>). A
+sonda pegou o painel abrindo a ficha de <strong>outra</strong> sessão [CLAIM-06-004]. Dois defeitos no
+mesmo dia, e os dois eram de divisão: um conceito sem dono e um endereço ambíguo.</p>
+<p>O que torna esta falha útil para um tech lead é que ela não tinha cara de falha. Os arquivos
+eram diferentes, os Workers não pisaram uns nos outros, nenhum <em>merge</em> conflitou. A regra mais
+comum para decidir se duas tarefas podem correr em paralelo, &quot;arquivos diferentes e nenhuma
+dependência pendente&quot;, teria aprovado o corte por tela. O defeito não estava no arquivo. Estava
+no conceito.</p>
+<h2 id="teoria" tabindex="-1">Teoria <a class="header-anchor" href="#teoria" aria-hidden="true">#</a></h2>
+<h3 id="por-que-dividir-o-axioma-do-contexto" tabindex="-1">Por que dividir: o axioma do contexto <a class="header-anchor" href="#por-que-dividir-o-axioma-do-contexto" aria-hidden="true">#</a></h3>
+<p>O Maestro deriva este capítulo de um axioma, o A3: <strong>o contexto é finito e degrada ao
+encher</strong>. A janela que um agente lê tem limite, e o desempenho cai à medida que ela se enche de
+ruído. É uma propriedade física da ferramenta, não um hábito de quem a opera. O próprio texto
+do axioma diz o que acontece se você o retirar: deixa de haver razão para fatiar o trabalho,
+resetar o contexto ou manter o agente estreito
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/axioms.md">axiomas</a>).</p>
+<p>Daí sai a primeira metade da regra: um trabalho grande demais para caber limpo numa janela
+precisa ser cortado. O <a href="05-engenharia-de-contexto.html">capítulo 5</a> trata das
+operações sobre o contexto de <strong>um</strong> agente. Este trata do passo seguinte: quando o trabalho
+vira várias janelas, cada uma com um agente.</p>
+<h3 id="o-custo-que-o-axioma-esconde-o-reduce" tabindex="-1">O custo que o axioma esconde: o <em>reduce</em> <a class="header-anchor" href="#o-custo-que-o-axioma-esconde-o-reduce" aria-hidden="true">#</a></h3>
+<p>A segunda metade é menos óbvia. Quando você divide, distribui o contexto. Cada agente vê a sua
+fatia e não vê o todo, e é justamente por isso que ele trabalha bem. Mas alguém precisa juntar
+as fatias, e juntar exige o contexto <strong>global</strong>, que é o que a divisão acabou de espalhar. O
+handbook do Maestro chama isso de <em>map-reduce</em> cognitivo: o <em>reduce</em> não é concatenação, é
+julgamento com contexto global, e por isso pertence a quem tem esse contexto, o orquestrador
+humano
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/handbook/05-orquestracao.md">handbook, cap. 5 §3</a>).
+&quot;Humano&quot;, aqui, quer dizer quem responde pela política: no ciclo 074 o julgamento foi de uma
+sessão regente agindo sob delegação escrita do mantenedor, que continuou responsável pela
+delegação e podia revogá-la. O <a href="11-risco-reversibilidade-e-autonomia.html">capítulo 11</a>
+trata de quando essa delegação é segura; o que importa aqui é que o <em>reduce</em> foi para <strong>um</strong>
+ponto com o contexto global, e não para um agente consolidador ao lado dos Workers.</p>
+<p>A tentação, quando as fatias voltam inconsistentes, é pôr um agente para consolidar. Ele não
+tem o contexto global; recebe cinco opiniões e devolve a média delas. No ciclo 074, o &quot;reduce&quot;
+foi uma decisão sobre o que o operador precisa ver, coisa que nenhum Worker, nem um sexto, podia
+tomar a partir das peças.</p>
+<h3 id="o-corte-é-mais-traiçoeiro-que-o-reduce" tabindex="-1">O corte é mais traiçoeiro que o <em>reduce</em> <a class="header-anchor" href="#o-corte-é-mais-traiçoeiro-que-o-reduce" aria-hidden="true">#</a></h3>
+<p>O map-reduce clássico pressupõe partes independentes. Em software elas quase nunca são: porta
+e adaptador dividem um contrato, tela e serviço dividem um formato, três telas dividem um
+número. O handbook formula a consequência sem rodeio: paralelize por <strong>fronteira</strong> (contexto
+delimitado, contrato, camada), nunca por <strong>quantidade</strong>, e nenhuma reconciliação salva uma
+fatia cortada fora da costura
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/handbook/05-orquestracao.md">handbook, cap. 5 §5.1</a>).</p>
+<p>Essa ideia é velha e tem dono. Em 1972, David Parnas comparou duas decomposições do mesmo
+programa e mostrou que a decomposição pelos <strong>passos do processamento</strong>, a mais natural,
+produzia módulos que mudavam todos juntos, enquanto a decomposição por <strong>decisões de projeto
+que cada módulo esconde</strong> produzia módulos que mudavam sozinhos. O critério de Parnas é
+exatamente o que faltou no ciclo 074: a decisão &quot;o que conta como precisar do humano&quot; não
+estava escondida em módulo nenhum; estava espalhada por três telas. Cortar por tela é cortar
+pelos passos que o usuário vê; cortar pelo conceito é cortar pela decisão que pode mudar.</p>
+<p>Daí a regra operacional que este capítulo defende, em três partes:</p>
+<ol>
+<li><strong>Cada arquivo tem um escritor</strong> por vez. É a parte que todo mundo já conhece.</li>
+<li><strong>Cada conceito tem um dono</strong>. Quem consome o conceito não o recalcula; lê o contrato do
+dono.</li>
+<li><strong>Cada contrato é escrito antes de ser consumido</strong>. A ordem de execução sai daí: o dono
+antes de quem consome.</li>
+</ol>
+<p>A primeira parte pega colisões de texto. As outras duas pegam colisões de significado, que são
+as que passam pelos testes.</p>
+<h3 id="duas-leis-clássicas-que-valem-dobrado-com-agentes" tabindex="-1">Duas leis clássicas que valem dobrado com agentes <a class="header-anchor" href="#duas-leis-clássicas-que-valem-dobrado-com-agentes" aria-hidden="true">#</a></h3>
+<p><strong>Conway</strong> (1968) observou que um sistema reproduz a estrutura de comunicação de quem o
+desenhou. Com pessoas, a estrutura de comunicação é dada pela organização; com agentes, <strong>você</strong>
+a desenha a cada plano de tarefas. O corte vira arquitetura: se três agentes calculam o mesmo
+número em três lugares, o sistema terá três cálculos. A lei de Conway deixa de ser uma
+observação sobre organizações e vira uma decisão sua, refeita a cada ciclo.</p>
+<p><strong>Brooks</strong> (1975) mostrou que a comunicação cresce mais rápido que o time: entre <em>n</em>
+participantes há <em>n</em>(<em>n</em>−1)/2 canais possíveis. Um Gerente com seis Workers, a formação que o
+Maestro usou nos ciclos 066 em diante, tem sete sessões e, portanto, 21 canais possíveis
+[CLAIM-06-024]. O método não deixa os 21 abertos: as tarefas descem do Gerente e as entregas
+sobem para ele, de modo que a comunicação passa por um ponto só. É deliberado, e tem preço: o
+Gerente vira a parte serial.</p>
+<p>E aí entra <strong>Amdahl</strong> (1967): o ganho de paralelizar é limitado pela parte que não paraleliza.
+No trabalho com agentes, a parte serial tem nome: o <em>reduce</em> humano, o portão de revisão, a
+integração. Se cada fatia exige uma passagem pelo Gerente e uma decisão da regente, dobrar o
+número de Workers não dobra a vazão; aumenta a fila na frente do humano. O
+<a href="03-um-humano-muitos-agentes.html">capítulo 3</a> trata desse limite pelo lado da
+atenção humana; aqui ele aparece pelo lado do corte.</p>
+<h3 id="overhead-de-coordenação-a-métrica-que-decide" tabindex="-1">Overhead de coordenação: a métrica que decide <a class="header-anchor" href="#overhead-de-coordenação-a-métrica-que-decide" aria-hidden="true">#</a></h3>
+<p>Se o corte tem custo, ele pode ser medido. O livro chama de <strong>overhead de coordenação</strong> a
+fração do tempo (ou dos <em>tokens</em>) de um trabalho paralelo que foi gasta em passagens entre
+fatias e em reconciliação, e não em produzir as fatias. A pergunta &quot;vale paralelizar?&quot; vira uma
+desigualdade: o caminho crítico das fatias, somado à coordenação, precisa ficar abaixo do tempo
+de um agente fazendo tudo em sequência.</p>
+<p>O exemplo deste capítulo calcula essa conta num modelo de brinquedo. Com o Maestro real, ela
+<strong>não foi medida</strong>: o método registra tokens por tarefa etiquetada, mas não separa o que foi
+produção do que foi coordenação. Fica como hipótese a medir, e o
+<a href="13-observabilidade-e-economia.html">capítulo 13</a> discute a instrumentação. Uma
+consequência, porém, já se vê sem medir: corte errado aparece como retrabalho, e o retrabalho
+do ciclo 074 foram três entregas a mais, de três Workers, para chegar a um número
+[CLAIM-06-002].</p>
+<h3 id="o-espectro-fluxo--agente-e-a-menor-autonomia-que-resolve" tabindex="-1">O espectro fluxo ↔ agente e a menor autonomia que resolve <a class="header-anchor" href="#o-espectro-fluxo--agente-e-a-menor-autonomia-que-resolve" aria-hidden="true">#</a></h3>
+<p>Dividir o trabalho também é escolher <strong>quem decide a divisão</strong>. Num extremo, você fixa o
+caminho: os passos estão escritos, o agente executa cada um. No outro, o modelo decide o corte
+na hora. A Anthropic, no texto <em>Building effective agents</em>, chama o primeiro lado de
+<em>workflows</em> e o segundo de <em>agents</em>, e descreve seis padrões ao longo desse espectro
+[CLAIM-06-007]:</p>
+<table>
+<thead>
+<tr>
+<th>Padrão</th>
+<th>O que é</th>
+<th>Lado do espectro</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Encadeamento</td>
+<td>passos fixos em sequência, cada um consome a saída do anterior</td>
+<td>fluxo</td>
+</tr>
+<tr>
+<td>Roteamento</td>
+<td>classifica a entrada e escolhe um tratamento fixo</td>
+<td>fluxo</td>
+</tr>
+<tr>
+<td>Paralelização</td>
+<td>fatias independentes, ou várias tentativas da mesma tarefa</td>
+<td>fluxo</td>
+</tr>
+<tr>
+<td>Orquestrador-trabalhadores</td>
+<td>um orquestrador corta na hora e junta</td>
+<td>agente</td>
+</tr>
+<tr>
+<td>Avaliador-otimizador</td>
+<td>gera, critica, refina até passar</td>
+<td>fluxo com laço</td>
+</tr>
+<tr>
+<td>Autônomo</td>
+<td>o modelo decide os passos, com guarda-corpos</td>
+<td>agente</td>
+</tr>
+</tbody>
+</table>
+<p>A recomendação do texto, que o Maestro adota como princípio, é <strong>começar pelo mais simples e
+só acrescentar autonomia quando o simples comprovadamente falhar</strong>, não quando parecer
+limitado. Fluxo fixo é barato, previsível e depurável; autonomia é flexível e paga em variância.
+O handbook acrescenta um corolário de arquitetura: quanto melhores as fronteiras, mais trabalho
+cabe no lado barato do espectro, porque o corte deixa de precisar de inteligência quando já está
+desenhado
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/handbook/05-orquestracao.md">handbook, cap. 5 §5.2–5.3</a>).</p>
+<h3 id="a-hipótese-que-este-capítulo-sustenta-e-não-prova" tabindex="-1">A hipótese que este capítulo sustenta, e não prova <a class="header-anchor" href="#a-hipótese-que-este-capítulo-sustenta-e-não-prova" aria-hidden="true">#</a></h3>
+<p>A agenda de pesquisa do livro registra a hipótese H4: <strong>multiagente só ajuda com cortes
+independentes</strong>. O ciclo 074 é um caso a favor (o corte dependente custou retrabalho) e o
+exemplo deste capítulo é uma ilustração, não uma prova. A H4 continua hipótese até o protocolo
+do <a href="15-validando-o-maestro.html">capítulo 15</a> compará-la em tarefas controladas.</p>
+<h2 id="alternativas" tabindex="-1">Alternativas <a class="header-anchor" href="#alternativas" aria-hidden="true">#</a></h2>
+<p>Há duas famílias de alternativas: os <em>frameworks</em> que <strong>executam</strong> a divisão e as técnicas que
+ensinam a <strong>cortar</strong>. Elas respondem a perguntas diferentes, e misturá-las é o erro mais comum.</p>
+<h3 id="frameworks-de-orquestração" tabindex="-1">Frameworks de orquestração <a class="header-anchor" href="#frameworks-de-orquestração" aria-hidden="true">#</a></h3>
+<p><strong>LangGraph</strong> modela o trabalho como um grafo de nós com estado compartilhado e arestas
+explícitas, com persistência de estado entre passos e pontos de interrupção para um humano
+aprovar. É uma boa casa para encadeamento e roteamento: o fluxo fica em código, versionado e
+testável. O que ele não faz é decidir onde cortar; um grafo com três nós calculando o mesmo
+número é um grafo válido. <strong>Veredito</strong>: adote como execução de fluxo fixo quando o seu fluxo
+precisar viver fora do <em>harness</em>; não espere dele o critério de corte.</p>
+<p><strong>CrewAI</strong> organiza agentes por <strong>papel</strong> (pesquisador, redator, revisor) e executa as tarefas
+num processo sequencial ou hierárquico, este com um agente gerente que delega e consolida. O
+corte por papel é um corte por <strong>quem</strong>, não por <strong>qual conceito</strong>; e o processo hierárquico
+põe o <em>reduce</em> num modelo, que é o que a seção anterior desaconselha. <strong>Veredito</strong>: o processo
+sequencial é encadeamento e serve; o hierárquico só depois de o sequencial falhar com
+evidência, e com o julgamento final num humano.</p>
+<p><strong>MetaGPT</strong> (Hong et al.) codifica procedimentos operacionais padrão (<em>standard operating
+procedures</em>, SOPs) de uma empresa de software em papéis que trocam <strong>artefatos estruturados</strong>
+(documento de requisitos, desenho, código), não conversa livre. É encadeamento com artefato
+como interface, e confirma de fora a tese do Maestro de que a passagem entre agentes deve ser
+um documento, não um chat. <strong>Veredito</strong>: observe a ideia do artefato tipado; o elenco fixo de
+papéis é cerimônia para quem rege sozinho.</p>
+<p>Dois relatos públicos de 2025 ajudam a calibrar. A Anthropic descreveu o seu sistema de
+pesquisa multiagente, do tipo orquestrador-trabalhadores, e relatou que ele gasta muito mais
+<em>tokens</em> do que uma conversa simples (cerca de 15 vezes) e que a maior parte das tarefas de
+programação tem menos partes verdadeiramente paralelizáveis do que pesquisa [CLAIM-06-025]. A
+Cognition, no texto <em>Don't Build Multi-Agents</em>, defendeu o oposto do paralelismo ingênuo:
+subagentes que não compartilham o contexto inteiro tomam decisões implícitas conflitantes. Os
+dois relatos convergem com o ciclo 074: paralelismo em código é caro e só compensa com fatias
+que não precisam decidir a mesma coisa.</p>
+<h3 id="ferramentas-de-decomposição" tabindex="-1">Ferramentas de decomposição <a class="header-anchor" href="#ferramentas-de-decomposição" aria-hidden="true">#</a></h3>
+<p><strong>Spec Kit</strong>, o motor que o Maestro vendorizou, gera a lista de tarefas e marca com <code>[P]</code> as
+que podem correr em paralelo. O critério está escrito no comando: <strong>arquivos diferentes e
+nenhuma dependência de tarefa incompleta</strong> [CLAIM-06-023]. É a primeira parte da regra deste
+capítulo e só ela; o corte por tela do ciclo 074 passaria. O Spec Kit também não tem nada <strong>a
+montante</strong> da spec: nenhum comando decompõe uma intenção grande em várias specs, o que a
+pesquisa do ciclo 036 conferiu comando a comando [CLAIM-06-011]. <strong>Veredito</strong>: use; acrescente
+o dono por conceito.</p>
+<p><strong>Taskmaster</strong> transforma um documento de requisitos em tarefas com grafo de dependências,
+pontuação de complexidade e detecção de dependência circular. Resolve a ordenação de muitas
+tarefas; cobra por isso um conjunto grande de ferramentas carregadas no contexto (o Maestro
+estimou cerca de 21 mil <em>tokens</em> de sobrecarga) [CLAIM-06-016]. <strong>Veredito</strong>: observe, com o
+gatilho que a seção seguinte descreve.</p>
+<p><strong>Superpowers</strong> executa cada tarefa num subagente fresco e numa <em>worktree</em> do Git isolada,
+com revisão por tarefa. O isolamento resolve a primeira parte da regra (um escritor por
+arquivo) de forma mecânica. <strong>Veredito</strong>: adote a worktree quando houver dois agentes escrevendo
+no mesmo repositório ao mesmo tempo, não antes.</p>
+<p><strong>Skills de decomposição</strong> (a skill comunitária <code>decompose</code>, que quebra uma funcionalidade em
+<em>issues</em> do tamanho de um agente; a coleção <code>Product-Manager-Skills</code>, que inclui três passadas
+sobre uma spec: superfície, jornada e risco). A primeira corta <strong>abaixo</strong> da spec, onde a lista
+de tarefas já opera, e amarra o resultado a uma plataforma de issues; a segunda corta <strong>acima</strong>,
+entre specs, que é a lacuna real. <strong>Veredito</strong>: descarte a primeira; observe a segunda, com a
+ressalva de licença (a coleção usa a licença Creative Commons BY-NC-SA, que proíbe o reempacotamento comercial:
+a ideia atravessa, o texto não).</p>
+<h3 id="técnicas-de-corte" tabindex="-1">Técnicas de corte <a class="header-anchor" href="#técnicas-de-corte" aria-hidden="true">#</a></h3>
+<p>O conhecimento mais preciso sobre <strong>como</strong> cortar não está em ferramenta nenhuma; está na
+literatura ágil. Os <strong>padrões de fatiamento</strong> de Richard Lawrence listam formas nomeadas de
+cortar (por passo do fluxo, por operação, por variação de regra, por variação de dado, por
+interface, adiando desempenho, isolando a investigação) e duas regras de desempate: prefira o
+corte que permite jogar fora uma das fatias e o que produz fatias de tamanho parecido. O
+<strong>SPIDR</strong> de Mike Cohn resume cinco linhas de corte (<em>Spike, Path, Interface, Data, Rules</em>). E
+o <strong>INVEST</strong> (<em>Independent, Negotiable, Valuable, Estimable, Small, Testable</em>), com a ideia de
+fatia vertical, proíbe cortar por camada técnica quando a fatia precisa entregar valor sozinha.</p>
+<p>Aqui há uma tensão que o tech lead precisa resolver, e a resolução é de nível:</p>
+<ul>
+<li><strong>Entre ciclos</strong> (o que se entrega ao usuário), valem a fatia vertical e o INVEST: cada
+entrega atravessa da interface ao dado e vale sozinha.</li>
+<li><strong>Dentro de um ciclo</strong> (quem escreve o quê, ao mesmo tempo), vale o dono por conceito: o
+predicado tem um dono, a casca tem outro, e a tela consome os dois.</li>
+</ul>
+<p>O ciclo 074 mostra as duas: a entrega (&quot;um número só no menu e na entrada&quot;) era uma fatia
+vertical; a divisão entre Workers foi por fronteira, com o domínio de um lado e a casca do
+outro.</p>
+<h3 id="comparação" tabindex="-1">Comparação <a class="header-anchor" href="#comparação" aria-hidden="true">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Alternativa</th>
+<th>Decide onde cortar?</th>
+<th>Executa a divisão?</th>
+<th>Veredito</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LangGraph</td>
+<td>não</td>
+<td>sim (grafo com estado)</td>
+<td>adotar para fluxo fixo fora do harness</td>
+</tr>
+<tr>
+<td>CrewAI</td>
+<td>por papel</td>
+<td>sim (sequencial ou hierárquico)</td>
+<td>sequencial sim; hierárquico só com evidência</td>
+</tr>
+<tr>
+<td>MetaGPT</td>
+<td>por fase, com artefato</td>
+<td>sim</td>
+<td>observar o artefato tipado</td>
+</tr>
+<tr>
+<td>Spec Kit <code>[P]</code></td>
+<td>só por arquivo</td>
+<td>não</td>
+<td>usar, e acrescentar dono por conceito</td>
+</tr>
+<tr>
+<td>Taskmaster</td>
+<td>por dependência</td>
+<td>sim</td>
+<td>observar, com gatilho</td>
+</tr>
+<tr>
+<td>Superpowers (worktree)</td>
+<td>não; isola</td>
+<td>sim</td>
+<td>adotar quando houver escrita paralela</td>
+</tr>
+<tr>
+<td>Lawrence, SPIDR, INVEST</td>
+<td>sim, entre ciclos</td>
+<td>não</td>
+<td>absorver como conhecimento</td>
+</tr>
+</tbody>
+</table>
+<h2 id="o-padrão-maestro" tabindex="-1">O padrão Maestro <a class="header-anchor" href="#o-padrão-maestro" aria-hidden="true">#</a></h2>
+<p>O Maestro resolve a divisão em três alturas: <strong>dentro do ciclo</strong> (a lista de tarefas e o fluxo
+fixo), <strong>entre sessões</strong> (o time de Workers e o seu protocolo) e <strong>acima do ciclo</strong> (a
+decomposição de uma intenção grande, que ele deliberadamente ainda não construiu). Em cada
+altura, vale separar o que é regra escrita, o que é script e o que é <em>hook</em>.</p>
+<h3 id="a-regra-princípio-v-e-o-anti-padrão-4" tabindex="-1">A regra: Princípio V e o anti-padrão 4 <a class="header-anchor" href="#a-regra-princípio-v-e-o-anti-padrão-4" aria-hidden="true">#</a></h3>
+<p>A constituição do método diz, no Princípio V, que a janela de contexto é finita e degrada ao
+encher, que se deve <strong>paralelizar por contexto delimitado</strong> (porque bons cortes são o que torna
+a orquestração segura) e usar <strong>a menor autonomia que resolve o problema</strong>, fluxo fixo antes de
+agente autônomo
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/principles.md">princípios</a>).
+O catálogo de anti-padrões nomeia o erro simétrico, o número 4: <strong>multiagente para um problema
+de um agente</strong>, porque orquestração cobra passagens e reconciliação
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/skills/anti-patterns/SKILL.md">anti-padrões</a>).
+O template de tarefas carrega a regra para onde ela é usada: ordenar por dependência, &quot;cortar
+por fronteira é o que torna o trabalho paralelo seguro&quot;, e escrever cada tarefa para quem tem
+<strong>zero contexto</strong> do repositório
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/.specify/templates/tasks-template.md">tasks-template</a>).</p>
+<p>Isso é regra: texto que o agente lê. Nenhum script confere hoje se um conceito tem dois donos
+num <code>tasks.md</code>; o exemplo deste capítulo mostra que a checagem é simples de escrever, e a
+ausência dela no Maestro é a razão de o ciclo 074 ter precisado de dois Workers levantando a
+mão.</p>
+<h3 id="dentro-do-ciclo-o-encadeamento-fixo-é-o-padrão-dominante" tabindex="-1">Dentro do ciclo: o encadeamento fixo é o padrão dominante <a class="header-anchor" href="#dentro-do-ciclo-o-encadeamento-fixo-é-o-padrão-dominante" aria-hidden="true">#</a></h3>
+<p>O ciclo 025 do Maestro reescreveu o capítulo de orquestração do handbook com uma exigência
+nova: dizer <strong>quais padrões foram usados</strong>, e não só listá-los
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/025-capitulo-05-padrao-v2/spec.md">spec 025</a>).
+O resultado, depois de 25 ciclos, foi que o padrão dominante era o mais barato do espectro. O
+encadeamento fixo vivia em 11 comandos versionados na pasta de comandos do harness (<code>specify</code>,
+<code>clarify</code>, <code>plan</code>, <code>tasks</code>, <code>implement</code> e os seus vizinhos, mais o comando de <em>Definition of
+Done</em>, DoD); hoje são 12 [CLAIM-06-008]. Cada ciclo percorre a mesma sequência, e por isso
+começar um ciclo custa pouco: ninguém decide <strong>como</strong> trabalhar, só <strong>o que</strong> fazer.</p>
+<p>O avaliador-otimizador foi o padrão que mais rendeu, na forma de portão <strong>provado falhando</strong>
+antes de ser aceito: quatro relatórios de qualidade (ciclos 017, 018, 020 e 021) documentam o
+laço &quot;escrever o check, tentar refutá-lo, só então confiar&quot; [CLAIM-06-009]. E o dado negativo
+informa tanto quanto o positivo: em 25 ciclos, <strong>zero</strong> uso do padrão autônomo, e quase nenhuma
+paralelização de subagentes [CLAIM-06-010]. O trabalho coube num encadeamento com
+verificação. É a regra da menor autonomia sendo obedecida, e o custo evitado é real.</p>
+<p>O roteamento também está lá: são as raias (leve, plena, infra) que o
+<a href="04-a-spec-como-partitura.html">capítulo 4</a> descreve, cada uma um tratamento fixo
+escolhido pela classificação da mudança.</p>
+<p>A partir do ciclo 070, o encadeamento ganhou um registro mecânico. Uma <strong>rodada</strong> é uma
+execução do fluxo gravada passo a passo num banco SQLite; cada <strong>passo</strong> é gravado na entrada,
+no resumo e na saída, e <strong>um passo sem saída bloqueia a entrada do seguinte</strong>. A mensagem entre
+sessões da mesma máquina vai por uma fila no mesmo banco (a <em>outbox</em>, em modo de registro
+antecipado, o <em>write-ahead log</em>, WAL), sem servidor de mensageria
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/glossary.md">glossário</a>). Aqui
+há hook: <code>workflow_session_start.py</code> e <code>workflow_stop.py</code> gravam a entrada e cobram o resumo e a
+evidência ao fim do turno
+(<a href="https://github.com/GHDaru/maestro/tree/19823c2/painel/hooks">hooks</a>). O hook de fim cobra; não
+impede. O próprio código diz que o objetivo é cobrar, não bloquear a sessão.</p>
+<p>Um último comando merece menção porque mostra uma divisão que o Maestro <strong>não</strong> quer. O
+<code>/speckit.taskstoissues</code>, herdado do Spec Kit, converte a lista de tarefas em <em>issues</em> do
+GitHub ordenadas por dependência, e só prossegue se o repositório remoto for do GitHub
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/.claude/commands/speckit.taskstoissues.md">comando</a>).
+Ele está instalado porque veio com o motor. A ideia equivalente vinda de fora, a skill
+<code>decompose</code>, foi <strong>descartada</strong> na pesquisa do ciclo 036 por dois motivos: a lista de tarefas
+já faz esse corte, e amarrar a rastreabilidade a issues de uma plataforma é acoplamento que o
+método recusa
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/ecosystem/ideias/037-decompose-feature-em-issues.md">cartão 037</a>).</p>
+<h3 id="entre-sessões-o-time-a-worktree-e-o-endereço" tabindex="-1">Entre sessões: o time, a worktree e o endereço <a class="header-anchor" href="#entre-sessões-o-time-a-worktree-e-o-endereço" aria-hidden="true">#</a></h3>
+<p>O paralelismo real chegou ao Maestro por fora. Entre 29/09 e 01/10/2026, o projeto Hindiana,
+que usava o método, rodou 16 sessões simultâneas, com cerca de 160 worktrees, e registrou 52
+desvios de método em três dias e 28 decisões numa única noite [CLAIM-06-019]. Dessa escala
+nasceu uma <strong>linha paralela</strong> de desenvolvimento do próprio Maestro, num clone separado, com 42
+branches publicadas em 19/10 [CLAIM-06-017].</p>
+<p>Integrar essa linha virou um ciclo próprio, o 066, que o plano descreve como <strong>guarda-chuva</strong>:
+uma pasta de coordenação que não entrega código além do lançador de sessões, e cujos filhos
+entregam o resto
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/066-painel-de-regencia/plan.md">plano 066</a>).
+O corte foi por fronteira histórica: <strong>um ciclo filho por linhagem de commits</strong>, cada um com a
+própria cauda de verificação, integrado por <em>merge</em> <code>--no-ff</code> para preservar a história (sem
+<em>rebase</em>, que reescreveria hashes de que outro projeto dependia; sem <em>squash</em>, que apagaria os
+pares vermelho-verde dos testes). O mapa aprovado previa seis ciclos de integração, do 066 ao
+071; em <code>19823c2</code> há pastas do 066 ao 070, e nenhuma do 071 [CLAIM-06-017]. O
+mapa de integração registra a única colisão real de código: duas linhagens irmãs, separadas num
+commit comum, que tocavam os mesmos três arquivos do painel; o conflito foi arbitrado pelos
+testes da linhagem que os tinha [CLAIM-06-021].</p>
+<p>O <strong>lançador multissessão</strong> (<code>scripts/multi-session.py</code>) é o script que torna o time
+repetível: abre uma sessão Gerente e seis Workers, cada um com o seu modelo, e cria <strong>uma
+worktree por Worker</strong>, de modo que as edições de um não aparecem na cópia do outro
+[CLAIM-06-018]. A decisão que o autorizou, tomada por consenso de três pareceres em contexto
+fresco, fixou também que <strong>só o Gerente faz push, e só depois do portão humano</strong>
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/records/decisoes.jsonl">decisões</a>, linha
+<code>decisao-066-sessoes-via-gateway</code>). Repare na forma: o isolamento por worktree resolve a
+primeira parte da regra (um escritor por arquivo) mecanicamente; o Gerente como único ponto de
+integração resolve o <em>reduce</em>; a segunda e a terceira partes (dono por conceito, contrato antes
+do consumo) continuam dependendo do plano. O ciclo 074 rodou exatamente sobre esse arranjo, e
+foi por isso que a colisão foi de conceito, não de arquivo.</p>
+<p><strong>A colisão que não é de código: a numeração.</strong> Duas linhas que trabalham em paralelo sem um
+alocador comum colidem também nos <strong>nomes</strong>. A linha principal já tinha os ciclos 064 e 065
+quando a linha paralela trouxe os seus próprios 064, 065, 066, 067 e 070. O registro de
+decisões guarda a renumeração de um deles: o ciclo do &quot;livro de ponto&quot;, aberto como 064, virou
+065 porque 064 já existia [CLAIM-06-020]. O mapa de integração renumerou os demais em ordem
+aprovada pelo humano (o antigo 064 virou 070, o 065 virou 071, o 070 virou 069) [CLAIM-06-022].
+E o retrato de hoje ainda mostra as marcas: em <code>specs/</code> há duas pastas com o prefixo 066, duas
+com o prefixo 070 e uma pasta com número pendente, <code>NNN-painel-de-coordenacao-v0</code>, cuja spec
+diz &quot;número do ciclo pendente da decisão&quot; [CLAIM-06-020]. Até a branch de origem tinha um nome,
+<code>067-painel-chamados</code>, sem pasta de spec correspondente [CLAIM-06-021].</p>
+<p>Renumerar resolve a colisão e quebra referências. Todo texto que dizia &quot;ciclo 064&quot; antes da
+renumeração passou a apontar para outra coisa. O Maestro tirou disso uma invariante, registrada
+no glossário como <strong>colisão de endereço</strong>: o mesmo identificador apontando para duas sessões, ou
+para nenhuma, e a regra de que <strong>endereço ambíguo é recusado, nunca resolvido</strong>, porque uma
+entrega ao par errado não se desfaz
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/glossary.md">glossário</a>). O
+nome nu <code>Worker04</code> do ciclo 074 foi uma violação dessa invariante.</p>
+<p>O ciclo 075 levou a invariante ao canal de mensagens. A spec mediu quatro defeitos do canal
+entre sessões; o primeiro era que <strong>a mensagem se perde ao reiniciar</strong>, porque o endereço era o
+identificador da sessão no harness, e ele muda quando a sessão reinicia [CLAIM-06-015]. O
+protocolo novo separa as duas coisas: a <strong>identidade</strong> é <code>nome · projeto</code>, estável; o <em>ref</em> é só
+<strong>localizador</strong>, resolvido na entrega; e o identificador de contexto do protocolo <em>Agent2Agent</em>
+(A2A) existe só na borda, no mapa de conversão, nunca no envelope interno
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/075-protocolo-entre-sessoes/spec.md">spec 075</a>).
+Para o tech lead, a lição é geral: dividir o trabalho entre agentes cria endereços (de tarefa,
+de sessão, de ciclo), e endereço é parte do corte. Se dois agentes podem ser chamados pelo
+mesmo nome, o corte não terminou.</p>
+<h3 id="acima-do-ciclo-a-lacuna-medida-e-o-gatilho" tabindex="-1">Acima do ciclo: a lacuna medida e o gatilho <a class="header-anchor" href="#acima-do-ciclo-a-lacuna-medida-e-o-gatilho" aria-hidden="true">#</a></h3>
+<p>A divisão que o Maestro não faz é a de cima: ir de uma intenção grande até o conjunto de
+ciclos. O ciclo 036 pesquisou isso a pedido do mantenedor e começou por medir o próprio
+repositório: das 34 specs de então, 20 tinham nascido de um pedido pontual, não de um corte
+planejado; nenhum agente, skill ou template cobria decomposição [CLAIM-06-011]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/research/upstream-decomposicao.md">pesquisa do upstream</a>).
+Funcionava porque o dono do escopo estava na sala, e a pesquisa diz com todas as letras que é
+isso que não escala para um produto com terceiros.</p>
+<p>A proposta coube, por exigência da própria spec, em <strong>um objeto, um verbo e um portão</strong>
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/036-pesquisa-upstream-decomposicao/spec.md">spec 036</a>):</p>
+<ul>
+<li>o objeto <code>outcome</code>, um resultado observável com métrica e dono, no lugar de &quot;épico&quot;;</li>
+<li>o verbo, uma skill <code>slice-outcome</code> com as três passadas e os padrões de fatiamento, e uma lei
+de ferro: nenhuma fatia sem critério de aceite próprio e contrato declarado;</li>
+<li>o portão, um <code>check-outcomes.sh</code> que confere se toda spec cita o resultado que serve e se toda
+fatia tem contrato, sem julgar se o corte está certo (isso fica com o humano).</li>
+</ul>
+<p>E a recomendação foi <strong>não construir</strong>: registrar um gatilho e esperar a primeira intenção
+grande real. O roteiro do Maestro guarda o item com esse gatilho: &quot;primeira intenção grande
+<strong>real</strong> que não caiba em um ciclo, ou primeiro projeto com usuários externos&quot;
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/roadmap.md">roadmap</a>).</p>
+<p>As ideias de fora seguiram o mesmo destino. A pesquisa registrou como <strong>absorver</strong>, em
+06/08/2026, a decomposição em três passadas, os padrões de fatiamento, a fatia vertical como lei
+e o contrato por fatia. Quatro dias depois, o ciclo 047 (o catálogo do ecossistema) as
+reclassificou para <strong>observar</strong>, com nota explícita: tinham sido registradas como absorvidas com
+destino numa skill que nunca foi escrita [CLAIM-06-012]. O cartão do contrato por fatia ganhou
+um gatilho diferente dos outros, e o mais relevante para este capítulo: &quot;dois ou mais agentes
+trabalhando em fatias da mesma intenção ao mesmo tempo&quot;
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/ecosystem/ideias/035-contrato-por-fatia.md">cartão 035</a>).</p>
+<h3 id="gatilhos-que-disparam-e-catálogos-que-não-ficam-sabendo" tabindex="-1">Gatilhos que disparam, e catálogos que não ficam sabendo <a class="header-anchor" href="#gatilhos-que-disparam-e-catálogos-que-não-ficam-sabendo" aria-hidden="true">#</a></h3>
+<p>Os gatilhos são a parte mais inteligente desse desenho e também a mais frágil. Três casos, em
+<code>19823c2</code>:</p>
+<ul>
+<li><strong>Worktree por tarefa</strong> (cartão 003, vindo do Superpowers): em 10/08/2026, estado
+<strong>observar</strong>, porque &quot;nunca rodamos dois agentes escrevendo em paralelo&quot;, com o gatilho &quot;dois
+ou mais agentes escrevendo no mesmo repositório ao mesmo tempo, com conflito observado&quot; (o
+estudo de campo do Superpowers, no apêndice B do handbook, já tinha mantido a ideia em
+observação, com o gatilho de dor de paralelismo inalterado). Em
+outubro, o lançador do ciclo 066 passou a criar uma worktree por Worker. A última linha do
+índice de estado do catálogo, porém, ainda diz <strong>observar</strong>, com a data de agosto
+[CLAIM-06-013]. O gatilho disparou; o catálogo não registrou.</li>
+<li><strong>Grafo de dependências</strong> (cartão 011, do Taskmaster): gatilho &quot;um ciclo com mais de 20
+tarefas paralelas, ou vários projetos simultâneos, e a ordenação manual doer (registrado em
+retro)&quot;. Hoje, 8 das 74 listas de tarefas passam de 20 caixas, e a do ciclo 074 tem 85
+[CLAIM-06-014]. Quantas eram paralelas e se a ordenação doeu, ninguém mediu; o gatilho tem
+três condições e só a contagem é automática.</li>
+<li><strong>Contrato por fatia</strong> (cartão 035): o gatilho &quot;dois ou mais agentes em fatias da mesma
+intenção ao mesmo tempo&quot; descreve o ciclo 074 palavra por palavra. O campo de contrato que a
+pesquisa propôs teria nomeado o dono de <code>quemPrecisaDeVoce</code> antes de três Workers o
+calcularem.</li>
+</ul>
+<p>Nada disso é escândalo; é o <a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/axioms.md">teorema T5</a>
+aplicado ao próprio catálogo: um artefato sobrevive por consumo ou por imutabilidade, e um
+gatilho escrito só é consumido se alguma coisa o lê quando o mundo muda. O cartão é imutável
+(certo); o índice de estado depende de alguém lembrar de acrescentar a linha nova (frágil). O
+<a href="14-a-organizacao-que-aprende.html">capítulo 14</a> trata de como uma correção vira
+regra; aqui basta a consequência prática: <strong>gatilho sem leitor é decisão adiada sem data</strong>.</p>
+<h3 id="resumo-do-que-é-regra-script-e-hook" tabindex="-1">Resumo do que é regra, script e hook <a class="header-anchor" href="#resumo-do-que-é-regra-script-e-hook" aria-hidden="true">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Mecanismo</th>
+<th>Tipo</th>
+<th>O que garante</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Princípio V; anti-padrão 4; template de tarefas</td>
+<td>regra</td>
+<td>corte por fronteira, menor autonomia, tarefa para contexto zero</td>
+</tr>
+<tr>
+<td>Comandos do fluxo (<code>specify</code> … <code>implement</code>, DoD)</td>
+<td>comando versionado</td>
+<td>encadeamento fixo, igual em todo ciclo</td>
+</tr>
+<tr>
+<td><code>scripts/multi-session.py</code></td>
+<td>script</td>
+<td>uma worktree por Worker; um modelo por sessão</td>
+</tr>
+<tr>
+<td>Gerente como único integrador, push só após portão</td>
+<td>regra (decisão registrada)</td>
+<td>um ponto de <em>reduce</em></td>
+</tr>
+<tr>
+<td><code>workflow_session_start.py</code>, <code>workflow_stop.py</code></td>
+<td>hook</td>
+<td>passo registrado; resumo e evidência cobrados</td>
+</tr>
+<tr>
+<td>Colisão de endereço; identidade <code>nome · projeto</code></td>
+<td>regra (glossário) e protocolo (075)</td>
+<td>endereço ambíguo recusado</td>
+</tr>
+<tr>
+<td><code>outcome</code>, <code>slice-outcome</code>, <code>check-outcomes.sh</code></td>
+<td>proposta com gatilho</td>
+<td>nada ainda: deliberadamente não construído</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exemplo-executável" tabindex="-1" class="callout c-prat" data-rotulo="Mão na massa">Exemplo executável <a class="header-anchor" href="#exemplo-executável" aria-hidden="true">#</a></h2>
+<p>O exemplo em <a href="06-como-dividir-o-trabalho-exemplo.html"><code>exemplo/</code></a> refaz, em miniatura, o ciclo 074: o mesmo trabalho
+(um número só para &quot;quem precisa de mim&quot;, em domínio, casca, entrada e sonda) cortado de três
+jeitos. Python 3, só biblioteca padrão. Para rodar:</p>
+<pre><code class="language-bash">cd livro/06-como-dividir-o-trabalho/exemplo
+bash rodar.sh | diff - saida-esperada.txt   # nenhuma linha de diferença
+</code></pre>
+<p>São oito passos [CLAIM-06-026]:</p>
+<ol>
+<li><strong>Corte por tela.</strong> <code>dividir.py colisao</code> acusa o conceito <code>contagem-precisa-de-mim</code> com três
+donos. Os arquivos são todos diferentes: a regra <code>[P]</code> do Spec Kit aprovaria.</li>
+<li><strong>Corte por quantidade.</strong> Duas mudanças para cada agente, na ordem da lista: dois agentes
+escrevem <code>casca.js</code>, e um terceiro consome um contrato que ninguém escreve.</li>
+<li><strong>Corte por fronteira.</strong> Cada arquivo e cada conceito com um dono só.</li>
+<li><strong>A ordem sai dos contratos.</strong> <code>ondas</code> põe o dono do predicado, a casca e a sonda na
+primeira onda e o consumidor na segunda, como o Gerente fez com os Workers 01, 02 e 05.</li>
+<li><strong>Quanto custa o corte errado.</strong> <code>custo</code> soma o caminho crítico das ondas, as passagens e o
+retrabalho das colisões. Os cortes por tela e por quantidade ficam <strong>mais caros</strong> que um
+agente só.</li>
+<li><strong>Quando o corte certo paga.</strong> O corte por fronteira cai de 14 para 9 unidades com a
+passagem custando 1; com a passagem custando 4, deixa de pagar. O mesmo corte, outro
+veredito: o custo da coordenação decide.</li>
+<li><strong>A menor autonomia que resolve.</strong> <code>autonomia</code> classifica seis situações. O ciclo inteiro é
+encadeamento com avaliador; a triagem é roteamento; &quot;metade dos arquivos para cada agente&quot;
+volta para encadeamento até haver fronteira; integrar 42 branches de outra linha é
+orquestrador-trabalhadores com <em>reduce</em> humano; o agente que &quot;descobre sozinho o que
+refatorar&quot; é recusado por falta de evidência.</li>
+<li><strong>Numerar em paralelo.</strong> <code>numerar</code> reproduz as colisões de 064 e 065 entre duas linhas,
+recusa resolver &quot;ciclo 064&quot; (dois destinos) e mostra que a renumeração, ao consertar a
+colisão, muda o destino de uma referência que antes estava certa.</li>
+</ol>
+<p>O README traz a saída completa, três exercícios e um script opcional, <code>medir_maestro.py</code>, que
+reproduz num clone do Maestro os números deste capítulo.</p>
+<h2 id="contraexemplo" tabindex="-1" class="callout c-contra" data-rotulo="Limite">Contraexemplo <a class="header-anchor" href="#contraexemplo" aria-hidden="true">#</a></h2>
+<p>A regra deste capítulo tem custo, e há situações em que ela atrapalha.</p>
+<p><strong>Quando o trabalho cabe num agente.</strong> Toda a discussão de corte pressupõe que vale dividir. Na
+maior parte do tempo, não vale. O dado mais forte do Maestro é negativo: 25 ciclos sem padrão
+autônomo e quase sem paralelismo de subagentes [CLAIM-06-010]. Um tech lead que importa a
+regra &quot;dono por conceito, contrato antes do consumo&quot; para um trabalho que um agente faz sozinho
+em uma tarde acrescenta cerimônia sem comprar nada. O passo 6 do exemplo mostra o limite: com
+passagem cara, até o corte certo perde para um agente só.</p>
+<p><strong>Quando a fronteira ainda não existe.</strong> Cortar por contexto delimitado exige que o contexto
+esteja delimitado. Num protótipo, numa investigação, num domínio que ninguém modelou, a
+fronteira é o que se está descobrindo. Paralelizar ali é escolher uma fronteira por chute e
+pagar o retrabalho quando ela se mostrar errada. O caminho é sequencial até o modelo de domínio
+aparecer; o <a href="08-ddd-para-agentes.html">capítulo 8</a> trata de como desenhá-lo.</p>
+<p><strong>Quando o dono vira gargalo.</strong> Dar um dono a cada conceito serializa os consumidores atrás
+dele. No ciclo 074, o Worker05 esperou o Worker01 [CLAIM-06-003]. Se o conceito é central e o
+dono demora, o paralelo vira fila. A porta inerte do Worker02 é a técnica que alivia isso:
+publique cedo um contrato que não muda o comportamento, e deixe os consumidores trabalharem
+contra ele. Mas ela só funciona quando o contrato é estável; contrato que muda depois de
+publicado é o pior dos mundos.</p>
+<p><strong>Quando o gatilho vira desculpa.</strong> Esperar dor real antes de construir é bom conselho (o
+Maestro recusou a skill de decomposição por isso). Mas o caso da worktree mostra o outro lado: o
+gatilho disparou e o registro não acompanhou [CLAIM-06-013]. Um time que usa &quot;observar com
+gatilho&quot; e não tem ninguém lendo os gatilhos está, na prática, dizendo &quot;não&quot; sem data.</p>
+<p><strong>Quando o corte por camada é o certo.</strong> A fatia vertical é a regra entre entregas, mas dentro
+de um ciclo o corte do ciclo 074 foi, sim, por camada: domínio, casca, tela. Quem lê INVEST
+como proibição absoluta de cortar por camada vai rejeitar exatamente o corte que resolveu o
+problema. A distinção de nível (entre ciclos × dentro do ciclo) não é detalhe; sem ela as duas
+regras se contradizem.</p>
+<p><strong>O custo da regra, resumido.</strong> Escrever o contrato antes custa tempo antes de qualquer código
+aparecer. Ordenar por ondas custa paralelismo. Recusar endereço ambíguo custa conveniência
+(&quot;é óbvio que Worker04 é aquele&quot;). O ganho só aparece quando há colisão, e colisão não avisa
+antes.</p>
+<h2 id="evidência" tabindex="-1">Evidência <a class="header-anchor" href="#evidência" aria-hidden="true">#</a></h2>
+<p>O que sustenta este capítulo, com o estado de cada afirmação. O registro completo, com o
+caminho ou comando que reproduz cada número, está em <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/06-como-dividir-o-trabalho/claims.md">claims.md</a>.</p>
+<p><strong>Medido</strong> (reproduzível por comando no Maestro em <code>19823c2</code>, ou pelo exemplo):</p>
+<ul>
+<li>Os commits da costura do ciclo 074, com datas, autores das pontas e cherry-picks na linha
+[CLAIM-06-002].</li>
+<li>Os comandos versionados no ciclo 025 e hoje [CLAIM-06-008]; os quatro relatórios com portão
+provado falhando [CLAIM-06-009].</li>
+<li>As pastas de <code>specs/</code> com prefixo repetido e a pasta sem número; a decisão de renumeração do
+065 [CLAIM-06-020].</li>
+<li>O estado corrente das ideias de divisão no catálogo e a worktree por Worker no lançador
+[CLAIM-06-012, CLAIM-06-013]; o tamanho das listas de tarefas [CLAIM-06-014].</li>
+<li>A conta de canais de Brooks para sete sessões [CLAIM-06-024].</li>
+<li>A saída do exemplo executável [CLAIM-06-026].</li>
+</ul>
+<p><strong>Observado</strong> (o Maestro registra; o livro leu o registro, não refez o experimento):</p>
+<ul>
+<li>O chip em 1 contra a união em 4, a decisão da regente e o despacho em ondas
+[CLAIM-06-001, CLAIM-06-003]; a delegação dos portões à regente [CLAIM-06-027]; o endereço pelo nome nu [CLAIM-06-004]; as duas pendências como
+a mesma decisão [CLAIM-06-005]; o corte do ciclo em seis podas [CLAIM-06-006].</li>
+<li>O uso dos padrões em 25 ciclos [CLAIM-06-010]; a lacuna a montante medida no ciclo 036
+[CLAIM-06-011]; o custo estimado do Taskmaster [CLAIM-06-016].</li>
+<li>A escala do Hindiana, a linha paralela e a integração em seis ciclos [CLAIM-06-017,
+CLAIM-06-019]; o lançador e a decisão de só o Gerente fazer push [CLAIM-06-018]; o conflito
+das linhagens irmãs e a branch sem spec [CLAIM-06-021]; o mapa de renumeração [CLAIM-06-022].</li>
+<li>O defeito de endereço do canal entre sessões [CLAIM-06-015].</li>
+<li>O critério <code>[P]</code> do Spec Kit [CLAIM-06-023]; os seis padrões da Anthropic [CLAIM-06-007].</li>
+<li>O relato público de custo de <em>tokens</em> de um sistema multiagente [CLAIM-06-025]: número da
+fonte, não reproduzido.</li>
+</ul>
+<p><strong>Hipótese</strong> (não medido):</p>
+<ul>
+<li><strong>H4</strong>, multiagente só ajuda com cortes independentes: o capítulo traz um caso a favor e um
+modelo de brinquedo, não um experimento.</li>
+<li>O overhead de coordenação no Maestro real: definido aqui, nunca medido lá.</li>
+<li>Que uma checagem automática de &quot;conceito com mais de um dono&quot; no plano de tarefas teria
+evitado o retrabalho do ciclo 074: plausível pelo exemplo, não testado no método.</li>
+</ul>
+<h2 id="checklist" tabindex="-1" class="callout c-verif" data-rotulo="Aplique">Checklist <a class="header-anchor" href="#checklist" aria-hidden="true">#</a></h2>
+<p>Para aplicar no seu time, antes de distribuir trabalho entre agentes:</p>
+<ul>
+<li>[ ] O trabalho <strong>precisa</strong> ser dividido? Estime o tempo de um agente só e compare com o
+caminho crítico mais a coordenação; se não houver ganho claro, não divida.</li>
+<li>[ ] Cada arquivo tem <strong>um</strong> escritor por vez (worktree por agente, ou lista de arquivos por
+tarefa sem interseção).</li>
+<li>[ ] Cada <strong>conceito</strong> que aparece em mais de uma fatia tem <strong>um</strong> dono nomeado no plano, e as
+outras fatias o consomem em vez de recalcular.</li>
+<li>[ ] Cada contrato consumido tem dono no plano ou já existe no repositório; nenhum &quot;a gente
+combina na hora&quot;.</li>
+<li>[ ] A ordem de execução saiu dos contratos (dono antes de consumidor), e uma dependência
+circular é motivo para recortar, não para &quot;rodar junto&quot;.</li>
+<li>[ ] Quando o dono atrasar os consumidores, há uma porta inerte publicada cedo, com
+comportamento inalterado até ser chamada.</li>
+<li>[ ] O <em>reduce</em> tem um dono com o contexto global (o humano, ou quem age sob política escrita
+dele), e nenhum agente &quot;consolidador&quot; ao lado das fatias decide o que elas discordam.</li>
+<li>[ ] Cada fluxo começa no padrão mais simples (encadeamento); subir para orquestrador ou
+autônomo exige evidência escrita de que o simples falhou.</li>
+<li>[ ] Todo identificador que um agente usa para endereçar outro (tarefa, sessão, ciclo) é único
+e estável; endereço ambíguo é recusado, não adivinhado.</li>
+<li>[ ] Numeração de ciclos ou tarefas vem de <strong>um</strong> alocador, mesmo com linhas paralelas.</li>
+<li>[ ] Toda prática de paralelismo adiada tem gatilho observável <strong>e</strong> um leitor: um script ou
+uma cerimônia que confere o gatilho e registra quando ele dispara.</li>
+</ul>
+<h2 id="referências" tabindex="-1">Referências <a class="header-anchor" href="#referências" aria-hidden="true">#</a></h2>
+<p>Fontes do Maestro, todas na versão <code>19823c2</code>:</p>
+<ul>
+<li>Axiomas, teoremas e corolários (A3, T5):
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/axioms.md">https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/axioms.md</a></li>
+<li>Constituição, Princípio V:
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/principles.md">https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/principles.md</a></li>
+<li>Glossário (rodada, passo, outbox, colisão de endereço):
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/glossary.md">https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/glossary.md</a></li>
+<li>Catálogo de anti-padrões (anti-padrão 4):
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/skills/anti-patterns/SKILL.md">https://github.com/GHDaru/maestro/blob/19823c2/skills/anti-patterns/SKILL.md</a></li>
+<li>Template de tarefas:
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/.specify/templates/tasks-template.md">https://github.com/GHDaru/maestro/blob/19823c2/.specify/templates/tasks-template.md</a></li>
+<li>Comandos <code>speckit.tasks</code> e <code>speckit.taskstoissues</code>:
+<a href="https://github.com/GHDaru/maestro/tree/19823c2/.claude/commands">https://github.com/GHDaru/maestro/tree/19823c2/.claude/commands</a></li>
+<li>Handbook, capítulo 5 (orquestração):
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/handbook/05-orquestracao.md">https://github.com/GHDaru/maestro/blob/19823c2/docs/handbook/05-orquestracao.md</a></li>
+<li>Spec 025 (capítulo de orquestração no padrão v2):
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/025-capitulo-05-padrao-v2/spec.md">https://github.com/GHDaru/maestro/blob/19823c2/specs/025-capitulo-05-padrao-v2/spec.md</a></li>
+<li>Spec 036 e a pesquisa do upstream:
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/036-pesquisa-upstream-decomposicao/spec.md">https://github.com/GHDaru/maestro/blob/19823c2/specs/036-pesquisa-upstream-decomposicao/spec.md</a> ·
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/research/upstream-decomposicao.md">https://github.com/GHDaru/maestro/blob/19823c2/docs/research/upstream-decomposicao.md</a></li>
+<li>Cartões do ecossistema 003, 011, 022, 033, 034, 035 e 037, e o índice de estado:
+<a href="https://github.com/GHDaru/maestro/tree/19823c2/docs/ecosystem/ideias">https://github.com/GHDaru/maestro/tree/19823c2/docs/ecosystem/ideias</a> ·
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/ecosystem/estado.jsonl">https://github.com/GHDaru/maestro/blob/19823c2/docs/ecosystem/estado.jsonl</a></li>
+<li>Roadmap (item &quot;Upstream&quot; e o seu gatilho):
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/roadmap.md">https://github.com/GHDaru/maestro/blob/19823c2/docs/roadmap.md</a></li>
+<li>Plano do ciclo 066 e o mapa de integração da linha paralela:
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/066-painel-de-regencia/plan.md">https://github.com/GHDaru/maestro/blob/19823c2/specs/066-painel-de-regencia/plan.md</a> ·
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/066-painel-de-regencia/plano-integracao-linha-paralela.md">https://github.com/GHDaru/maestro/blob/19823c2/specs/066-painel-de-regencia/plano-integracao-linha-paralela.md</a></li>
+<li>Spec com número pendente do painel de coordenação v0:
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/NNN-painel-de-coordenacao-v0/spec.md">https://github.com/GHDaru/maestro/blob/19823c2/specs/NNN-painel-de-coordenacao-v0/spec.md</a></li>
+<li>Lançador multissessão:
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/multi-session.py">https://github.com/GHDaru/maestro/blob/19823c2/scripts/multi-session.py</a></li>
+<li>Hooks do fluxo (ciclo 070):
+<a href="https://github.com/GHDaru/maestro/tree/19823c2/painel/hooks">https://github.com/GHDaru/maestro/tree/19823c2/painel/hooks</a></li>
+<li>Ciclo 074, lista de tarefas (bloco <code>costura-um-numero</code>) e o fechamento do gauntlet:
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/074-prototipo-navegavel/tasks.md">https://github.com/GHDaru/maestro/blob/19823c2/specs/074-prototipo-navegavel/tasks.md</a> ·
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/074-prototipo-navegavel/done-074-gauntlet-fechado.md">https://github.com/GHDaru/maestro/blob/19823c2/specs/074-prototipo-navegavel/done-074-gauntlet-fechado.md</a></li>
+<li>Spec 075 (protocolo entre sessões):
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/075-protocolo-entre-sessoes/spec.md">https://github.com/GHDaru/maestro/blob/19823c2/specs/075-protocolo-entre-sessoes/spec.md</a></li>
+<li>ADR 0026 (portão humano por delegação de política):
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0026-gate-humano-por-delegacao-de-politica.md">https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0026-gate-humano-por-delegacao-de-politica.md</a></li>
+<li>Índice de decisões (<code>ciclo-065-renumerado</code>, <code>ciclo-066-integra-painel-controle</code>,
+<code>decisao-066-sessoes-via-gateway</code>, <code>decisao-072-gates-delegados</code>):
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/records/decisoes.jsonl">https://github.com/GHDaru/maestro/blob/19823c2/docs/records/decisoes.jsonl</a></li>
+</ul>
+<p>Literatura e fontes externas (citadas de memória bibliográfica ou a partir do registro do
+Maestro em <code>19823c2</code>; os endereços web não foram reacessados para esta edição):</p>
+<ul>
+<li>Parnas, D. L. <em>On the criteria to be used in decomposing systems into modules</em>.
+Communications of the ACM, 15(12), 1972.</li>
+<li>Conway, M. E. <em>How do committees invent?</em> Datamation, abr. 1968.</li>
+<li>Brooks, F. P. <em>The Mythical Man-Month</em>. Addison-Wesley, 1975.</li>
+<li>Amdahl, G. M. <em>Validity of the single processor approach to achieving large scale computing
+capabilities</em>. AFIPS Spring Joint Computer Conference, 1967.</li>
+<li>Evans, E. <em>Domain-Driven Design</em>. Addison-Wesley, 2003.</li>
+<li>Anthropic. <em>Building effective agents</em>, dez. 2024.
+<a href="https://www.anthropic.com/engineering/building-effective-agents">https://www.anthropic.com/engineering/building-effective-agents</a></li>
+<li>Anthropic. <em>How we built our multi-agent research system</em>, jun. 2025.
+<a href="https://www.anthropic.com/engineering/multi-agent-research-system">https://www.anthropic.com/engineering/multi-agent-research-system</a></li>
+<li>Cognition. <em>Don't Build Multi-Agents</em>, jun. 2025. <a href="https://cognition.ai/blog/dont-build-multi-agents">https://cognition.ai/blog/dont-build-multi-agents</a></li>
+<li>Hong, S. et al. <em>MetaGPT: Meta Programming for a Multi-Agent Collaborative Framework</em>.
+arXiv:2308.00352, 2023.</li>
+<li>LangGraph, documentação. <a href="https://langchain-ai.github.io/langgraph/">https://langchain-ai.github.io/langgraph/</a></li>
+<li>CrewAI, documentação (processos sequencial e hierárquico). <a href="https://docs.crewai.com/">https://docs.crewai.com/</a></li>
+<li>GitHub Spec Kit. <a href="https://github.com/github/spec-kit">https://github.com/github/spec-kit</a></li>
+<li>Taskmaster. <a href="https://github.com/eyaltoledano/claude-task-master">https://github.com/eyaltoledano/claude-task-master</a></li>
+<li>Superpowers. <a href="https://github.com/obra/superpowers">https://github.com/obra/superpowers</a></li>
+<li>Product-Manager-Skills. <a href="https://github.com/deanpeters/Product-Manager-Skills">https://github.com/deanpeters/Product-Manager-Skills</a></li>
+<li>Lawrence, R. <em>The Humanizing Work Guide to Splitting User Stories</em>.
+<a href="https://www.humanizingwork.com/the-humanizing-work-guide-to-splitting-user-stories/">https://www.humanizingwork.com/the-humanizing-work-guide-to-splitting-user-stories/</a></li>
+<li>SPIDR (Mike Cohn), resumo. <a href="https://blogs.itemis.com/en/spidr-five-simple-techniques-for-a-perfectly-split-user-story">https://blogs.itemis.com/en/spidr-five-simple-techniques-for-a-perfectly-split-user-story</a></li>
+</ul>
+</article>
+    <nav class="paginacao" aria-label="Anterior e próximo"><a class="pg-prev" href="05-engenharia-de-contexto-exemplo.html"><small>← anterior</small>Exemplo executável — 05 Engenharia de contexto</a><a class="pg-next" href="06-como-dividir-o-trabalho-exemplo.html"><small>próximo →</small>Exemplo executável — 06 Como dividir o trabalho</a></nav>
+    <footer class="rodape">
+      <a href="https://github.com/GHDaru/agentic_software_engineering">github.com/GHDaru/agentic_software_engineering</a>
+       · <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/06-como-dividir-o-trabalho/capitulo.md">fonte desta página</a>
+      · gerado de <code>livro/</code> por <code>publicar/build.mjs</code>
+    </footer>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body></html>

@@ -1,0 +1,716 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>14 — A organização que aprende · Engenharia de Software Orientada por Agentes</title>
+<meta name="description" content="Governança operacional para um humano regendo muitos agentes">
+<script>try{var t=localStorage.getItem("tema");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="assets/estilo.css">
+</head><body>
+<header class="barra">
+  <button id="alt-menu" aria-label="Abrir o sumário" aria-expanded="false" aria-controls="sidebar">☰ <span>Sumário</span></button>
+  <a class="barra-titulo" href="index.html">Engenharia de Software Orientada por Agentes</a>
+  <button id="alt-tema" aria-label="Alternar tema claro/escuro">◐</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="marca" href="index.html">Engenharia de Software Orientada por Agentes<small>Agentic Software Engineering</small></a>
+    <div class="nav-parte">Abertura</div><ul><li><a href="00-prefacio.html">Prefácio</a></li></ul><div class="nav-parte">Parte I — Por que agentes mudam a engenharia</div><ul><li><a href="01-a-mudanca-de-unidade-de-trabalho.html">1. A mudança de unidade de trabalho</a></li><li class="filho"><a class="filho" href="01-a-mudanca-de-unidade-de-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="02-o-problema-da-confianca.html">2. O problema da confiança</a></li><li class="filho"><a class="filho" href="02-o-problema-da-confianca-exemplo.html">Exemplo executável</a></li><li><a href="03-um-humano-muitos-agentes.html">3. Um humano, muitos agentes</a></li><li class="filho"><a class="filho" href="03-um-humano-muitos-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte II — Especificar e dar contexto</div><ul><li><a href="04-a-spec-como-partitura.html">4. A spec como partitura</a></li><li class="filho"><a class="filho" href="04-a-spec-como-partitura-exemplo.html">Exemplo executável</a></li><li><a href="05-engenharia-de-contexto.html">5. Engenharia de contexto</a></li><li class="filho"><a class="filho" href="05-engenharia-de-contexto-exemplo.html">Exemplo executável</a></li><li><a href="06-como-dividir-o-trabalho.html">6. Como dividir o trabalho</a></li><li class="filho"><a class="filho" href="06-como-dividir-o-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="07-papeis-e-skills.html">7. Papéis e skills</a></li><li class="filho"><a class="filho" href="07-papeis-e-skills-exemplo.html">Exemplo executável</a></li><li><a href="08-ddd-para-agentes.html">8. DDD para agentes</a></li><li class="filho"><a class="filho" href="08-ddd-para-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte III — Provar e conter</div><ul><li><a href="09-arquitetura-que-se-defende.html">9. Arquitetura que se defende</a></li><li class="filho"><a class="filho" href="09-arquitetura-que-se-defende-exemplo.html">Exemplo executável</a></li><li><a href="10-quality-gates-que-provam-fatos.html">10. Quality gates que provam fatos</a></li><li class="filho"><a class="filho" href="10-quality-gates-que-provam-fatos-exemplo.html">Exemplo executável</a></li><li><a href="11-risco-reversibilidade-e-autonomia.html">11. Risco, reversibilidade e autonomia</a></li><li class="filho"><a class="filho" href="11-risco-reversibilidade-e-autonomia-exemplo.html">Exemplo executável</a></li><li><a href="12-ferramentas-mcp-e-o-ecossistema.html">12. Ferramentas, MCP e o ecossistema</a></li><li class="filho"><a class="filho" href="12-ferramentas-mcp-e-o-ecossistema-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte IV — Medir e aprender</div><ul><li><a href="13-observabilidade-e-economia.html">13. Observabilidade e economia</a></li><li class="filho"><a class="filho" href="13-observabilidade-e-economia-exemplo.html">Exemplo executável</a></li><li><a class="ativo" aria-current="page" href="14-a-organizacao-que-aprende.html">14. A organização que aprende</a></li><li class="filho"><a class="filho" href="14-a-organizacao-que-aprende-exemplo.html">Exemplo executável</a></li><li><a href="15-validando-o-maestro.html">15. Validando o Maestro</a></li><li class="filho"><a class="filho" href="15-validando-o-maestro-exemplo.html">Exemplo executável</a></li><li><a href="16-o-futuro-da-engenharia-agentica.html">16. O futuro da engenharia agêntica</a></li><li class="filho"><a class="filho" href="16-o-futuro-da-engenharia-agentica-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Apêndices</div><ul><li><a href="apendice-a-o-maestro-em-uma-pagina.html">A. O Maestro em uma página</a></li><li><a href="apendice-b-aseg-bench.html">B. ASEG-Bench — um benchmark de governança</a></li><li><a href="apendice-c-pacote-de-replicacao.html">C. Pacote de replicação</a></li><li><a href="apendice-d-estudos-de-campo.html">D. Estudos de campo do ecossistema</a></li></ul><div class="nav-parte">Consulta</div><ul><li><a href="glossario.html">Glossário</a></li><li><a href="evidencias.html">Evidências (claims)</a></li></ul>
+  </aside>
+  <main class="conteudo">
+    <article class="markdown"><h1 id="14--a-organização-que-aprende" tabindex="-1">14 — A organização que aprende <a class="header-anchor" href="#14--a-organização-que-aprende" aria-hidden="true">#</a></h1>
+<blockquote>
+<p>&quot;A correção feita na conversa tem a vida de uma sessão; só a regra versionada chega à
+próxima.&quot; — teorema T6 do Maestro, parafraseado</p>
+</blockquote>
+<p>Todo time que trabalha com agentes descobre, em algumas semanas, que corrige as mesmas coisas: o
+padrão de nome, o teste do caso de falha, o registro no changelog. A reação natural é escrever
+mais regra, e o corpo de regras incha até ninguém lê-lo. Este capítulo trata de duas forças que
+precisam andar juntas: <strong>aprender</strong>, transformar a correção que se repete em regra que se cobra
+sozinha, e <strong>podar</strong>, tirar o que não paga o próprio custo. Para o tech lead que decide o que vira
+processo, aqui está o critério das duas decisões, e a prova, num repositório real, de que ele
+também falha quando ninguém o cobra.</p>
+<h2 id="pergunta-central" tabindex="-1" class="callout c-obj" data-rotulo="Pergunta">Pergunta central <a class="header-anchor" href="#pergunta-central" aria-hidden="true">#</a></h2>
+<p>Como uma correção vira regra que sobrevive à próxima sessão do agente, sem que a governança
+inche até ser ignorada?</p>
+<h2 id="resultado-de-aprendizagem" tabindex="-1">Resultado de aprendizagem <a class="header-anchor" href="#resultado-de-aprendizagem" aria-hidden="true">#</a></h2>
+<p>Ao final, você consegue:</p>
+<ol>
+<li><strong>Distinguir</strong> correção de regra: dizer, para uma correção que você fez a um agente, se ela
+vai sobreviver à próxima sessão e o que falta para isso (artefato versionado, consumidor,
+cobrança).</li>
+<li><strong>Dar gatilho mensurável</strong> a uma cerimônia, em especial à retrospectiva, de modo que ela
+aconteça por dívida acumulada e não por lembrança ou calendário.</li>
+<li><strong>Escolher o destino</strong> da regra nova (princípio, modelo operacional, skill, script ou
+registro de decisão) pela natureza dela, e justificar a escolha.</li>
+<li><strong>Auditar os artefatos</strong> do seu time pelo teste das duas perguntas (quem consome? o que
+quebra quando fica velho?) e decidir o que cobrar, o que tornar imutável e o que podar.</li>
+<li><strong>Manter memória só-anexar</strong>: corrigir um registro de decisão sem reescrevê-lo, e montar o
+portão que impede a reescrita.</li>
+</ol>
+<h2 id="a-falha-real" tabindex="-1" class="callout c-falha" data-rotulo="Caso real">A falha real <a class="header-anchor" href="#a-falha-real" aria-hidden="true">#</a></h2>
+<p>Em 2 de agosto de 2026, o ciclo 027 do Maestro migrava para o padrão editorial novo o capítulo
+do handbook sobre cerimônias. Para escrever a seção prática, o autor contou as retrospectivas do
+próprio projeto e registrou o resultado no relatório de qualidade: em 26 ciclos, a
+retrospectiva tinha sido executada <strong>uma vez</strong>, no ciclo 017, e só porque o Steward (o humano que
+responde pelo método) a cobrou [CLAIM-14-001]. A cerimônia que o modelo operacional chamava de
+&quot;a de maior retorno&quot; era também a mais adiada.</p>
+<p>A ironia era dupla. A única retrospectiva executada, a do ciclo 017, tinha produzido exatamente o
+anti-padrão que descreve isso. Duas vezes, nos relatórios dos ciclos 015 e 016, alguém escrevera
+&quot;candidato a anti-padrão&quot; sobre um defeito de verificação, e a retro não rodou nenhuma das duas
+[CLAIM-14-002]. A retro do 017 batizou o fenômeno de <strong>anti-padrão 14, &quot;achado que morre em
+candidato&quot;</strong>, e escreveu a meta-lição no relatório: o processo não falhara por falta de norma,
+mas por norma sem função de força. No ciclo 027, a norma &quot;rode a retrospectiva&quot; continuava sem
+função de força nenhuma.</p>
+<p>O ciclo 027 fez o certo pela metade. Registrou o fato no índice de decisões, um arquivo JSON Lines
+(JSONL), em que cada linha é um objeto JavaScript Object Notation (JSON) com uma decisão ou um
+achado, como <code>achado-027-retro-sem-gatilho</code>, status <code>aberta</code>, e deixou a pergunta: qual gatilho,
+número de ciclos, de achados abertos, ou ambos?
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/027-capitulo-07-padrao-v2/qa-report.md"><code>qa-report.md</code> do 027</a>).
+O achado se juntou a outros quatro na mesma situação: a régua de raias não aplicada (023), a
+regra nova de uma skill que não chegava ao capítulo (029), a citação do ciclo no commit só por
+convenção (031) e o renome em massa que quebrava link (033).</p>
+<p>No dia seguinte, o ciclo 034 deu o relógio. Antes de escrever qualquer regra, escreveu o portão
+<code>check-retro.sh</code> e o rodou contra o índice real: vermelho, <strong>cinco achados abertos, o mais velho
+com onze ciclos</strong> [CLAIM-14-003]. A retrospectiva rodou, os cinco achados viraram quatro
+portões e dois anti-padrões novos (17, &quot;cerimônia sem gatilho&quot;, e 18, &quot;renome em massa por
+substituição de texto&quot;) [CLAIM-14-053], e a linha <code>retro-034</code> entrou no índice
+(<a href="https://github.com/GHDaru/maestro/commit/7264fe6">commit <code>7264fe6</code></a>).</p>
+<p>E aí veio a parte que transforma a história em lição. O protocolo para fechar um achado foi
+inventado no meio da retro e nasceu errado. As cinco primeiras linhas de fechamento tinham ids
+novos, diziam em prosa que fechavam os achados e não apontavam para eles: o <code>check-retro.sh</code>
+continuou vendo os cinco abertos [CLAIM-14-004]. O fechamento existia no texto e não no dado.
+A correção foi um campo estrutural, <code>fecha</code>, que liga a linha de fechamento ao id do achado; o
+portão passou a ler o campo, nunca a frase. O executor reconheceu ali o anti-padrão 13 (o
+check que mede o proxy) aplicado ao próprio registro, com uma diferença: desta vez o check
+acusou antes do commit.</p>
+<p>O gatilho tocou sozinho pela primeira vez em 7 de agosto, no ciclo 041: quatro achados abertos
+no teto de quatro, sem ninguém lembrar da cerimônia [CLAIM-14-005]. Essa retro achou uma coisa
+que nenhuma retro por memória teria achado: <strong>a ferramenta que prepara o material da retro
+mentia</strong>. O <code>retro.sh</code> reconhecia gates pelo formato <code>gate-NNN-*</code>, usado por sete gates, enquanto
+o script de promoção gravava <code>gate-main-&lt;sha&gt;</code> desde a decisão que automatizou o registro, e já
+eram 33. Todo ciclo do 011 em diante aparecia como gate pendente: vinte e nove ciclos de um
+instrumento com crédito e sem verdade [CLAIM-14-006]. A memória não desconfia do próprio
+instrumento; um gatilho que obriga a olhar, sim.</p>
+<p>Em uma semana de agosto, o Maestro passou de &quot;a retro acontece quando alguém lembra&quot; para &quot;a
+retro acontece quando a dívida passa do limite, e o fechamento é um fato no dado&quot;. O resto deste
+capítulo explica por que essa é a forma certa, quanto ela custa, e onde ela ainda falha.</p>
+<h2 id="teoria" tabindex="-1">Teoria <a class="header-anchor" href="#teoria" aria-hidden="true">#</a></h2>
+<h3 id="por-que-a-correção-não-sobrevive-o-teorema-t6" tabindex="-1">Por que a correção não sobrevive: o teorema T6 <a class="header-anchor" href="#por-que-a-correção-não-sobrevive-o-teorema-t6" aria-hidden="true">#</a></h3>
+<p>O Maestro deriva suas regras de cinco axiomas [CLAIM-14-036]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/axioms.md"><code>axioms.md</code></a>).
+Dois deles bastam para este capítulo. O <strong>A3</strong> diz que o contexto do agente é finito e se degrada
+ao encher. O <strong>A4</strong> diz que só sobrevive o que está escrito: o agente começa cada sessão do zero,
+e o que não está num artefato não existe para a próxima execução. Deles sai o <strong>teorema T6</strong>: a
+correção que não vira regra se repete. Uma correção feita na conversa vive uma sessão; a janela
+da próxima não a contém, e o agente não lembra da anterior.</p>
+<p>Num time só de pessoas, a melhoria que sai da retrospectiva é um hábito mole, que depende de
+alguém lembrar. Com agentes, ela pode ser outra coisa: uma <strong>instrução versionada</strong>, num arquivo
+que o agente lê no começo de toda sessão, numa skill ou num script que falha. A diferença é a
+que separa &quot;combinamos de tomar cuidado&quot; de &quot;o comando falha se não tomarmos&quot;. O modelo
+operacional do Maestro diz isso numa linha: toda correção recorrente feita a um agente tem de
+virar instrução versionada, e a retrospectiva é a cerimônia de maior retorno
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/operating-model.md"><code>operating-model.md</code> §5</a>).</p>
+<p>A evidência que o <code>axioms.md</code> registra para T6: o anti-padrão 13
+(&quot;check que mede o proxy&quot;) recorreu <strong>quatro vezes</strong> antes de o antídoto virar lei numa skill, e
+a retrospectiva, ela mesma uma regra, ficou trinta e três ciclos sem gatilho [CLAIM-14-007]. O
+teorema não fala só do agente: o operador humano, que também tem atenção finita, está sujeito a
+ele. A regra &quot;rode a retro&quot; sofreu de T6 exatamente como as correções que ela deveria capturar.</p>
+<p>Daí o <strong>corolário C1</strong>: toda cerimônia tem gatilho, e o gatilho é mensurável. E o <strong>anti-padrão
+12</strong>, &quot;corrigir a mesma coisa duas vezes&quot;: a correção recorrente que nunca virou regra é falha de
+processo, não do agente. Quando o seu agente erra pela terceira vez o mesmo padrão, a pergunta
+útil não é &quot;por que ele errou?&quot;, mas &quot;onde está a regra que ele deveria ter lido, e o que a
+cobra?&quot;.</p>
+<p>A teoria organizacional clássica chama isso de aprendizado de laço duplo (<em>double-loop
+learning</em>, Argyris e Schön): corrigir o erro é o laço simples; mudar a regra que produziu o
+erro é o laço duplo. Com agentes, o laço simples é quase inútil, porque não deixa memória
+nenhuma; só o duplo acumula.</p>
+<h3 id="por-que-a-regra-também-apodrece-o-teorema-t5" tabindex="-1">Por que a regra também apodrece: o teorema T5 <a class="header-anchor" href="#por-que-a-regra-também-apodrece-o-teorema-t5" aria-hidden="true">#</a></h3>
+<p>Se T6 fosse a história inteira, a resposta seria &quot;escreva tudo&quot;. Não é, porque escrever cria um
+segundo problema. Manter um artefato atualizado custa atenção, que é o recurso escasso (A3), e
+o que não se lê não se mantém. Do mesmo par de axiomas sai o <strong>teorema T5</strong>: um artefato
+sobrevive por <strong>consumo</strong> ou por <strong>imutabilidade</strong>. Sobrevive o que algo a jusante consome e
+que falha alto quando está velho; e sobrevive o que descreve um instante e, por isso, nunca fica
+velho. Tudo o mais apodrece, por melhor que seja (<strong>corolário C9</strong>).</p>
+<p>O teste prático, no handbook, tem duas perguntas: <em>quem consome este artefato?</em> e <em>o que quebra,
+alto, quando ele fica velho?</em> A spec passa nas duas: o agente gera código dela, e spec velha vira
+código errado. O teste automatizado passa: a integração contínua (CI, de <em>continuous
+integration</em>) o executa, e teste velho fica vermelho. Um documento de design avulso não passa em
+nenhuma das duas, e por isso apodrece.</p>
+<p>O Princípio VI do Maestro é a forma normativa de T5: um artefato só existe se for insumo
+consumido com função de força, ou imutável, como o registro de decisão; e a cadeia spec ↔ pull
+request ↔ testes ↔ jornada é a memória durável do projeto
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/principles.md"><code>principles.md</code></a>).
+Há um corolário de corte: <strong>duplicar função é como o apodrecimento começa</strong>; de dois artefatos
+com a mesma função, um é atualizado e o outro fica para trás parecendo válido. O documento de requisitos de produto (PRD, de <em>product
+requirements document</em>) avulso duplica a spec; o documento de design ou a <em>request for comments</em>
+(RFC) avulsa duplicam plano mais registro de decisão. A pergunta de corte é também &quot;alguém vivo
+já faz isso?&quot;.</p>
+<p>A segunda forma de sobreviver, a imutabilidade, é a do registro de decisão de arquitetura
+(ADR, de <em>architecture decision record</em>), na forma que Michael Nygard propôs em 2011: contexto,
+decisão, consequências. Um ADR descreve um instante, o que se sabia, o que se decidiu e o preço
+aceito. Ele nunca fica desatualizado; no máximo fica <strong>superado</strong>, e o sucessor o diz
+explicitamente. É a única categoria de documento que envelhece sem apodrecer. Em troca, exige
+disciplina de outra natureza: nunca reescrever o mérito, e sempre acrescentar.</p>
+<h3 id="as-duas-forças-e-o-modo-de-falha-de-cada-uma" tabindex="-1">As duas forças, e o modo de falha de cada uma <a class="header-anchor" href="#as-duas-forças-e-o-modo-de-falha-de-cada-uma" aria-hidden="true">#</a></h3>
+<p>T6 empurra para adicionar regra; T5 empurra para cortar o que não é consumido. Uma governança
+saudável precisa das duas, e cada uma tem o seu modo de falha.</p>
+<p>O modo de falha de quem só aprende é a <strong>ossificação</strong>. Regras acumulam porque adicionar é barato
+e remover é politicamente caro: cada regra nasceu de uma dor real, e remover exige argumentar
+contra uma dor que existiu. Sem uma força contrária explícita, o conjunto endurece; ninguém sabe
+quais regras estão vivas, e a resposta racional de quem opera é ignorar tudo o que não for
+cobrado. A versão mais
+visível disso é o <strong>teatro de cerimônia</strong> (anti-padrão 11): o processo que não muda decisão
+nenhuma, o gate que nunca rejeita. Se um portão nunca ficou vermelho, ele é decoração e deve ser
+podado.</p>
+<p>O modo de falha de quem só poda, ou de quem aprende sem cobrar, é o <strong>artefato que congela</strong>
+(anti-padrão 15): o roadmap ou o índice que para de ser atualizado e continua parecendo válido.
+O Maestro tem o caso de origem e o caso reincidente. No ciclo 017, o roadmap tinha parado no
+ciclo 009 enquanto sete ciclos aconteciam fora do mapa [CLAIM-14-008]. Em 10 de agosto, no ciclo
+046, o índice de ADRs estava congelado desde o 0017: os ADRs 0018 e 0019 existiam e não estavam
+listados, e o 0017 aparecia como &quot;Aceito&quot; sete ciclos depois de ter sido superado
+[CLAIM-14-009]. Um índice que lista como vigente uma decisão revertida não está incompleto, está
+<strong>errado</strong>, e quem o consulta, pessoa ou agente, decide com base nele.</p>
+<p>O ciclo 039 mostra o mesmo defeito do lado da memória. O Steward reverteu a divisão do
+repositório em dois, e o ADR 0018 superou o 0017; mas o 0017 continuava &quot;Aceito&quot;, o roadmap dizia
+&quot;F14b — aguarda gate humano&quot; e o <code>boundary.json</code> descrevia dois repositórios: a próxima sessão
+leria &quot;vamos separar&quot; como verdade vigente [CLAIM-14-010]. É o axioma A4 cobrando o preço: o que
+está escrito sobrevive, inclusive quando está errado. O mesmo ciclo viu que a lista de perfis de
+agente era escrita à mão e saudável só por memória, e criou o <code>check-roles.sh</code>, que a compara com
+as definições em disco, visto falhar em quatro condições antes de entrar [CLAIM-14-047].</p>
+<h3 id="camadas-com-velocidades-diferentes" tabindex="-1">Camadas com velocidades diferentes <a class="header-anchor" href="#camadas-com-velocidades-diferentes" aria-hidden="true">#</a></h3>
+<p>A arquitetura que equilibra as duas forças tem camadas que mudam em ritmos diferentes:</p>
+<table>
+<thead>
+<tr>
+<th>Camada</th>
+<th>Muda</th>
+<th>Como</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Constituição (princípios)</td>
+<td>devagar</td>
+<td>emenda versionada, com registro de decisão</td>
+</tr>
+<tr>
+<td>Modelo operacional e livro</td>
+<td>rápido</td>
+<td>versão própria, subordinada à constituição</td>
+</tr>
+<tr>
+<td>Registros de decisão</td>
+<td>nunca</td>
+<td>imutáveis; um novo pode superar o anterior</td>
+</tr>
+<tr>
+<td>Skills e scripts</td>
+<td>conforme a dor</td>
+<td>nascem de retrospectiva, com lei própria</td>
+</tr>
+</tbody>
+</table>
+<p>O documento que muda toda semana não é o mesmo que sustenta as decisões de meses. E o registro
+imutável e superável dá <strong>reversibilidade à decisão</strong>: preserva a liberdade de mudar de ideia e a
+memória de por que se pensava diferente, a reversibilidade do
+<a href="11-risco-reversibilidade-e-autonomia.html">capítulo 11</a> aplicada à governança.</p>
+<p>Há uma terceira peça que costuma faltar: a <strong>poda escrita</strong>. YAGNI (<em>you aren't gonna need it</em>,
+&quot;você não vai precisar disso&quot;) é poda ativa com gatilho: a complexidade além do necessário é
+justificada por escrito ou removida, e a decisão adiada carrega uma condição escrita de revisão,
+que transforma &quot;vamos observar&quot; num evento. E <strong>o que não se adota também se escreve</strong>, para não
+reabrir a mesma discussão a cada trimestre.</p>
+<h2 id="alternativas" tabindex="-1">Alternativas <a class="header-anchor" href="#alternativas" aria-hidden="true">#</a></h2>
+<p>Há várias formas conhecidas de fazer um time aprender. Elas não se excluem, e só algumas
+sobrevivem ao fato de que metade do seu time agora esquece tudo entre uma sessão e outra.</p>
+<p><strong>Retrospectiva de calendário (Scrum, Derby e Larsen).</strong> A retro no fim de cada sprint, com
+formato facilitado (o que foi bem, o que foi mal, o que mudar). Funciona para pessoas, que
+carregam o combinado na cabeça. Com agentes, o combinado não carrega: se a saída da retro não
+virar artefato lido pelo agente, ela não existe para ele. E o calendário cria o problema inverso,
+a retro sem matéria, que vira teatro. <strong>Veredito</strong>: a cerimônia fica, o gatilho por calendário
+sai. Use dívida de achados como gatilho, e exija destino executável para cada resposta &quot;sim&quot;.</p>
+<p><strong>Postmortem sem culpa (a cultura de engenharia de confiabilidade de sites, SRE, do Google).</strong>
+Documento escrito depois de um incidente, com linha do tempo, causa raiz e ações com dono. É o
+melhor modelo para o incidente grande e raro, e a regra &quot;sem culpa&quot; vale integralmente com
+agentes: a falha recorrente é do processo, não do agente (anti-padrão 12). Mas o postmortem é
+disparado por incidente; a maior parte do que um time de agentes precisa aprender são correções
+pequenas e repetidas que nunca chegam a ser incidente. <strong>Veredito</strong>: adote o formato para o
+incidente; para a correção recorrente, use o achado registrado e a dívida.</p>
+<p><strong>Registro de decisões de arquitetura (Nygard; MADR).</strong> ADR em arquivos de texto no repositório,
+com o formato de contexto, decisão e consequências; o <em>Markdown Architectural Decision Records</em>
+(MADR) é a variante com campos para alternativas consideradas. Resolve a memória do porquê, e é
+imutável por desenho. Não resolve, sozinho, a descoberta: sem índice e sem curadoria vira arquivo
+morto, e o índice escrito à mão congela (o caso do 0017 acima). <strong>Veredito</strong>: adote, com o
+índice verificado por portão.</p>
+<p><strong>Processo de RFC.</strong> Proposta escrita, circulada para comentários de um grupo amplo antes da
+decisão. Útil quando há muitas partes interessadas e decisões de longo alcance. Num time de um
+humano regendo agentes, duplica o que plano mais ADR já fazem, e o custo de circulação não paga.
+<strong>Veredito</strong>: rejeitado como processo pesado; a decisão vai para o ADR, a discussão para o plano.</p>
+<p><strong>&quot;Adicionar sempre&quot; (o <em>playbook</em> que só cresce).</strong> Toda dor vira item no documento de boas
+práticas, o arquivo de instrução do agente ganha um parágrafo por incidente. É a alternativa mais comum e a que
+leva direto à ossificação, com um agravante agêntico: o arquivo de instrução lido no começo de
+cada sessão consome contexto, e A3 diz que contexto cheio degrada o agente. <strong>Veredito</strong>:
+rejeitado. Toda regra nova tem destino escolhido pela natureza, e a retro também poda.</p>
+<p>Uma nota sobre ferramentas. Os <em>toolkits</em> de desenvolvimento orientado por especificação (como o
+GitHub Spec Kit) trazem um comando para criar e emendar uma &quot;constituição&quot; do projeto. Quando o
+projeto já tem uma, preencher o template do toolkit cria a <strong>segunda fonte de verdade</strong> (T5). No
+ciclo 048, o Maestro manteve o template do upstream intacto e <strong>sem uso</strong>, e apontou o comando
+para a constituição única do método
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/.specify/UPSTREAM.md"><code>.specify/UPSTREAM.md</code></a>).
+A ferramenta é intercambiável; a regra de não duplicar função não é.</p>
+<h2 id="o-padrão-maestro" tabindex="-1">O padrão Maestro <a class="header-anchor" href="#o-padrão-maestro" aria-hidden="true">#</a></h2>
+<p>O Maestro responde à pergunta do capítulo com as peças abaixo. Para cada uma, digo o que é regra
+(texto que um agente lê), o que é script (portão que falha) e o que é hook (guarda que recusa
+antes de a ação acontecer). Tudo citado em <code>maestro@19823c2</code>.</p>
+<h3 id="1-o-achado-registrado-e-a-dívida-como-gatilho" tabindex="-1">1. O achado registrado e a dívida como gatilho <a class="header-anchor" href="#1-o-achado-registrado-e-a-dívida-como-gatilho" aria-hidden="true">#</a></h3>
+<p><strong>Regra.</strong> Todo achado que não coube no ciclo entra no índice de decisões
+<code>docs/records/decisoes.jsonl</code> como <code>achado-NNN-&lt;slug&gt;</code>, com status <code>aberta</code>. O ciclo que o
+encontra não o resolve à força; registra. A receita de rodar a retro
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/receitas/rodar-a-retro.md"><code>receitas/rodar-a-retro.md</code></a>)
+diz que o gatilho é dívida, não calendário.</p>
+<p><strong>Script.</strong> O <code>check-retro.sh</code> lê o índice, calcula os achados abertos (os que nenhuma linha
+fecha pelo campo <code>fecha</code>) e falha com quatro ou mais abertos, ou com um aberto há seis ciclos ou
+mais [CLAIM-14-011]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/check-retro.sh"><code>scripts/check-retro.sh</code></a>).
+O cabeçalho do script registra a decisão de desenho que a falha real ensinou: a ligação é
+estrutural (um campo), nunca textual, porque um fechamento reconhecido pela prosa seria um check
+medindo as palavras em vez do fato.</p>
+<p>O gatilho mudou o comportamento observável. Antes do 034, uma retro em 26 ciclos
+[CLAIM-14-001]; depois, a
+retro passou a ser disparada pela dívida: no ciclo 041 (quatro achados de avaliação, mais o
+<code>retro.sh</code> mentindo), no 055, no 061 e outros. A spec do ciclo 061 mostra a dinâmica que o
+desenho queria: o ciclo 060 <strong>indexou três achados novos em vez de segurá-los para manter o
+número verde</strong>, o gatilho foi a vermelho com cinco abertos (limite quatro), e a retro rodou
+[CLAIM-14-012]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/061-retro-da-caixa-marcada-sem-testemunha/spec.md">spec 061</a>).</p>
+<p><strong>O preço desse gatilho</strong> também está escrito. O portão roda na CI como consultivo, e no ciclo
+055 estava vermelho desde o 053, com um achado de oito ciclos, enquanto cada ciclo novo empurrava a
+dívida [CLAIM-14-013]. O achado tinha sido remediado virando gatilho de reavaliação e ficou aberto
+à espera de um evento que podia nunca vir: a dívida passou a medir calendário. A correção foi dar
+forma ao fechamento &quot;virou gatilho&quot;, nomeando o gatilho no ato.</p>
+<p>Cada retro disparada pela dívida deixou um rastro executável, que é o que a distingue da conversa
+boa. A do 041 transformou os achados sobre avaliações de agentes em três anti-padrões novos (19,
+20 e 21) [CLAIM-14-054] e numa regra de aposentadoria: um caso de avaliação só sai do corpus com
+motivo escrito e impresso em toda execução, porque aposentar em silêncio é esconder vermelho. A do
+055 viu que, em seis de nove ciclos, a revisão independente achara portão que mede a frase e não
+o fato, e tornou obrigatório, em todo ciclo que cria ou altera portão, o <code>TAIL:mutation</code>: a prova
+de que o portão foi visto reprovar [CLAIM-14-046]
+(<a href="https://github.com/GHDaru/maestro/commit/0e82c8c">commit <code>0e82c8c</code></a>). A do 061 tornou
+bloqueante a metade checável da conformidade (o modo <code>--ticked-only</code>: caixa marcada exige
+evidência) e corrigiu o portão de capítulos, que comparava datas de commit e por isso não
+disparava dentro do ciclo que desatualizava um capítulo.</p>
+<h3 id="2-as-três-perguntas-e-o-destino-da-regra" tabindex="-1">2. As três perguntas e o destino da regra <a class="header-anchor" href="#2-as-três-perguntas-e-o-destino-da-regra" aria-hidden="true">#</a></h3>
+<p><strong>Regra.</strong> A retro responde três perguntas, e cada &quot;sim&quot; tem destino:</p>
+<table>
+<thead>
+<tr>
+<th>Pergunta</th>
+<th>Se &quot;sim&quot;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Que erro ou correção se <strong>repetiu</strong>?</td>
+<td>vira regra versionada</td>
+</tr>
+<tr>
+<td>Que regra existente <strong>não pagou</strong> o custo?</td>
+<td>poda (YAGNI)</td>
+</tr>
+<tr>
+<td>Que passo manual se repetiu <strong>idêntico</strong>?</td>
+<td>vira script ou skill</td>
+</tr>
+</tbody>
+</table>
+<p>O destino da regra nova depende da natureza dela: inegociável e válida para todo o método vai
+para a <strong>constituição</strong> (sobe versão, exige ADR); regra do dia a dia vai para o <strong>modelo
+operacional</strong> (sobe versão); procedimento recorrente vira <strong>skill</strong>, com lei de ferro e linha de
+base testada; passo mecânico repetido vira <strong>script</strong>; decisão pontual com alternativas vira
+<strong>ADR</strong>. A segunda pergunta é a que a maioria dos times esquece. Sem ela, a retro é uma máquina
+de adicionar.</p>
+<p><strong>Script.</strong> O <code>retro.sh</code> pré-calcula o material (ciclos, vereditos, gates pendentes, decisões,
+inventário) e é somente leitura por declaração no cabeçalho: não decide nada, só elimina o
+&quot;recarregar o contexto de cabeça&quot;. A retro continua cerimônia humana. A ideia de
+retrospectiva como comando, e não como reunião, veio do estudo de outro repositório do autor (o
+<code>maestro-02</code>, ideia 007, observada em 31/07/2026 com veredito &quot;absorver&quot;), junto com a do índice
+consultável por máquina (ideia 006) [CLAIM-14-055]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/ecosystem/ideias/007-retro-executavel.md">ideia 007</a>;
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/ecosystem/ideias/006-registro-consultavel-jsonl.md">ideia 006</a>),
+e ambas entraram no ciclo 008 com o catálogo de anti-padrões
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/008-absorcoes-maestro-02/spec.md">spec 008</a>).</p>
+<p>O exemplo mais curto do laço inteiro é o primeiro uso desse script. Rodado no ciclo 008, o
+<code>retro.sh</code> mostrou que os relatórios dos ciclos 003 a 007, já promovidos à linha principal,
+ainda diziam &quot;aguarda aprovação humana&quot;: o gate tinha sido exercido na conversa, e o artefato
+não o registrava [CLAIM-14-014]. O resultado foi o ADR 0009: o índice de decisões vira a fonte do
+estado dos gates de merge, o <code>promote-main.sh</code> anexa <code>gate-main-&lt;sha&gt;</code> sozinho depois da
+confirmação humana, e os gates 003 a 007 foram registrados retroativamente
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0009-registro-automatico-gate-merge.md">ADR 0009</a>).
+Ferramenta achou a falha, a falha virou regra, a regra virou código, em dois ciclos
+[CLAIM-14-051].</p>
+<h3 id="3-o-catálogo-de-anti-padrões-como-memória-do-que-já-custou-caro" tabindex="-1">3. O catálogo de anti-padrões como memória do que já custou caro <a class="header-anchor" href="#3-o-catálogo-de-anti-padrões-como-memória-do-que-já-custou-caro" aria-hidden="true">#</a></h3>
+<p><strong>Regra (skill).</strong> O catálogo <code>skills/anti-patterns/SKILL.md</code> tem 23 itens [CLAIM-14-015], e a lei
+de ferro dele é &quot;nomeie o anti-padrão antes de corrigir&quot;. Cada item tem origem datada, e o
+histórico do arquivo mostra quando cada leva entrou: a retro do 017 trouxe 13, 14 e 15 e a
+segunda lei da verificação (&quot;um check que você nunca viu acusar não é um check, é uma
+esperança&quot;); a do 034 trouxe 17 e 18; a do 041 trouxe 19, 20 e 21 [CLAIM-14-054]. É a forma
+versionada da pergunta 1: aprender é adicionar o que já custou caro.</p>
+<p>Os itens que este capítulo usa como lentes:</p>
+<ul>
+<li><strong>11, teatro de cerimônia</strong>: processo que não muda decisão; gate que nunca rejeita é teatro.</li>
+<li><strong>12, corrigir a mesma coisa duas vezes</strong>: correção recorrente que não virou regra é falha de
+processo.</li>
+<li><strong>14, achado que morre em candidato</strong>: o laço retro → regra só existe se for executado.</li>
+<li><strong>15, artefato de planejamento que congela</strong>: está vivo ou está morto.</li>
+<li><strong>17, cerimônia sem gatilho</strong>: toda cerimônia recorrente declara gatilho mensurável, e uma
+checagem falha quando ele dispara sem a cerimônia.</li>
+</ul>
+<p>O catálogo também mostra o limite do próprio catálogo. O anti-padrão 21 (um <code>grep -q</code> no fim de
+um <em>pipe</em> sob <code>pipefail</code>, que mata o script ou inverte o resultado) nasceu na retro do 041,
+quando a correção do <code>retro.sh</code> quebrou por esse motivo. No ciclo 063, um achado registrou que
+ele tinha sido <strong>fechado pontualmente sete vezes e reaparecido todas</strong>; havia quatro ocorrências
+vivas, e nenhum portão procurava a forma [CLAIM-14-016]. O achado fecha com a frase que resume
+T6 melhor do que o próprio teorema: um anti-padrão que só a atenção pega não está fechado.</p>
+<h3 id="4-memória-só-anexar-com-guarda" tabindex="-1">4. Memória só-anexar, com guarda <a class="header-anchor" href="#4-memória-só-anexar-com-guarda" aria-hidden="true">#</a></h3>
+<p><strong>Regra.</strong> Nunca reescrever o que o método guarda como histórico: o corpo de um ADR já no Git, as
+linhas passadas do índice de decisões, os cartões datados do catálogo do ecossistema. A rota é
+sempre anexar: um ADR novo que supera o anterior, uma linha nova no índice
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/CLAUDE.md"><code>CLAUDE.md</code></a>).</p>
+<p><strong>Script.</strong> O <code>record-decision.sh</code> anexa uma decisão validando JSON numa linha só, campos
+obrigatórios e unicidade do id; a correção é uma linha nova com status <code>superseded by &lt;id&gt;</code>. Duas
+marcas mostram a regra levada a sério: as chaves do JSON ficaram em português (<code>data</code>, <code>titulo</code>,
+<code>registro</code>) depois que o método instalável passou ao inglês, porque traduzir linhas imutáveis
+quebraria a regra [CLAIM-14-017]; e, no ciclo 045, depois de duas linhas citarem um relatório em
+branco, o script passou a recusar marcador de preenchimento [CLAIM-14-018]. Em <code>19823c2</code>, o
+índice tem 199 linhas, de 22 de julho a 1º de novembro de 2026: 50 <code>gate-main-*</code>, 48 <code>achado-*</code>,
+32 <code>adr-*</code>, 28 <code>gate-*</code>, 18 <code>retro-*</code>, 16 <code>decisao-*</code> e sete linhas de quatro formas avulsas; 31
+carregam o campo <code>fecha</code>, e nenhum id se repete [CLAIM-14-019]. Na captura do handbook, em
+agosto, eram 38 linhas, 21 delas gates de merge [CLAIM-14-020]. Ninguém o mantém à mão, e por
+isso ele cresce sem custo de manutenção.</p>
+<p><strong>Hook.</strong> Até o ciclo 056, nada impunha essa imutabilidade: os portões conferiam forma, nunca
+imutabilidade, e a regra vivia em prosa. O ciclo 056 instalou o <code>guard-immutables.py</code>, que roda
+antes de cada uso de ferramenta de edição e <strong>recusa</strong> reescrever o que está no histórico do Git
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/hooks/guard-immutables.py"><code>scripts/hooks/guard-immutables.py</code></a>).
+A primeira versão tratava &quot;o arquivo existe&quot; como imutável e bloqueava a escrita de um ADR novo a
+partir da segunda chamada; a revisão independente achou o defeito, e a definição virou &quot;já está
+no Git&quot; [CLAIM-14-021]. O cabeçalho declara os limites: a guarda não vigia o <em>shell</em>, e um
+<code>sed -i</code> alcança o corpo de um ADR. Um portão audita depois do dano; uma guarda recusa antes.
+Nenhum dos dois cobre tudo.</p>
+<p>O catálogo do ecossistema repete o padrão: o <code>estado.jsonl</code> tem 52 linhas só acrescentadas, e a
+última de cada ideia é o veredito vigente [CLAIM-14-022]; o <code>check-ecosystem.sh</code> exige que uma
+ideia &quot;absorvida&quot; aponte o arquivo que prova a absorção e recusa &quot;observar&quot; sem gatilho. Foi por
+ele que a revisão reprovou o ciclo 047: seis vereditos tinham sido trocados e <strong>retrodatados</strong>
+(uma linha de 30 de julho afirmando o que aquele dia não decidiu), e foram corrigidos no ciclo e
+reverificados por 13 mutações [CLAIM-14-023]. Reescrever o passado tenta até quem escreveu a
+regra.</p>
+<p><strong>A imutabilidade se verifica contando, sem arredondar.</strong> No ciclo 028, o handbook quase publicou
+&quot;dez ADRs, dez commits, imutabilidade perfeita&quot;; a contagem mostrou o 0008 com dois commits, o
+segundo só de status [CLAIM-14-024]. Em <code>19823c2</code>, dos 30 ADRs (0004 a 0033), 16 têm um commit;
+nos que abri, o segundo é renome de caminho (o 0004) ou troca de status (o 0017, &quot;Superado pelo
+ADR 0018&quot;, com a nota de que &quot;o corpo abaixo fica intacto&quot;) [CLAIM-14-025]. A regra não é &quot;um
+commit por ADR&quot;; é &quot;o mérito nunca muda&quot;, e isso só se afirma lendo o diff.</p>
+<h3 id="5-portões-contra-o-artefato-que-congela" tabindex="-1">5. Portões contra o artefato que congela <a class="header-anchor" href="#5-portões-contra-o-artefato-que-congela" aria-hidden="true">#</a></h3>
+<p>Um índice escrito à mão sobre arquivos legíveis por máquina envelhece em silêncio. A spec do
+ciclo 050 deu nome à forma, &quot;cópias de um fato mantidas em acordo pela memória&quot;, e a contou cinco
+vezes no repositório: o índice de perfis de agente, o índice de ADRs, a tabela de proveniência, a
+cópia instalada e a versão [CLAIM-14-026]. A resposta em cada caso foi um portão que compara a
+cópia com a fonte:</p>
+<ul>
+<li><strong><code>check-adr.sh</code></strong> (ciclo 049): todo ADR em disco está no índice, todo item do índice aponta
+para arquivo real, e o status concorda, incluindo &quot;superado&quot;. Foi visto acusar o defeito
+original reconstruído por mutação
+(<a href="https://github.com/GHDaru/maestro/commit/71b79c1">commit <code>71b79c1</code></a>;
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/049-indice-de-adrs-com-portao/spec.md">spec 049</a>),
+e a spec escreveu a próxima escalada: se o índice divergir de novo, passa a ser gerado do disco.</li>
+<li><strong><code>check-version.sh</code></strong> (ciclo 050): a versão era declarada em quatro lugares (CHANGELOG, README,
+roadmap e plugin empacotado) sem nada que os mantivesse em acordo [CLAIM-14-026]; o portão
+falha na divergência e no silêncio de um deles
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/050-fechar-v0-2-0/spec.md">spec 050</a>).</li>
+<li><strong><code>check-cycle.sh</code> e <code>check-links.sh</code></strong> (retro do 034): o primeiro cobra a justificativa da raia
+de cada ciclo e exige que todo commit cite o ciclo, que era só convenção; o segundo valida todo
+link relativo, porque o renome em massa do ciclo 033 quebrou caminhos.</li>
+<li><strong><code>check-chapters.sh</code></strong> (retro do 034): a segunda lei da verificação nasceu no ciclo 017 e ficou
+dez ciclos só na skill, fora do capítulo que ensina a Definition of Done (DoD), a definição de
+pronto [CLAIM-14-027]. O portão compara a data da regra mais nova das skills com a revisão do
+capítulo que a cita.</li>
+<li><strong>O Constitution Check contra a constituição</strong> (ciclo 021): a constituição tinha oito princípios
+desde o ADR 0010 e o template de plano checava sete, e os planos 013 a 019 não tinham onde
+marcar o Princípio VIII [CLAIM-14-028]; quatro linhas do modelo operacional citavam &quot;(P. VII)&quot;
+com a numeração do FlowBuilder, de onde o texto migrara [CLAIM-14-029]. A correção não foi
+editar o template: foi uma verificação que compara norma e executável e falha quando divergem.</li>
+</ul>
+<p>O <strong>gate de CHANGELOG</strong> é o exemplo de livro de T5: toda pull request adiciona entrada em
+<code>[Unreleased]</code> ou aplica o rótulo <code>skip-changelog</code>, uma válvula de escape declarada
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/.github/workflows/ci.yml"><code>.github/workflows/ci.yml</code></a>);
+com escape nomeado, o desvio fica registrado em vez de contornado por fora. Mas o gate cobra a
+entrada, não a forma nem o corte: o arquivo acumulou onze subseções repetidas em 44 ciclos,
+consolidadas só no ciclo 048 [CLAIM-14-030], e o bloco <code>[Unreleased]</code> ocupa hoje cerca de mil
+linhas, desde a v0.3.0 de 22 de agosto [CLAIM-14-031]. O corte de versão segue humano, e a nota
+da v0.3.0 aprendeu a dizer o estado <strong>verificado</strong> da tag, depois de a tag da v0.1.0 nunca ter
+chegado ao GitHub [CLAIM-14-032]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/specs/062-fechar-v0-3-0/spec.md">spec 062</a>).</p>
+<h3 id="o-método-se-cobra-no-fim-de-cada-turno" tabindex="-1">O método se cobra no fim de cada turno <a class="header-anchor" href="#o-método-se-cobra-no-fim-de-cada-turno" aria-hidden="true">#</a></h3>
+<p>A peça mais recente responde ao corolário C13 (uma pergunta respondível de memória será
+respondida de memória, e memória relata intenção). Até o ciclo 065, &quot;estou seguindo o método?&quot;
+era respondido por texto no arquivo de instrução e por uma medição no início da sessão. O ADR
+0021 instalou um hook de parada que roda o portão de conformidade no fim de cada resposta do
+agente: vermelho, ele não deixa o agente parar, <strong>uma vez</strong>; na segunda, deixa e avisa o humano,
+porque um portão que vira laço queima tokens sem decidir nada [CLAIM-14-033]
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0021-o-metodo-se-cobra-e-bate-o-ponto.md">ADR 0021</a>).
+É T6 levado ao limite: a regra não espera a retro para ser cobrada.</p>
+<h3 id="a-governança-se-aplica-a-si-mesma" tabindex="-1">A governança se aplica a si mesma <a class="header-anchor" href="#a-governança-se-aplica-a-si-mesma" aria-hidden="true">#</a></h3>
+<p>As camadas da Teoria têm versão, e o histórico mostra o desenho funcionando. Na captura do
+handbook, em agosto, a constituição fora tocada três vezes em 32 ciclos, enquanto a periferia
+executável crescera para seis skills, dez scripts e dez ADRs, três deles para <strong>descartar</strong> algo
+[CLAIM-14-034]. A constituição está na versão 1.3.0, emendada por ADR e versionamento semântico
+(MAJOR remove ou redefine um princípio, MINOR acrescenta, PATCH esclarece); o modelo operacional
+foi de 1.0.0 a 1.4.0 e tem a retro como fonte primária de emendas [CLAIM-14-035]. O Princípio VII
+junta as peças: núcleo firme, periferia evolutiva, memória só-anexar e retro que vira regra
+versionada. Acima delas, o ADR 0015 (ciclo 035) criou a camada de derivação, com axiomas,
+teoremas provados com evidência do repositório (inclusive a desfavorável) e corolários; nasceu com
+cinco, seis e dez e está com cinco, sete e treze [CLAIM-14-036]. A regra dela é a pergunta que
+este capítulo deixa ao tech lead: <strong>toda regra nova é argumentada contra um axioma</strong>; a que não
+deriva de nenhum é axioma novo (por ADR) ou é cerimônia, e se poda. O diagrama do processo em
+Business Process Model and Notation (BPMN), refeito no mesmo ciclo, termina a trilha de artefatos
+em axioma, teorema e regra nova
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/diagramas/05-bpmn-processo.md"><code>05-bpmn-processo.md</code></a>).</p>
+<p>A poda também está escrita. O modelo operacional lista seis itens que <strong>não</strong> adota, com motivo:
+Scrum completo, backlog formal, segundo toolkit de spec, RFC pesado, diagramas formais com
+métricas e estimativa de prazo [CLAIM-14-037]; do OpenSpec, descartado, absorveu-se o modelo de
+<em>delta</em> como raia leve. E a poda é reversível: o painel de coordenação era &quot;depois/YAGNI&quot; e virou
+essencial no ciclo 066 (ADR 0022), quando a escala o justificou, com eventos só-anexar e o banco
+SQLite como projeção reconstruível dos arquivos, nunca como fonte [CLAIM-14-038]. O catálogo de
+artefatos aplica o mesmo corte: spec, plano, tarefas (efêmeras), código com testes, ADR, jornada
+de tela, changelog, índice de decisões e definições de pronto são essenciais, cada um com
+consumidor e cobrança; PRD e design avulsos são YAGNI por duplicarem função. O catálogo vigente
+(<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/artifacts.md"><code>artifacts.md</code></a>)
+separa a memória fora do ciclo (ADR imutável, índice só-anexar, CHANGELOG cobrado pela CI, roadmap
+no mesmo pull request), e o template do índice de ADRs é justamente a lista à mão que o
+<code>check-adr.sh</code> confronta com o disco. Na captura do ciclo 028, 26 de 28 ciclos tinham os quatro
+artefatos completos, e os dois restantes estavam abertos [CLAIM-14-048].</p>
+<p><strong>O preço de cada decisão está escrito.</strong> O handbook fixa o formato (quando, por quê, o que faz,
+o que provoca, incluindo o efeito indesejado aceito), porque decisão sem preço escrito não é
+revogável; seu quadro de 14 decisões de engenharia, com data e registro, é o mapa didático dos
+ADRs [CLAIM-14-049]. A jornada do método resume a construção em três lições: cada regra nasceu de
+uma dor, o método se aplicou a si mesmo, e o preço está escrito [CLAIM-14-051].</p>
+<p>O livro do método segue as mesmas regras. O handbook se declara ao lado do documento normativo,
+do diário e da pesquisa, e explica o porquê sem substituir a regra; o caderno técnico descreve a
+cobrança pelo portão na CI, pelo modelo de pull request que espelha a DoD e pelo comando <code>/dod</code>.
+O ciclo 013 (ADR 0011) trocou a anatomia antiga por um esqueleto com exemplo de ciclo real
+obrigatório, trilhas de navegação e um tutor com busca no livro [CLAIM-14-052], e entregou um
+instalador que não sobrescreve sem <code>--forcar</code>. A migração seguiu um capítulo por ciclo (&quot;reescrever
+a forma, preservar o fato&quot;), cada passo deixando um portão (página fora do corpus do tutor; o BPMN
+como índice navegável, com build que falha por imagem sem arquivo), e fechou em 13/13 no ciclo 032
+declarando quatro achados abertos, porque um capítulo de governança que esconde a própria dívida
+seria publicidade [CLAIM-14-039]. O roadmap conta a mesma história em fases (fase = ciclo = spec =
+gate) de F0 a F35, com o tutor ainda &quot;falta publicar o serviço&quot; [CLAIM-14-050]; o guia editorial
+data cada capítulo vivo pelo fato, pela captura e pelo ciclo, sem sobrescrever a captura antiga,
+regra que este livro herdou. Até o lar do método é decisão registrada: o ADR 0007 deu à
+metodologia um repositório único, os de origem ficaram somente leitura, e a constituição tem uma
+nota de linhagem para os textos migrados que citam a numeração de lá. Dois lares seriam duas
+fontes de verdade.</p>
+<h3 id="como-montar-isso-no-seu-time-sem-o-maestro" tabindex="-1">Como montar isso no seu time, sem o Maestro <a class="header-anchor" href="#como-montar-isso-no-seu-time-sem-o-maestro" aria-hidden="true">#</a></h3>
+<p>Nada acima depende do Maestro. O mínimo que reproduz as engrenagens em qualquer repositório e
+qualquer CI é este:</p>
+<ol>
+<li><strong>Um arquivo de achados só-anexar</strong> na raiz, uma linha JSON por achado:
+<code>{&quot;id&quot;: &quot;achado-012-teste-sem-falha&quot;, &quot;ciclo&quot;: 12, &quot;status&quot;: &quot;aberta&quot;, &quot;titulo&quot;: &quot;...&quot;}</code>.
+Fechar é anexar outra linha com <code>&quot;fecha&quot;: &quot;achado-012-teste-sem-falha&quot;</code>; nunca editar a antiga.</li>
+<li><strong>Um script de gatilho</strong>, em qualquer linguagem, que conta como aberto todo achado sem linha
+que o feche pelo campo e sai com código diferente de zero acima de N abertos ou com um aberto
+há mais de M ciclos. Comece com os números do Maestro e ajuste pelo ruído.</li>
+<li><strong>Dois passos na CI</strong>: um roda o script (consultivo no começo, bloqueante quando o time
+confiar no limiar); o outro recusa o diff que altera ou remove linha existente do arquivo.
+<code>git diff -U0 origin/main -- achados.jsonl | grep '^-[^-]'</code> sem saída é a regra inteira.</li>
+<li><strong>Uma recusa antes do dano</strong>: proteção de branch ou hook de pré-commit para os registros
+imutáveis (ADRs, o arquivo de achados), porque o portão da CI só audita depois.</li>
+<li><strong>Uma pauta fixa e uma lista de recusas</strong>: as três perguntas da retro, e uma seção &quot;o que não
+adotamos&quot; no arquivo de instrução que o agente lê no início da sessão.</li>
+</ol>
+<p>O <code>aprende.py</code> do exemplo abaixo é o item 2 com os dados reais; troque a pasta <code>dados/</code> pelos
+seus. E, depois de cada erro, use a pergunta do material de apresentação do Maestro: não &quot;quem
+esqueceu?&quot;, mas &quot;que função de força faltava?&quot;.</p>
+<h2 id="exemplo-executável" tabindex="-1" class="callout c-prat" data-rotulo="Mão na massa">Exemplo executável <a class="header-anchor" href="#exemplo-executável" aria-hidden="true">#</a></h2>
+<p>A pasta <a href="14-a-organizacao-que-aprende-exemplo.html"><code>exemplo/</code></a> traz um script Python 3 sem dependência externa,
+<code>aprende.py</code>, com as três engrenagens do capítulo reduzidas ao essencial: o gatilho da retro por
+dívida, o índice só-anexar e a auditoria de artefatos por consumo ou imutabilidade.</p>
+<p>Os dados das duas primeiras partes <strong>não são inventados</strong>: <code>dados/indice.jsonl</code> traz, sem edição,
+as linhas de achados abertas quando o ciclo 034 começou, e <code>dados/fechamento-estrutural.jsonl</code> as
+linhas <code>retro-034-fecha-*</code> que a retro anexou. A terceira parte, <code>dados/artefatos.json</code>, é
+ilustrativa, e o README diz isso.</p>
+<p>Rode:</p>
+<pre><code class="language-bash">cd livro/14-a-organizacao-que-aprende/exemplo
+python3 aprende.py demo
+</code></pre>
+<p>O que observar na saída [CLAIM-14-040]:</p>
+<ol>
+<li><strong>O gatilho reproduz o número real.</strong> Com os cinco achados e o ciclo corrente 034, o script
+imprime &quot;5 achados abertos (limite 4); o mais velho tem 11 ciclos (limite 6)&quot;, o mesmo que o
+relatório do ciclo 034 registrou antes da retro.</li>
+<li><strong>O fechamento em prosa não fecha.</strong> Uma linha que diz &quot;fechados os achados 023, 027, 029,
+031 e 033&quot;, com id novo e sem o campo <code>fecha</code>, deixa os cinco abertos, a falha que o ciclo 034
+cometeu. Com as linhas reais, que têm <code>fecha</code>, o gatilho fica verde.</li>
+<li><strong>Corrigir editando é recusado.</strong> Trocar <code>aberta</code> por <code>fechada</code> na linha antiga é recusado
+(&quot;linha 1 reescrita&quot;): a versão nova tem de começar pela antiga, linha a linha.</li>
+<li><strong>A auditoria separa quatro destinos</strong>, as quatro classes da saída: consumido e cobrado vive;
+o ADR imutável vive; o que tem leitor sem cobrança (o índice à mão, o roadmap) aparece
+apodrecendo; o que ninguém consome aparece para poda.</li>
+</ol>
+<p>O roteiro sai com código 0 quando os três vermelhos esperados aparecem: o vermelho prova que o
+portão discrimina. O exercício do README dá ao roadmap uma &quot;cobrança&quot; que não existe e o resumo
+melhora: é o anti-padrão 13 dentro da auditoria, o campo mede a frase, não o fato.</p>
+<h2 id="contraexemplo" tabindex="-1" class="callout c-contra" data-rotulo="Limite">Contraexemplo <a class="header-anchor" href="#contraexemplo" aria-hidden="true">#</a></h2>
+<p>As regras deste capítulo têm custo, e há situações em que atrapalham.</p>
+<p><strong>Gatilho que vira ruído.</strong> Um limiar de dívida baixo demais produz retro sem matéria, e retro
+sem matéria vira teatro (anti-padrão 11), o mesmo defeito do calendário. O limiar alto demais
+deixa a dívida envelhecer. O Maestro escolheu quatro abertos ou seis ciclos [CLAIM-14-011], e o
+portão aceita os dois números por variável de ambiente; não há medição de que esses números sejam os certos. E o
+gatilho consultivo pode ficar vermelho e ser ignorado, como do 053 ao 055 [CLAIM-14-013]. Se o
+seu time ignora um vermelho consultivo ciclo após ciclo, ou o limiar está errado, ou a retro precisa
+bloquear algo, ou o portão é decoração e deve sair.</p>
+<p><strong>Achado que não tem dono no mundo.</strong> O caso do 055 mostra o limite do &quot;registre tudo&quot;:
+registrar o que não tem ação possível infla a dívida e degrada o gatilho. No seu time: se o achado
+não tem ação nem gatilho escrito, ele não é achado, é desabafo.</p>
+<p><strong>Imutabilidade que esconde.</strong> Só-anexar custa acúmulo, que exige índice e curadoria, e custa
+leitura: o estado de um achado exige ler todas as linhas. O protocolo de fechamento falhou duas
+vezes por isso: no ciclo 039, uma linha com <code>fecha</code> apontando para o próprio id
+fechava um achado nunca aberto, e o erro se repetiu no ciclo 041; a causa raiz era que o
+protocolo não oferecia forma para &quot;achado encontrado e corrigido no mesmo ciclo&quot;, e a forma foi
+criada [CLAIM-14-041]. Regra de memória sem forma para o caso comum produz improviso, e o
+improviso se repete.</p>
+<p><strong>Portão que cobra a frase da evidência.</strong> A caixa marcada antes da evidência é a forma mais
+persistente de &quot;correção que não vira regra&quot; no Maestro. Ela apareceu de novo no ciclo 044, num
+critério de aceite da spec que dava como fechado um achado aberto; era a quarta ocorrência
+[CLAIM-14-042]. Nos ciclos 057 a 060, a revisão independente achou a mesma dupla de
+defeitos quatro vezes seguidas [CLAIM-14-043]. A regra existia; o que faltava era o portão que a
+cobrasse sem ficar vermelho durante toda a vida de um ciclo em andamento. A lição: às vezes a
+regra certa é impossível de cobrar inteira, e a saída é cobrar a metade que é sempre verificável
+(&quot;se marcou, a evidência existe&quot;), como fez o ciclo 061. O <a href="10-quality-gates-que-provam-fatos.html">capítulo 10</a>
+conta o que aconteceu em seguida.</p>
+<p><strong>Artefato vivo que congela mesmo assim.</strong> O roadmap do Maestro recebeu, depois do 017, a regra
+de ser atualizado no mesmo pull request de cada ciclo. Mas o candidato a portão que o relatório
+do 017 escreveu (comparar o maior ciclo em <code>specs/</code> com o maior citado no roadmap) não foi
+implementado. Em <code>19823c2</code>, a última edição do roadmap é de 24 de outubro, ele termina na fase
+F35, e as fases dos ciclos 066 a 069 ainda dizem &quot;aguarda o gate humano&quot;, embora o índice
+registre esse gate concedido em 20 de outubro [CLAIM-14-044]. É o anti-padrão 15 sobrevivendo à
+própria regra: o método quebrou a regra que escreveu, e quem pegou foi a contagem, não a
+atenção.</p>
+<p><strong>Quando não aplicar.</strong> Para um protótipo descartável, uma prova de conceito de uma semana ou um
+time em que a mesma pessoa conduz uma única sessão longa, o aparato de índice, gatilho e guarda
+custa mais do que devolve. T6 só morde quando há sessões sucessivas e correções que se repetem.
+A regra prática: comece a registrar achados na segunda vez que corrigir a mesma coisa, e instale
+o gatilho na primeira vez que um achado registrado envelhecer sem retro.</p>
+<h2 id="evidência" tabindex="-1">Evidência <a class="header-anchor" href="#evidência" aria-hidden="true">#</a></h2>
+<p>O que sustenta o capítulo, separado pelo estado de cada afirmação. A evidência reproduzível de
+cada claim está em <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/14-a-organizacao-que-aprende/claims.md"><code>claims.md</code></a>.</p>
+<p><strong>Medido</strong> (reproduzível por comando em <code>19823c2</code>): os limiares do gatilho, o tamanho e as levas
+do catálogo de anti-padrões, a composição do índice de decisões e do estado do ecossistema, os
+commits por ADR, o bloco <code>[Unreleased]</code>, a camada de derivação, os itens não adotados, os portões
+da retro do 034, o roadmap defasado e a saída do exemplo executável [CLAIM-14-011, CLAIM-14-015,
+CLAIM-14-019, CLAIM-14-022, CLAIM-14-025, CLAIM-14-031, CLAIM-14-036, CLAIM-14-037, CLAIM-14-040,
+CLAIM-14-044, CLAIM-14-050, CLAIM-14-053, CLAIM-14-054].</p>
+<p><strong>Observado</strong> (em relatório de qualidade, spec, ADR, cabeçalho de script ou índice de decisões do
+Maestro): a história da retro sem gatilho e do gatilho [CLAIM-14-001 a CLAIM-14-007,
+CLAIM-14-012, CLAIM-14-013, CLAIM-14-046]; os artefatos que congelaram e os portões que os
+substituíram [CLAIM-14-008 a CLAIM-14-010, CLAIM-14-026 a CLAIM-14-030, CLAIM-14-032,
+CLAIM-14-047]; o laço do ciclo 008 e suas origens [CLAIM-14-014, CLAIM-14-051, CLAIM-14-055]; o
+registro só-anexar e a guarda [CLAIM-14-016 a CLAIM-14-018, CLAIM-14-021, CLAIM-14-023,
+CLAIM-14-024]; o hook de parada, as camadas e a poda [CLAIM-14-033, CLAIM-14-035, CLAIM-14-038,
+CLAIM-14-039, CLAIM-14-048, CLAIM-14-052]; as falhas do protocolo de fechamento e da caixa marcada
+[CLAIM-14-041 a CLAIM-14-043]. Três números são capturas do handbook de agosto de 2026, citadas
+como tal [CLAIM-14-020, CLAIM-14-034, CLAIM-14-049].</p>
+<p><strong>Hipótese</strong> (não medida). A H10 da base de pesquisa deste livro diz que retrospectiva → regra
+reduz recorrência [CLAIM-14-045]. Os casos do Maestro são compatíveis com ela e mostram onde ela
+falha: a recorrência caiu onde a regra virou portão (o campo <code>fecha</code>, o índice de ADRs, a versão)
+e não caiu onde a regra ficou como nome no catálogo (o anti-padrão 21) ou como texto (a caixa
+marcada antes da evidência). A hipótese refinada, também não medida, é mais estreita: <strong>retro →
+regra cobrada por executável</strong> reduz recorrência; <strong>retro → regra escrita</strong> reduz pouco. Os dados
+são de um repositório, com um operador humano e sem grupo de controle; o desenho que testaria
+isso (contar recorrências por forma de achado, antes e depois de cada tipo de destino) está no
+<a href="15-validando-o-maestro.html">capítulo 15</a>.</p>
+<h2 id="checklist" tabindex="-1" class="callout c-verif" data-rotulo="Aplique">Checklist <a class="header-anchor" href="#checklist" aria-hidden="true">#</a></h2>
+<p>Aplique ao seu time. Cada item é verificável por um comando, um arquivo ou uma contagem.</p>
+<ul>
+<li>[ ] Existe um registro de achados <strong>só-anexar</strong> (um arquivo JSONL, uma planilha de linhas que
+não se editam, um rótulo de <em>issue</em>) e cada correção recorrente a um agente entra nele com
+data e ciclo.</li>
+<li>[ ] A retrospectiva tem <strong>gatilho mensurável</strong> (número de achados abertos, idade do mais
+velho, ou ambos) e há um script que fica vermelho quando o gatilho dispara sem a retro.</li>
+<li>[ ] O fechamento de um achado é <strong>estrutural</strong> (um campo que aponta o id), e você já viu o
+gatilho continuar vermelho com um fechamento escrito só em prosa.</li>
+<li>[ ] Toda resposta &quot;sim&quot; da retro tem <strong>destino escolhido</strong> (princípio, modelo operacional,
+skill, script ou ADR) <strong>e</strong> artefato criado no mesmo ciclo.</li>
+<li>[ ] A retro responde também &quot;que regra <strong>não pagou</strong> o custo?&quot;, e a última retro podou pelo
+menos uma coisa ou registrou por que não.</li>
+<li>[ ] Existe uma lista escrita do que o time <strong>não adota</strong>, com motivo, e cada item adiado tem
+condição escrita de revisão.</li>
+<li>[ ] Para cada artefato do repositório, você sabe responder <strong>quem consome</strong> e <strong>o que quebra
+quando fica velho</strong>; o que não tem resposta está marcado para poda.</li>
+<li>[ ] Todo índice escrito à mão sobre arquivos (de ADRs, de agentes, de versões) tem um portão
+que o compara com o disco.</li>
+<li>[ ] ADRs nunca são editados no mérito: <code>git log --follow</code> de cada um mostra só criação,
+renome de caminho ou troca de status, e uma decisão revertida tem ADR novo que a supera.</li>
+<li>[ ] Existe uma guarda (hook ou proteção de branch) que recusa reescrever o histórico, e os
+limites dela estão declarados.</li>
+<li>[ ] Toda regra nova é argumentada contra um princípio do método e citada na instrução que o
+agente lê no início da sessão; a que não deriva de nenhum vira princípio novo ou é podada.</li>
+</ul>
+<h2 id="referências" tabindex="-1">Referências <a class="header-anchor" href="#referências" aria-hidden="true">#</a></h2>
+<ul>
+<li>Maestro, versão citada <code>19823c2</code>:
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/axioms.md"><code>docs/governance/axioms.md</code></a> (A3, A4, T5, T6, C1, C9) ·
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/principles.md"><code>docs/governance/principles.md</code></a> (Princípios VI e VII) ·
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/operating-model.md"><code>docs/governance/operating-model.md</code></a> (§5, §6, §10, §11) ·
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/governance/artifacts.md"><code>docs/governance/artifacts.md</code></a> ·
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/skills/anti-patterns/SKILL.md"><code>skills/anti-patterns/SKILL.md</code></a> ·
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/check-retro.sh"><code>scripts/check-retro.sh</code></a> ·
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/retro.sh"><code>scripts/retro.sh</code></a> ·
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/record-decision.sh"><code>scripts/record-decision.sh</code></a> ·
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/check-adr.sh"><code>scripts/check-adr.sh</code></a> ·
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/check-version.sh"><code>scripts/check-version.sh</code></a> ·
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/scripts/hooks/guard-immutables.py"><code>scripts/hooks/guard-immutables.py</code></a> ·
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/records/decisoes.jsonl"><code>docs/records/decisoes.jsonl</code></a> ·
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/ecosystem/estado.jsonl"><code>docs/ecosystem/estado.jsonl</code></a> ·
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/README.md"><code>docs/adr/README.md</code></a> ·
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/roadmap.md"><code>docs/roadmap.md</code></a> ·
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/jornada/README.md"><code>docs/jornada/README.md</code></a> ·
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/receitas/rodar-a-retro.md"><code>docs/receitas/rodar-a-retro.md</code></a> ·
+ADRs <a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0007-separacao-repo-maestro.md">0007</a>,
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0009-registro-automatico-gate-merge.md">0009</a>,
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0011-livro-padrao-editorial-e-companion.md">0011</a>,
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0015-axiomas-teoremas-corolarios.md">0015</a>,
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0017-divisao-em-dois-repositorios.md">0017</a>,
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0018-fronteira-interna-em-vez-de-divisao.md">0018</a>,
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0021-o-metodo-se-cobra-e-bate-o-ponto.md">0021</a>,
+<a href="https://github.com/GHDaru/maestro/blob/19823c2/docs/adr/0022-painel-de-coordenacao-como-projecao-dos-arquivos.md">0022</a> ·
+specs e relatórios dos ciclos 008, 017, 020, 021, 027, 028, 029, 032, 034, 035, 039, 041, 044,
+045, 047, 049, 050, 055, 061, 062 e 063 em <code>specs/</code>.</li>
+<li>Handbook do Maestro (cópia em <code>maestro-handbook/</code> na raiz deste livro, capturada de
+<code>19823c2</code>): capítulos 07 (cerimônias, §5.2 e §6), 08 (entregáveis e artefatos), 12 (governança
+leve) e 13 (decisões de engenharia, §3, §5.8, §5.10); receita <code>rodar-a-retro.md</code>.</li>
+<li>NYGARD, Michael. <em>Documenting Architecture Decisions</em>. Cognitect, 15 nov. 2011.
+https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions (acesso em
+02/11/2026).</li>
+<li><em>Markdown Architectural Decision Records</em> (MADR). https://adr.github.io/madr/ (acesso em
+02/11/2026).</li>
+<li>ARGYRIS, Chris; SCHÖN, Donald. <em>Organizational Learning: A Theory of Action Perspective</em>.
+Reading: Addison-Wesley, 1978.</li>
+<li>DERBY, Esther; LARSEN, Diana. <em>Agile Retrospectives: Making Good Teams Great</em>. Pragmatic
+Bookshelf, 2006.</li>
+<li>BEYER, Betsy et al. (org.). <em>Site Reliability Engineering: How Google Runs Production
+Systems</em>. O'Reilly, 2016. Capítulo 15, &quot;Postmortem Culture: Learning from Failure&quot;.
+https://sre.google/sre-book/postmortem-culture/ (acesso em 02/11/2026).</li>
+<li>GitHub Spec Kit (comando de constituição). https://github.com/github/spec-kit (acesso em
+02/11/2026).</li>
+<li>Base de pesquisa deste livro, <code>pesquisa/base-de-pesquisa.md</code>, agenda H1–H10 (H10).</li>
+</ul>
+</article>
+    <nav class="paginacao" aria-label="Anterior e próximo"><a class="pg-prev" href="13-observabilidade-e-economia-exemplo.html"><small>← anterior</small>Exemplo executável — 13 Observabilidade e economia</a><a class="pg-next" href="14-a-organizacao-que-aprende-exemplo.html"><small>próximo →</small>Exemplo executável — 14 A organização que aprende</a></nav>
+    <footer class="rodape">
+      <a href="https://github.com/GHDaru/agentic_software_engineering">github.com/GHDaru/agentic_software_engineering</a>
+       · <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/14-a-organizacao-que-aprende/capitulo.md">fonte desta página</a>
+      · gerado de <code>livro/</code> por <code>publicar/build.mjs</code>
+    </footer>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body></html>

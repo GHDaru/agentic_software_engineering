@@ -1,0 +1,12 @@
+{
+  "nome": "o mesmo trabalho, cortado por FRONTEIRA (um dono por conceito)",
+  "criterio": "o conceito tem um dono; quem consome espera o contrato; a casca expõe uma porta inerte",
+  "custo_handoff": 1,
+  "contratos_existentes": ["fixtures/sessao.json"],
+  "fatias": [
+    {"id": "W01", "escreve": ["dominio.js"], "define": ["quemPrecisaDeVoce"], "consome": ["fixtures/sessao.json"], "custo": 4},
+    {"id": "W02", "escreve": ["casca.js"],   "define": ["api.contarMenu"],    "consome": [], "custo": 3},
+    {"id": "W03", "escreve": ["sonda.py"],   "define": [],                    "consome": ["fixtures/sessao.json"], "custo": 4},
+    {"id": "W05", "escreve": ["entrada.js"], "define": [],                    "consome": ["quemPrecisaDeVoce", "api.contarMenu"], "custo": 3}
+  ]
+}

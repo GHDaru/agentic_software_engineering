@@ -1,0 +1,4 @@
+b7e41c2 feat(carrinho): cupom de desconto substitui, nunca soma (ciclo 007, ADR 0003)
+9a0d3f1 test(cupom): FR1-FR3 vermelhos (ciclo 007)
+41c88e0 fix: ajusta mensagem
+2f6b9aa docs(adr): ADR 0003 cupom não acumula (ciclo 006)

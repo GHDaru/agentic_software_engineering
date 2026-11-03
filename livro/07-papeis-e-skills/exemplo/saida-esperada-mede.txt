@@ -1,0 +1,11 @@
+perfil                 linhas  bytes  ~tok  escreve modelo  ferramentas
+arquiteto                  21    719   180  sim     grande  Read, Write, Grep, Glob
+especificador              21    736   184  sim     medio   Read, Write, Grep
+implementador              21    702   176  sim     medio   Read, Write, Edit, Bash
+revisor                    21    812   203  não     grande  Read, Grep, Glob
+seguranca                  21    657   164  não     medio   Read, Grep, Glob
+semantica-de-interface     21    848   212  sim     medio   Read, Write, Grep, Glob
+
+perfis: 6 · linhas: 126 (média 21.0, menor 21, maior 21) · bytes: 4474 (~1118 tokens)
+sem escrita (Write/Edit): 2 → revisor, seguranca
+com modelo declarado: 6 de 6

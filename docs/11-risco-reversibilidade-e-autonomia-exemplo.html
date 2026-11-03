@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exemplo executável — 11 Risco, reversibilidade e autonomia · Engenharia de Software Orientada por Agentes</title>
+<meta name="description" content="Governança operacional para um humano regendo muitos agentes">
+<script>try{var t=localStorage.getItem("tema");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="assets/estilo.css">
+</head><body>
+<header class="barra">
+  <button id="alt-menu" aria-label="Abrir o sumário" aria-expanded="false" aria-controls="sidebar">☰ <span>Sumário</span></button>
+  <a class="barra-titulo" href="index.html">Engenharia de Software Orientada por Agentes</a>
+  <button id="alt-tema" aria-label="Alternar tema claro/escuro">◐</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="marca" href="index.html">Engenharia de Software Orientada por Agentes<small>Agentic Software Engineering</small></a>
+    <div class="nav-parte">Abertura</div><ul><li><a href="00-prefacio.html">Prefácio</a></li></ul><div class="nav-parte">Parte I — Por que agentes mudam a engenharia</div><ul><li><a href="01-a-mudanca-de-unidade-de-trabalho.html">1. A mudança de unidade de trabalho</a></li><li class="filho"><a class="filho" href="01-a-mudanca-de-unidade-de-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="02-o-problema-da-confianca.html">2. O problema da confiança</a></li><li class="filho"><a class="filho" href="02-o-problema-da-confianca-exemplo.html">Exemplo executável</a></li><li><a href="03-um-humano-muitos-agentes.html">3. Um humano, muitos agentes</a></li><li class="filho"><a class="filho" href="03-um-humano-muitos-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte II — Especificar e dar contexto</div><ul><li><a href="04-a-spec-como-partitura.html">4. A spec como partitura</a></li><li class="filho"><a class="filho" href="04-a-spec-como-partitura-exemplo.html">Exemplo executável</a></li><li><a href="05-engenharia-de-contexto.html">5. Engenharia de contexto</a></li><li class="filho"><a class="filho" href="05-engenharia-de-contexto-exemplo.html">Exemplo executável</a></li><li><a href="06-como-dividir-o-trabalho.html">6. Como dividir o trabalho</a></li><li class="filho"><a class="filho" href="06-como-dividir-o-trabalho-exemplo.html">Exemplo executável</a></li><li><a href="07-papeis-e-skills.html">7. Papéis e skills</a></li><li class="filho"><a class="filho" href="07-papeis-e-skills-exemplo.html">Exemplo executável</a></li><li><a href="08-ddd-para-agentes.html">8. DDD para agentes</a></li><li class="filho"><a class="filho" href="08-ddd-para-agentes-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte III — Provar e conter</div><ul><li><a href="09-arquitetura-que-se-defende.html">9. Arquitetura que se defende</a></li><li class="filho"><a class="filho" href="09-arquitetura-que-se-defende-exemplo.html">Exemplo executável</a></li><li><a href="10-quality-gates-que-provam-fatos.html">10. Quality gates que provam fatos</a></li><li class="filho"><a class="filho" href="10-quality-gates-que-provam-fatos-exemplo.html">Exemplo executável</a></li><li><a href="11-risco-reversibilidade-e-autonomia.html">11. Risco, reversibilidade e autonomia</a></li><li class="filho"><a class="filho ativo" aria-current="page" href="11-risco-reversibilidade-e-autonomia-exemplo.html">Exemplo executável</a></li><li><a href="12-ferramentas-mcp-e-o-ecossistema.html">12. Ferramentas, MCP e o ecossistema</a></li><li class="filho"><a class="filho" href="12-ferramentas-mcp-e-o-ecossistema-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Parte IV — Medir e aprender</div><ul><li><a href="13-observabilidade-e-economia.html">13. Observabilidade e economia</a></li><li class="filho"><a class="filho" href="13-observabilidade-e-economia-exemplo.html">Exemplo executável</a></li><li><a href="14-a-organizacao-que-aprende.html">14. A organização que aprende</a></li><li class="filho"><a class="filho" href="14-a-organizacao-que-aprende-exemplo.html">Exemplo executável</a></li><li><a href="15-validando-o-maestro.html">15. Validando o Maestro</a></li><li class="filho"><a class="filho" href="15-validando-o-maestro-exemplo.html">Exemplo executável</a></li><li><a href="16-o-futuro-da-engenharia-agentica.html">16. O futuro da engenharia agêntica</a></li><li class="filho"><a class="filho" href="16-o-futuro-da-engenharia-agentica-exemplo.html">Exemplo executável</a></li></ul><div class="nav-parte">Apêndices</div><ul><li><a href="apendice-a-o-maestro-em-uma-pagina.html">A. O Maestro em uma página</a></li><li><a href="apendice-b-aseg-bench.html">B. ASEG-Bench — um benchmark de governança</a></li><li><a href="apendice-c-pacote-de-replicacao.html">C. Pacote de replicação</a></li><li><a href="apendice-d-estudos-de-campo.html">D. Estudos de campo do ecossistema</a></li></ul><div class="nav-parte">Consulta</div><ul><li><a href="glossario.html">Glossário</a></li><li><a href="evidencias.html">Evidências (claims)</a></li></ul>
+  </aside>
+  <main class="conteudo">
+    <article class="markdown"><h1 id="exemplo-do-capítulo-11--a-classe-vem-do-desfazer-e-a-reversibilidade-compra-autonomia" tabindex="-1">Exemplo do capítulo 11 — a classe vem do desfazer, e a reversibilidade compra autonomia <a class="header-anchor" href="#exemplo-do-capítulo-11--a-classe-vem-do-desfazer-e-a-reversibilidade-compra-autonomia" aria-hidden="true">#</a></h1>
+<p>Dois programas pequenos, sem dependência externa, cada um com uma ideia do capítulo.</p>
+<table>
+<thead>
+<tr>
+<th>Arquivo</th>
+<th>O que é</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>politica.py</code></td>
+<td>a política de autonomia: classifica uma ação por <strong>custo de desfazer × raio</strong>, aplica as alavancas de reversibilidade e devolve a classe (0–6), a política (<code>permitir</code> / <code>perguntar</code> / <code>negar</code>) e o gate humano</td>
+</tr>
+<tr>
+<td><code>acoes.json</code></td>
+<td>as ações classificadas, inspiradas em casos do Maestro, cada uma com a classe esperada; e um &quot;dia&quot; fictício para o modo <code>--funil</code></td>
+</tr>
+<tr>
+<td><code>instalador.py</code></td>
+<td>um instalador em miniatura que ganhou o poder de apagar: cinco cenários, cada um rodado contra a versão ingênua (v1) e a corrigida (v2)</td>
+</tr>
+<tr>
+<td><code>saida-*.txt</code></td>
+<td>a saída esperada de cada comando, para conferir com <code>diff</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="como-rodar" tabindex="-1">Como rodar <a class="header-anchor" href="#como-rodar" aria-hidden="true">#</a></h2>
+<p>Requisito: Python 3.8 ou mais novo. No Git Bash do Windows, onde <code>python3</code> pode ser um atalho
+vazio, use <code>python</code>. O <code>-B</code> só evita criar <code>__pycache__</code>.</p>
+<pre><code class="language-bash">cd livro/11-risco-reversibilidade-e-autonomia/exemplo
+python3 -B politica.py                 # classifica as 15 ações
+python3 -B politica.py --funil         # quantas decisões humanas um dia pede, em cada regime
+python3 -B instalador.py               # os cinco cenários do instalador
+
+# conferir contra a saída esperada (nenhuma linha de diferença):
+python3 -B politica.py         | diff --strip-trailing-cr - saida-politica.txt
+python3 -B politica.py --funil | diff --strip-trailing-cr - saida-funil.txt
+python3 -B instalador.py       | diff --strip-trailing-cr - saida-instalador.txt
+</code></pre>
+<p>Os três comandos saem com <strong>código 0</strong>.</p>
+<h2 id="saída-esperada" tabindex="-1">Saída esperada <a class="header-anchor" href="#saída-esperada" aria-hidden="true">#</a></h2>
+<h3 id="politicapy-trecho-o-arquivo-inteiro-está-em-saida-politicatxt" tabindex="-1"><code>politica.py</code> (trecho; o arquivo inteiro está em <code>saida-politica.txt</code>) <a class="header-anchor" href="#politicapy-trecho-o-arquivo-inteiro-está-em-saida-politicatxt" aria-hidden="true">#</a></h3>
+<pre><code class="language-text">[0] ler o código do repositório
+     alavancas: —                      classe: leitura                    política: permitir             gate: nenhum  ok
+[5] ler o .env de produção (segredo lido não se desvê)
+     alavancas: —                      classe: financeira / irreversível  política: perguntar            gate: dupla aprovação  ok
+[2] push de uma branch nova no remoto
+     alavancas: —                      classe: criação reversível         política: permitir             gate: no merge  ok
+[5] apagar tabela em produção
+     alavancas: —                      classe: financeira / irreversível  política: perguntar            gate: dupla aprovação  ok
+[4] apagar tabela em produção
+     alavancas: backup                 classe: exclusão / efeito externo  política: perguntar            gate: confirmação forte  ok
+[3] apagar tabela em produção
+     alavancas: soft_delete            classe: alteração                  política: perguntar            gate: aprovação com resumo  ok
+[0] migração destrutiva
+     alavancas: dry_run                classe: leitura                    política: permitir             gate: nenhum  ok
+[6] agente escreve no registro que lhe dá endereço
+     alavancas: —                      classe: lote / administrativa      política: negar                gate: fluxo humano formal  ok
+resumo: 15 ações, 0 divergência(s)
+</code></pre>
+<p>O que observar: a mesma ação (&quot;apagar tabela em produção&quot;) desce três classes com três
+alavancas diferentes, sem ganhar nenhuma aprovação a mais; e uma <strong>leitura</strong> (o <code>.env</code>) cai na
+classe irreversível, porque o que decide a classe é o custo de desfazer, não o verbo.</p>
+<h3 id="politicapy---funil" tabindex="-1"><code>politica.py --funil</code> <a class="header-anchor" href="#politicapy---funil" aria-hidden="true">#</a></h3>
+<pre><code class="language-text">ações no dia (fictício): 189
+  classe 0 (leitura): 143
+  classe 2 (criação reversível): 41
+  classe 3 (alteração): 3
+  classe 5 (financeira / irreversível): 1
+  classe 6 (lote / administrativa): 1
+gate uniforme pesado : 189 decisões humanas
+gate proporcional    : 4 decisões humanas, 1 bloqueada(s) por política
+gate uniforme leve   : 0 decisões humanas — e 1 ação(ões) irreversível(is) sem ninguém olhar
+</code></pre>
+<p>Os números do &quot;dia&quot; são fictícios (estão em <code>acoes.json</code>); o que o modo mostra é a forma dos
+dois fracassos simétricos do gate uniforme.</p>
+<h3 id="instaladorpy" tabindex="-1"><code>instalador.py</code> <a class="header-anchor" href="#instaladorpy" aria-hidden="true">#</a></h3>
+<pre><code class="language-text">C1 a flag destrutiva não vence o freio
+   v1:
+      --force --dry-run → force=1 dry=0
+   v2:
+      --force --dry-run → force=0 dry=1
+   → defeito reproduzido na v1: sim; invariante na v2: sim  [ok]
+C2 reivindicar é consequência de escrever, não de olhar
+   v1:
+      arquivo do projeto, idêntico ao nosso, depois da poda: APAGADO
+   v2:
+      arquivo do projeto, idêntico ao nosso, depois da poda: existe
+   → defeito reproduzido na v1: sim; invariante na v2: sim  [ok]
+C3 o --force guarda a edição do projeto antes de sobrescrever
+   v1:
+      edição do time depois do --force: PERDIDA, sem cópia
+   v2:
+      edição do time depois do --force: recuperável em .maestro-old
+   → defeito reproduzido na v1: sim; invariante na v2: sim  [ok]
+C4 a poda não sai do alvo
+   v1:
+      arquivo fora do alvo depois da poda: APAGADO
+   v2:
+      recusado: '../fora.txt' resolve fora do alvo — o manifesto é dado, não comando
+      arquivo fora do alvo depois da poda: existe
+   → defeito reproduzido na v1: sim; invariante na v2: sim  [ok]
+C5 execução a seco não escreve nada
+   v1:
+      --force --dry-run mudou a árvore? SIM
+   v2:
+      --force --dry-run mudou a árvore? não
+   → defeito reproduzido na v1: sim; invariante na v2: sim  [ok]
+resumo: 5 cenários, 0 falha(s)
+</code></pre>
+<p>A v1 não é o instalador antigo do Maestro (que pulava tudo o que existia e não apagava nada):
+é a primeira versão do instalador que <strong>atualiza e poda</strong>, montada com os defeitos que a revisão
+independente do ciclo 051 achou nela. Cada cenário só conta se o defeito <strong>aparecer</strong> na v1; um
+cenário em que a v1 também passa não prova nada sobre a v2, e o programa sai com código 1.</p>
+<p>O cenário do <em>symlink</em> (ciclo 052) não está aqui porque criar <em>symlink</em> no Windows exige
+privilégio. O invariante que ele protege é o mesmo do C4: o destino <strong>resolvido</strong> tem de ficar
+dentro do alvo — e a função <code>dentro()</code> já resolve o caminho, de modo que um link para fora cai
+na mesma recusa.</p>
+<h2 id="exercícios" tabindex="-1">Exercícios <a class="header-anchor" href="#exercícios" aria-hidden="true">#</a></h2>
+<ol>
+<li>Em <code>politica.py</code>, troque o mapa de <code>soft_delete</code> para <code>{&quot;impossivel&quot;: &quot;caro&quot;}</code> e rode de
+novo: a expectativa de uma ação diverge e o programa sai com código 1. A política mudou; o
+caso escrito avisa.</li>
+<li>Acrescente a <code>acoes.json</code> uma ação do seu time (um <em>deploy</em> com <em>feature flag</em>, por exemplo)
+e decida antes de rodar qual classe ela deve ter. Se a classe que saiu é outra, o erro está
+na política ou na sua intuição?</li>
+<li>Em <code>instalador.py</code>, apague a linha que copia para <code>.maestro-old</code> e rode: o C3 falha na v2.</li>
+</ol>
+</article>
+    <nav class="paginacao" aria-label="Anterior e próximo"><a class="pg-prev" href="11-risco-reversibilidade-e-autonomia.html"><small>← anterior</small>11 — Risco, reversibilidade e autonomia</a><a class="pg-next" href="12-ferramentas-mcp-e-o-ecossistema.html"><small>próximo →</small>12 — Ferramentas, MCP e o ecossistema</a></nav>
+    <footer class="rodape">
+      <a href="https://github.com/GHDaru/agentic_software_engineering">github.com/GHDaru/agentic_software_engineering</a>
+       · <a href="https://github.com/GHDaru/agentic_software_engineering/blob/main/livro/11-risco-reversibilidade-e-autonomia/exemplo/README.md">fonte desta página</a>
+      · gerado de <code>livro/</code> por <code>publicar/build.mjs</code>
+    </footer>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body></html>
