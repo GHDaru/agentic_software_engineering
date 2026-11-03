@@ -19,7 +19,7 @@
   <main class="conteudo">
     <article class="markdown"><h1 id="evidências-claims" tabindex="-1">Evidências (CLAIMS) <a class="header-anchor" href="#evidências-claims" aria-hidden="true">#</a></h1>
 <p>Toda afirmação quantitativa do livro tem um id aqui. Estados: <code>medido</code>, <code>observado</code>, <code>hipótese</code>. Gerado por <code>scripts/consolidar.py</code> a partir de <code>livro/*/claims.md</code>.</p>
-<p>Total: 641 claims.</p>
+<p>Total: 645 claims.</p>
 <h2 id="00-prefacio-12" tabindex="-1">00-prefacio (12) <a class="header-anchor" href="#00-prefacio-12" aria-hidden="true">#</a></h2>
 <table>
 <thead>
@@ -3167,7 +3167,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="15-validando-o-maestro-28" tabindex="-1">15-validando-o-maestro (28) <a class="header-anchor" href="#15-validando-o-maestro-28" aria-hidden="true">#</a></h2>
+<h2 id="15-validando-o-maestro-29" tabindex="-1">15-validando-o-maestro (29) <a class="header-anchor" href="#15-validando-o-maestro-29" aria-hidden="true">#</a></h2>
 <table>
 <thead>
 <tr>
@@ -3212,7 +3212,7 @@
 <td>CLAIM-15-006</td>
 <td>As rodadas de avaliação foram commitadas citando o ciclo 040, sem pasta <code>specs/040-*</code>; o <code>check-cycle.sh</code> pegou.</td>
 <td>observado</td>
-<td><code>decisoes.jsonl</code> id <code>achado-041-ciclo-040-sem-spec</code>; <code>ls specs/ | grep ^040</code> (vazio)</td>
+<td><code>decisoes.jsonl</code> id <code>achado-041-ciclo-040-sem-spec</code>; <code>ls specs/ | grep ^040</code> (vazio); a contagem &quot;dois commits&quot; está em <code>scripts/check-conformance.sh</code>, cabeçalho (linhas 5–6) — ver CLAIM-15-029</td>
 </tr>
 <tr>
 <td>CLAIM-15-007</td>
@@ -3230,7 +3230,7 @@
 <td>CLAIM-15-009</td>
 <td>A agenda de pesquisa do livro tem dez hipóteses (H1–H10) e quatro níveis de tratamento (A prompt, B spec, C spec + gates, Maestro completo).</td>
 <td>observado</td>
-<td>livro: <code>pesquisa/base-de-pesquisa.md</code>, seção &quot;Agenda de pesquisa&quot; (linhas 39–47)</td>
+<td>livro @ <code>721da10</code>: <code>pesquisa/base-de-pesquisa.md</code>, seção &quot;Agenda de pesquisa&quot; (linhas 39–47) — https://github.com/GHDaru/agentic_software_engineering/blob/721da10/pesquisa/base-de-pesquisa.md</td>
 </tr>
 <tr>
 <td>CLAIM-15-010</td>
@@ -3260,13 +3260,13 @@
 <td>CLAIM-15-014</td>
 <td>No ciclo 016 as nove seções do capítulo 01 do guia foram contadas à mão; o <code>check-chapters.sh</code> nasceu disso (ciclo 022).</td>
 <td>observado</td>
-<td><code>scripts/check-chapters.sh</code>, cabeçalho (linhas 1–9)</td>
+<td>ciclo 016 e contagem à mão: <code>scripts/check-chapters.sh</code>, cabeçalho (linhas 1–9). Ciclo 022: commit <code>bf90f63</code> (&quot;Iron Law editorial executável (spec 022)&quot;, que cria o script, renomeado para inglês em <code>7caefbc</code>, ciclo 033); pasta <code>specs/022-capitulo-02-padrao-v2/</code>; <code>docs/roadmap.md</code> linha &quot;Migração didática&quot; (ciclos &quot;016, 022–032&quot;, contagem por <code>scripts/check-chapters.sh</code>)</td>
 </tr>
 <tr>
 <td>CLAIM-15-015</td>
 <td>Com 28 ciclos, 26 tinham os quatro artefatos completos; os dois restantes eram os ciclos abertos.</td>
 <td>observado</td>
-<td>livro: <code>maestro-handbook/handbook/08-entregaveis-artefatos.md</code> §6 (linhas ~128–131)</td>
+<td>livro @ <code>721da10</code>: <code>maestro-handbook/handbook/08-entregaveis-artefatos.md</code> §6 (linhas ~128–131) — https://github.com/GHDaru/agentic_software_engineering/blob/721da10/maestro-handbook/handbook/08-entregaveis-artefatos.md</td>
 </tr>
 <tr>
 <td>CLAIM-15-016</td>
@@ -3314,7 +3314,7 @@
 <td>CLAIM-15-023</td>
 <td>A proposta de fluxo v5 (ciclo 053) comparou o ciclo de vida com um externo de 13 passos; seis das dezesseis caixas mudariam.</td>
 <td>observado</td>
-<td>livro: <code>maestro-handbook/diagramas/06-fluxo-v5-proposta.md</code>, linhas 5 e 8</td>
+<td>livro @ <code>721da10</code>: <code>maestro-handbook/diagramas/06-fluxo-v5-proposta.md</code>, linhas 5 e 8 — https://github.com/GHDaru/agentic_software_engineering/blob/721da10/maestro-handbook/diagramas/06-fluxo-v5-proposta.md</td>
 </tr>
 <tr>
 <td>CLAIM-15-024</td>
@@ -3326,7 +3326,7 @@
 <td>CLAIM-15-025</td>
 <td>A base de pesquisa propõe sumário de 16 capítulos, anatomia de 11 seções e quatro corpora; o guia do Maestro tinha esqueleto de 9 seções.</td>
 <td>observado</td>
-<td>livro: <code>pesquisa/base-de-pesquisa.md</code> (&quot;Quatro corpora&quot;, &quot;Sumário proposto&quot;); Maestro <code>docs/livro/guia-editorial.md</code> §2</td>
+<td>livro @ <code>721da10</code>: <code>pesquisa/base-de-pesquisa.md</code> (&quot;Quatro corpora&quot;, &quot;Sumário proposto&quot;) — https://github.com/GHDaru/agentic_software_engineering/blob/721da10/pesquisa/base-de-pesquisa.md; Maestro <code>docs/livro/guia-editorial.md</code> §2</td>
 </tr>
 <tr>
 <td>CLAIM-15-026</td>
@@ -3346,9 +3346,15 @@
 <td>medido</td>
 <td><code>grep -c '^[0-9]\. \*\*' livro/15-validando-o-maestro/exemplo/README.md</code> → <code>5</code></td>
 </tr>
+<tr>
+<td>CLAIM-15-029</td>
+<td>No ciclo 041, o agente do próprio repositório teria respondido &quot;sim&quot; à pergunta sobre o método enquanto <strong>dois</strong> commits citavam um ciclo sem spec; um agente companheiro, em outro repositório, relatou &quot;CI verde&quot; antes de checar.</td>
+<td>observado</td>
+<td><code>scripts/check-conformance.sh</code>, cabeçalho (linhas 4–8: &quot;two commits cited a cycle that had no spec at all&quot;; &quot;reported &quot;CI green&quot; before checking it&quot;). Fonte única desses dois fatos: o comentário do script (o <code>decisoes.jsonl</code> id <code>achado-041-ciclo-040-sem-spec</code> confirma o ciclo sem spec, não a contagem)</td>
+</tr>
 </tbody>
 </table>
-<h2 id="16-o-futuro-da-engenharia-agentica-26" tabindex="-1">16-o-futuro-da-engenharia-agentica (26) <a class="header-anchor" href="#16-o-futuro-da-engenharia-agentica-26" aria-hidden="true">#</a></h2>
+<h2 id="16-o-futuro-da-engenharia-agentica-28" tabindex="-1">16-o-futuro-da-engenharia-agentica (28) <a class="header-anchor" href="#16-o-futuro-da-engenharia-agentica-28" aria-hidden="true">#</a></h2>
 <table>
 <thead>
 <tr>
@@ -3385,9 +3391,9 @@
 </tr>
 <tr>
 <td>CLAIM-16-005</td>
-<td>O commit <code>f79b1be</code> (29/10/2026) acrescentou uma única linha a <code>estado.jsonl</code>, a da ideia 041 (<code>diagrama-vivo-do-time</code>).</td>
+<td>O commit <code>f79b1be</code> (29/10/2026) acrescentou uma única linha a <code>estado.jsonl</code>, a da ideia 041 (<code>diagrama-vivo-do-time</code>), sem alterar as linhas anteriores; o commit inteiro tem 9 arquivos e 16.463 inserções (diagramas, cartão 041, esboço), e a linha única vale só para o índice.</td>
 <td>medido</td>
-<td><code>git show --stat f79b1be</code> → <code>docs/ecosystem/estado.jsonl | 1 +</code></td>
+<td><code>git show --stat f79b1be</code> → <code>docs/ecosystem/estado.jsonl | 1 +</code> e <code>9 files changed, 16463 insertions(+)</code> (nenhuma remoção)</td>
 </tr>
 <tr>
 <td>CLAIM-16-006</td>
@@ -3515,9 +3521,21 @@
 <td>medido</td>
 <td><code>exemplo/dados/ai-act.json</code> (versão corrigida); a lacuna foi apontada pela crítica independente de 02/11/2026</td>
 </tr>
+<tr>
+<td>CLAIM-16-027</td>
+<td>O catálogo do ecossistema registra, como exemplo de veredito não acionável por julgar a ferramenta e não a ideia: &quot;Superpowers: absorver + observar&quot; não é acionável. O texto contrasta esse veredito com um sobre uma ideia que nomeia o arquivo de destino (&quot;absorver, destino <code>skills/diagnose-before-fix/SKILL.md</code>&quot;).</td>
+<td>observado</td>
+<td><code>git show 19823c2:docs/ecosystem/README.md</code>, linha 21; <code>git show 19823c2:specs/047-catalogo-do-ecossistema/spec.md</code>, linha 28</td>
+</tr>
+<tr>
+<td>CLAIM-16-028</td>
+<td>O <em>Technology Radar</em> da Thoughtworks classifica técnicas e ferramentas em quatro anéis (adotar, experimentar, avaliar, segurar) e é republicado periodicamente.</td>
+<td>observado (referência externa; não reconsultada nesta versão)</td>
+<td>https://www.thoughtworks.com/radar — sem data de acesso nesta versão; caracterização do formato, não de um volume específico</td>
+</tr>
 </tbody>
 </table>
-<h2 id="apêndice-a-28" tabindex="-1">apêndice A (28) <a class="header-anchor" href="#apêndice-a-28" aria-hidden="true">#</a></h2>
+<h2 id="apêndice-a-29" tabindex="-1">apêndice A (29) <a class="header-anchor" href="#apêndice-a-29" aria-hidden="true">#</a></h2>
 <table>
 <thead>
 <tr>
@@ -3646,7 +3664,7 @@
 <td>CLAIM-91-020</td>
 <td>A constituição tem oito princípios (I–VIII).</td>
 <td>medido</td>
-<td><code>git show $R:docs/governance/principles.md | grep -n 'Amended|six theorems'</code></td>
+<td><code>git show $R:docs/governance/principles.md | grep -c '^### [IVX]*\.'</code> → 8 (cabeçalhos «### I.» a «### VIII.»)</td>
 </tr>
 <tr>
 <td>CLAIM-91-021</td>
@@ -3688,13 +3706,19 @@
 <td>CLAIM-91-027</td>
 <td>O catálogo do ecossistema tem, no índice <code>estado.jsonl</code>, 41 ideias com veredito corrente: 1 adotar (Spec Kit), 14 absorver, 16 observar, 10 descartar. Adoção integral de metodologia (BMAD) e IDE proprietária spec-first (Kiro) estão em <code>descartar</code>; raia leve por delta (OpenSpec), EARS, Iron Law e causa raiz antes do conserto (Superpowers), em <code>absorver</code>. O ADR 0008 fichou 7 ferramentas por fontes primárias, sem instalar cada uma; o handbook (§5.4) rejeita o prompt ad-hoc.</td>
 <td>medido</td>
-<td><code>git show $R:docs/ecosystem/estado.jsonl | python -c &quot;import sys,json,collections; d={}; [d.__setitem__(j['ideia'],j) for j in map(json.loads,filter(str.strip,sys.stdin))]; print(len(d), collections.Counter(v['estado'] for v in d.values()))&quot;</code> → <code>41 Counter({'observar': 16, 'absorver': 14, 'descartar': 10, 'adotar': 1})</code>; fichas <code>docs/ecosystem/ideias/010-…</code>, <code>031-spec-kit.md</code>; `git show $R:docs/adr/0008-avaliacao-ecossistema-sdd.md</td>
+<td><code>git show $R:docs/ecosystem/estado.jsonl | python -c &quot;import sys,json,collections; d={}; [d.__setitem__(j['ideia'],j) for j in map(json.loads,filter(str.strip,sys.stdin))]; print(len(d), collections.Counter(v['estado'] for v in d.values()))&quot;</code> → <code>41 Counter({'observar': 16, 'absorver': 14, 'descartar': 10, 'adotar': 1})</code>; fichas <code>docs/ecosystem/ideias/010-…</code>, <code>031-spec-kit.md</code>; <code>git show $R:docs/adr/0008-avaliacao-ecossistema-sdd.md | sed -n '16,17p;55,56p'</code> (linha 17: «fichou 7 ferramentas com fontes primárias»; linha 55: «por fontes primárias sem instalar cada ferramenta»); <code>git show $R:docs/handbook/03-spec-driven.md | sed -n 83,91p</code>; expansão de BMAD: <code>docs/research/avaliacao-ecossistema-sdd.md@19823c2</code> linha 51</td>
 </tr>
 <tr>
 <td>CLAIM-91-028</td>
 <td>O ADR 0004 situa o modelo operacional entre a constituição (princípios) e o Spec Kit (fluxo técnico), para «um desenvolvedor humano orquestrando múltiplos agentes de IA, não um time multi-pessoa»; o caderno de desenvolvimento declara «Sem daily, sem planning, sem backlog grooming».</td>
 <td>observado</td>
 <td><code>git show $R:docs/adr/0004-modelo-operacional.md | sed -n 11,16p</code>; <code>git show $R:docs/handbook/apresentacao-desenvolvimento-maestro.html | grep -o 'Sem daily[^&lt;]*'</code></td>
+</tr>
+<tr>
+<td>CLAIM-91-029</td>
+<td>A receita de instalação do Maestro declara cerca de 5 minutos, com o comando <code>maestro init &lt;projeto&gt; --ai claude</code> conduzindo agente, destino, instalação e verificação (<code>scripts/check-install.sh</code>), e saindo diferente de zero se a verificação falhar; os caminhos por plugin e por <code>npx skills add</code> não trazem scripts nem governança.</td>
+<td>observado</td>
+<td><code>git show $R:docs/receitas/instalar-o-maestro.md | sed -n '4,7p;18p;20,25p'</code></td>
 </tr>
 </tbody>
 </table>
@@ -3910,9 +3934,9 @@
 </tr>
 <tr>
 <td>CLAIM-93-009</td>
-<td>Em 02/11/2026 a consolidação <code>pesquisa/CLAIMS.md</code> soma 511 claims.</td>
+<td>Em 03/11/2026 a consolidação <code>pesquisa/CLAIMS.md</code> soma 645 claims.</td>
 <td>medido</td>
-<td>livro: <code>grep -m1 '^Total' pesquisa/CLAIMS.md</code> → <code>Total: 511 claims.</code> (o número muda a cada <code>python scripts/consolidar.py</code>)</td>
+<td>livro: <code>grep -m1 '^Total' pesquisa/CLAIMS.md</code> → <code>Total: 645 claims.</code> (o número muda a cada <code>python scripts/consolidar.py</code>)</td>
 </tr>
 <tr>
 <td>CLAIM-93-010</td>

@@ -68,7 +68,7 @@ aparece no texto, é exemplo, nunca premissa.</p>
 <p>A tese se apoia em cinco ideias, que se reforçam.</p>
 <p><strong>Instrução não é enforcement.</strong> Escrever no arquivo de instruções do agente &quot;nunca reescreva
 um registro de decisão&quot; é um pedido, que o modelo pode cumprir ou não.
-No Maestro, um <em>hook</em> intercepta cada chamada de ferramenta antes que ela rode
+No Maestro, um <em>hook</em> intercepta as chamadas de edição, leitura e terminal antes que rodem (busca por <code>Grep</code> e <code>Glob</code> fica de fora)
 (<code>scripts/hooks/guard-immutables.py</code>, ligado em
 <a href="https://github.com/GHDaru/maestro/blob/19823c2/.claude/settings.json"><code>.claude/settings.json</code></a>)
 e recusa a edição de um <em>Architecture Decision Record</em> (ADR) já versionado [CLAIM-00-002]. Em qualquer <em>harness</em> o mecanismo é
@@ -127,12 +127,12 @@ escrito é o que sobrevive, porque o agente começa cada sessão do zero. E o cu
 entre fazer e desfazer: produzir está cada vez mais barato, desfazer não.</p>
 <p>A camada de derivação serve para podar: uma regra que não deriva de axioma nenhum ou é um
 axioma novo, defendido por escrito, ou é cerimônia, e sai. O livro usa a mesma disciplina:
-cada capítulo declara de onde deriva, e o que não deriva de nada é ferramenta, que mora no
+cada capítulo declara de onde deriva (o 16, sobre o futuro, declara que não deriva de teorema nenhum), e o que não deriva de nada é ferramenta, que mora no
 manual.</p>
 <h2 id="o-que-é-o-maestro-em-um-parágrafo" tabindex="-1">O que é o Maestro, em um parágrafo <a class="header-anchor" href="#o-que-é-o-maestro-em-um-parágrafo" aria-hidden="true">#</a></h2>
 <p>O Maestro é o método de <strong>um humano regendo muitos agentes</strong>, construído e usado num
 repositório público (<a href="https://github.com/GHDaru/maestro/blob/19823c2/README.md">GHDaru/maestro</a>)
-que foi desenvolvido por ele mesmo: entre 27 de julho e 1º de novembro de 2026, o histórico
+que foi desenvolvido com o próprio método: entre 27 de julho e 1º de novembro de 2026, o histórico
 acumulou 943 <em>commits</em>, 75 pastas de ciclo numeradas, 30 registros de decisão de arquitetura,
 os ADRs, treze agentes, seis <em>skills</em> e dezenove scripts de
 verificação [CLAIM-00-007]. A imagem do nome é de orquestra: a partitura (a especificação) diz
@@ -183,7 +183,7 @@ retrospectiva passou trinta e três ciclos como regra sem gatilho [CLAIM-00-010]
 livro: como testar uma metodologia, e não só um software. <a href="16-o-futuro-da-engenharia-agentica.html">O futuro</a>
 separa o que deve sobreviver à próxima geração de modelos do que é circunstância.</p>
 <p>Os apêndices trazem o Maestro numa página, um <em>benchmark</em> de governança, o pacote de
-reprodução e estudos de campo.</p>
+replicação e estudos de campo.</p>
 <p><strong>Três rotas.</strong> Com uma tarde, leia os capítulos 1, 2, 10 e 11. Para implantar um fluxo com
 agentes no time, leia a Parte II antes da III, porque portão não salva especificação vaga. Se
 a pergunta é &quot;isso funciona mesmo?&quot;, comece pelo 15 e pelo apêndice C.</p>

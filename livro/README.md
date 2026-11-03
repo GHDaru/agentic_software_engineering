@@ -6,7 +6,7 @@ por um crítico independente em contexto fresco (o mesmo princípio que o livro 
 | Portão | Resultado |
 |---|---|
 | `scripts/check-anatomia.sh` | 16 capítulos com as 11 seções, na ordem |
-| `scripts/check-claims.sh` | 641 claims citados = 641 registrados |
+| `scripts/check-claims.sh` | 645 claims citados = 645 registrados |
 | `scripts/check-sumario.sh` | 21 entradas do sumário = 21 pastas |
 | `scripts/consolidar.py` | cobertura do inventário: **841/841** itens; glossário de 429 termos |
 | `publicar/build.mjs` | site em `docs/`, links internos OK |
@@ -16,7 +16,7 @@ por um crítico independente em contexto fresco (o mesmo princípio que o livro 
 | Texto | Veredito |
 |---|---|
 | Capítulos 1–13, apêndice D | **aprovado** pelo crítico independente |
-| Prefácio, capítulos 14, 15, 16, apêndices A e C | reprovado na 1ª crítica; **revisado** contra cada lacuna, sem 2ª crítica (limite de créditos) |
+| Prefácio, capítulos 14, 15, 16, apêndices A e C | reprovado na 1ª crítica, revisado e **aprovado na 2ª crítica** (03/11; 15, 16 e A após mais uma revisão); lacunas menores apontadas corrigidas à mão |
 | Apêndice B (ASEG-Bench) | reprovado; lacunas declaradas no texto — nenhum caso foi rodado contra um agente real, e GOV-007 tem origem fraca |
 
 ## Pendências conhecidas
@@ -25,7 +25,7 @@ por um crítico independente em contexto fresco (o mesmo princípio que o livro 
   local `066-painel-de-regencia` do Maestro (o remoto está em `566bca5`). Resolve com um push
   daquela branch no repositório do Maestro.
 - **Apêndice B** precisa de execuções reais dos dez casos para virar evidência, não só instrumento.
-- **Segunda crítica** dos textos revisados (prefácio, 14, 15, 16, A, C).
+- **Folga de tamanho**: capítulos 14 e 15 estão no teto de 8.000 palavras; nenhum portão mede isso.
 
 Inventário de cobertura: `pesquisa/inventario/` · evidências: `pesquisa/CLAIMS.md` ·
 contrato de escrita: `guia-editorial.md` · ordem: `sumario.yaml`.

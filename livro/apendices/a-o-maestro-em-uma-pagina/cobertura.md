@@ -45,3 +45,12 @@
 | «As outras formas do mesmo desenho» (caderno) | os slides «1 de 4» a «3 de 4», sem «4 de 4» | CLAIM-91-023 |
 | «A falha real» (comando que devolvia três) | lacuna 02 do qa-report do 053 | CLAIM-91-024 |
 | «Evidência» | claims por estado (13 medido, 15 observado); hipóteses H1, H2, H8, H10 marcadas como hipótese; o que o exemplo reproduz e quanto demora | — |
+
+## Correção da segunda crítica (03/11/2026)
+
+| seção | o que cobre | claims |
+|---|---|---|
+| «Se você só tem uma página» (novo, antes de «A página») | a página de verdade: definição, três ideias, o que fazer na segunda-feira (instalar, ciclo leve, medir o tempo); o resto marcado como aprofundamento | CLAIM-91-001, CLAIM-91-025, CLAIM-91-029 |
+| «Em que o Maestro difere das alternativas», «Critério de adoção para um tech lead» | custos conferíveis (13 agentes, 12 comandos, 6 skills, 12 moldes, 19 scripts; instalação ~5 min; tempo por ciclo não publicado), três perguntas de decisão, primeiro passo | CLAIM-91-018, CLAIM-91-028, CLAIM-91-029 |
+| «Checklist para quem avalia adotar o Maestro» | checklist de decisão, ao lado do checklist de quem resume o próprio método | — |
+| «Evidência» | 29 claims: 13 medido, 16 observado; tempo do exemplo como faixa (11 s a ~80 s) | — |

@@ -56,7 +56,7 @@ outro time rode os próprios *runs* sem pedir nada ao autor.
 | Avaliação de artefatos (ACM *Artifact Review and Badging*) | selos separados para artefato disponível, artefato que funciona e resultado reproduzido, concedidos por um comitê | a separação entre "o artefato roda" (`check-installed.sh`, o exemplo deste apêndice) e "o resultado se confirma" (a coluna de evidência) | o comitê externo; aqui a conferência é por conta do leitor |
 | Pré-registro (Nosek et al., 2018) | hipótese, desenho e análise registrados com data antes de qualquer dado | o protocolo congelado antes do primeiro *run* e a regra de que margem não muda depois de ver o resultado | o carimbo de tempo de terceiro; aqui a data é um *commit* do próprio autor, que é mais fraca enquanto o *commit* não está num repositório público |
 | Fichas de dados e de modelo (Gebru et al., 2021; Mitchell et al., 2019) | origem, composição, uso pretendido e limites do conjunto ou do modelo, num formato fixo | o `run.json` como ficha de cada execução e a seção de limites deste apêndice | a ficha do corpus inteiro, que só faz sentido quando os cenários existirem |
-| *Benchmark* público (SWE-bench, *Software Engineering benchmark*; ver o [capítulo 15](../../15-validando-o-maestro/capitulo.md)) | tarefa e teste fixos, que qualquer um roda contra qualquer agente | o caso com oráculo determinístico, no ASEG-Bench | a pergunta: o *benchmark* mede o agente; este pacote quer medir o método em volta dele |
+| *Benchmark* público (SWE-bench, *Software Engineering benchmark*; ver o [capítulo 15](../../15-validando-o-maestro/capitulo.md)) | tarefa e teste fixos, que qualquer um roda contra qualquer agente | o caso com oráculo determinístico, no ASEG-Bench (o *benchmark* de governança do [Apêndice B](../b-aseg-bench/capitulo.md)) | a pergunta: o *benchmark* mede o agente; este pacote quer medir o método em volta dele |
 
 O veredito é que nenhuma das quatro, sozinha, serve a um livro sobre método. A avaliação de
 artefatos supõe um comitê que este livro não tem. O pré-registro supõe uma hipótese pronta para
@@ -360,7 +360,7 @@ descreve a máquina, com servidores e caminhos de memória. Quem quiser auditar 
 
 Os *runs* ainda não existem, mas os claims existem, e esta é a parte do pacote que você já pode
 usar. Cada capítulo tem um `claims.md`; a consolidação de todos, em `pesquisa/CLAIMS.md`,
-somava 511 claims em 02/11/2026 [CLAIM-93-009]. Cada linha tem quatro colunas: o id, a
+somava 645 claims em 03/11/2026 [CLAIM-93-009]. Cada linha tem quatro colunas: o id, a
 afirmação, o estado e a evidência reproduzível.
 
 **O estado diz quanto a frase aguenta.**

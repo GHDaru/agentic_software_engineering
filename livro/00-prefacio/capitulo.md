@@ -60,7 +60,7 @@ A tese se apoia em cinco ideias, que se reforçam.
 
 **Instrução não é enforcement.** Escrever no arquivo de instruções do agente "nunca reescreva
 um registro de decisão" é um pedido, que o modelo pode cumprir ou não.
-No Maestro, um *hook* intercepta cada chamada de ferramenta antes que ela rode
+No Maestro, um *hook* intercepta as chamadas de edição, leitura e terminal antes que rodem (busca por `Grep` e `Glob` fica de fora)
 (`scripts/hooks/guard-immutables.py`, ligado em
 [`.claude/settings.json`](https://github.com/GHDaru/maestro/blob/19823c2/.claude/settings.json))
 e recusa a edição de um *Architecture Decision Record* (ADR) já versionado [CLAIM-00-002]. Em qualquer *harness* o mecanismo é
@@ -126,14 +126,14 @@ entre fazer e desfazer: produzir está cada vez mais barato, desfazer não.
 
 A camada de derivação serve para podar: uma regra que não deriva de axioma nenhum ou é um
 axioma novo, defendido por escrito, ou é cerimônia, e sai. O livro usa a mesma disciplina:
-cada capítulo declara de onde deriva, e o que não deriva de nada é ferramenta, que mora no
+cada capítulo declara de onde deriva (o 16, sobre o futuro, declara que não deriva de teorema nenhum), e o que não deriva de nada é ferramenta, que mora no
 manual.
 
 ## O que é o Maestro, em um parágrafo
 
 O Maestro é o método de **um humano regendo muitos agentes**, construído e usado num
 repositório público ([GHDaru/maestro](https://github.com/GHDaru/maestro/blob/19823c2/README.md))
-que foi desenvolvido por ele mesmo: entre 27 de julho e 1º de novembro de 2026, o histórico
+que foi desenvolvido com o próprio método: entre 27 de julho e 1º de novembro de 2026, o histórico
 acumulou 943 *commits*, 75 pastas de ciclo numeradas, 30 registros de decisão de arquitetura,
 os ADRs, treze agentes, seis *skills* e dezenove scripts de
 verificação [CLAIM-00-007]. A imagem do nome é de orquestra: a partitura (a especificação) diz
@@ -192,7 +192,7 @@ livro: como testar uma metodologia, e não só um software. [O futuro](../16-o-f
 separa o que deve sobreviver à próxima geração de modelos do que é circunstância.
 
 Os apêndices trazem o Maestro numa página, um *benchmark* de governança, o pacote de
-reprodução e estudos de campo.
+replicação e estudos de campo.
 
 **Três rotas.** Com uma tarde, leia os capítulos 1, 2, 10 e 11. Para implantar um fluxo com
 agentes no time, leia a Parte II antes da III, porque portão não salva especificação vaga. Se

@@ -16,6 +16,45 @@ e você quiser saber onde ela se encaixa.
 Tudo o que segue é citado na versão `19823c2` do Maestro (01/11/2026). Onde um número
 aparece, há um identificador de claim (prefixo 91) em [claims.md](claims.md) com o comando que o reproduz.
 
+Uma ressalva honesta antes de começar: o título promete uma página, e o apêndice tem bem
+mais que isso. Mais adiante ele cobra do Maestro o resumo que envelhece e que ninguém
+consome; seria incoerente esconder que ele próprio não cabe numa página. Por isso a página
+de verdade é o quadro abaixo. Tudo o que vem depois dele é **aprofundamento**, para ler
+quando um capítulo citar uma peça do método ou quando você estiver decidindo adotá-lo.
+
+## Se você só tem uma página
+
+**Definição.** O Maestro é um método em que **um humano rege vários agentes de IA**: a
+especificação diz o que fazer, os agentes executam, o humano decide, aprova e verifica.
+
+**Três ideias** [CLAIM-91-001]:
+
+1. **A spec é a fonte de verdade** — não o código, que o agente refaz, nem o prompt, que
+   some com a conversa.
+2. **O humano responde pela política, não por cada item** — ele define o que o agente faz
+   sozinho e o que pede aprovação.
+3. **Reversibilidade compra velocidade** — o que torna seguro delegar é poder desfazer
+   barato, não aprovar tudo.
+
+**O que fazer na segunda-feira:**
+
+1. **Instale num repositório de teste.** A receita do Maestro estima cerca de 5 minutos com
+   `maestro init <projeto> --ai claude`, que termina rodando a própria verificação
+   (`check-install.sh`) e falha se ela não passar [CLAIM-91-029].
+2. **Rode um ciclo da raia leve.** Escolha um bug pequeno: escreva o teste que o reproduz
+   falhando, corrija, abra o pull request como único artefato e peça a revisão a um agente
+   que não escreveu o código. A raia leve dispensa spec, plano e tarefas, mas não dispensa
+   teste nem revisão independente [CLAIM-91-025].
+3. **Marque o tempo.** O Maestro não publica quanto custa um ciclo; o número que vale para a
+   sua decisão é o do seu primeiro ciclo leve e, depois, o do primeiro ciclo pleno.
+
+Se depois disso você quiser saber o que adotar e o que deixar de fora, vá direto a «Em que o
+Maestro difere das alternativas» e ao critério de adoção que fecha aquela seção.
+
+---
+
+*Daqui em diante, aprofundamento.*
+
 ## A página
 
 **O que é.** Um método para construir software em que **um humano rege N agentes de IA**.
@@ -152,8 +191,9 @@ produz um artefato que o passo seguinte consome
 Três losangos param o fluxo [CLAIM-91-022]. Dois são humanos e não se delegam (a spec pronta e o merge); um
 é mecânico (a DoD, que bloqueia sozinha). O plano também passa por aprovação humana na raia
 completa, como mostra o desenho de processo da próxima seção. A linha do tempo não mostra o
-passo zero, que o capítulo 4 trata e que o caderno de desenvolvimento chama de «o mais
-barato e o mais esquecido»: antes de especificar, decide-se **quanto processo** a mudança
+que o caderno de desenvolvimento chama de «passo zero», «o mais barato e o mais
+esquecido» (o capítulo 4 trata do mesmo passo como a classificação em raias, sem esse
+nome): antes de especificar, decide-se **quanto processo** a mudança
 merece [CLAIM-91-025]. Na raia leve (um bug, um erro de digitação), o pull request é o
 artefato e as caixas de planejamento são puladas, mas não a revisão independente nem os
 testes; na plena, o ciclo é o da tabela; na de infraestrutura, é o da tabela mais os
@@ -313,7 +353,8 @@ A lição é desconfortável para quem escreve um apêndice como este. Um resumo
 afirmações curtas, e uma afirmação curta parece verdadeira porque é fácil de ler. Num ciclo
 de código, o teste reprova o que não funciona; num ciclo de documentação, nada reprova a
 frase errada — salvo um revisor que não escreveu a frase e foi instruído a procurar o erro.
-O Maestro chama esse defeito de "medir a frase em vez do fato", e o
+O catálogo de anti-padrões do Maestro registra esse defeito como o
+de número 13, o portão que mede o indício e não o fato, e o
 [capítulo 10](../../10-quality-gates-que-provam-fatos/capitulo.md) trata dele por inteiro.
 
 ## Por que este resumo também envelhece
@@ -424,6 +465,38 @@ O limite da comparação está declarado no ADR 0008: as ferramentas foram ficha
 primárias, sem instalar cada uma [CLAIM-91-027]. É um veredito de leitura, não de uso, e o
 livro o trata assim.
 
+### Critério de adoção para um tech lead
+
+O mapa acima diz o que o Maestro é; a decisão de adotá-lo depende do que ele custa e do
+primeiro passo que a testa. Três custos são conferíveis no disco:
+
+- **O que se mantém.** Na versão citada, o método instalado traz 13 agentes, 12 comandos,
+  6 skills, 12 moldes (*templates*) e 19 scripts de portão `check-*.sh` [CLAIM-91-018].
+  Cada um é código ou instrução que alguém do time precisa entender quando der vermelho.
+  Os scripts passaram de 16 para 19 entre agosto e novembro de 2026: o método muda, e
+  acompanhá-lo é parte do custo.
+- **O que se instala.** O caminho completo leva cerca de 5 minutos, segundo a receita. Os
+  atalhos (plugin, `npx skills add`) são mais leves, mas não trazem scripts nem governança
+  [CLAIM-91-029]: levam o vocabulário sem os portões, que são justamente a camada que o
+  diferencia de um fluxo de spec sozinho.
+- **O tempo por ciclo.** Não há número publicado no Maestro, e este livro não inventa um.
+  Meça no primeiro ciclo leve e no primeiro pleno, e compare com o que o mesmo trabalho
+  custava antes.
+
+A decisão, em três perguntas:
+
+1. **Uma pessoa vai reger vários agentes?** Se sim, o Maestro foi desenhado para esse caso
+   [CLAIM-91-028]. Se o time é de várias pessoas que se sincronizam em reuniões, adote as
+   peças (raias, revisão independente, portões que conferem fatos), não o modelo inteiro.
+2. **O projeto vai durar mais que algumas semanas?** Um protótipo que vai para o lixo não
+   paga spec, claims nem retrospectiva com gatilho; a raia leve basta, ou nem ela.
+3. **Alguém vai manter os scripts?** Um portão que dá vermelho e ninguém sabe consertar vira
+   portão desligado. Se não há quem mantenha os 19, comece com os dois ou três que conferem o
+   que mais dói no seu time.
+
+O primeiro passo que testa tudo isso é o da página de abertura: instalar num repositório de
+teste e rodar um ciclo da raia leve. Se o ciclo leve já pesar, o pleno vai pesar mais.
+
 ## Quando este resumo atrapalha
 
 Tudo o que este apêndice recomenda tem custo, e há casos em que o custo não se paga.
@@ -472,6 +545,15 @@ qualquer peça desta página.
 | Retrospectiva com gatilho, constituição | a organização que aprende sem inchar | [capítulo 14](../../14-a-organizacao-que-aprende/capitulo.md) |
 | "Construído por ele mesmo" | testar uma metodologia | [capítulo 15](../../15-validando-o-maestro/capitulo.md) |
 
+## Checklist para quem avalia adotar o Maestro
+
+- [ ] Instalou num repositório de teste e a verificação da instalação passou.
+- [ ] Rodou um ciclo da raia leve inteiro (teste falhando antes, pull request, revisão por
+      quem não escreveu) e anotou quanto tempo levou.
+- [ ] Sabe quem do time vai manter os scripts de portão quando um deles der vermelho.
+- [ ] Decidiu, por escrito, quais peças adota e quais deixa de fora, e por quê.
+- [ ] Marcou a versão do Maestro que avaliou, para saber o que mudou na próxima vez.
+
 ## Checklist para o resumo do seu próprio método
 
 Se o seu time tem um deck, um diagrama ou uma página "o nosso processo em uma página", confira:
@@ -492,20 +574,20 @@ Se o seu time tem um deck, um diagrama ou uma página "o nosso processo em uma p
 
 ## Evidência
 
-Os claims deste apêndice estão em [claims.md](claims.md), 28 ao todo, em dois estados:
+Os claims deste apêndice estão em [claims.md](claims.md), 29 ao todo, em dois estados:
 
 - **`medido`** (13): um comando sobre o Git do Maestro reproduz o número — 004, 006, 009,
   010, 011, 012, 013, 018, 020, 022, 023, 026 e 027.
-- **`observado`** (15): o Maestro registra o fato e o livro leu o registro; não há comando
+- **`observado`** (16): o Maestro registra o fato e o livro leu o registro; não há comando
   que gere o número, só a linha do arquivo que o afirma — 001, 002, 003, 005, 007, 008, 014,
-  015, 016, 017, 019, 021, 024, 025 e 028. Estes valem o que vale a leitura: o comando do
+  015, 016, 017, 019, 021, 024, 025, 028 e 029. Estes valem o que vale a leitura: o comando do
   claim mostra o trecho, e conferir é ler.
 
 O exemplo executável ([exemplo/](exemplo/README.md)) reproduz de uma vez só o CLAIM-91-018
 e, de passagem, o número de raias do CLAIM-91-004; os demais `medido` se conferem um a um
 pelo comando da tabela. O script só lê o Git; o tempo de execução depende de quão rápido o
-Git responde na máquina (11 s medidos em 02/11/2026 num Windows; numa execução da revisão
-crítica deste apêndice, também no Windows, cerca de 78 s).
+Git responde na máquina: em três execuções no Windows, entre 02 e 03/11/2026, levou de
+11 s a cerca de 80 s, com a mesma saída. Conte com segundos a pouco mais de um minuto.
 
 **Hipóteses que o apêndice toca e não prova.** O apêndice descreve o método; não mede se ele
 funciona. Quatro hipóteses da agenda de pesquisa do livro (H1–H10) aparecem aqui como
@@ -537,7 +619,7 @@ são de leitura de fontes primárias, não de uso das ferramentas.
   `docs/adr/0004-modelo-operacional.md`, `docs/adr/0005-raias-de-trabalho-e-specs-de-infra.md`,
   `docs/adr/0008-avaliacao-ecossistema-sdd.md`, `docs/ecosystem/` (README, `estado.jsonl`,
   `fontes.md`, fichas 010 e 031), `docs/handbook/03-spec-driven.md`,
-  `docs/research/avaliacao-ecossistema-sdd.md`.
+  `docs/research/avaliacao-ecossistema-sdd.md`, `docs/receitas/instalar-o-maestro.md`.
 - Object Management Group. *Business Process Model and Notation (BPMN), Version 2.0.2*.
   OMG, 2013. <https://www.omg.org/spec/BPMN/2.0.2/> (acesso em 02/11/2026).
 - Archify, gerador de diagramas interativos a partir de JSON; versão 3.2.0, conforme

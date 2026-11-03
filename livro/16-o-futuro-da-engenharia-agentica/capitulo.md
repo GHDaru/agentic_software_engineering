@@ -4,13 +4,11 @@
 > portão do Maestro, que no original diz "observing without a trigger is forgetting with
 > ceremony" [CLAIM-16-001]
 
-Todo livro sobre agentes de inteligência artificial (IA) envelhece no dia em que sai: o modelo
-da próxima geração lê mais, erra menos e custa menos, e metade das recomendações parece, de
-repente, prudência exagerada. Este capítulo não tenta adivinhar o próximo modelo. Faz uma
-pergunta mais útil para quem precisa decidir segunda-feira: das regras dos quinze capítulos
-anteriores, quais dependem de uma limitação da ferramenta de hoje e quais dependem de coisas
-que nenhum modelo muda — pessoas, consequências e custo de desfazer? E, para as que dependem da
-ferramenta, como o seu time percebe a hora de revê-las sem esperar que alguém se lembre?
+Todo livro sobre agentes de inteligência artificial (IA) envelhece no dia em que sai. Este
+capítulo não adivinha o próximo modelo; pergunta, das regras dos quinze capítulos anteriores,
+quais dependem de uma limitação da ferramenta de hoje e quais dependem do que nenhum modelo
+muda — pessoas, consequências e custo de desfazer. E, para as primeiras, como o seu time
+percebe a hora de revê-las sem esperar que alguém se lembre.
 
 ## Pergunta central
 
@@ -69,9 +67,10 @@ de dois agentes escrevendo ao mesmo tempo (a objeção é discutida em "Evidênc
 das leituras, nenhuma das duas ideias foi reavaliada. Em `19823c2`, o estado
 corrente de ambas continua "observar", com as datas de julho e agosto [CLAIM-16-004]. E não foi
 por abandono do catálogo: em 29 de outubro, quatro dias depois do conflito entre *worktrees*, o
-índice ganhou uma linha nova — a da ideia 041, o diagrama vivo do time — no commit `f79b1be`, a
-única linha acrescentada naquele commit [CLAIM-16-005]. Alguém abriu o arquivo, escreveu nele,
-e não releu os gatilhos das linhas de cima.
+índice ganhou uma linha nova — a da ideia 041, o diagrama vivo do time — no commit `f79b1be`,
+que tocou o `estado.jsonl` com essa única linha e não mexeu nas de cima [CLAIM-16-005]. O
+catálogo estava em uso; nenhuma linha nova, porém, reavaliou as duas ideias cujos gatilhos
+tinham sido tocados.
 
 O portão estava verde porque media a coisa errada. A linha 255 de `check-ecosystem.sh` confere
 que todo "observar" **tem** gatilho; nada confere se o gatilho **disparou** [CLAIM-16-006]. É o
@@ -123,11 +122,10 @@ Os outros dois são diferentes. A3 se declara, nas palavras do documento, "uma p
 física da ferramenta, não um hábito do operador". A4 é metade ferramenta: "o agente começa cada
 sessão do zero" descreve o *harness* de hoje, e o catálogo do Maestro já tem, em observação
 desde 1º de agosto de 2026, a ideia 017, memória persistente de sessão, com o gatilho "sessões de vários dias sobre a
-mesma intenção começarem a doer, com perda de contexto medida" [CLAIM-16-008]. Janelas de
-contexto maiores e memória entre sessões são justamente as duas frentes em que os fornecedores
-de modelos e de *harness* mais investem. Se uma delas avançar o bastante, o axioma não fica
-falso de um dia para o outro: fica **menos verdadeiro**, e as regras que dependem dele passam
-a custar mais do que protegem.
+mesma intenção começarem a doer, com perda de contexto medida" [CLAIM-16-008]. Se janela
+maior ou memória entre sessões avançarem o bastante, o axioma não fica falso de um dia para o
+outro: fica **menos verdadeiro**, e as regras que dependem dele passam a custar mais do que
+protegem.
 
 ### O mapa da fragilidade
 
@@ -177,20 +175,17 @@ do [capítulo 10](../10-quality-gates-que-provam-fatos/capitulo.md); o fato é s
 Junte as duas metades e a teoria do capítulo fica em uma frase. **O futuro entra no processo
 por dois caminhos: pela premissa que enfraquece e pelo gatilho que dispara. Os dois só
 funcionam se forem verificados por máquina**, porque a alternativa — alguém se lembrar — é
-justamente o que A4 diz que não sobrevive. O resto do capítulo trata do que isso exige: como
-escrever gatilhos que um script consegue ler, o que fazer com um calendário externo que muda
-sozinho, como o regulatório de aplicação escalonada, e onde a regra de vigiar o futuro passa a
-custar mais do que vale.
+justamente o que A4 diz que não sobrevive.
 
 ### Um calendário externo de verdade: o *AI Act* marco a marco
 
-Os modelos não publicam a data em que vão mudar. A lei publica. O Regulamento (UE) 2024/1689,
-o Regulamento Europeu de Inteligência Artificial (*AI Act*), saiu no Jornal Oficial da União
-Europeia em 12 de julho de 2024, entrou em vigor em 1º de agosto de 2024 e escalonou a
+Os modelos não publicam a data em que vão mudar. A lei publica. O Regulamento 2024/1689 da
+União Europeia (UE), o Regulamento Europeu de Inteligência Artificial (*AI Act*), saiu no
+Jornal Oficial da UE em 12 de julho de 2024, entrou em vigor em 1º de agosto de 2024 e escalonou a
 aplicação no art. 113 [CLAIM-16-018]. Dois anos depois, o Regulamento (UE) 2026/1744, chamado
 de *Digital Omnibus on AI*, foi publicado em 24 de julho de 2026 e entrou em vigor em 27 de
 julho, mudando datas e parte do conteúdo [CLAIM-16-023]. Para um tech lead cujo produto chega
-a usuários na União Europeia, o regulamento é o melhor exemplo de gatilho de relógio que este
+a usuários na UE, o regulamento é o melhor exemplo de gatilho de relógio que este
 capítulo tem, e também do relógio que muda de hora.
 
 A tabela abaixo dá, para cada marco, o que passa a valer e o que um time que constrói com
@@ -231,11 +226,11 @@ por tarefa, ou não?") nunca foi retomada. A dor foi tratada; a regra continuou 
 
 **Radar de tecnologia.** O formato popularizado pelo *Technology Radar* da Thoughtworks
 classifica ferramentas e técnicas em anéis (adotar, experimentar, avaliar, segurar) e revisa
-tudo numa cadência fixa. Tem duas virtudes: obriga a escrever o veredito e cria um ritual de
-revisão. Tem dois limites para o problema deste capítulo. A unidade costuma ser a
-**ferramenta**, e não a ideia — e o Maestro registrou por escrito por que isso não é acionável:
-"absorver + observar" sobre uma ferramenta inteira não diz o que entra nem onde. E a revisão é
-por **calendário**, não por evento: o gatilho da ideia 029 disparou em 12 de outubro, e um
+tudo numa cadência fixa [CLAIM-16-028]. Tem duas virtudes: obriga a escrever o veredito e
+cria um ritual de revisão. Tem dois limites para o problema deste capítulo. A unidade costuma
+ser a **ferramenta**, e não a ideia, e o Maestro registrou por escrito que "Superpowers:
+absorver + observar" não é acionável, em contraste com um veredito sobre uma ideia que nomeia o
+arquivo de destino [CLAIM-16-027]. E a revisão é por **calendário**, não por evento: o gatilho da ideia 029 disparou em 12 de outubro, e um
 radar periódico o veria, com sorte, semanas depois, se alguém se lembrasse de cruzá-lo.
 
 **ADR com data de revisão.** Muitos times acrescentam ao registro de decisão de arquitetura
@@ -262,7 +257,9 @@ entre agentes, e o *Agent Client Protocol* (ACP), para a conversa entre editor e
 construir o mínimo por cima. Foi o que o Maestro decidiu em 28 de outubro de 2026, depois de
 analisar na fonte cinco candidatos a plano de controle de agentes (Paperclip, CompozyOS,
 AgentConnect, ACP e A2A): **construir**, com os padrões nas bordas e nenhum produto como base;
-os nomes de estado do A2A entram no envelope das mensagens, "sem fio nem SDK", e o ACP entra
+os nomes de estado do A2A entram no envelope das mensagens, "sem fio nem SDK" (sem o
+transporte do A2A nem o seu kit de desenvolvimento de software, *software development kit*), e
+o ACP entra
 como um dos modos de uma porta de *harness*, com versões fixadas [CLAIM-16-013]. Protocolo
 envelhece mais devagar que produto, e o custo de sair dele é trocar um adaptador.
 
@@ -413,80 +410,61 @@ Vigiar o futuro custa atenção, e em alguns lugares a regra deste capítulo atr
 protege. Seis casos, cada um com o custo que a regra cobra.
 
 **O gatilho que nenhuma máquina mede.** A ideia 018 do catálogo, orquestrar uma frota de
-agentes, tem um gatilho bem escrito e humano de propósito: "existir trabalho paralelo real que a
-atenção de **um** humano consiga governar". O próprio cartão sublinha que "a condição é o
-humano, não a máquina" [CLAIM-16-019]. Nenhum script mede atenção. Se o time quiser
-transformar esse gatilho em comando, vai acabar contando alguma coisa vizinha, como sessões
-abertas, *worktrees* vivas ou mensagens por hora, e cai no anti-padrão do
-[capítulo 10](../10-quality-gates-que-provam-fatos/capitulo.md): o portão mede o proxy e fica
-verde ou vermelho pelo motivo errado. Para gatilhos assim, a forma honesta é a da proposta
-deste capítulo, mas lida ao contrário: o evento é escrito por uma pessoa ("nesta semana não
-consegui acompanhar três trabalhadores ao mesmo tempo"), e a máquina cobra só que alguém releia
-o gatilho depois do evento. Ela vigia a releitura, não o mundo. Quem anunciar "nossos gatilhos
-são todos automáticos" está escondendo um gate humano atrás de um verde.
+agentes, tem um gatilho humano de propósito: "existir trabalho paralelo real que a atenção de
+**um** humano consiga governar"; o cartão sublinha que "a condição é o humano, não a máquina"
+[CLAIM-16-019]. Nenhum script mede atenção. Quem transformar esse gatilho em comando vai contar
+algo vizinho (sessões abertas, *worktrees* vivas, mensagens por hora) e cai no anti-padrão do
+[capítulo 10](../10-quality-gates-que-provam-fatos/capitulo.md): o portão mede o proxy. Aqui a
+proposta se lê ao contrário: uma pessoa escreve o evento ("nesta semana não consegui acompanhar
+três trabalhadores"), e a máquina cobra só a releitura do gatilho. Quem anunciar "nossos
+gatilhos são todos automáticos" está escondendo um gate humano atrás de um verde.
 
-**O evento que ninguém escreve.** A proposta da seção anterior troca o esquecimento de lugar.
-Antes, alguém precisava se lembrar de reler dezesseis gatilhos; depois, precisa se lembrar de
-anotar um evento. Se o arquivo de eventos depender de boa vontade, o portão novo fica verde pelo
-mesmo motivo que o antigo, e o capítulo terá acrescentado uma cerimônia. O remédio é prender a
-escrita do evento a um passo que já existe e que ninguém pula: a seção de origem da
-especificação, a abertura do ciclo, a retrospectiva. O ciclo 065 é o caso favorável, porque a
-frase que disparou o gatilho da ideia 029 estava escrita na origem da própria especificação
-[CLAIM-16-003]; um revisor que lesse a especificação com o catálogo ao lado teria visto. Sem esse
-elo, não adote a proposta, porque ela só acrescenta cerimônia.
+**O evento que ninguém escreve.** A proposta troca o esquecimento de lugar: em vez de lembrar de
+reler dezesseis gatilhos, alguém precisa lembrar de anotar um evento. Se isso depender de boa
+vontade, o portão novo fica verde pelo mesmo motivo que o antigo. O remédio é prender a escrita
+do evento a um passo que ninguém pula: a origem da especificação, a abertura do ciclo, a
+retrospectiva. No ciclo 065, a frase que disparou o gatilho da 029 estava na origem da própria
+especificação [CLAIM-16-003]; um revisor com o catálogo ao lado teria visto. Sem esse elo, não
+adote a proposta.
 
-**O relógio que muda de hora.** Na seção "Alternativas", este capítulo disse que, para o
-regulatório, o relógio é o gatilho certo. Isso é só meio verdade. O Regulamento Europeu de
-Inteligência Artificial publicou os marcos de 2025 a 2027 no art. 113, e o Regulamento (UE)
-2026/1744 remarcou os dois de alto risco, criou proibições novas para dezembro de 2026 e deu
-prazo de transição à marcação de conteúdo sintético [CLAIM-16-023]. A data publicada é,
-portanto, um gatilho que pode ser remarcado. Um script que lê um calendário congelado responde
-com confiança e erra no dia em que a lei muda de novo.
+**O relógio que muda de hora.** Em "Alternativas", este capítulo disse que, para o regulatório,
+o relógio é o gatilho certo. É meia verdade: o Regulamento Europeu de Inteligência Artificial
+publicou os marcos no art. 113, e o Regulamento 2026/1744 remarcou os dois de alto risco, criou
+proibições novas para dezembro de 2026 e deu transição à marcação de conteúdo sintético
+[CLAIM-16-023]. Um script que lê um calendário congelado responde com confiança e erra no dia
+em que a lei muda de novo.
 
-Este capítulo caiu nisso. A primeira versão registrava as datas novas sem o número do ato que
-as mudou, sem data de conferência, e afirmava que nada no conteúdo tinha mudado. As
-proibições novas de dezembro de 2026 não apareciam, e as alterações nos arts. 4, 10 e 11 também
-não. O exemplo rodava e dizia "OK". Um revisor independente apontou; a correção foi conferir o
-texto no Jornal Oficial e acrescentar ao dado a data da conferência, com prazo de validade
-[CLAIM-16-026]. É o defeito do capítulo dentro do capítulo, e um caso a mais de "o check mede o
-proxy": o "OK" media a coerência do script com o arquivo, e não a do arquivo com a lei.
+Este capítulo caiu nisso. A primeira versão do dado registrava as datas novas sem o número do
+ato que as mudou nem data de conferência, afirmava que o conteúdo não tinha mudado e omitia as
+proibições de dezembro de 2026; o exemplo dizia "OK". Um revisor independente apontou, e a
+correção foi conferir o Jornal Oficial e pôr no dado a data da conferência, com prazo de
+validade [CLAIM-16-026]. O "OK" media a coerência do script com o arquivo, e não a do arquivo
+com a lei. Duas consequências: o gatilho regulatório é duplo (a data **e** a publicação de
+alteração), e o que o adiamento não mudou (gestão de risco, registro de eventos, supervisão
+humana) é o que um método derivado de A2 e A5 já pediria. Use o adiamento para planejar com
+folga, não para adiar a rastreabilidade.
 
-Disso saem duas consequências práticas. A primeira: o gatilho regulatório é duplo, a data
-**e** a publicação de alteração, e o arquivo de calendário precisa de fonte e de data da última
-conferência. A segunda pesa mais: o que não mudou com o adiamento (gestão de risco, registro de
-eventos, supervisão humana) é o que um método derivado de A2 e A5 já pediria de qualquer jeito.
-Use o adiamento para planejar com folga, mas não como licença para adiar a rastreabilidade que
-o seu time construiria por outros motivos.
+**A vigília que vira vigilância.** Para perceber eventos, a tentação é registrar tudo. A base de
+pesquisa deste livro diz que "*tracing* não é retenção indiscriminada", ao lado da Lei Geral de
+Proteção de Dados (LGPD) e do *sandbox* regulatório da Autoridade Nacional de Proteção de Dados
+(ANPD) [CLAIM-16-020]. Uma linha por gatilho tocado, com a prova num commit, é pequena,
+auditável e não guarda dado pessoal. Guardar conversas inteiras "para o caso de algum gatilho
+disparar" cria um passivo maior do que a ideia vigiada.
 
-**A vigília que vira vigilância.** Para perceber eventos, a tentação é registrar tudo: cada
-*prompt*, cada sessão, cada mensagem. A base de pesquisa deste livro tem uma regra curta para
-isso, "*tracing* não é retenção indiscriminada", e a põe ao lado da Lei Geral de Proteção de
-Dados (LGPD) e do *sandbox* regulatório da Autoridade Nacional de Proteção de Dados (ANPD)
-[CLAIM-16-020]. Um arquivo de eventos com uma linha por gatilho tocado e a prova apontando para
-um commit é pequeno, auditável e não guarda dado pessoal. Um rastreador que guarda conversas
-inteiras "para o caso de algum gatilho disparar" cria um passivo maior do que a ideia que ele
-vigia.
+**O mapa da fragilidade lido como decreto.** Dizer que T5 e T6 são os teoremas mais expostos é
+hipótese deste livro [CLAIM-16-009]. O uso errado é podar a retrospectiva no dia em que um
+fornecedor anuncia janela maior. O gatilho da ideia 017, "com perda de contexto medida", mostra
+o modelo certo [CLAIM-16-008]: a regra muda quando o time **mede** que a premissa enfraqueceu.
+Vale o mesmo para o agente autônomo, "modelo aberto com guarda-corpos", o único dos seis padrões
+do *handbook* do Maestro marcado como evitado, por YAGNI [CLAIM-16-021]: um modelo melhor não
+reabre essa porta; uma medida de que os guarda-corpos bastam, sim.
 
-**O mapa da fragilidade lido como decreto.** A conclusão de que T5 e T6 são os teoremas mais
-expostos é uma hipótese deste livro [CLAIM-16-009]. O uso errado é podar a retrospectiva ou o
-corte de contexto no dia em que um fornecedor anuncia janela maior. Isso troca uma premissa por
-uma nota de lançamento. O gatilho da ideia 017, "com perda de contexto medida", mostra o modelo
-certo [CLAIM-16-008]: a regra muda quando o time **mede** que a premissa enfraqueceu no seu
-próprio trabalho, e não quando alguém lê o anúncio. Vale o mesmo para o padrão que o
-*handbook* do Maestro deixa de fora de propósito: dos seis padrões de orquestração que mapeia, o
-agente autônomo, "modelo aberto com guarda-corpos", é o único marcado como evitado, por YAGNI
-[CLAIM-16-021]. Um modelo melhor não reabre essa porta. O que reabre é uma medida, no seu
-contexto, de que os guarda-corpos bastam.
-
-**Construir quando comprar seria o certo.** A decisão do Maestro de construir sobre protocolos
-[CLAIM-16-013] serve a um projeto cujo produto é a própria governança. Num time cuja empresa já
-decidiu por uma nuvem gerenciada, o gatilho da ideia 040, "ida a nuvem gerenciada"
-[CLAIM-16-014], disparou antes do primeiro dia, e construir o próprio plano de controle passa a
-ser custo sem retorno. A reversibilidade continua decidindo, mas a partir do lugar onde o time
-já está. Vale o mesmo para o tamanho do catálogo: 41 ideias com estado corrente [CLAIM-16-002]
-fazem sentido para quem tem o método como produto. Para um time de produto pequeno, a versão que
-se paga é uma lista curta, com gatilho por linha e uma releitura presa à retrospectiva. O resto
-cai pelo critério de YAGNI.
+**Construir quando comprar seria o certo.** Construir sobre protocolos [CLAIM-16-013] serve a um
+projeto cujo produto é a própria governança. Num time que já decidiu por uma nuvem gerenciada, o
+gatilho da ideia 040, "ida a nuvem gerenciada" [CLAIM-16-014], disparou antes do primeiro dia, e
+construir o próprio plano de controle vira custo sem retorno. O mesmo vale para o tamanho do
+catálogo: 41 ideias [CLAIM-16-002] fazem sentido para quem tem o método como produto; para um
+time pequeno, basta uma lista curta, com gatilho por linha e releitura presa à retrospectiva.
 
 ## Evidência
 
@@ -495,38 +473,26 @@ evidência reproduzível de cada claim, está em [`claims.md`](claims.md). Quase
 Maestro na versão `19823c2`, e os comandos de conferência são `git show` e `git log` sobre essa
 versão.
 
-**Medido** (reproduzível por comando). O catálogo do ecossistema e os seus números: 41 ideias
-com estado corrente, 16 delas em observação e todas as 16 com gatilho [CLAIM-16-002]. O estado
-corrente das duas ideias cujo gatilho disparou [CLAIM-16-004]. O commit de 29 de outubro que
-acrescentou uma única linha ao índice sem tocar nas de cima [CLAIM-16-005]. O bloco do portão
-que confere a existência do gatilho e mais nada [CLAIM-16-006]. A contagem de axiomas, teoremas e
-corolários [CLAIM-16-007]. A derivação dos teoremas, de onde sai que dois deles dependem só dos
-axiomas sobre a ferramenta [CLAIM-16-009]. A saída do exemplo executável, que reproduz tanto o
-cálculo de sensibilidade quanto os dois portões [CLAIM-16-017]. Esses números não dependem de
-interpretação: mude a versão do Maestro e eles mudam, mas, na versão citada, qualquer pessoa
-chega a eles.
+**Medido** (reproduzível por comando sobre `19823c2`): os números do catálogo, o estado das
+duas ideias, a linha do índice no commit `f79b1be`, o bloco do portão, a contagem e a derivação
+dos teoremas e a saída do exemplo [CLAIM-16-002, CLAIM-16-004 a CLAIM-16-007, CLAIM-16-009,
+CLAIM-16-017]. Mude a versão do Maestro e eles mudam; na versão citada, qualquer pessoa chega a
+eles.
 
-**Observado** (registrado em commit, especificação, cartão ou índice de decisões). A criação do
-catálogo e do portão no ciclo 047 [CLAIM-16-001]. Os eventos que tocaram os gatilhos das ideias
-029 e 003, com as datas e os commits [CLAIM-16-003]. A ideia 017 e o seu gatilho de perda de
-contexto medida [CLAIM-16-008]. O YAGNI descrito como poda ativa [CLAIM-16-010] e a evidência de
-T6, a retrospectiva sem gatilho por 33 ciclos [CLAIM-16-011]. As três peças e as sete dimensões
-do catálogo [CLAIM-16-012]. A decisão de 28 de outubro sobre o plano de controle, depois de
-cinco análises na fonte [CLAIM-16-013]. Os vereditos das ideias 040, 016 e 018 [CLAIM-16-014,
-CLAIM-16-015, CLAIM-16-019]. O que o cabeçalho do portão diz medir e o gancho que protege os
-cartões [CLAIM-16-016]. O padrão autônomo marcado como evitado no *handbook* [CLAIM-16-021].
+**Observado** (registrado em commit, especificação, cartão, *handbook* ou índice de decisões):
+a criação do catálogo, os eventos que tocaram os gatilhos, os cartões e vereditos citados, a
+decisão sobre o plano de controle, o cabeçalho do portão e o gancho [CLAIM-16-001, CLAIM-16-003,
+CLAIM-16-008, CLAIM-16-010 a CLAIM-16-016, CLAIM-16-019, CLAIM-16-021, CLAIM-16-027].
 
-**Interpretação do livro, não do Maestro.** Duas leituras centrais deste capítulo são nossas e
-precisam ser lidas assim. A primeira é dizer que os gatilhos das ideias 029 e 003 **dispararam**.
-O pedido do ciclo 065 bate com a letra do gatilho da 029 quase palavra por palavra. O da 003 é
-mais discutível: o gatilho fala de "dois ou mais agentes escrevendo no mesmo repositório ao
-mesmo tempo, com conflito observado", e o que o commit `d71cee6` registra é um conflito
-resolvido na integração de uma *worktree*. Um mantenedor do Maestro pode argumentar que isso é
-conflito de integração, e não de escrita simultânea. A tese do capítulo sobrevive a essa
-objeção, porque o defeito apontado não é "o veredito está errado". O defeito é que ninguém foi
-chamado a decidir. A segunda leitura é o mapa da fragilidade: o Maestro declara de quais
-axiomas cada teorema deriva, e a conclusão de que T5 e T6 são os mais expostos à próxima geração
-é deste livro [CLAIM-16-009].
+**Interpretação do livro, não do Maestro.** Duas leituras centrais são nossas. A primeira é
+dizer que os gatilhos das ideias 029 e 003 **dispararam**. O pedido do ciclo 065 bate com a
+letra do gatilho da 029 quase palavra por palavra. O da 003 é discutível: o gatilho fala de
+"dois ou mais agentes escrevendo no mesmo repositório ao mesmo tempo, com conflito observado", e
+o commit `d71cee6` registra um conflito resolvido na integração de uma *worktree*, que um
+mantenedor pode chamar de conflito de integração, e não de escrita simultânea. A tese sobrevive
+à objeção, porque o defeito apontado não é o veredito, e sim que ninguém foi chamado a decidir.
+A segunda é o mapa da fragilidade: o Maestro declara de que axiomas cada teorema deriva; dizer
+que T5 e T6 são os mais expostos é deste livro [CLAIM-16-009].
 
 **Observado em fonte oficial.** O calendário do Regulamento Europeu de Inteligência Artificial
 e o seu conteúdo, conferidos em eur-lex.europa.eu em 2 de novembro de 2026: as datas do art.
@@ -536,29 +502,25 @@ que a alteração mudou ou não mudou [CLAIM-16-024, CLAIM-16-025]. A leitura de
 lead faz" em cada marco é deste livro, e não substitui parecer jurídico. A conferência tem data
 e vence: o arquivo do exemplo a declara, e o script cobra a próxima [CLAIM-16-026].
 
-**Hipótese** (não medida; agenda da pesquisa). Três hipóteses da agenda do livro tocam este
-capítulo. A H10, de que retrospectiva que vira regra reduz recorrência, é a hipótese por trás do
-corolário C1. A falha real mostra a metade que o desenho da H10 não captura: uma regra com
-gatilho escrito que não reduziu nada, porque ninguém confrontou o gatilho com o mundo. A H8, de
-que reversibilidade permite mais autonomia, é o critério que este capítulo usa para escolher
-entre plataforma, protocolo e construção. A H9, de que modelo menor basta em tarefa estruturada,
-é o ponto em que o futuro mais pode mudar a economia: se a estrutura (especificação, critério
-verificável, papel definido) faz um modelo barato bastar, então o que o livro descreve fica mais
-valioso a cada geração, e não menos. Nenhuma das três foi medida com braço de controle. A
-métrica e o desenho de cada uma estão em [`pesquisa/hipoteses.md`](../../pesquisa/hipoteses.md);
-os níveis de comparação comuns a toda a agenda estão no
+**Hipótese** (não medida; agenda da pesquisa). A H10, de que retrospectiva que vira regra
+reduz recorrência, está por trás do corolário C1; a falha real mostra a metade que o desenho da
+H10 não captura: uma regra com gatilho escrito que não reduziu nada. A H8, de que
+reversibilidade permite mais autonomia, é o critério para escolher entre plataforma, protocolo e
+construção. A H9, de que modelo menor basta em tarefa estruturada, é onde o futuro mais pode
+mudar a economia: se a estrutura faz um modelo barato bastar, o que o livro descreve fica mais
+valioso a cada geração. Nenhuma foi medida com braço de controle; métrica e desenho estão em
+[`pesquisa/hipoteses.md`](../../pesquisa/hipoteses.md) e no
 [capítulo 15](../15-validando-o-maestro/capitulo.md).
 
-**Limites.** Os casos são de um repositório, com um humano regendo. O catálogo é o de um projeto
-cujo produto é o próprio método, o que o torna mais cuidadoso que a média, e mesmo assim os dois
-gatilhos passaram. A proposta do registro de eventos não foi testada em nenhum time: o exemplo
-a executa sobre três eventos escritos por este livro, e o que ela promete (transformar o
-esquecimento num vermelho) depende do elo de escrita do evento, que o "Contraexemplo" mostra
-ser o ponto fraco. A literatura acadêmica sobre sistemas multiagente para engenharia de
-software, como a revisão e agenda de He, Treude e Lo [CLAIM-16-022], aponta para onde o campo
-vai, mas é visão e não evidência de que alguma regra deste livro sobreviva. O capítulo não faz
-previsão sobre modelos. Afirma só que o processo do seu time deve ter, por escrito e conferido
-por máquina, o caminho pelo qual uma previsão errada seria corrigida.
+**Limites.** Os casos são de um repositório, com um humano regendo, num projeto cujo produto
+é o próprio método, mais cuidadoso que a média; mesmo assim os dois gatilhos passaram. O
+registro de eventos não foi testado em nenhum time: o exemplo o executa sobre três eventos
+escritos por este livro, e a promessa depende do elo de escrita do evento, o ponto fraco que o
+"Contraexemplo" mostra. A literatura sobre sistemas multiagente para engenharia de software,
+como a revisão de He, Treude e Lo [CLAIM-16-022], aponta para onde o campo vai, mas é visão, e
+não evidência de que alguma regra deste livro sobreviva. O capítulo não prevê modelos; afirma
+só que o processo deve ter, por escrito e conferido por máquina, o caminho pelo qual uma
+previsão errada seria corrigida.
 
 ## Checklist
 
@@ -680,26 +642,30 @@ como julgamento, com dono.
   [14 — A organização que aprende](../14-a-organizacao-que-aprende/capitulo.md),
   [15 — Validando o Maestro](../15-validando-o-maestro/capitulo.md)
 
-**Externas.** Obras e textos normativos de referência. Nenhuma URL foi reconsultada para esta
-versão; confira antes de citar:
+**Externas.** Só os dois textos do EUR-Lex foram conferidos para esta versão, com a data
+indicada. Os demais vêm da base de pesquisa do livro e **não** foram reconsultados: estão sem
+data de acesso de propósito, e devem ser conferidos antes de citar:
 
 - Regulamento (UE) 2024/1689 do Parlamento Europeu e do Conselho (Regulamento Europeu de
   Inteligência Artificial, *AI Act*), arts. 4, 5, 9–15, 26, 50, 53, 55, 111 e 113 —
   https://eur-lex.europa.eu/eli/reg/2024/1689/oj (conferido em 02/11/2026).
 - Regulamento (UE) 2026/1744 do Parlamento Europeu e do Conselho, de 8 de julho de 2026, que
   altera os Regulamentos (UE) 2024/1689, (UE) 2018/1139 e (UE) 2023/1230 (*Digital Omnibus on
-  AI*), JO L de 24/07/2026 — https://eur-lex.europa.eu/eli/reg/2026/1744/oj (conferido em
+  AI*), Jornal Oficial da UE (JO) L de 24/07/2026 — https://eur-lex.europa.eu/eli/reg/2026/1744/oj (conferido em
   02/11/2026).
 - National Institute of Standards and Technology (NIST), *Artificial Intelligence Risk
   Management Framework (AI RMF 1.0)*, NIST AI 100-1, 2023, e o perfil de IA generativa,
-  NIST AI 600-1, 2024.
+  NIST AI 600-1, 2024 — https://doi.org/10.6028/NIST.AI.100-1 e
+  https://doi.org/10.6028/NIST.AI.600-1 (não reconsultadas).
 - Lei nº 13.709/2018, Lei Geral de Proteção de Dados Pessoais (LGPD), e o programa de *sandbox*
-  regulatório da Autoridade Nacional de Proteção de Dados (ANPD).
+  regulatório da Autoridade Nacional de Proteção de Dados (ANPD) —
+  https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm (não reconsultada).
 - J. He, C. Treude e D. Lo, "LLM-Based Multi-Agent Systems for Software Engineering: Literature
   Review, Vision and the Road Ahead", *ACM Transactions on Software Engineering and
-  Methodology* (TOSEM), 2025.
+  Methodology* (TOSEM), 2025 (referência-base do livro; não reconsultada) [CLAIM-16-022].
 - Anthropic, "Building effective agents", 2024 — os seis padrões de orquestração mapeados no
   §5.4 do *handbook*.
-- Thoughtworks, *Technology Radar* — o formato de anéis citado em "Alternativas".
+- Thoughtworks, *Technology Radar* — https://www.thoughtworks.com/radar (não reconsultado); o
+  formato de anéis citado em "Alternativas" [CLAIM-16-028].
 - Protocolos citados em "Alternativas": *Agent2Agent* (A2A) e *Agent Client Protocol* (ACP),
   tal como analisados na síntese das bancas do ciclo 076 do Maestro.
