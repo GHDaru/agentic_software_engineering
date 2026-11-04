@@ -21,7 +21,7 @@ por um crítico independente em contexto fresco (o mesmo princípio que o livro 
 
 ## Pendências conhecidas
 
-- **Links para o Maestro em `19823c2`**: resolvidos em 03/11 — o *commit* foi publicado na branch `livro-ref-19823c2` do Maestro. Uma *tag* anotada seria âncora mais firme.
+- **Links para o Maestro em `19823c2`**: resolvidos em 03/11 — o *commit* foi publicado na branch `livro-ref-19823c2` do Maestro e marcado com a tag anotada `livro-v1` (04/11).
 - **Apêndice B** precisa de execuções reais dos dez casos para virar evidência, não só instrumento.
 - **Folga de tamanho**: capítulos 14 e 15 estão no teto de 8.000 palavras; nenhum portão mede isso.
 

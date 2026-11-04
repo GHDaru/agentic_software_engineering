@@ -524,10 +524,10 @@ inteira [CLAIM-93-012], e `check-claims.sh` prova que cada id citado está regis
 dois prova que o método funciona ou que o número está certo. A segunda prova é sua: rodar a
 evidência.
 
-**A versão de referência é uma *branch*, não uma *tag*.** O *commit* `19823c2` ficou público em
-03/11/2026 na *branch* `livro-ref-19823c2` [CLAIM-93-016]; até então só existia na máquina do autor
-[CLAIM-93-014]. Uma *branch* pode ser apagada ou movida; uma *tag* anotada seria a âncora mais
-firme, e ainda não existe.
+**A versão de referência ficou pública tarde.** O *commit* `19823c2` só existia na máquina do
+autor [CLAIM-93-014]; em 03/11/2026 foi publicado na *branch* `livro-ref-19823c2` e, em 04/11/2026,
+recebeu a *tag* anotada `livro-v1`, a âncora que não se move [CLAIM-93-016]. Ainda não há
+*release* numerada que diga o que mudou desde a 0.3.0.
 
 **Não há *release* para citar.** A referência é um *commit* posterior à última versão numerada
 [CLAIM-93-013]. Reproduzir funciona; comparar com "a versão anterior" exige ler o histórico do
