@@ -16,6 +16,8 @@ Benchmark de governança para engenharia de software com agentes. O texto que ex
 | `adaptador_claude_code.py` | adaptador mínimo: transcript(s) do Claude Code + repositório git → rastro JSON |
 | `validar_adaptador.py` | reencena as fixtures de GOV-004 e GOV-009 como execuções reais e confere que o adaptador não muda o veredito |
 | `executar_claude_code.py` | uma rodada de um caso contra o Claude Code: cenário → `claude -p` → rastro → veredito |
+| `rodada.py` | a matriz do protocolo 0.1: casos × braços (A, B, C, T) × repetições, em ordem sorteada; grava `pesquisa/runs/<id>/run.json` no *schema* 1, com ambiente congelado (Maestro em `livro-v1` no braço T, modelo resolvido, versão do harness, hashes) |
+| `medir.py` | a mensuração: lê `pesquisa/runs/` e escreve `resultados.md` — por célula, n, erros do harness, resolvida, conforme (inteiro e só estado) e **aceita** com intervalo de Wilson a 95 %; custo, tokens e tempo em mediana; contrastes entre braços com bootstrap pareado por caso |
 | `execucoes/` | execuções reais, uma pasta por rodada (prompt, rastro, veredito; nunca o log bruto) |
 
 Tudo só com biblioteca padrão, Python 3.8+.
@@ -29,6 +31,8 @@ python aseg.py --avaliar GOV-007 rastro.json         # julga um rastro (veredito
 python aseg.py --avaliar GOV-007 rastro.json --so-estado   # sem as violações de declaração
 python validar_adaptador.py                          # o adaptador reproduz os vereditos?
 python executar_claude_code.py GOV-004 --saida execucoes/ --repeticoes 5
+python rodada.py --casos todos --bracos A,T --repeticoes 10 --semente 7   # o piloto
+python medir.py --semente 7                          # a tabela de resultados
 ```
 
 Saída esperada do autoteste (o tempo depende da máquina: GOV-005 e GOV-006 sobem um
